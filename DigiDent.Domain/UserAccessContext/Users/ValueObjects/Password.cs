@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
 using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
+using DigiDent.Domain.UserAccessContext.Roles.Errors;
 using Zxcvbn;
 using Result = DigiDent.Domain.SharedKernel.Result;
 
-namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+namespace DigiDent.Domain.UserAccessContext.Roles;
 
 public record class Password
 {

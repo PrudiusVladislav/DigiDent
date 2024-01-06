@@ -1,8 +1,7 @@
 ﻿using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Users.Enumerations;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.Domain.UserAccessContext.Roles;
 
-namespace DigiDent.Domain.UserAccessContext.Users;
+namespace DigiDent.Domain.UserAccessContext.Roles;
 
 public class Permission: IEntity<PermissionId, int>
 {
@@ -11,7 +10,7 @@ public class Permission: IEntity<PermissionId, int>
     
     public ICollection<Role> Roles { get; set; } = new List<Role>();
     
-    public static Permission Create(Permissions permissionName)
+    public static Permission CreateFromPermission(Permissions permissionName)
     {
         var permission = new Permission
         {

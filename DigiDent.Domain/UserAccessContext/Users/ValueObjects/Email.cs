@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
+using DigiDent.Domain.UserAccessContext.Roles.Errors;
 
-namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+namespace DigiDent.Domain.UserAccessContext.Roles;
 
 public partial record Email
 {

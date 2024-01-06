@@ -1,7 +1,6 @@
-﻿using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+﻿using DigiDent.Domain.UserAccessContext.Roles;
 
-namespace DigiDent.Domain.UserAccessContext.Users;
+namespace DigiDent.Domain.UserAccessContext.Roles;
 
 public interface IUsersRepository
 {

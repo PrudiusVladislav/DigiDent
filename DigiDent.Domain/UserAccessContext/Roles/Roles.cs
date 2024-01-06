@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.UserAccessContext.Users.Enumerations;
+﻿namespace DigiDent.Domain.UserAccessContext.Roles;
 
 public enum Roles
 {

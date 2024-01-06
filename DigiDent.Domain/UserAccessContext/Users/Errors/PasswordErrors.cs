@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.SharedKernel;
 
-namespace DigiDent.Domain.UserAccessContext.Users.Errors;
+namespace DigiDent.Domain.UserAccessContext.Roles.Errors;
 
 public static class PasswordErrors
 {

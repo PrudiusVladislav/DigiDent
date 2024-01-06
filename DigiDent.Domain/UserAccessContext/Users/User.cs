@@ -1,7 +1,7 @@
 ﻿using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.Domain.UserAccessContext.Roles;
 
-namespace DigiDent.Domain.UserAccessContext.Users;
+namespace DigiDent.Domain.UserAccessContext.Roles;
 
 public class User: AggregateRoot, IEntity<UserId, Guid>
 {

@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.Domain.UserAccessContext.Roles;
+using DigiDent.Domain.UserAccessContext.Roles.Errors;
 
 namespace DigiDent.Domain.UserAccessContext.Users;
 
@@ -26,7 +26,10 @@ public class UsersDomainService
         return Result.Ok(emailResult.Value!);
     }
     
-    public async Task<Result> MatchPasswordByEmailAsync(Email email, string passwordToCheck, CancellationToken cancellationToken)
+    public async Task<Result> MatchPasswordByEmailAsync(
+        Email email,
+        string passwordToCheck,
+        CancellationToken cancellationToken)
     {
         var userToCheck = await _usersRepository.GetByEmailAsync(email, cancellationToken);
         if (userToCheck == null)
@@ -37,4 +40,32 @@ public class UsersDomainService
             : Result.Fail(PasswordErrors.PasswordDoesNotMatch);
     }
     
+    public async Task<Result<UserId>> AddUserAsync(
+        string firstName, 
+        string lastName,
+        string email,
+        string password,
+        string role,
+        CancellationToken cancellationToken)
+    {
+        var fullNameResult = FullName.Create(firstName, lastName);
+        var emailResult = await CreateEmailAsync(email, cancellationToken);
+        var passwordResult = Password.Create(password);
+        var roleResult = Role.Create(role);
+        var validationResult = Result.Merge<UserId>(fullNameResult, emailResult, passwordResult);
+        
+        return await validationResult.MatchAsync(
+            onFailure: _ => validationResult,
+            onSuccess: async () =>
+            {
+                var user = User.Create(
+                    TypedId<Guid>.NewGuid<UserId>(),
+                    fullNameResult.Value!,
+                    emailResult.Value!,
+                    passwordResult.Value!,
+                    roleResult.Value!);
+                await _usersRepository.AddAsync(user, cancellationToken);
+                return Result.Ok(user.Id);
+            });
+    }
 }

@@ -37,6 +37,12 @@ public class Result
             IsSuccess = true;
     }
     
+    /// <summary>
+    /// Merges multiple results into one. If any of the results is a failure, the merged result will be a failure.
+    /// </summary>
+    /// <param name="results">The results to be merged.</param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public static Result<T> Merge<T>(params Result[] results)
     {
         var errors = new List<Error>();
@@ -49,29 +55,72 @@ public class Result
     
     public static implicit operator bool(Result result) => result.IsSuccess;
     
+    /// <summary>
+    /// Creates a new <see cref="Result"/> with a success status.
+    /// </summary>
+    /// <returns></returns>
     public static Result Ok()
     {
         return new Result(true, null);
     }
     
+    /// <summary>
+    /// Creates a new <see cref="Result{T}"/> with a success status and a value.
+    /// </summary>
+    /// <param name="value"> The value to be stored in the result.</param>
+    /// <typeparam name="T">The type of the result.</typeparam>
+    /// <returns></returns>
     public static Result<T> Ok<T>(T value)
     {
         return new Result<T>(true, value, null);
     }
     
+    /// <summary>
+    /// Creates a new <see cref="Result"/> with a failure status and an error.
+    /// </summary>
+    /// <param name="error">The error to be stored in the result. Instance of <see cref="Error"/>.</param>
+    /// <returns></returns>
     public static Result Fail(Error error)
     {
         return new Result(false, new List<Error> { error });
     }
 
+    /// <summary>
+    /// Overload of <see cref="Fail(Error)"/> that returns a <see cref="Result{T}"/> instead of a <see cref="Result"/>. 
+    /// </summary>
+    /// <param name="error">The error to be stored in the result. Instance of <see cref="Error"/>.</param>
+    /// <typeparam name="T">The type of the result.</typeparam>
+    /// <returns></returns>
     public static Result<T> Fail<T>(Error error)
     {
         return new Result<T>(false, default, new List<Error> { error });
     }
     
+    /// <summary>
+    /// Returns the result of one of the two functions depending on the value of <see cref="Result.IsSuccess"/>.
+    /// </summary>
+    /// <param name="onSuccess">
+    /// The function to be executed if <see cref="Result.IsSuccess"/> is set to true.
+    /// </param>
+    /// <param name="onFailure">
+    /// The function to be executed if <see cref="Result.IsSuccess"/> is set to false.
+    /// </param>
+    /// <typeparam name="T">The type of the result.</typeparam>
+    /// <returns></returns>
     public T Match<T>(Func<T> onSuccess, Func<IList<Error>, T> onFailure)
     {
         return IsSuccess ? onSuccess() : onFailure(Errors);
+    }
+    
+    /// <summary>
+    /// Asynchronous version of <see cref="Match{T}(System.Func{T},System.Func{System.Collections.Generic.IList{Error},T})"/>. 
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Result<T>> MatchAsync<T>(
+        Func<Task<Result<T>>> onSuccess,
+        Func<IList<Error>, Result<T>> onFailure)
+    {
+        return IsSuccess ? await onSuccess() : onFailure(Errors);
     }
 }
 
@@ -93,7 +142,7 @@ public class Result<T> : Result
     /// <summary>
     /// Adds an error to the result and sets the result to failure. Returns the Result for chaining.
     /// </summary>
-    /// <param name="error"></param>
+    /// <param name="error"> The error to be added. Instance of <see cref="Error"/>.</param>
     /// <returns></returns>
     public override Result<T> AddError(Error error)
     {
@@ -103,7 +152,7 @@ public class Result<T> : Result
         return this;
     }
     
-    public R Match<R>(Func<T, R> onSuccess, Func<IList<Error>,R> onFailure)
+    public R Match<R>(Func<T, R> onSuccess, Func<IList<Error>, R> onFailure)
     {
         return IsSuccess ? onSuccess(Value!) : onFailure(Errors);
     }
