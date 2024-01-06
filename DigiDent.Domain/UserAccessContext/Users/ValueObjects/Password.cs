@@ -1,5 +1,8 @@
 ﻿using System.Security.Cryptography;
-using System.Text;
+using DigiDent.Domain.SharedKernel;
+using DigiDent.Domain.UserAccessContext.Users.Errors;
+using Zxcvbn;
+using Result = DigiDent.Domain.SharedKernel.Result;
 
 namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
@@ -9,6 +12,10 @@ public record class Password
     private const int KeySize = 32;
     private static readonly HashAlgorithmName HashAlgorithm = HashAlgorithmName.SHA512;
     
+    private const int MinLength = 8;
+    private const int MaxLength = 64;
+    private const int MinSecurityLevel = 3;
+    
     public string PasswordHash { get; private set; }
     
     private Password(string passwordHash)
@@ -16,15 +23,16 @@ public record class Password
         PasswordHash = passwordHash;
     }
 
-    public static Password Create(string plainTextPassword)
+    public static Result<Password> Create(string plainTextPassword)
     {
-        byte[] salt = GenerateSalt();
-        
-        byte[] hash = GenerateHash(plainTextPassword, salt);
-        
-        var hashedPassword = $"{Convert.ToBase64String(salt)}:{Convert.ToBase64String(hash)}";
-
-        return new Password(hashedPassword);
+        var validationResult = ValidatePasswordSecurity(plainTextPassword);
+        return validationResult.Match(
+            onFailure: _ => Result.Merge<Password>(validationResult),
+            onSuccess: () =>
+            {
+                var hashedPassword = GetHashedAndSaltedPassword(plainTextPassword);
+                return Result.Ok(new Password(hashedPassword));
+            });
     }
 
     public bool IsEqualTo(string plainTextPassword)
@@ -36,6 +44,14 @@ public record class Password
         byte[] inputHash = GenerateHash(plainTextPassword, storedSalt);
         
         return CompareByteArrays(storedHash, inputHash);
+    }
+    
+    private static string GetHashedAndSaltedPassword(string plainTextPassword)
+    {
+        byte[] salt = GenerateSalt();
+        byte[] hash = GenerateHash(plainTextPassword, salt);
+        
+        return $"{Convert.ToBase64String(salt)}:{Convert.ToBase64String(hash)}";
     }
 
     private static byte[] GenerateSalt() => 
@@ -55,5 +71,20 @@ public record class Password
                 return false;
         }
         return true;
+    }
+    
+    private static Result ValidatePasswordSecurity(string plainTextPassword)
+    {
+        if (string.IsNullOrWhiteSpace(plainTextPassword) || plainTextPassword.Length < MinLength)
+            return Result.Fail(PasswordErrors.PasswordIsTooShort(MinLength));
+        
+        if (plainTextPassword.Length > MaxLength)
+            return Result.Fail(PasswordErrors.PasswordIsTooLong(MaxLength));
+        
+        int securityLevel = Core.EvaluatePassword(plainTextPassword).Score;
+        if (securityLevel < MinSecurityLevel)
+            return Result.Fail(PasswordErrors.PasswordIsTooWeak);
+        
+        return Result.Ok();
     }
 }

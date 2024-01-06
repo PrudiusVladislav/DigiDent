@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="zxcvbn-core" Version="8.0.0-beta0002" />
+    </ItemGroup>
+
 </Project>
