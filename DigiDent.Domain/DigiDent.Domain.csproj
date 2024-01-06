@@ -7,6 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Mediator.Abstractions" Version="3.0.0-preview.15" />
+      <PackageReference Include="Mediator.SourceGenerator" Version="3.0.0-preview.15">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="zxcvbn-core" Version="8.0.0-beta0002" />
     </ItemGroup>
 

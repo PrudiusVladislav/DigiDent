@@ -16,11 +16,11 @@ public record Password
     private const int MaxLength = 64;
     private const int MinSecurityLevel = 3;
     
-    private string _passwordHash;
+    public string PasswordHash { get; private set; } = string.Empty;
     
     private Password(string passwordHash)
     {
-        _passwordHash = passwordHash;
+        PasswordHash = passwordHash;
     }
 
     public static Result<Password> Create(string plainTextPassword)
@@ -37,7 +37,7 @@ public record Password
 
     internal bool IsEqualTo(string plainTextPassword)
     {
-        var parts = _passwordHash.Split(':');
+        var parts = PasswordHash.Split(':');
         byte[] storedSalt = Convert.FromBase64String(parts[0]);
         byte[] storedHash = Convert.FromBase64String(parts[1]);
         
@@ -48,7 +48,7 @@ public record Password
     
     internal void Update(Password password)
     {
-        _passwordHash = password._passwordHash;
+        PasswordHash = password.PasswordHash;
     }
     
     private static string GetHashedAndSaltedPassword(string plainTextPassword)

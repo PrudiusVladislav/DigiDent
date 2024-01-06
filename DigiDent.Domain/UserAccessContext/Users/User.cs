@@ -10,6 +10,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
     public FullName FullName { get; private set; }
     public Email Email { get; private set; }
     public Password Password { get; private set; }
+    public RoleId RoleId { get; private set; }
     public Role Role { get; private set; }
     
     // only for EF Core

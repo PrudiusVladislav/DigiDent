@@ -10,7 +10,7 @@ public partial record Email
     
     private Email(string value) => Value = value;
     
-    internal static Result<Email> Create(string value)
+    public static Result<Email> Create(string value)
     {
         if (!EmailRegex().IsMatch(value))
             return Result.Fail<Email>(EmailErrors.EmailDoesNotMatchRules);

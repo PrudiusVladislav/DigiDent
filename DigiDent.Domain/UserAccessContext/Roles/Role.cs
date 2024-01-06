@@ -1,5 +1,6 @@
 ﻿using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Permissions;
+using DigiDent.Domain.UserAccessContext.Users;
 
 namespace DigiDent.Domain.UserAccessContext.Roles;
 
@@ -9,6 +10,7 @@ public class Role: IEntity<RoleId, int>
     public string Name { get; private set; }
     
     public ICollection<Permission> Permissions { get; set; } = new List<Permission>();
+    public ICollection<User> Users { get; set; } = new List<User>();
     
     public static Result<Role> Create(string value)
     {
