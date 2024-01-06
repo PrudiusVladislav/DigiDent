@@ -10,12 +10,21 @@ public class Permission: IEntity<PermissionId, int>
     
     public ICollection<Role> Roles { get; set; } = new List<Role>();
     
-    public static Permission CreateFromPermission(Permissions permissionName)
+    public static Result<Permission> CreateFromPermission(string value)
     {
+        var isPermissionValid = Enum.TryParse<Permissions>(
+            value,
+            true,
+            out Permissions validPermissionName);
+        
+        if (!isPermissionValid)
+            return Result.Fail<Permission>(PermissionErrors.PermissionIsNotValid(value));
+        
         var permission = new Permission
         {
-            Name = permissionName.ToString()
+            Id = new PermissionId((int)validPermissionName),
+            Name = validPermissionName.ToString()
         };
-        return permission;
+        return Result.Ok(permission);
     }
 }

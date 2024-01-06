@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.Domain", "DigiDent.Domain\DigiDent.Domain.csproj", "{3BE04505-206D-4420-A4D7-A268C4B657F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.Application", "DigiDent.Application\DigiDent.Application.csproj", "{35B875CD-CAB1-4007-B961-F0FBA5FAC7CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.Infrastructure", "DigiDent.Infrastructure\DigiDent.Infrastructure.csproj", "{E7F67F50-5FE8-4A63-8766-EAEE570BC44F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.EFCorePersistence", "DigiDent.EFCorePersistence\DigiDent.EFCorePersistence.csproj", "{1F93432A-C13A-47C7-806D-36BB75F876C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,17 @@ Global
 		{3BE04505-206D-4420-A4D7-A268C4B657F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BE04505-206D-4420-A4D7-A268C4B657F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BE04505-206D-4420-A4D7-A268C4B657F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B875CD-CAB1-4007-B961-F0FBA5FAC7CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B875CD-CAB1-4007-B961-F0FBA5FAC7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B875CD-CAB1-4007-B961-F0FBA5FAC7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B875CD-CAB1-4007-B961-F0FBA5FAC7CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7F67F50-5FE8-4A63-8766-EAEE570BC44F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7F67F50-5FE8-4A63-8766-EAEE570BC44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7F67F50-5FE8-4A63-8766-EAEE570BC44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7F67F50-5FE8-4A63-8766-EAEE570BC44F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F93432A-C13A-47C7-806D-36BB75F876C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F93432A-C13A-47C7-806D-36BB75F876C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F93432A-C13A-47C7-806D-36BB75F876C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F93432A-C13A-47C7-806D-36BB75F876C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

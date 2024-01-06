@@ -1,6 +1,5 @@
 ﻿using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Permissions;
-using DigiDent.Domain.UserAccessContext.Roles;
 
 namespace DigiDent.Domain.UserAccessContext.Roles;
 
