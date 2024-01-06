@@ -10,4 +10,8 @@
       <PackageReference Include="zxcvbn-core" Version="8.0.0-beta0002" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="UserAccessContext\Users\Events\" />
+    </ItemGroup>
+
 </Project>

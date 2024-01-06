@@ -17,4 +17,7 @@ public static class PasswordErrors
             "Password is too weak. Try to use a stronger password " + "\n" + 
             "(Use a stronger combination of letters, numbers and spec. symbols)."); 
     
+    public static Error PasswordDoesNotMatch 
+        => new (ErrorType.NotFound,
+            "Entered password does not match the password in the database.");
 }

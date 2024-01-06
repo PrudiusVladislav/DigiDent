@@ -27,7 +27,7 @@ public class Result
     {
         if (IsSuccess)
             IsSuccess = false;
-        Errors?.Add(error);
+        Errors.Add(error);
         return this;
     }
     
@@ -90,6 +90,11 @@ public class Result<T> : Result
         Value = default;
     }
     
+    /// <summary>
+    /// Adds an error to the result and sets the result to failure. Returns the Result for chaining.
+    /// </summary>
+    /// <param name="error"></param>
+    /// <returns></returns>
     public override Result<T> AddError(Error error)
     {
         if (IsSuccess)
