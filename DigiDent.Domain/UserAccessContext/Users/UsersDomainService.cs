@@ -1,6 +1,7 @@
 ﻿using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Roles;
-using DigiDent.Domain.UserAccessContext.Roles.Errors;
+using DigiDent.Domain.UserAccessContext.Users.Errors;
+using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Domain.UserAccessContext.Users;
 
@@ -67,5 +68,25 @@ public class UsersDomainService
                 await _usersRepository.AddAsync(user, cancellationToken);
                 return Result.Ok(user.Id);
             });
+    }
+
+    public async Task<Result> UpdatePasswordByEmailAsync(
+        Email email,
+        string oldPassword,
+        string newPassword,
+        CancellationToken cancellationToken)
+    {
+        var checkOldPasswordResult = await MatchPasswordByEmailAsync(email, oldPassword, cancellationToken);
+        var newPasswordResult = Password.Create(newPassword);
+        
+        var validationResult = Result.Merge<bool>(checkOldPasswordResult, newPasswordResult);
+        if (validationResult.IsFailure)
+            return validationResult;
+        
+        var user = await _usersRepository.GetByEmailAsync(email, cancellationToken);
+                
+        user!.Password.Update(newPasswordResult.Value!);
+        await _usersRepository.UpdateAsync(user, cancellationToken);
+        return Result.Ok();
     }
 }

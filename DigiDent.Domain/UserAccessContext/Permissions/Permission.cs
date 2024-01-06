@@ -1,7 +1,7 @@
 ﻿using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Roles;
 
-namespace DigiDent.Domain.UserAccessContext.Roles;
+namespace DigiDent.Domain.UserAccessContext.Permissions;
 
 public class Permission: IEntity<PermissionId, int>
 {

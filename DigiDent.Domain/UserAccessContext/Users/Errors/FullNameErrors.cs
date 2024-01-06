@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.SharedKernel;
 
-namespace DigiDent.Domain.UserAccessContext.Roles.Errors;
+namespace DigiDent.Domain.UserAccessContext.Users.Errors;
 
 public static class FullNameErrors
 {

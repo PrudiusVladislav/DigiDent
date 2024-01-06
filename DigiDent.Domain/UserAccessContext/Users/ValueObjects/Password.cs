@@ -1,12 +1,12 @@
 ﻿using System.Security.Cryptography;
 using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Roles.Errors;
+using DigiDent.Domain.UserAccessContext.Users.Errors;
 using Zxcvbn;
 using Result = DigiDent.Domain.SharedKernel.Result;
 
-namespace DigiDent.Domain.UserAccessContext.Roles;
+namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
-public record class Password
+public record Password
 {
     private const int Iterations = 20000;
     private const int KeySize = 32;
@@ -16,11 +16,11 @@ public record class Password
     private const int MaxLength = 64;
     private const int MinSecurityLevel = 3;
     
-    public string PasswordHash { get; private set; }
+    private string _passwordHash;
     
     private Password(string passwordHash)
     {
-        PasswordHash = passwordHash;
+        _passwordHash = passwordHash;
     }
 
     public static Result<Password> Create(string plainTextPassword)
@@ -37,13 +37,18 @@ public record class Password
 
     internal bool IsEqualTo(string plainTextPassword)
     {
-        var parts = PasswordHash.Split(':');
+        var parts = _passwordHash.Split(':');
         byte[] storedSalt = Convert.FromBase64String(parts[0]);
         byte[] storedHash = Convert.FromBase64String(parts[1]);
         
         byte[] inputHash = GenerateHash(plainTextPassword, storedSalt);
         
         return CompareByteArrays(storedHash, inputHash);
+    }
+    
+    internal void Update(Password password)
+    {
+        _passwordHash = password._passwordHash;
     }
     
     private static string GetHashedAndSaltedPassword(string plainTextPassword)

@@ -1,7 +1,7 @@
 ﻿using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Roles.Errors;
+using DigiDent.Domain.UserAccessContext.Users.Errors;
 
-namespace DigiDent.Domain.UserAccessContext.Roles;
+namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 public record FullName
 {

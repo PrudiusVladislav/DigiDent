@@ -1,6 +1,3 @@
 ﻿namespace DigiDent.Domain.SharedKernel;
 
-public class DomainEvent
-{
-    
-}
+public record DomainEvent(Guid Id, DateTime TimeOfOccurence);

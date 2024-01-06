@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.UserAccessContext.Roles;
+﻿namespace DigiDent.Domain.UserAccessContext.Permissions;
 
 public enum Permissions
 {
