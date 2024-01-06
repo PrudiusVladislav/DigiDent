@@ -1,8 +1,7 @@
 ﻿namespace DigiDent.Domain.SharedKernel;
 
-public abstract class AggregateRoot<TId, TIdValue>
-    : Entity<TId, TIdValue>, IHasDomainEvents 
-    where TId : TypedId<TIdValue>
+public abstract class AggregateRoot
+    : IHasDomainEvents 
 {
     private readonly List<DomainEvent> _domainEvents = [];
     
