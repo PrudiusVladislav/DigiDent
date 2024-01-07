@@ -4,7 +4,7 @@ using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.UserAccess.Configurations;
+namespace DigiDent.EFCorePersistence.UserAccess;
 
 public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
 {
@@ -22,11 +22,11 @@ public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
 
         builder.Property(u => u.Password).HasConversion(
             password => password.PasswordHash,
-            value => Password.Create(value).Value!);
-
-        builder.HasOne(u => u.Role)
-            .WithMany(r => r.Users)
-            .HasForeignKey(u => u.RoleId);
+            value => Password.CreateFromHash(value));
+        
+        builder.Property(u => u.Role).HasConversion(
+            r => r.ToString(),
+            value => Enum.Parse<Role>(value));
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<User> builder)

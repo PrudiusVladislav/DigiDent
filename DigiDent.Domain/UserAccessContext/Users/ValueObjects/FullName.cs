@@ -22,11 +22,10 @@ public record FullName
         var firstNameValidationResult = ValidateFirstName(firstName);
         var lastNameValidationResult = ValidateLastName(lastName);
         
-        var validationResult = Result.Merge<FullName>(
-            firstNameValidationResult, lastNameValidationResult);
+        var validationResult = Result.Merge(firstNameValidationResult, lastNameValidationResult);
         
         return validationResult.Match(
-            onFailure: _ => validationResult,
+            onFailure: _ => validationResult.MapToType<FullName>(),
             onSuccess: () => Result.Ok(new FullName(firstName, lastName)));
     }
 

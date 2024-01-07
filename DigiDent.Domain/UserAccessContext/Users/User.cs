@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.SharedKernel;
-using DigiDent.Domain.UserAccessContext.Roles;
+using DigiDent.Domain.UserAccessContext.Users.DTO;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Domain.UserAccessContext.Users;
@@ -10,7 +10,6 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
     public FullName FullName { get; private set; }
     public Email Email { get; private set; }
     public Password Password { get; private set; }
-    public RoleId RoleId { get; private set; }
     public Role Role { get; private set; }
     
     // only for EF Core
@@ -33,5 +32,14 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         //user.Raise(new UserCreatedDomainEvent(Guid.NewGuid(), DateTime.UtcNow, id));
         
         return user;
+    }
+    
+    public void Update(UpdateUserDto dto)
+    {
+        FullName = dto.FullName ?? FullName;
+        Password = dto.Password ?? Password;
+        Role = dto.Role ?? Role;
+        
+        //TODO: add event in case of role change
     }
 }

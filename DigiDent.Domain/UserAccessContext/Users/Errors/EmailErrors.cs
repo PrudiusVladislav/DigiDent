@@ -2,7 +2,7 @@
 
 namespace DigiDent.Domain.UserAccessContext.Users.Errors;
 
-public static class EmailErrors
+internal static class EmailErrors
 {
     public static Error EmailDoesNotMatchRules
         => new (ErrorType.Validation, 

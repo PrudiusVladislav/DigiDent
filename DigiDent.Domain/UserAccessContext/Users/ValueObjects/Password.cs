@@ -16,7 +16,7 @@ public record Password
     private const int MaxLength = 64;
     private const int MinSecurityLevel = 3;
     
-    public string PasswordHash { get; private set; } = string.Empty;
+    public string PasswordHash { get; }
     
     private Password(string passwordHash)
     {
@@ -27,12 +27,18 @@ public record Password
     {
         var validationResult = ValidatePasswordSecurity(plainTextPassword);
         return validationResult.Match(
-            onFailure: _ => Result.Merge<Password>(validationResult),
+            onFailure: _ => validationResult.MapToType<Password>(),
             onSuccess: () =>
             {
                 var hashedPassword = GetHashedAndSaltedPassword(plainTextPassword);
                 return Result.Ok(new Password(hashedPassword));
             });
+    }
+    
+    // for EF Core (workaround)
+    public static Password CreateFromHash(string passwordHash)
+    {
+        return new Password(passwordHash);
     }
 
     internal bool IsEqualTo(string plainTextPassword)
@@ -44,11 +50,6 @@ public record Password
         byte[] inputHash = GenerateHash(plainTextPassword, storedSalt);
         
         return CompareByteArrays(storedHash, inputHash);
-    }
-    
-    internal void Update(Password password)
-    {
-        PasswordHash = password.PasswordHash;
     }
     
     private static string GetHashedAndSaltedPassword(string plainTextPassword)

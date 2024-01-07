@@ -1,27 +1,46 @@
 ﻿using DigiDent.Domain.UserAccessContext.Users;
+using DigiDent.Domain.UserAccessContext.Users.DTO;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigiDent.EFCorePersistence.UserAccess;
 
 public class UsersRepository: IUsersRepository
 {
-    public Task AddAsync(User user, CancellationToken cancellationToken)
+    private readonly UserAccessDbContext _dbContext;
+    
+    public UsersRepository(UserAccessDbContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
+    }
+    
+    public async Task AddAsync(User user, CancellationToken cancellationToken)
+    {
+        await _dbContext.Users.AddAsync(user, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public Task<User?> GetByIdAsync(UserId userId, CancellationToken cancellationToken)
+    public async Task<User?> GetByIdAsync(UserId userId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Users.FirstOrDefaultAsync(
+            x => x.Id == userId, cancellationToken);
     }
 
-    public Task<User?> GetByEmailAsync(Email userName, CancellationToken cancellationToken)
+    public async Task<User?> GetByEmailAsync(Email userName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Users.FirstOrDefaultAsync(
+            x => x.Email == userName, cancellationToken);
     }
 
-    public Task UpdateAsync(User user, CancellationToken cancellationToken)
+    public async Task UpdateAsync(UpdateUserDto newUserDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(
+            x => x.Id == newUserDto.Id, cancellationToken);
+        
+        if (userToUpdate == null) return;
+        
+        userToUpdate.Update(newUserDto);
+        
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

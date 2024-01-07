@@ -14,7 +14,9 @@ public abstract class BaseEntityConfiguration<TId, TIdValue, TEntity>
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasConversion(
+        builder.Property(e => e.Id)
+            .ValueGeneratedNever()
+            .HasConversion(
             id => id.Value,
             value => TypedId<TIdValue>.Create<TId>(value));
 

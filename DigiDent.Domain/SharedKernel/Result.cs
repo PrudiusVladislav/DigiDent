@@ -41,16 +41,15 @@ public class Result
     /// Merges multiple results into one. If any of the results is a failure, the merged result will be a failure.
     /// </summary>
     /// <param name="results">The results to be merged.</param>
-    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static Result<T> Merge<T>(params Result[] results)
+    public static Result Merge(params Result[] results)
     {
         var errors = new List<Error>();
         foreach (var result in results)
         {
             errors.AddRange(result.Errors);
         }
-        return new Result<T>(results.All(r => r.IsSuccess), default, errors);
+        return new Result(results.All(r => r.IsSuccess), errors);
     }
     
     public static implicit operator bool(Result result) => result.IsSuccess;
@@ -113,14 +112,22 @@ public class Result
     }
     
     /// <summary>
-    /// Asynchronous version of <see cref="Match{T}(System.Func{T},System.Func{System.Collections.Generic.IList{Error},T})"/>. 
+    /// Asynchronous version of <see cref="Match{T}(System.Func{T},System.Func{System.Collections.Generic.IList{Error},T})"/>.
     /// </summary>
     /// <returns></returns>
-    public async Task<Result<T>> MatchAsync<T>(
-        Func<Task<Result<T>>> onSuccess,
-        Func<IList<Error>, Result<T>> onFailure)
+    public async Task<T> MatchAsync<T>(Func<Task<T>> onSuccess, Func<IList<Error>, T> onFailure)
     {
         return IsSuccess ? await onSuccess() : onFailure(Errors);
+    }
+    
+    /// <summary>
+    /// Maps the result to a new result of a different type.
+    /// </summary>
+    /// <typeparam name="R">The type of the new result's value.</typeparam>
+    /// <returns></returns>
+    public Result<R> MapToType<R>()
+    {
+        return new Result<R>(IsSuccess, default, Errors);
     }
 }
 
@@ -155,10 +162,5 @@ public class Result<T> : Result
     public R Match<R>(Func<T, R> onSuccess, Func<IList<Error>, R> onFailure)
     {
         return IsSuccess ? onSuccess(Value!) : onFailure(Errors);
-    }
-    
-    public Result<R> MapToFailure<R>()
-    {
-        return new Result<R>(false, default, Errors);
     }
 }
