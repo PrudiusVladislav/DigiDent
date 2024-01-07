@@ -1,5 +1,8 @@
 ﻿namespace DigiDent.Domain.SharedKernel;
 
+/// <summary>
+/// Base class for all aggregate roots. Implements <see cref="IHasDomainEvents"/>.
+/// </summary>
 public abstract class AggregateRoot
     : IHasDomainEvents 
 {

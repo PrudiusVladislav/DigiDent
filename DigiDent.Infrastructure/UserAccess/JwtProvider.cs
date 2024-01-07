@@ -1,6 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using DigiDent.Application.UserAccess;
+using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Domain.UserAccessContext.Users;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

@@ -8,6 +8,10 @@ namespace DigiDent.EFCorePersistence.UserAccess;
 
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Configures Entity Framework Core persistence for the UserAccess bounded context.
+    /// </summary>
+    /// <returns></returns>
     public static IServiceCollection AddUserAccessPersistence(
         this IServiceCollection services,
         IConfiguration configuration)

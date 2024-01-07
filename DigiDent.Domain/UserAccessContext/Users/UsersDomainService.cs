@@ -36,21 +36,21 @@ public class UsersDomainService
         return Result.Ok(role);
     }
     
-    public async Task<Result> MatchPasswordByEmailAsync(
-        Email email,
-        string passwordToCheck,
-        CancellationToken cancellationToken)
-    {
-        var userToCheck = await _usersRepository.GetByEmailAsync(email, cancellationToken);
-        if (userToCheck == null)
-            return Result.Fail(EmailErrors.EmailIsNotRegistered(email.Value));
-                
-        return userToCheck.Password.IsEqualTo(passwordToCheck)
-            ? Result.Ok()
-            : Result.Fail(PasswordErrors.PasswordDoesNotMatch);
-    }
+    // public async Task<Result> MatchPasswordByEmailAsync(
+    //     Email email,
+    //     string passwordToCheck,
+    //     CancellationToken cancellationToken)
+    // {
+    //     var userToCheck = await _usersRepository.GetByEmailAsync(email, cancellationToken);
+    //     if (userToCheck == null)
+    //         return Result.Fail(EmailErrors.EmailIsNotRegistered(email.Value));
+    //             
+    //     return userToCheck.Password.IsEqualTo(passwordToCheck)
+    //         ? Result.Ok()
+    //         : Result.Fail(PasswordErrors.PasswordDoesNotMatch);
+    // }
     
-    public async Task<Result<UserId>> AddUserAsync(
+    /*public async Task<Result<UserId>> AddUserAsync(
         string firstName, 
         string lastName,
         string email,
@@ -80,9 +80,9 @@ public class UsersDomainService
                 await _usersRepository.AddAsync(user, cancellationToken);
                 return Result.Ok(user.Id);
             });
-    }
+    }*/
     
-    public async Task<Result> UpdateUserByEmailAsync(
+    /*public async Task<Result> UpdateUserByEmailAsync(
         Email email,
         string password,
         string? firstName = null,
@@ -113,7 +113,7 @@ public class UsersDomainService
                 await _usersRepository.UpdateAsync(updateUserDto, cancellationToken);
                 return Result.Ok();
             });
-    }
+    }*/
     
     private Result ValidateAndUpdateUserName(
         User userToUpdate,

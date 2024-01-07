@@ -16,13 +16,11 @@ public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
             fullName.Property(f => f.LastName).HasColumnName("LastName");
         });
         
-        builder.Property(u => u.Email).HasConversion(
-            email => email.Value,
-            value => Email.Create(value).Value!);
+        builder.OwnsOne(u => u.Email, email =>
+            email.Property(e => e.Value).HasColumnName("Email"));
 
-        builder.Property(u => u.Password).HasConversion(
-            password => password.PasswordHash,
-            value => Password.CreateFromHash(value));
+        builder.OwnsOne(u => u.Password, password => 
+            password.Property(p => p.PasswordHash).HasColumnName("PasswordHash"));
         
         builder.Property(u => u.Role).HasConversion(
             r => r.ToString(),

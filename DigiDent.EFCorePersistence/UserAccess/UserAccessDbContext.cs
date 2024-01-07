@@ -14,6 +14,8 @@ public class UserAccessDbContext: DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //TODO: Consider dividing the bounded contexts into separate schemas
+        //modelBuilder.HasDefaultSchema()
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserAccessDbContext).Assembly);
     }
     

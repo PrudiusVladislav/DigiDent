@@ -41,7 +41,7 @@ public record Password
         return new Password(passwordHash);
     }
 
-    internal bool IsEqualTo(string plainTextPassword)
+    public bool IsEqualTo(string plainTextPassword)
     {
         var parts = PasswordHash.Split(':');
         byte[] storedSalt = Convert.FromBase64String(parts[0]);
