@@ -14,7 +14,6 @@ public static class DependencyInjection
     {
         services.ConfigureJwt(configuration);
         services.ConfigureAuthorizationServices();
-        services.ConfigureAuthorizationPolicies();
         return services;
     }
     
@@ -31,21 +30,5 @@ public static class DependencyInjection
     {
         services.AddSingleton<IAuthorizationHandler, RolesAuthorizationHandler>();
         //services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
-    }
-    
-    private static void ConfigureAuthorizationPolicies(
-        this IServiceCollection services)
-    {
-        services.AddAuthorization(options =>
-        {
-            foreach (var role in Enum.GetValues<Role>())
-            {
-                options.AddPolicy(role.ToString(), policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireRole(role.ToString());
-                });
-            }
-        });
     }
 }
