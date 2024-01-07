@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DigiDent.Domain\DigiDent.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
