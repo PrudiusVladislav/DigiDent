@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.SharedKernel;
-using Mediator;
+using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 

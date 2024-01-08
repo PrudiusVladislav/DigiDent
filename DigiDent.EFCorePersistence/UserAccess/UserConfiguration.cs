@@ -12,15 +12,20 @@ public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
     {
         builder.OwnsOne(u => u.FullName, fullName =>
         {
-            fullName.Property(f => f.FirstName).HasColumnName("FirstName");
-            fullName.Property(f => f.LastName).HasColumnName("LastName");
+            fullName.Property(fn => fn.FirstName).HasColumnName("FirstName");
+            fullName.Property(fn => fn.LastName).HasColumnName("LastName");
         });
         
-        builder.OwnsOne(u => u.Email, email =>
-            email.Property(e => e.Value).HasColumnName("Email"));
+        //TODO: Remake the configuration so use converter instead of the ownsone
+        //https://stackoverflow.com/questions/71619005/ef-core-valueconverter-or-ownedtype-for-simple-valueobjects
+        
+        builder.Property(u => u.Email).HasConversion(
+            email => email.Value,
+            value => new Email(value));
 
-        builder.OwnsOne(u => u.Password, password => 
-            password.Property(p => p.PasswordHash).HasColumnName("PasswordHash"));
+        builder.Property(u => u.Password).HasConversion(
+            password => password.PasswordHash,
+            value => new Password(value));
         
         builder.Property(u => u.Role).HasConversion(
             r => r.ToString(),

@@ -3,8 +3,7 @@ using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Application.UserAccess.Commands.SignUp;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using DigiDent.Infrastructure.UserAccess;
-using Mediator;
-using Microsoft.AspNetCore.Identity.Data;
+using MediatR;
 
 namespace DigiDent.API.Endpoints.UserAccess;
 
@@ -14,17 +13,18 @@ public static class UserAccessEndpoints
     {
         app.MapGroup("/users")
             .MapSignInEndpoint()
-            .MapSignUpEndpoint();
+            .MapSignUpEndpoint()
+            .TestEndpoint();
     }
     
     private static IEndpointRouteBuilder MapSignInEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapPost("/sign-in", async (
-            SignInCommand loginRequest,
-            ISender mediator,
+            SignInCommand signInRequest,
+            IMediator mediator,
             CancellationToken cancellationToken) =>
         {
-            var signInResult = await mediator.Send(loginRequest, cancellationToken);
+            var signInResult = await mediator.Send(signInRequest, cancellationToken);
             return signInResult.Match(
                 onFailure: _ => signInResult.MapFailureToIResult(),
                 onSuccess: token => Results.Ok(token));
@@ -37,7 +37,7 @@ public static class UserAccessEndpoints
     {
         app.MapPost("/sign-up", async (
             SignUpCommand signUpRequest,
-            ISender mediator,
+            IMediator mediator,
             CancellationToken cancellationToken) =>
         {
             var signUpResult = await mediator.Send(signUpRequest, cancellationToken);

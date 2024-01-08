@@ -16,25 +16,27 @@ public static class DependencyInjection
     /// <returns></returns>
     public static IServiceCollection AddUserAccessInfrastructure(
         this IServiceCollection services, 
-        IConfiguration configuration)
+        IConfigurationSection configurationSection)
     {
         services
-            .ConfigureJwt(configuration)
-            .ConfigureAuthorizationServices(configuration);
+            .ConfigureJwt(configurationSection)
+            .ConfigureAuthorizationServices(configurationSection)
+            .AddAuthorization();
         return services;
     }
     
     private static IServiceCollection ConfigureJwt(
         this IServiceCollection services,
-        IConfiguration configuration)
+        IConfigurationSection configurationSection)
     {
-        services.Configure<JwtOptions>(configuration.GetSection("Authentication:Jwt"));
+        services.Configure<JwtOptions>(configurationSection);
         services.AddTransient<IJwtProvider, JwtProvider>();
         return services;
     }
     
     private static IServiceCollection ConfigureAuthorizationServices(
-        this IServiceCollection services, IConfiguration configuration)
+        this IServiceCollection services,
+        IConfigurationSection configurationSection)
     {
         services.AddSingleton<IAuthorizationHandler, RolesAuthorizationHandler>();
         
@@ -44,13 +46,13 @@ public static class DependencyInjection
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidIssuer = configurationSection["Issuer"],
                     ValidateAudience = true,
-                    ValidAudience = configuration["Jwt:Audience"],
+                    ValidAudience = configurationSection["Audience"],
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!))
+                        Encoding.UTF8.GetBytes(configurationSection["Secret"]!))
                 };
             });
         return services;

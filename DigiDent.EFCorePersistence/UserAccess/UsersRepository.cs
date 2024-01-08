@@ -26,10 +26,10 @@ public class UsersRepository: IUsersRepository
             x => x.Id == userId, cancellationToken);
     }
 
-    public async Task<User?> GetByEmailAsync(Email userName, CancellationToken cancellationToken)
+    public async Task<User?> GetByEmailAsync(Email email, CancellationToken cancellationToken)
     {
         return await _dbContext.Users.FirstOrDefaultAsync(
-            x => x.Email == userName, cancellationToken);
+            x => x.Email == email, cancellationToken);
     }
 
     public async Task UpdateAsync(UpdateUserDto newUserDto, CancellationToken cancellationToken)

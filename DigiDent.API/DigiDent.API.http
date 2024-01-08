@@ -1,6 +1,5 @@
-@DigiDent.API_HostAddress = http://localhost:5058
+@DigiDent.API_HostAddress = https://localhost:7289
 
-GET {{DigiDent.API_HostAddress}}/weatherforecast/
+POST {{DigiDent.API_HostAddress}}/users/sign-up
 Accept: application/json
-
 ###

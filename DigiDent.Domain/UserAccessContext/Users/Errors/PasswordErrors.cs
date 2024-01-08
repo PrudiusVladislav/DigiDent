@@ -14,7 +14,7 @@ public static class PasswordErrors
     
     public static Error PasswordIsTooWeak
         => new (ErrorType.Validation,
-            "Password is too weak. Try to use a stronger password " + "\n" + 
+            "Password is too weak. Try to use a stronger password " + 
             "(Use a stronger combination of letters, numbers and spec. symbols)."); 
     
     public static Error PasswordDoesNotMatch 

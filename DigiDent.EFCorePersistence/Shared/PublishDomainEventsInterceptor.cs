@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.SharedKernel;
-using Mediator;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 

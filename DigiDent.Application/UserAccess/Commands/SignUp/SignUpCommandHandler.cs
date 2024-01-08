@@ -1,30 +1,26 @@
 ﻿using DigiDent.Application.UserAccess.Abstractions;
-using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using Mediator;
+using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
 public class SignUpCommandHandler
     : IRequestHandler<SignUpCommand, Result<SignUpResponse>> 
 {
-    private readonly IJwtProvider _jwtProvider;
     private readonly IUsersRepository _usersRepository;
     private readonly UsersDomainService _usersDomainService;
     
     public SignUpCommandHandler(
-        IJwtProvider jwtProvider,
         IUsersRepository usersRepository,
         UsersDomainService usersDomainService)
     {
-        _jwtProvider = jwtProvider;
         _usersRepository = usersRepository;
         _usersDomainService = usersDomainService;
     }
     
-    public async ValueTask<Result<SignUpResponse>> Handle(
+    public async Task<Result<SignUpResponse>> Handle(
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
@@ -48,7 +44,6 @@ public class SignUpCommandHandler
             roleResult.Value!);
         await _usersRepository.AddAsync(userToAdd, cancellationToken);
         
-        var jwt = _jwtProvider.GenerateJwtToken(userToAdd);
-        return Result.Ok(new SignUpResponse(jwt));
+        return Result.Ok(new SignUpResponse(userToAdd.Id.Value));
     }
 }

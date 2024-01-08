@@ -3,7 +3,7 @@ using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.Errors;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using Mediator;
+using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignIn;
 
@@ -24,7 +24,7 @@ public class SignInCommandHandler
         _usersRepository = usersRepository;
     }
     
-    public async ValueTask<Result<SignInResponse>> Handle(
+    public async Task<Result<SignInResponse>> Handle(
         SignInCommand request,
         CancellationToken cancellationToken)
     {

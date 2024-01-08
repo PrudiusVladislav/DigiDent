@@ -1,8 +1,9 @@
-﻿namespace DigiDent.Application.UserAccess.Commands.SignUp;
+﻿
+namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
 public class SignUpResponse
 {
-    public string Token { get; }
+    public Guid UserId { get; }
     
-    public SignUpResponse(string token) => Token = token;
+    public SignUpResponse(Guid userId) => UserId = userId;
 }

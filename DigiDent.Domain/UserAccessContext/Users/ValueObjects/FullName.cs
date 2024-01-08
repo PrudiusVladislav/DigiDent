@@ -11,7 +11,7 @@ public record FullName
     private const int MinLength = 2;
     private const int MaxLength = 50;
 
-    private FullName(string firstName, string lastName)
+    internal FullName(string firstName, string lastName)
     {
         FirstName = firstName;
         LastName = lastName;

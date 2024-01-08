@@ -8,7 +8,7 @@ public partial record Email
 {
     public string Value { get;}
     
-    private Email(string value) => Value = value;
+    internal Email(string value) => Value = value;
     
     public static Result<Email> Create(string value)
     {
@@ -20,5 +20,4 @@ public partial record Email
 
     [GeneratedRegex(@"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")]
     private static partial Regex EmailRegex();
-    
 }

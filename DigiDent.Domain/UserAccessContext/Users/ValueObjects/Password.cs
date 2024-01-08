@@ -18,7 +18,7 @@ public record Password
     
     public string PasswordHash { get; }
     
-    private Password(string passwordHash)
+    internal Password(string passwordHash)
     {
         PasswordHash = passwordHash;
     }
@@ -35,12 +35,6 @@ public record Password
             });
     }
     
-    // for EF Core (workaround)
-    public static Password CreateFromHash(string passwordHash)
-    {
-        return new Password(passwordHash);
-    }
-
     public bool IsEqualTo(string plainTextPassword)
     {
         var parts = PasswordHash.Split(':');
