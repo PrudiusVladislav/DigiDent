@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.SharedKernel;
+﻿using DigiDent.Application.UserAccess.Commands.Shared;
+using DigiDent.Domain.SharedKernel;
 using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
@@ -8,4 +9,4 @@ public record SignUpCommand(
     string Password,
     string FirstName,
     string LastName,
-    string Role) : IRequest<Result<SignUpResponse>>;
+    string Role) : IRequest<Result<AuthenticationResponse>>;

@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.UserAccess.Abstractions;
+using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
@@ -7,20 +8,23 @@ using MediatR;
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
 public class SignUpCommandHandler
-    : IRequestHandler<SignUpCommand, Result<SignUpResponse>> 
+    : IRequestHandler<SignUpCommand, Result<AuthenticationResponse>> 
 {
     private readonly IUsersRepository _usersRepository;
     private readonly UsersDomainService _usersDomainService;
+    private readonly IJwtService _jwtService;
     
     public SignUpCommandHandler(
         IUsersRepository usersRepository,
-        UsersDomainService usersDomainService)
+        UsersDomainService usersDomainService,
+        IJwtService jwtService)
     {
         _usersRepository = usersRepository;
         _usersDomainService = usersDomainService;
+        _jwtService = jwtService;
     }
     
-    public async Task<Result<SignUpResponse>> Handle(
+    public async Task<Result<AuthenticationResponse>> Handle(
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
@@ -34,7 +38,7 @@ public class SignUpCommandHandler
             emailResult, passwordResult, fullNameResult, roleResult);
 
         if (validationResult.IsFailure) 
-            return validationResult.MapToType<SignUpResponse>();
+            return validationResult.MapToType<AuthenticationResponse>();
         
         var userToAdd = User.Create(
             TypedId<Guid>.NewGuid<UserId>(),
@@ -44,6 +48,8 @@ public class SignUpCommandHandler
             roleResult.Value!);
         await _usersRepository.AddAsync(userToAdd, cancellationToken);
         
-        return Result.Ok(new SignUpResponse(userToAdd.Id.Value));
+        var tokensResponse = await _jwtService
+            .GenerateAuthenticationResponseAsync(userToAdd, cancellationToken);
+        return Result.Ok(tokensResponse);
     }
 }

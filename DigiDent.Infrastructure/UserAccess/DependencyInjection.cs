@@ -30,7 +30,7 @@ public static class DependencyInjection
         IConfigurationSection configurationSection)
     {
         services.Configure<JwtOptions>(configurationSection);
-        services.AddTransient<IJwtProvider, JwtProvider>();
+        services.AddTransient<IJwtService, JwtService>();
         return services;
     }
     
@@ -38,22 +38,25 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfigurationSection configurationSection)
     {
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = configurationSection["Issuer"],
+            ValidateAudience = true,
+            ValidAudience = configurationSection["Audience"],
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(configurationSection["Secret"]!))
+        };
+        
+        services.AddSingleton(tokenValidationParameters);
         services.AddSingleton<IAuthorizationHandler, RolesAuthorizationHandler>();
         
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = configurationSection["Issuer"],
-                    ValidateAudience = true,
-                    ValidAudience = configurationSection["Audience"],
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(configurationSection["Secret"]!))
-                };
+                options.TokenValidationParameters = tokenValidationParameters;
             });
         return services;
         //services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();

@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DigiDent.Application\DigiDent.Application.csproj" />
       <ProjectReference Include="..\DigiDent.Domain\DigiDent.Domain.csproj" />
     </ItemGroup>
 

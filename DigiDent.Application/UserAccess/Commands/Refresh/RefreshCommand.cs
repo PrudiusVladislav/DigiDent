@@ -2,7 +2,7 @@
 using DigiDent.Domain.SharedKernel;
 using MediatR;
 
-namespace DigiDent.Application.UserAccess.Commands.SignIn;
+namespace DigiDent.Application.UserAccess.Commands.Refresh;
 
-public record SignInCommand(string Email, string Password, string Role)
+public record RefreshCommand(string Token, string RefreshToken) 
     : IRequest<Result<AuthenticationResponse>>;

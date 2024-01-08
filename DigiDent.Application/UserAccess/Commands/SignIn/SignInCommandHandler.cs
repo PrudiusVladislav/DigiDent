@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.UserAccess.Abstractions;
+using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.Errors;
@@ -8,49 +9,50 @@ using MediatR;
 namespace DigiDent.Application.UserAccess.Commands.SignIn;
 
 public class SignInCommandHandler
-    : IRequestHandler<SignInCommand, Result<SignInResponse>>
+    : IRequestHandler<SignInCommand, Result<AuthenticationResponse>>
 {
-    private readonly IJwtProvider _jwtProvider;
+    private readonly IJwtService _jwtService;
     private readonly UsersDomainService _usersDomainService;
     private readonly IUsersRepository _usersRepository;
     
     public SignInCommandHandler(
-        IJwtProvider jwtProvider,
+        IJwtService jwtService,
         UsersDomainService usersDomainService,
         IUsersRepository usersRepository)
     {
-        _jwtProvider = jwtProvider;
+        _jwtService = jwtService;
         _usersDomainService = usersDomainService;
         _usersRepository = usersRepository;
     }
     
-    public async Task<Result<SignInResponse>> Handle(
+    public async Task<Result<AuthenticationResponse>> Handle(
         SignInCommand request,
         CancellationToken cancellationToken)
     {
         var emailResult = Email.Create(request.Email);
         if (emailResult.IsFailure)
-            return Result.Fail<SignInResponse>(EmailErrors
+            return Result.Fail<AuthenticationResponse>(EmailErrors
                 .EmailIsNotRegistered(request.Email));
         
         var userToSignIn = await _usersRepository
             .GetByEmailAsync(emailResult.Value!, cancellationToken);
         if (userToSignIn == null)
-            return Result.Fail<SignInResponse>(EmailErrors
+            return Result.Fail<AuthenticationResponse>(EmailErrors
                 .EmailIsNotRegistered(request.Email));
         
         var roleResult = _usersDomainService.CreateRole(request.Role);
         if (roleResult.IsFailure || userToSignIn.Role != roleResult.Value)
-            return Result.Fail<SignInResponse>(RoleErrors
+            return Result.Fail<AuthenticationResponse>(RoleErrors
                 .RoleIsNotValid(request.Role));
         
         var isPasswordCorrect = userToSignIn.Password.IsEqualTo(request.Password);
         if (!isPasswordCorrect)
-            return Result.Fail<SignInResponse>(PasswordErrors
+            return Result.Fail<AuthenticationResponse>(PasswordErrors
                 .PasswordDoesNotMatch);
         
-        var jwt = _jwtProvider.GenerateJwtToken(userToSignIn);
-        return Result.Ok(new SignInResponse(jwt));
+        var tokensResponse = await _jwtService
+            .GenerateAuthenticationResponseAsync(userToSignIn, cancellationToken);
+        return Result.Ok(tokensResponse);
         
         //TODO: Refactor the UsersDomainService, possible extract some methods to different service
         //https://stackoverflow.com/questions/17745937/ddd-domain-services-what-should-a-service-class-contain

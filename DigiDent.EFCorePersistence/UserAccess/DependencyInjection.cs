@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.UserAccessContext.Users;
+﻿using DigiDent.Application.UserAccess.Abstractions;
+using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,7 @@ public static class DependencyInjection
         });
         
         services.AddTransient<IUsersRepository, UsersRepository>(); 
+        services.AddTransient<IRefreshTokensRepository, RefreshTokensRepository>();
         return services;
     }
 }

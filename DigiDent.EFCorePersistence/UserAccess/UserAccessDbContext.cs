@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.UserAccessContext.Users;
+﻿using DigiDent.Application.UserAccess.Tokens;
+using DigiDent.Domain.UserAccessContext.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigiDent.EFCorePersistence.UserAccess;
@@ -6,6 +7,7 @@ namespace DigiDent.EFCorePersistence.UserAccess;
 public class UserAccessDbContext: DbContext
 {
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
     public UserAccessDbContext(DbContextOptions<UserAccessDbContext> options)
         : base(options)
