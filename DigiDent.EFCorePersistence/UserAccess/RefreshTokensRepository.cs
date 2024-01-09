@@ -13,12 +13,6 @@ public class RefreshTokensRepository: IRefreshTokensRepository
     {
         _dbContext = dbContext;
     }
-    
-    // public async Task<RefreshToken?> GetRefreshTokenAsync(UserId userId)
-    // {
-    //     return await _dbContext.RefreshTokens
-    //         .SingleOrDefaultAsync(x => x.UserId == userId);
-    // }
 
     public async Task AddRefreshTokenAsync(
         RefreshToken refreshToken,
@@ -26,14 +20,6 @@ public class RefreshTokensRepository: IRefreshTokensRepository
     {
         await _dbContext.RefreshTokens.AddAsync(refreshToken, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task DeleteUserRefreshTokens(UserId userId)
-    {
-        var userRefreshTokens = _dbContext.RefreshTokens
-            .Where(x => x.UserId == userId);
-        _dbContext.RefreshTokens.RemoveRange(userRefreshTokens);
-        await _dbContext.SaveChangesAsync();
     }
     
     public async Task<RefreshToken?> GetRefreshTokenAsync(
@@ -45,11 +31,27 @@ public class RefreshTokensRepository: IRefreshTokensRepository
                 cancellationToken);
     }
     
-    public async Task UpdateAsync(
-        RefreshToken refreshToken,
+    public async Task DeleteRefreshTokenAsync(
+        string refreshToken,
         CancellationToken cancellationToken)
     {
-        _dbContext.RefreshTokens.Update(refreshToken);
+        var refreshTokenToDelete = await _dbContext.RefreshTokens
+            .SingleOrDefaultAsync(x => x.Token == refreshToken, cancellationToken);
+        if (refreshTokenToDelete is null) return;
+        
+        _dbContext.RefreshTokens.Remove(refreshTokenToDelete);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+    
+    public async Task DeleteRefreshTokenByUserIdAsync(
+        UserId userId,
+        CancellationToken cancellationToken)
+    {
+        var refreshTokenToDelete = await _dbContext.RefreshTokens
+            .SingleOrDefaultAsync(rt => rt.UserId == userId, cancellationToken);
+        if (refreshTokenToDelete is null) return;
+        
+        _dbContext.RefreshTokens.Remove(refreshTokenToDelete);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

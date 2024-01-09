@@ -10,8 +10,6 @@ public class RefreshToken
     public string JwtId { get; set; }
     public DateTime CreationDate { get; set; }
     public DateTime ExpiryDate { get; set; }
-    public bool IsUsed { get; set; }
-    public bool IsInvalidated { get; set; }
     public UserId UserId { get; set; }
     public User User { get; set; }
 }

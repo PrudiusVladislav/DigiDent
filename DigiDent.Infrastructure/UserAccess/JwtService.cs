@@ -37,6 +37,7 @@ public class JwtService: IJwtService
         User user,
         CancellationToken cancellationToken)
     {
+        //TODO: make check if the token already exists
         var claims = new List<Claim>
         {
             new (JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
@@ -58,6 +59,9 @@ public class JwtService: IJwtService
         var accessToken = new JwtSecurityTokenHandler()
             .WriteToken(token);
         
+        await _refreshTokensRepository.DeleteRefreshTokenByUserIdAsync(
+            user.Id, cancellationToken);
+        
         var refreshToken = new RefreshToken()
         {
             Token = Guid.NewGuid().ToString(),
@@ -66,7 +70,7 @@ public class JwtService: IJwtService
             CreationDate = DateTime.UtcNow,
             ExpiryDate = DateTime.UtcNow.Add(_jwtOptions.RefreshTokenLifetime)
         };
-        
+        //TODO: for some reason token is not saved to the database
         await _refreshTokensRepository
             .AddRefreshTokenAsync(refreshToken, cancellationToken);
         
@@ -77,7 +81,7 @@ public class JwtService: IJwtService
         RefreshCommand request,
         CancellationToken cancellationToken)
     {
-        var claimsPrincipal = GetPrincipalFromExpiredToken(request.Token);
+        var claimsPrincipal = GetPrincipalFromExpiredToken(request.AccessToken);
 
         if (claimsPrincipal is null)
             return Result.Fail<AuthenticationResponse>(TokensErrors
@@ -99,29 +103,20 @@ public class JwtService: IJwtService
             .Value;
         var storedRefreshToken = await _refreshTokensRepository
             .GetRefreshTokenAsync(request.RefreshToken, cancellationToken);
-        if (storedRefreshToken is null)
-            return Result.Fail<AuthenticationResponse>(TokensErrors
-                .RefreshTokenDoesNotExist);
-        
-        if (DateTime.UtcNow > storedRefreshToken.ExpiryDate)
-            return Result.Fail<AuthenticationResponse>(TokensErrors
-                .RefreshTokenExpired);
-        
-        if (storedRefreshToken.IsInvalidated)
-            return Result.Fail<AuthenticationResponse>(TokensErrors
-                .RefreshTokenIsInvalidated);
-        
-        if (storedRefreshToken.IsUsed)
-            return Result.Fail<AuthenticationResponse>(TokensErrors
-                .RefreshTokenIsInvalidated);
-        
-        if (storedRefreshToken.JwtId != jti)
+
+        if (storedRefreshToken is null ||
+            DateTime.UtcNow > storedRefreshToken.ExpiryDate ||
+            storedRefreshToken.JwtId != jti)
+        {
             return Result.Fail<AuthenticationResponse>(TokensErrors
                 .InvalidToken);
+        }
         
-        storedRefreshToken.IsUsed = true;
-        await _refreshTokensRepository.UpdateAsync(storedRefreshToken, cancellationToken);
-        
+        await _refreshTokensRepository.DeleteRefreshTokenAsync(
+            storedRefreshToken.Token,
+            cancellationToken);
+
+        Console.WriteLine(claimsPrincipal.Claims.Select(c => c.Type));
         User user = (await _usersRepository.GetByIdAsync(
             new UserId(
                 Guid.Parse(claimsPrincipal

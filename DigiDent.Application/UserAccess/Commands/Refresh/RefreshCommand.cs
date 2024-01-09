@@ -4,5 +4,5 @@ using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.Refresh;
 
-public record RefreshCommand(string Token, string RefreshToken) 
+public record RefreshCommand(string AccessToken, string RefreshToken) 
     : IRequest<Result<AuthenticationResponse>>;
