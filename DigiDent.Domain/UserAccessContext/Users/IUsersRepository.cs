@@ -5,6 +5,7 @@ namespace DigiDent.Domain.UserAccessContext.Users;
 
 public interface IUsersRepository
 {
+    Task<IReadOnlyCollection<User>> GetAllAsync(CancellationToken cancellationToken);
     Task AddAsync(User user, CancellationToken cancellationToken);
     Task<User?> GetByIdAsync(UserId userId, CancellationToken cancellationToken);
     Task<User?> GetByEmailAsync(Email email, CancellationToken cancellationToken);

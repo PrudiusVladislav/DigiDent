@@ -81,6 +81,21 @@ public class UsersDomainService
         await _usersRepository.AddAsync(userToAdd, cancellationToken);
     }
 
+    public async Task<Result> DeleteUserAsync(UserId userId, CancellationToken cancellationToken)
+    {
+        var users = await _usersRepository.GetAllAsync(cancellationToken);
+        var userToDelete = await _usersRepository.GetByIdAsync(userId, cancellationToken);
+        if (userToDelete is null) return Result.Ok();
+        
+        if (userToDelete.Role == Role.Administrator)
+        {
+            if (users.Count(u => u.Role == Role.Administrator) == 1)
+                return Result.Fail(UserErrors.CannotDeleteLastAdmin);
+        }
+        await _usersRepository.DeleteAsync(userToDelete.Id, cancellationToken);
+        return Result.Ok();
+    }
+    
     //TODO: implement the change password method
     // public async Task<Result> UpdateUser(
     //     Email email,

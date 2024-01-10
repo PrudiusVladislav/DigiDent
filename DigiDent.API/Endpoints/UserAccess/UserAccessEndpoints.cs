@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using DigiDent.API.Extensions;
+using DigiDent.Application.UserAccess.Commands.DeleteUser;
 using DigiDent.Application.UserAccess.Commands.Refresh;
 using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Application.UserAccess.Commands.SignUp;
@@ -18,6 +19,7 @@ public static class UserAccessEndpoints
             .MapSignInEndpoint()
             .MapSignUpEndpoint()
             .MapRefreshEndpoint()
+            .MapDeleteUserEndpoint()
             .TestEndpoint();
     }
     
@@ -65,6 +67,23 @@ public static class UserAccessEndpoints
                 onFailure: _ => refreshResult.MapFailureToIResult(),
                 onSuccess: response => Results.Ok(response));
         });
+        
+        return app;
+    }
+    
+    private static IEndpointRouteBuilder MapDeleteUserEndpoint(this IEndpointRouteBuilder app)
+    {
+        app.MapDelete("/{userId}", async (
+            Guid userId,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var deleteResult = await mediator.Send(
+                new DeleteUserCommand(userId), cancellationToken);
+            return deleteResult.Match(
+                onFailure: _ => deleteResult.MapFailureToIResult(),
+                onSuccess: () => Results.Ok());
+        }).RequireRoles(Role.Administrator);
         
         return app;
     }

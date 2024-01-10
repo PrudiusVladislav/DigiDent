@@ -14,6 +14,12 @@ public class UsersRepository: IUsersRepository
         _dbContext = dbContext;
     }
     
+    public async Task<IReadOnlyCollection<User>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        var users = await _dbContext.Users.ToListAsync(cancellationToken);
+        return users.AsReadOnly();
+    }
+    
     public async Task AddAsync(User user, CancellationToken cancellationToken)
     {
         await _dbContext.Users.AddAsync(user, cancellationToken);
