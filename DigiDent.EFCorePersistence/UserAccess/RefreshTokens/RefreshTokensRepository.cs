@@ -3,7 +3,7 @@ using DigiDent.Application.UserAccess.Tokens;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.UserAccess;
+namespace DigiDent.EFCorePersistence.UserAccess.RefreshTokens;
 
 public class RefreshTokensRepository: IRefreshTokensRepository
 {

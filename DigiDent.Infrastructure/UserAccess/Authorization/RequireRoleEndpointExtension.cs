@@ -1,7 +1,7 @@
 ﻿using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.AspNetCore.Builder;
 
-namespace DigiDent.Infrastructure.UserAccess;
+namespace DigiDent.Infrastructure.UserAccess.Authorization;
 
 public static class RequireRoleEndpointExtension
 {

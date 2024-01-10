@@ -12,6 +12,6 @@ public interface IJwtService
     Task<AuthenticationResponse> GenerateAuthenticationResponseAsync(
         User user, CancellationToken cancellationToken); 
     
-    Task<Result<AuthenticationResponse>> RefreshTokenAsync(
-        RefreshCommand request, CancellationToken cancellationToken);
+    Task<Result<ClaimsPrincipal>> ValidateRefreshRequestAsync(
+        string accessToken, string refreshToken, CancellationToken cancellationToken);
 }

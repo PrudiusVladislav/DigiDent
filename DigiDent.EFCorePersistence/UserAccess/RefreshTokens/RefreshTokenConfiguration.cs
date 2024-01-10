@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.UserAccess;
+namespace DigiDent.EFCorePersistence.UserAccess.RefreshTokens;
 
 public class RefreshTokenConfiguration: IEntityTypeConfiguration<RefreshToken>
 {

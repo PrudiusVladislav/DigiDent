@@ -3,7 +3,7 @@ using DigiDent.Domain.UserAccessContext.Users.DTO;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.UserAccess;
+namespace DigiDent.EFCorePersistence.UserAccess.Users;
 
 public class UsersRepository: IUsersRepository
 {

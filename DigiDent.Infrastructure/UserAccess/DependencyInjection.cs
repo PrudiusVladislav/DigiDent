@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using DigiDent.Application.UserAccess.Abstractions;
+using DigiDent.Infrastructure.UserAccess.Authentication;
+using DigiDent.Infrastructure.UserAccess.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -68,6 +70,5 @@ public static class DependencyInjection
                 options.TokenValidationParameters = tokenValidationParameters;
             });
         return services;
-        //services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
     }
 }

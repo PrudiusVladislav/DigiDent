@@ -4,7 +4,7 @@ using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.UserAccess;
+namespace DigiDent.EFCorePersistence.UserAccess.Users;
 
 public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
 {
