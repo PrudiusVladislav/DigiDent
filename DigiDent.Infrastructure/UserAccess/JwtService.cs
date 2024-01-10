@@ -8,6 +8,7 @@ using DigiDent.Application.UserAccess.Tokens;
 using DigiDent.Domain.SharedKernel;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
@@ -37,10 +38,9 @@ public class JwtService: IJwtService
         User user,
         CancellationToken cancellationToken)
     {
-        //TODO: make check if the token already exists
         var claims = new List<Claim>
         {
-            new (JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
+            new (ClaimTypes.NameIdentifier, user.Id.Value.ToString()),
             new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new (JwtRegisteredClaimNames.Email, user.Email.Value),
             new (CustomClaims.Role, user.Role.ToString())
@@ -70,7 +70,7 @@ public class JwtService: IJwtService
             CreationDate = DateTime.UtcNow,
             ExpiryDate = DateTime.UtcNow.Add(_jwtOptions.RefreshTokenLifetime)
         };
-        //TODO: for some reason token is not saved to the database
+        
         await _refreshTokensRepository
             .AddRefreshTokenAsync(refreshToken, cancellationToken);
         
@@ -115,12 +115,11 @@ public class JwtService: IJwtService
         await _refreshTokensRepository.DeleteRefreshTokenAsync(
             storedRefreshToken.Token,
             cancellationToken);
-
-        Console.WriteLine(claimsPrincipal.Claims.Select(c => c.Type));
+        
         User user = (await _usersRepository.GetByIdAsync(
             new UserId(
                 Guid.Parse(claimsPrincipal
-                    .Claims.Single(x => x.Type == JwtRegisteredClaimNames.Sub)
+                    .Claims.Single(x => x.Type == ClaimTypes.NameIdentifier)
                     .Value)), cancellationToken))!;
         return Result.Ok(await GenerateAuthenticationResponseAsync(
             user, cancellationToken));
@@ -131,12 +130,14 @@ public class JwtService: IJwtService
         var tokenHandler = new JwtSecurityTokenHandler();
         try
         {
-            _tokenValidationParameters.ValidateLifetime = false;
+            var originalValidator = _tokenValidationParameters.LifetimeValidator;
+            _tokenValidationParameters.LifetimeValidator = (
+                notBefore, expires, securityToken, validationParameters) => true;
             var principal = tokenHandler.ValidateToken(
                 token,
                 _tokenValidationParameters,
                 out var validatedToken);
-            _tokenValidationParameters.ValidateLifetime = true;
+            _tokenValidationParameters.LifetimeValidator = originalValidator;
             
             if (!JwtHasValidSecurityAlgorithm(validatedToken))
                 return null;

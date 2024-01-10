@@ -1,4 +1,6 @@
-﻿using DigiDent.API.Extensions;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using DigiDent.API.Extensions;
 using DigiDent.Application.UserAccess.Commands.Refresh;
 using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Application.UserAccess.Commands.SignUp;
@@ -69,7 +71,22 @@ public static class UserAccessEndpoints
     
     private static void TestEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/test", () => Results.Ok("Success!"))
+        app.MapGet("/test", (HttpContext context) =>
+            {
+                var expirationTime = context.User
+                    .FindFirstValue(JwtRegisteredClaimNames.Exp);
+                var isExpired = long.Parse(expirationTime!) < DateTime.UtcNow.Ticks;
+                
+                var expiryDateUnix =
+                    long.Parse(context.User
+                        .FindFirstValue(JwtRegisteredClaimNames.Exp)!);
+                var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                    .AddSeconds(expiryDateUnix);
+        
+                if (expiryDateTimeUtc > DateTime.UtcNow)
+                    return Results.Ok("Token is not expired");
+                return Results.Ok($"Is expired: {isExpired}");
+            })
             .RequireRoles(Role.Administrator, Role.Doctor);
     }
 }

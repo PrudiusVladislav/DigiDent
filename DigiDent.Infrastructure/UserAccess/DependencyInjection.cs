@@ -44,10 +44,19 @@ public static class DependencyInjection
             ValidIssuer = configurationSection["Issuer"],
             ValidateAudience = true,
             ValidAudience = configurationSection["Audience"],
-            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(configurationSection["Secret"]!))
+                Encoding.UTF8.GetBytes(configurationSection["Secret"]!)),
+            ValidateLifetime = true,
+            LifetimeValidator = (
+                notBefore, expires, securityToken, validationParameters) =>
+            {
+                if (expires != null)
+                {
+                    return expires > DateTime.UtcNow;
+                }
+                return false;
+            }
         };
         
         services.AddSingleton(tokenValidationParameters);
