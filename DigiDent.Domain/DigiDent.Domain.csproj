@@ -13,6 +13,8 @@
 
     <ItemGroup>
       <Folder Include="UserAccessContext\Users\Events\" />
+      <Folder Include="VisitsScheduleContext\Visits\Errors\" />
+      <Folder Include="VisitsScheduleContext\Visits\Events\" />
     </ItemGroup>
     
     <ItemGroup>
