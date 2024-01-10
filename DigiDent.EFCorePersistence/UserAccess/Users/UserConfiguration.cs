@@ -10,14 +10,12 @@ public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<User> builder)
     {
-        builder.OwnsOne(u => u.FullName, fullName =>
-        {
-            fullName.Property(fn => fn.FirstName).HasColumnName("FirstName");
-            fullName.Property(fn => fn.LastName).HasColumnName("LastName");
-        });
-        
-        //TODO: Remake the configuration so use converter instead of the ownsone
-        //https://stackoverflow.com/questions/71619005/ef-core-valueconverter-or-ownedtype-for-simple-valueobjects
+        builder.Property(u => u.FullName).HasConversion(
+            fullName => fullName.ToString(),
+            value => FullName.CreateFromNameParts(
+                value.Split(' ', StringSplitOptions.None)))
+            .HasColumnName("Full Name");
+                
         
         builder.Property(u => u.Email).HasConversion(
             email => email.Value,
@@ -30,6 +28,8 @@ public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
         builder.Property(u => u.Role).HasConversion(
             r => r.ToString(),
             value => Enum.Parse<Role>(value));
+
+        builder.HasData(new List<User>{ User.TempAdmin });
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<User> builder)

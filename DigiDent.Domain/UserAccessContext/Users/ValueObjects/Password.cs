@@ -46,6 +46,9 @@ public record Password
         return CompareByteArrays(storedHash, inputHash);
     }
     
+    internal static Password TempAdminPassword 
+        => Create("*tempAdminPass!").Value!;
+    
     private static string GetHashedAndSaltedPassword(string plainTextPassword)
     {
         byte[] salt = GenerateSalt();

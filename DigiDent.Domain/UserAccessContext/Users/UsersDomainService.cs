@@ -36,85 +36,6 @@ public class UsersDomainService
         return Result.Ok(role);
     }
     
-    // public async Task<Result> MatchPasswordByEmailAsync(
-    //     Email email,
-    //     string passwordToCheck,
-    //     CancellationToken cancellationToken)
-    // {
-    //     var userToCheck = await _usersRepository.GetByEmailAsync(email, cancellationToken);
-    //     if (userToCheck == null)
-    //         return Result.Fail(EmailErrors.EmailIsNotRegistered(email.Value));
-    //             
-    //     return userToCheck.Password.IsEqualTo(passwordToCheck)
-    //         ? Result.Ok()
-    //         : Result.Fail(PasswordErrors.PasswordDoesNotMatch);
-    // }
-    
-    /*public async Task<Result<UserId>> AddUserAsync(
-        string firstName, 
-        string lastName,
-        string email,
-        string password,
-        string role,
-        CancellationToken cancellationToken)
-    {
-        var fullNameResult = FullName.Create(firstName, lastName);
-        var emailResult = await CreateEmailAsync(email, cancellationToken);
-        var passwordResult = Password.Create(password);
-        var roleResult = CreateRole(role);
-        
-        var validationResult = Result.Merge(
-            fullNameResult, emailResult, passwordResult);
-        
-        return await validationResult.MatchAsync(
-            onFailure: _ => validationResult.MapToType<UserId>(),
-            onSuccess: async () =>
-            {
-                var user = User.Create(
-                    TypedId<Guid>.NewGuid<UserId>(),
-                    fullNameResult.Value!,
-                    emailResult.Value!,
-                    passwordResult.Value!,
-                    roleResult.Value!);
-                
-                await _usersRepository.AddAsync(user, cancellationToken);
-                return Result.Ok(user.Id);
-            });
-    }*/
-    
-    /*public async Task<Result> UpdateUserByEmailAsync(
-        Email email,
-        string password,
-        string? firstName = null,
-        string? lastName = null,
-        Role? role = null,
-        CancellationToken cancellationToken = default)
-    {
-        var matchPasswordResult = await MatchPasswordByEmailAsync(email, password, cancellationToken);
-        if (matchPasswordResult.IsFailure) return matchPasswordResult;
-        
-        User userToUpdate = (await _usersRepository.GetByEmailAsync(email, cancellationToken))!;
-
-        var updateUserDto = UpdateUserDto.CopyFromUser(userToUpdate);
-        
-        var updateUserNameResult = ValidateAndUpdateUserName(
-            userToUpdate,
-            updateUserDto,
-            firstName,
-            lastName);
-        
-        var updateRoleResult = ValidateAndUpdateRole(updateUserDto, role);
-        
-        var updateResult = Result.Merge(updateUserNameResult, updateRoleResult);
-        return await updateResult.MatchAsync(
-            onFailure: _ => updateResult,
-            onSuccess: async () =>
-            {
-                await _usersRepository.UpdateAsync(updateUserDto, cancellationToken);
-                return Result.Ok();
-            });
-    }*/
-    
     private Result ValidateAndUpdateUserName(
         User userToUpdate,
         UpdateUserDto updateUserDto,
@@ -142,6 +63,22 @@ public class UsersDomainService
         if (role != null)
             updateUserDto.Role = role.Value;
         return Result.Ok();
+    }
+    
+    public async Task AddUserAsync(User userToAdd, CancellationToken cancellationToken)
+    {
+        if (userToAdd.Role != Role.Administrator)
+        {
+            await _usersRepository.AddAsync(userToAdd, cancellationToken);
+            return;
+        }
+        
+        var tempAdmin = await _usersRepository
+            .GetByEmailAsync(Email.TempAdminEmail, cancellationToken);
+        if (tempAdmin != null)
+            await _usersRepository.DeleteAsync(tempAdmin.Id, cancellationToken);
+        
+        await _usersRepository.AddAsync(userToAdd, cancellationToken);
     }
 
     //TODO: implement the change password method

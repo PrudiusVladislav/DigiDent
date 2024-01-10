@@ -15,7 +15,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
     // only for EF Core
     private User() { }
     
-    private User(UserId id, FullName fullName, Email email, Password password, Role role)
+    internal User(UserId id, FullName fullName, Email email, Password password, Role role)
     {
         Id = id;
         FullName = fullName;
@@ -42,4 +42,12 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         
         //TODO: add event in case of role change
     }
+    
+    internal static User TempAdmin 
+        => new User(
+            new UserId(Guid.NewGuid()), 
+            new FullName("Temporary", "Administrator"),
+            Email.TempAdminEmail, 
+            Password.TempAdminPassword, 
+            Role.Administrator);
 }

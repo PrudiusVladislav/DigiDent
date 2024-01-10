@@ -46,7 +46,7 @@ public class SignUpCommandHandler
             emailResult.Value!,
             passwordResult.Value!,
             roleResult.Value!);
-        await _usersRepository.AddAsync(userToAdd, cancellationToken);
+        await _usersDomainService.AddUserAsync(userToAdd, cancellationToken);
         
         var tokensResponse = await _jwtService
             .GenerateAuthenticationResponseAsync(userToAdd, cancellationToken);

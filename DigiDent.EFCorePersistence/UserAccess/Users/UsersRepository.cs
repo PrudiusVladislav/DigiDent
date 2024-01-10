@@ -43,4 +43,16 @@ public class UsersRepository: IUsersRepository
         
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+    
+    public async Task DeleteAsync(UserId userId, CancellationToken cancellationToken)
+    {
+        var userToDelete = await _dbContext.Users.FirstOrDefaultAsync(
+            x => x.Id == userId, cancellationToken);
+        
+        if (userToDelete == null) return;
+        
+        _dbContext.Users.Remove(userToDelete);
+        
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

@@ -29,6 +29,17 @@ public record FullName
             onSuccess: () => Result.Ok(new FullName(firstName, lastName)));
     }
 
+    public override string ToString()
+    {
+        return $"{FirstName} {LastName}";
+    }
+
+    //for ef core
+    internal static FullName CreateFromNameParts(string[] nameParts)
+    {
+        return new FullName(nameParts[0], nameParts[1]);
+    }
+
     private static Result ValidateFirstName(string firstName)
     {
         if (string.IsNullOrWhiteSpace(firstName))

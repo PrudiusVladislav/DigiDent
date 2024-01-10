@@ -48,7 +48,7 @@ public static class UserAccessEndpoints
             return signUpResult.Match(
                 onFailure: _ => signUpResult.MapFailureToIResult(),
                 onSuccess: token => Results.Ok(token));
-        });
+        }).RequireRoles(Role.Administrator);
         
         return app;
     }
