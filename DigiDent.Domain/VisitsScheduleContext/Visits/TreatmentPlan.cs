@@ -2,7 +2,7 @@
 using DigiDent.Domain.VisitsScheduleContext.Patients;
 using DigiDent.Domain.VisitsScheduleContext.Patients.ValueObjects;
 using DigiDent.Domain.VisitsScheduleContext.Visits.Enumerations;
-using DigiDent.Domain.VisitsScheduleContext.Visits.ValueObjects;
+using DigiDent.Domain.VisitsScheduleContext.Visits.ValueObjects.Ids;
 
 namespace DigiDent.Domain.VisitsScheduleContext.Visits;
 

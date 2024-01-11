@@ -2,5 +2,7 @@
 
 public enum VisitStatus
 {
-    
+    Completed,
+    Canceled,
+    Missed
 }
