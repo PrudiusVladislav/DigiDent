@@ -1,8 +1,7 @@
 ﻿namespace DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
 
-public enum VisitStatus
+public enum AppointmentStatus
 {
-    Completed,
-    Canceled,
-    Missed
+    Scheduled,
+    Rescheduled
 }

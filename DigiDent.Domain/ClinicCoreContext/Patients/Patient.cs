@@ -1,4 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.SharedKernel.Abstractions;
 
@@ -10,6 +11,10 @@ public class Patient: AggregateRoot, IEntity<PatientId, Guid>
     
     public string FullName { get; private set; }
     public string Email { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; }
+    
+    public DateTime DateOfBirth { get; private set; }
     
     public ICollection<Visit> PatientVisits { get; set; } = new List<Visit>();
+    public ICollection<TreatmentPlan> TreatmentPlans { get; set; } = new List<TreatmentPlan>();
 }
