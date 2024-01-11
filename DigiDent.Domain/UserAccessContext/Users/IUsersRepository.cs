@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.UserAccessContext.Users.DTO;
+﻿using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Domain.UserAccessContext.Users.DTO;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Domain.UserAccessContext.Users;

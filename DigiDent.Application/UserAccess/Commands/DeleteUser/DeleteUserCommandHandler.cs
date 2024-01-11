@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.SharedKernel;
+﻿using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using MediatR;

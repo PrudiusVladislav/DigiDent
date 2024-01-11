@@ -2,7 +2,8 @@
 using DigiDent.Application.UserAccess.Commands.Refresh;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Application.UserAccess.Tokens;
-using DigiDent.Domain.SharedKernel;
+using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.UserAccessContext.Users;
 
 namespace DigiDent.Application.UserAccess.Abstractions;

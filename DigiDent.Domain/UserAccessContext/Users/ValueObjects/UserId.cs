@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel;
+﻿using DigiDent.Domain.SharedKernel.Abstractions;
 
 namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 

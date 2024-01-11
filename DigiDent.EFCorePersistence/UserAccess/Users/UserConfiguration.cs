@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.UserAccessContext.Users;
+﻿using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;

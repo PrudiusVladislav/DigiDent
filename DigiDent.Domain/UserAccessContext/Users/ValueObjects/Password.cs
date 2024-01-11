@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography;
-using DigiDent.Domain.SharedKernel;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.UserAccessContext.Users.Errors;
 using Zxcvbn;
-using Result = DigiDent.Domain.SharedKernel.Result;
+using Result = DigiDent.Domain.SharedKernel.ReturnTypes.Result;
 
 namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 

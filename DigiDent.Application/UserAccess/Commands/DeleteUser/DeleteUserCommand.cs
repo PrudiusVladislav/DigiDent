@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.SharedKernel;
+﻿using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.DeleteUser;
