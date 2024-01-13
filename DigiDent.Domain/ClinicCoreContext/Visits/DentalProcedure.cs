@@ -4,9 +4,9 @@ using DigiDent.Domain.SharedKernel.Abstractions;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
-public class Service: IEntity<ServiceId, int>
+public class DentalProcedure: IEntity<DentalProcedureId, int>
 {
-    public ServiceId Id { get; init; }
+    public DentalProcedureId Id { get; init; }
     
     public string Name { get; init; }
     public string? Description { get; init; }

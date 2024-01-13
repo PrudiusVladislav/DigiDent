@@ -19,12 +19,13 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
     public Patient Patient { get; private set; }
     
     public DateTime VisitDateTime { get; private set; }
-    
-    public ServiceId ServiceId { get; private set; }
-    public Service ServiceType { get; private set; }
+    public TimeSpan Duration { get; private set; }
     
     public TreatmentPlanId? TreatmentPlanId { get; private set; }
     public TreatmentPlan? TreatmentPlan { get; private set; }
     
     public AppointmentStatus Status { get; private set; }
+    
+    public ICollection<DentalProcedure> DentalProcedures { get; private set; } 
+        = new List<DentalProcedure>();
 }
