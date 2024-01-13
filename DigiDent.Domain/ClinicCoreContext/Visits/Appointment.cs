@@ -28,4 +28,36 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
     
     public ICollection<DentalProcedure> DentalProcedures { get; private set; } 
         = new List<DentalProcedure>();
+
+    internal Appointment(
+        AppointmentId id,
+        DoctorId doctorId,
+        PatientId patientId,
+        DateTime visitDateTime,
+        TimeSpan duration,
+        AppointmentStatus status)
+    {
+        Id = id;
+        DoctorId = doctorId;
+        PatientId = patientId;
+        VisitDateTime = visitDateTime;
+        Duration = duration;
+        Status = status;
+    }
+    
+    public static Appointment Create(
+        DoctorId doctorId,
+        PatientId patientId,
+        DateTime visitDateTime,
+        TimeSpan duration,
+        AppointmentStatus status)
+    {
+        return new Appointment(
+            new AppointmentId(Guid.NewGuid()),
+            doctorId,
+            patientId,
+            visitDateTime,
+            duration,
+            status);
+    }
 }

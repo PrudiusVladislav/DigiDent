@@ -1,5 +1,5 @@
-﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
+﻿using DigiDent.Domain.SharedKernel.Errors;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Domain.SharedKernel.ValueObjects;
 

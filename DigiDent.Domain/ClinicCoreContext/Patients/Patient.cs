@@ -19,9 +19,9 @@ public class Patient:
     
     public PhoneNumber PhoneNumber { get; private set; }
     public Gender Gender { get; }
-    public DateTime DateOfBirth { get; private set; }
+    public DateTime? DateOfBirth { get; private set; }
     
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-    public ICollection<Visit> PatientVisits { get; set; } = new List<Visit>();
+    public ICollection<Visit> Visits { get; set; } = new List<Visit>();
     public ICollection<TreatmentPlan> TreatmentPlans { get; set; } = new List<TreatmentPlan>();
 }

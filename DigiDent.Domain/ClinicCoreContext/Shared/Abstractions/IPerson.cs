@@ -10,5 +10,5 @@ public interface IPerson
     
     FullName FullName { get; }
     Gender Gender { get; }
-    DateTime DateOfBirth { get; }
+    DateTime? DateOfBirth { get; }
 }

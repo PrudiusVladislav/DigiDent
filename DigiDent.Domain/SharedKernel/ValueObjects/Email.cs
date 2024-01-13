@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
+using DigiDent.Domain.SharedKernel.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
 
 namespace DigiDent.Domain.SharedKernel.ValueObjects;
 

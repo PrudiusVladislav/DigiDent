@@ -4,6 +4,9 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 
+/// <summary>
+/// Represents feedback value object. Specifies the rating and comment for the visit.
+/// </summary>
 public record Feedback
 {
     private const int MinRating = 1;
@@ -13,6 +16,12 @@ public record Feedback
     
     public FeedbackRating Rating { get; private set; }
     public string? Comment { get; private set; }
+
+    internal Feedback(int rating, string? comment)
+    {
+        Rating = (FeedbackRating)rating;
+        Comment = comment;
+    }
     
     public static Result<Feedback> Create(int ratingValue, string? comment)
     {
@@ -35,10 +44,6 @@ public record Feedback
                 .CommentTooLong(MaxCommentLength));
         }
         
-        return Result.Ok(new Feedback
-        {
-            Rating = (FeedbackRating)ratingValue,
-            Comment = comment
-        });
+        return Result.Ok(new Feedback(ratingValue, comment));
     }
 }
