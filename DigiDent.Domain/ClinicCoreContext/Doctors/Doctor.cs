@@ -85,8 +85,7 @@ public class Doctor :
     public IReadOnlyCollection<DateTime> GetAvailableDateTimes(
         DateTime fromDateTime,
         DateOnly untilDate,
-        TimeSpan duration,
-        TimeSpan timeStep)
+        TimeSpan duration)
     {
         var availableDateTimes = new List<DateTime>();
         IOrderedEnumerable<WorkingDay> workingDaysToLookThrough = WorkingDays
@@ -94,22 +93,38 @@ public class Doctor :
 
         foreach (var workingDay in workingDaysToLookThrough)
         {
-            IReadOnlyList<EventTimeNode> workingDayEvents = workingDay
-                .GetWorkingDayEventsNodes(Appointments, fromDateTime);
-
-            for (var i = 0; i < workingDayEvents.Count - 1; i++)
-            {
-                var previousNode = workingDayEvents[i];
-                var nextNode = workingDayEvents[i + 1];
-
-                IReadOnlyList<DateTime> availableDateTimesBetweenNodes
-                    = EventTimeNode.GetAllTimePointsBetweenNodes(
-                        previousNode, nextNode, workingDay.Date,  duration, timeStep);
-
-                availableDateTimes.AddRange(availableDateTimesBetweenNodes);
-            }
+            var availableDateTimesForDay = workingDay
+                .GetAvailableDateTimesForDay(
+                    Appointments, fromDateTime, duration);
+            
+            availableDateTimes.AddRange(availableDateTimesForDay);
         }
 
         return availableDateTimes;
+    }
+
+    /// <summary>
+    /// Checks if the doctor is available at the given date time.
+    /// </summary>
+    /// <param name="dateTimeToCheck">The date time to check.</param>
+    /// <param name="currentDateTime">The current date time.</param>
+    /// <param name="duration">The duration of the considered appointment.</param>
+    /// <returns></returns>
+    public bool IsAvailableAt(
+        DateTime dateTimeToCheck,
+        DateTime currentDateTime,
+        TimeSpan duration)
+    {
+        var workingDay = WorkingDays.FirstOrDefault(wd => 
+            wd.Date == dateTimeToCheck.ToDateOnly());
+        if (workingDay is null) return false;
+        
+        var availableDateTimes = workingDay
+            .GetAvailableDateTimesForDay(
+                Appointments, currentDateTime, duration);
+        
+        return availableDateTimes.Any(slot => 
+            slot.Hour == dateTimeToCheck.Hour && 
+            slot.Minute == dateTimeToCheck.Minute);
     }
 }
