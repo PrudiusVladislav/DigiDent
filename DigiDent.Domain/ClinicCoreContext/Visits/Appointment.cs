@@ -26,7 +26,7 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
     
     public AppointmentStatus Status { get; private set; }
     
-    public ICollection<DentalProcedure> DentalProcedures { get; private set; } 
+    public ICollection<DentalProcedure> DentalProcedures { get; set; } 
         = new List<DentalProcedure>();
 
     internal Appointment(
