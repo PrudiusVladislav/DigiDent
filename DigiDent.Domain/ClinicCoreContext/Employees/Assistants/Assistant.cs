@@ -20,7 +20,7 @@ public class Assistant:
     public PhoneNumber PhoneNumber { get; private set; }
     
     public FullName FullName { get; private set; }
-    public Gender Gender { get; init; }
+    public Gender Gender { get; set; }
     public DateTime? DateOfBirth { get; private set; }
     
     public ICollection<WorkingDay> WorkingDays { get; set; } = new List<WorkingDay>();

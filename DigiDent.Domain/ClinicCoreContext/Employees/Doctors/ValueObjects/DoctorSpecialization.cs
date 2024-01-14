@@ -2,5 +2,11 @@
 
 public enum DoctorSpecialization
 {
-    //TODO: implement
+    GeneralDentist,
+    Orthodontist,
+    Endodontist,
+    Periodontist,
+    Prosthodontist,
+    OralSurgeon,
+    PediatricDentist
 }

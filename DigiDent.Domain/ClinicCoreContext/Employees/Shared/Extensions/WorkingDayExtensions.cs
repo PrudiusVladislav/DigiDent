@@ -31,7 +31,7 @@ public static class WorkingDayExtensions
     /// <returns></returns>
     internal static bool StartsBefore(this WorkingDay workingDay, TimeOnly time)
     {
-        return workingDay.StartTime < time;
+        return workingDay.StartEndTime.StartTime < time;
     }
 
     /// <summary>
@@ -63,12 +63,13 @@ public static class WorkingDayExtensions
             workingDayEvents.AddRange(eventsAfterFromTime);
         } else
         {
-            workingDayEvents.Add(new EventTimeNode(workingDay.StartTime, TimeSpan.Zero));
+            workingDayEvents.Add(new EventTimeNode(
+                workingDay.StartEndTime.StartTime, TimeSpan.Zero));
             workingDayEvents.AddRange(allWorkingDayAppointments);
         }
         
         var lastEventNode = new EventTimeNode(
-            workingDay.EndTime, TimeSpan.Zero);
+            workingDay.StartEndTime.EndTime, TimeSpan.Zero);
         workingDayEvents.Add(lastEventNode);
         
         return workingDayEvents.AsReadOnly();

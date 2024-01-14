@@ -1,5 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.Errors;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
@@ -9,36 +9,26 @@ public class WorkingDay: IEntity<WorkingDayId, Guid>
 {
     public WorkingDayId Id { get; init; }
     public DateOnly Date { get; private set; }
-    public TimeOnly StartTime { get; private set; }
-    public TimeOnly EndTime { get; private set; }
+    public StartEndTime StartEndTime { get; private set; }
     
     internal WorkingDay(
         WorkingDayId id,
         DateOnly date,
-        TimeOnly startTime,
-        TimeOnly endTime)
+        StartEndTime startEndTime)
     {
         Id = id;
         Date = date;
-        StartTime = startTime;
-        EndTime = endTime;
+        StartEndTime = startEndTime;
     }
     
     public static Result<WorkingDay> Create(
         DateOnly date,
-        TimeOnly startTime,
-        TimeOnly endTime)
+        StartEndTime startEndTime)
     {
-        if (startTime >= endTime)
-        {
-            return Result.Fail<WorkingDay>(ScheduleErrors
-                .WorkingDayStartTimeIsGreaterThanEndTime);
-        }
-        
+        var workingDayId = TypedId.New<WorkingDayId>();
         return Result.Ok(new WorkingDay(
-            new WorkingDayId(Guid.NewGuid()), 
+            workingDayId, 
             date,
-            startTime,
-            endTime));
+            startEndTime));
     }
 }

@@ -18,10 +18,12 @@ public class Patient:
     public Email Email { get; private set; }
     
     public PhoneNumber PhoneNumber { get; private set; }
-    public Gender Gender { get; }
+    public Gender Gender { get; set; }
     public DateTime? DateOfBirth { get; private set; }
     
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     public ICollection<Visit> Visits { get; set; } = new List<Visit>();
     public ICollection<TreatmentPlan> TreatmentPlans { get; set; } = new List<TreatmentPlan>();
+    
+    
 }
