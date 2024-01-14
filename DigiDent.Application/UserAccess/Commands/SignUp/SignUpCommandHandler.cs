@@ -43,7 +43,7 @@ public class SignUpCommandHandler
             return validationResult.MapToType<AuthenticationResponse>();
         
         var userToAdd = User.Create(
-            TypedId<Guid>.NewGuid<UserId>(),
+            TypedId.New<UserId>(),
             fullNameResult.Value!,
             emailResult.Value!,
             passwordResult.Value!,

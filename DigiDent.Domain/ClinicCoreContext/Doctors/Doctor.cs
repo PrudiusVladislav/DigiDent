@@ -21,7 +21,7 @@ public class Doctor :
     public Email Email { get; private set; }
 
     public PhoneNumber PhoneNumber { get; private set; }
-    public Gender Gender { get; }
+    public Gender Gender { get; private set; }
     public DateTime? DateOfBirth { get; private set; }
 
     public DoctorSpecialization? Specialization { get; private set; }
@@ -49,11 +49,8 @@ public class Doctor :
         Email email,
         PhoneNumber phoneNumber)
     {
-        return new Doctor(
-            new DoctorId(Guid.NewGuid()),
-            fullName,
-            email,
-            phoneNumber);
+        var doctorId = TypedId.New<DoctorId>();
+        return new Doctor(doctorId, fullName, email, phoneNumber);
     }
 
     public void SetSpecialization(DoctorSpecialization specialization)
@@ -66,9 +63,7 @@ public class Doctor :
     public Result SetBiography(string biography)
     {
         if (biography.Length > BiographyMaxLength)
-        {
             return Result.Fail(DoctorErrors.BiographyIsTooLong);
-        }
 
         Biography = biography;
         return Result.Ok();
@@ -80,7 +75,6 @@ public class Doctor :
     /// <param name="fromDateTime">The date time from which the available time slots are returned.</param>
     /// <param name="untilDate">The date until which the available date times are returned.</param>
     /// <param name="duration">The duration of the appointment.</param>
-    /// <param name="timeStep">The time step between the available date times.</param>
     /// <returns></returns>
     public IReadOnlyCollection<DateTime> GetAvailableDateTimes(
         DateTime fromDateTime,
