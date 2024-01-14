@@ -2,6 +2,7 @@
 
 public enum DoctorSpecialization
 {
+    NotSpecified,
     GeneralDentist,
     Orthodontist,
     Endodontist,

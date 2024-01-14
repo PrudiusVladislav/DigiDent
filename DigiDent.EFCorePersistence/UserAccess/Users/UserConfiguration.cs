@@ -11,22 +11,23 @@ public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<User> builder)
     {
-        builder.Property(u => u.FullName).HasConversion(
-            fullName => fullName.ToString(),
-            value => FullName.CreateFromNameParts(
-                value.Split(' ', StringSplitOptions.None)))
+        builder
+            .Property(u => u.FullName)
+            .HasConversion(ValueObjectsConverters.FullNameConverter)
             .HasColumnName("Full Name");
                 
         
-        builder.Property(u => u.Email).HasConversion(
-            email => email.Value,
-            value => new Email(value));
+        builder
+            .Property(u => u.Email)
+            .HasConversion(ValueObjectsConverters.EmailConverter);
 
-        builder.Property(u => u.Password).HasConversion(
-            password => password.PasswordHash,
-            value => new Password(value));
+        builder
+            .Property(u => u.Password)
+            .HasConversion(ValueObjectsConverters.PasswordConverter);
         
-        builder.Property(u => u.Role).HasConversion(
+        builder
+            .Property(u => u.Role)
+            .HasConversion(
             r => r.ToString(),
             value => Enum.Parse<Role>(value));
 

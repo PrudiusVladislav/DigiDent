@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
+﻿using System.Reflection;
+using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Patients;
@@ -28,5 +29,17 @@ public class ClinicCoreDbContext: DbContext
     public ClinicCoreDbContext(DbContextOptions<ClinicCoreDbContext> options)
         : base(options)
     {
+    }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        //TODO: resolve the hierarchy mappings here
+        
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            Assembly.GetExecutingAssembly(),
+            type => type
+                .GetCustomAttributes(typeof(ClinicCoreEntityConfigurationAttribute), true)
+                .Any()
+        );
     }
 }

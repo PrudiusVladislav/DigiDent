@@ -25,9 +25,9 @@ public class Doctor :
     public PhoneNumber PhoneNumber { get; private set; }
     
     public Gender Gender { get; set; }
-    public DateTime? DateOfBirth { get; private set; }
+    public DateOnly? DateOfBirth { get; private set; }
 
-    public DoctorSpecialization? Specialization { get; private set; }
+    public DoctorSpecialization Specialization { get; private set; }
     public string? Biography { get; private set; }
 
     public ICollection<DentalProcedure> ProvidedServices { get; set; } = new List<DentalProcedure>();

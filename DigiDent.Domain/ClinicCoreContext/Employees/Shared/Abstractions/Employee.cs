@@ -16,7 +16,7 @@ public static class Employee
     /// <param name="birthDate"> The birth date of the employee. </param>
     /// <typeparam name="T"> The type of the employee. </typeparam>
     /// <returns></returns>
-    public static Result ValidateBirthDate<T>(DateTime birthDate)
+    public static Result ValidateBirthDate<T>(DateOnly birthDate)
         where T : class, IEmployee
     {
         var age = DateTime.UtcNow.Year - birthDate.Year;

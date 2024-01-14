@@ -17,6 +17,14 @@ public record FullName
         LastName = lastName;
     }
     
+    // For EF Core
+    internal FullName(string fullName)
+    {
+        var names = fullName.Split(' ');
+        FirstName = names[0];
+        LastName = names[1];
+    }
+    
     public static Result<FullName> Create(string firstName, string lastName)
     {
         var firstNameValidationResult = ValidateFirstName(firstName);
@@ -32,12 +40,6 @@ public record FullName
     public override string ToString()
     {
         return $"{FirstName} {LastName}";
-    }
-
-    //for ef core
-    internal static FullName CreateFromNameParts(string[] nameParts)
-    {
-        return new FullName(nameParts[0], nameParts[1]);
     }
 
     private static Result ValidateFirstName(string firstName)

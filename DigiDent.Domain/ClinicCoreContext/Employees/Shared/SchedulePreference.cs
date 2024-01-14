@@ -1,8 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Assistants.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
@@ -15,13 +13,13 @@ public class SchedulePreference: IEntity<SchedulePreferenceId, Guid>
     public StartEndTime? StartEndTime { get; private set; }
     public bool IsSetAsDayOff { get; private set; }
     
-    public IEmployeeId EmployeeId { get; private set; }
+    public IEmployeeId<Guid> EmployeeId { get; private set; }
     public IEmployee Employee { get; private set; } = null!;
     
     internal SchedulePreference(
         SchedulePreferenceId id,
         DateOnly date,
-        IEmployeeId employeeId,
+        IEmployeeId<Guid> employeeId,
         StartEndTime? startEndTime=null,
         bool isSetAsDayOff=true)
     {
@@ -34,7 +32,7 @@ public class SchedulePreference: IEntity<SchedulePreferenceId, Guid>
     
     public static Result<SchedulePreference> Create(
         DateOnly date,
-        IEmployeeId employeeId,
+        IEmployeeId<Guid> employeeId,
         StartEndTime? startEndTime=null,
         bool isSetAsDayOff=true)
     {
