@@ -82,8 +82,11 @@ public static class EventTimeNodeExtensions
         resultNodes = nodesList.GetRange(startIndex, nodesList.Count - startIndex);
         if (isNextNode is false)
         {
+            // If the first node, that starts before the given time,
+            // ends also before the given time,
+            // then the first node is replaced with event node of the given time.
             if (resultNodes.First().EndTime < fromTime)
-                resultNodes.First().EndTime = fromTime;
+                resultNodes[0] = new EventTimeNode(fromTime, TimeSpan.Zero);
         }
         
         return resultNodes;
