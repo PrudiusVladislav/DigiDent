@@ -3,7 +3,7 @@ using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 
 public class WorkingDay: IEntity<WorkingDayId, Guid>
 {

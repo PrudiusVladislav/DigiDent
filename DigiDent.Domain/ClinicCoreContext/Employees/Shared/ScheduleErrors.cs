@@ -1,6 +1,7 @@
-﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.Errors;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 
 public static class ScheduleErrors
 {

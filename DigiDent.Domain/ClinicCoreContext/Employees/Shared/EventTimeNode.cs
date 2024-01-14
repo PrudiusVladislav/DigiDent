@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 
 internal class EventTimeNode
 {

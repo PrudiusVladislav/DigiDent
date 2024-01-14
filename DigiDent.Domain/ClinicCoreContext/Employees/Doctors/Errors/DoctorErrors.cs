@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Doctors.Errors;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Doctors.Errors;
 
 public static class DoctorErrors
 {

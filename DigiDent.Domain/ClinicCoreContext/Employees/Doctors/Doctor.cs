@@ -1,5 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Doctors.Errors;
-using DigiDent.Domain.ClinicCoreContext.Doctors.ValueObjects;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.Errors;
+using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
@@ -8,7 +11,7 @@ using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Doctors;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 
 public class Doctor :
     AggregateRoot,
@@ -21,7 +24,7 @@ public class Doctor :
     public Email Email { get; private set; }
 
     public PhoneNumber PhoneNumber { get; private set; }
-    public Gender Gender { get; private set; }
+    public Gender Gender { get; set; }
     public DateTime? DateOfBirth { get; private set; }
 
     public DoctorSpecialization? Specialization { get; private set; }

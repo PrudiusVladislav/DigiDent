@@ -1,8 +1,8 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Shared.Constants;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 
 public static class WorkingDayExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Shared.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 
 /// <summary>
 /// Contains helper methods for working with employees.

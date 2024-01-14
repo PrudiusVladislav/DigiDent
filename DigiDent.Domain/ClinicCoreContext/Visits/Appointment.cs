@@ -1,5 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Doctors.ValueObjects;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
+using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;

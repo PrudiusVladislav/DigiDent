@@ -1,11 +1,12 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Assistants.ValueObjects;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Assistants.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Assistants;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
 
 public class Assistant: 
     AggregateRoot,
@@ -41,8 +42,9 @@ public class Assistant:
         PhoneNumber phoneNumber,
         FullName fullName)
     {
+        var assistantId = TypedId.New<AssistantId>();
         return new Assistant(
-            new AssistantId(Guid.NewGuid()),
+            assistantId,
             email,
             phoneNumber,
             fullName);
