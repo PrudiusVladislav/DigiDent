@@ -15,15 +15,16 @@ public class Assistant:
     IEmployee
 {
     public AssistantId Id { get; init; }
-
     public Email Email { get; private set; }
+    public FullName FullName { get; private set; }
     public PhoneNumber PhoneNumber { get; private set; }
     
-    public FullName FullName { get; private set; }
     public Gender Gender { get; set; }
     public DateTime? DateOfBirth { get; private set; }
     
     public ICollection<WorkingDay> WorkingDays { get; set; } = new List<WorkingDay>();
+    public ICollection<SchedulePreference> SchedulePreferences { get; set; } 
+        = new List<SchedulePreference>();
 
     internal Assistant(
         AssistantId id,

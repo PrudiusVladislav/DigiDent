@@ -13,7 +13,7 @@ public class TreatmentPlan: IEntity<TreatmentPlanId, Guid>
     public TreatmentPlanDetails Details { get; private set; }
     
     public PatientId PatientId { get; init; }
-    public Patient Patient { get; init; }
+    public Patient Patient { get; init; } = null!;
     
     public DateOnly DateOfStart { get; init; }
     public DateOnly DateOfFinish { get; private set; }
@@ -39,8 +39,9 @@ public class TreatmentPlan: IEntity<TreatmentPlanId, Guid>
         TreatmentPlanDetails details,
         PatientId patientId)
     {
+        var treatmentPlanId = TypedId.New<TreatmentPlanId>();
         return new TreatmentPlan(
-            new TreatmentPlanId(Guid.NewGuid()),
+            treatmentPlanId,
             details,
             patientId,
             DateOnly.FromDateTime(DateTime.UtcNow),

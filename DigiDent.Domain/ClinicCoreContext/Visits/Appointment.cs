@@ -13,10 +13,10 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
     public AppointmentId Id { get; init; }
     
     public DoctorId DoctorId { get; private set; }
-    public Doctor Doctor { get; private set; }
+    public Doctor Doctor { get; private set; } = null!;
     
     public PatientId PatientId { get; private set; }
-    public Patient Patient { get; private set; }
+    public Patient Patient { get; private set; } = null!;
     
     public DateTime VisitDateTime { get; private set; }
     public TimeSpan Duration { get; private set; }
@@ -52,8 +52,9 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
         TimeSpan duration,
         AppointmentStatus status)
     {
+        var appointmentId = TypedId.New<AppointmentId>();
         return new Appointment(
-            new AppointmentId(Guid.NewGuid()),
+            appointmentId,
             doctorId,
             patientId,
             visitDateTime,

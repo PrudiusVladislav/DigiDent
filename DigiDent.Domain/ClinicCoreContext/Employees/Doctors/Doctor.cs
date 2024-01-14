@@ -22,8 +22,8 @@ public class Doctor :
     public DoctorId Id { get; init; }
     public FullName FullName { get; private set; }
     public Email Email { get; private set; }
-
     public PhoneNumber PhoneNumber { get; private set; }
+    
     public Gender Gender { get; set; }
     public DateTime? DateOfBirth { get; private set; }
 
@@ -34,6 +34,8 @@ public class Doctor :
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     public ICollection<Visit> PastVisits { get; set; } = new List<Visit>();
     public ICollection<WorkingDay> WorkingDays { get; set; } = new List<WorkingDay>();
+    public ICollection<SchedulePreference> SchedulePreferences { get; set; } 
+        = new List<SchedulePreference>();
 
     internal Doctor(
         DoctorId id,

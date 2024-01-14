@@ -15,10 +15,4 @@ public static class DentalProcedureErrors
             ErrorType.Validation,
             nameof(DentalProcedure),
             $"Description must be less than {maxLength} characters long.");
-    
-    public static Error UsualDurationIsNotPositive
-        => new Error(
-            ErrorType.Validation,
-            nameof(DentalProcedure),
-            "Usual duration must be positive.");
 }

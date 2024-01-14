@@ -23,7 +23,7 @@ public class TreatmentPlanDetails
                 .TreatmentPlanDetailsAreInvalid);
         }
         
-        return Result.Ok(
-            new TreatmentPlanDetails(diagnosis, planDescription));
+        return Result.Ok(new TreatmentPlanDetails(
+            diagnosis, planDescription));
     }
 }
