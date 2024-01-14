@@ -1,6 +1,9 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Doctors;
@@ -14,14 +17,27 @@ public class DoctorsConfiguration
         base.ConfigureEntity(builder);
 
         builder
-            .Property(p => p.Specialization)
+            .Property(d => d.Specialization)
             .HasConversion(EnumerationsConverters
                 .EnumToStringConverter<DoctorSpecialization>());
 
         builder
-            .Property(p => p.Biography)
-            .HasMaxLength(1000);
+            .HasMany(d => d.ProvidedServices)
+            .WithMany(dp => dp.Doctors)
+            .UsingEntity(je => je.ToTable("DoctorsProvidedServices"));
         
+        builder
+            .HasMany(d => d.Appointments)
+            .WithOne(a => a.Doctor)
+            .HasForeignKey(a => a.DoctorId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder
+            .HasMany(d => d.PastVisits)
+            .WithOne()
+            .HasForeignKey(pv => pv.DoctorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         //TODO: configure the relations and collections
     }
 }

@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
+using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
 
@@ -10,6 +11,8 @@ public class DentalProcedure: IEntity<DentalProcedureId, Guid>
     public DentalProcedureDetails Details { get; private set; }
     public TimeDuration UsualDuration { get; private set; }
     public Money Price { get; private set; }
+    
+    public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
     
     internal DentalProcedure(
         DentalProcedureId id,
