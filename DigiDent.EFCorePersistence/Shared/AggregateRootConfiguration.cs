@@ -3,6 +3,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.Shared;
 
+/// <summary>
+/// Base class for aggregate root configuration.
+/// </summary>
+/// <typeparam name="TId">The type of the entity id.</typeparam>
+/// <typeparam name="TIdValue">The primitive type of the entity id value.</typeparam>
+/// <typeparam name="TAggregateRoot">The type of the aggregate root instance.</typeparam>
 public abstract class AggregateRootConfiguration<TId, TIdValue, TAggregateRoot>
     : BaseEntityConfiguration<TId, TIdValue, TAggregateRoot>
     where TId : ITypedId<TIdValue>
@@ -17,5 +23,8 @@ public abstract class AggregateRootConfiguration<TId, TIdValue, TAggregateRoot>
         ConfigureAggregateRoot(builder); 
     }
 
+    /// <summary>
+    /// Must be implemented in the derived classes to apply the aggregate root specific configuration.
+    /// </summary>
     protected abstract void ConfigureAggregateRoot(EntityTypeBuilder<TAggregateRoot> builder);
 }

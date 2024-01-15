@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigiDent.EFCorePersistence.Shared;
 
+/// <summary>
+/// Contains EF Core value objects converters for shared value objects.
+/// </summary>
 public static class ValueObjectsConverters
 {
     public static ValueConverter<Email, string> EmailConverter =>
