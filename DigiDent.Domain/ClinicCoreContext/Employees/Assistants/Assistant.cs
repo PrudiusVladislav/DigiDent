@@ -1,6 +1,7 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Assistants.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
@@ -10,9 +11,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
 
 public class Assistant: 
     AggregateRoot,
-    IEntity<AssistantId, Guid>,
-    IPerson,
-    IEmployee
+    IEmployee<AssistantId, Guid>
 {
     public AssistantId Id { get; init; }
     public Email Email { get; private set; }
@@ -21,6 +20,7 @@ public class Assistant:
     
     public Gender Gender { get; set; }
     public DateOnly? DateOfBirth { get; private set; }
+    public EmployeeStatus Status { get; set; }
     
     public ICollection<WorkingDay> WorkingDays { get; set; } = new List<WorkingDay>();
     public ICollection<SchedulePreference> SchedulePreferences { get; set; } 

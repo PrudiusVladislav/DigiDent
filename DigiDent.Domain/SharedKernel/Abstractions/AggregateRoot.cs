@@ -4,7 +4,7 @@
 /// Base class for all aggregate roots. Implements <see cref="IHasDomainEvents"/>.
 /// </summary>
 public abstract class AggregateRoot
-    : IHasDomainEvents 
+    : IAggregateRoot
 {
     private readonly List<DomainEvent> _domainEvents = [];
     

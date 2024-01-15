@@ -3,7 +3,7 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
-using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits;
@@ -15,9 +15,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 
 public class Doctor :
     AggregateRoot,
-    IEntity<DoctorId, Guid>,
-    IPerson,
-    IEmployee
+    IEmployee<DoctorId, Guid>
 {
     public DoctorId Id { get; init; }
     public FullName FullName { get; private set; }
@@ -26,10 +24,11 @@ public class Doctor :
     
     public Gender Gender { get; set; }
     public DateOnly? DateOfBirth { get; private set; }
-
+    public EmployeeStatus Status { get; set; }
+    
     public DoctorSpecialization Specialization { get; private set; }
     public string? Biography { get; private set; }
-
+    
     public ICollection<DentalProcedure> ProvidedServices { get; set; } = new List<DentalProcedure>();
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     public ICollection<Visit> PastVisits { get; set; } = new List<Visit>();

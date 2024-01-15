@@ -9,9 +9,9 @@ namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 
 public class PersonConfiguration<TId, TIdValue, TPersonEntity>
     : AggregateRootConfiguration<TId, TIdValue, TPersonEntity>
-    where TId : TypedId<TIdValue>, IPersonId<TIdValue>
+    where TId : IPersonId<TIdValue>
     where TIdValue : notnull
-    where TPersonEntity : AggregateRoot, IEntity<TId, TIdValue>, IPerson
+    where TPersonEntity : class, IPerson, IAggregateRoot, IEntity<TId, TIdValue>
     
 {
     protected override void ConfigureEntity(EntityTypeBuilder<TPersonEntity> builder)

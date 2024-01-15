@@ -1,5 +1,7 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+﻿using DigiDent.Domain.SharedKernel.Abstractions;
 
-public interface IPersonId<T>
+namespace DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+
+public interface IPersonId<T>: ITypedId<T>
 {
 }

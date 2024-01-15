@@ -5,9 +5,9 @@ namespace DigiDent.EFCorePersistence.Shared;
 
 public abstract class AggregateRootConfiguration<TId, TIdValue, TAggregateRoot>
     : BaseEntityConfiguration<TId, TIdValue, TAggregateRoot>
-    where TId : TypedId<TIdValue>
+    where TId : ITypedId<TIdValue>
     where TIdValue : notnull
-    where TAggregateRoot : AggregateRoot, IEntity<TId, TIdValue>
+    where TAggregateRoot : class, IAggregateRoot, IEntity<TId, TIdValue>
 {
     public override void Configure(EntityTypeBuilder<TAggregateRoot> builder)
     {

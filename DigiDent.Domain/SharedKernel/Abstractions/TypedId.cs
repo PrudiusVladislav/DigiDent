@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="Value">The primitive value of the identifier.</param>
 /// <typeparam name="T">The type of the identifier.</typeparam>
-public abstract record TypedId<T>(T Value);
+public abstract record TypedId<T>(T Value): ITypedId<T>;
 
 /// <summary>
 /// Class that contains factory methods for creating <see cref="TypedId{TId}"/>s.
@@ -17,7 +17,7 @@ public static class TypedId
     /// </summary>
     /// <typeparam name="TId">The type of the <see cref="TypedId{TId}"/>.</typeparam>
     /// <returns></returns>
-    public static TId New<TId>() where TId : TypedId<Guid>
+    public static TId New<TId>() where TId : ITypedId<Guid>
     {
         return Create<Guid, TId>(Guid.NewGuid());
     }
@@ -30,7 +30,7 @@ public static class TypedId
     /// <typeparam name="TId">The type of the <see cref="TypedId{TId}"/>.</typeparam>
     /// <returns></returns>
     public static TId Create<TIdValue, TId>(TIdValue value) 
-        where TId : TypedId<TIdValue>
+        where TId : ITypedId<TIdValue>
     {
         return (TId)Activator.CreateInstance(typeof(TId), value)!;
     }

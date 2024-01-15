@@ -6,7 +6,7 @@ namespace DigiDent.EFCorePersistence.Shared;
 
 public abstract class BaseEntityConfiguration<TId, TIdValue, TEntity>
     : IEntityTypeConfiguration<TEntity>
-    where TId : TypedId<TIdValue>
+    where TId : ITypedId<TIdValue>
     where TIdValue : notnull
     where TEntity : class, IEntity<TId, TIdValue>
 {
