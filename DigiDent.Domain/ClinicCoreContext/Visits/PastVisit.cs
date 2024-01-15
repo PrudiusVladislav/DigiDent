@@ -9,7 +9,8 @@ using DigiDent.Domain.SharedKernel.Abstractions;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
-public class Visit: AggregateRoot, IEntity<VisitId, Guid>
+public class PastVisit : 
+    IEntity<VisitId, Guid>
 {
     public VisitId Id { get; init; }
     
@@ -22,26 +23,25 @@ public class Visit: AggregateRoot, IEntity<VisitId, Guid>
     public TreatmentPlanId? TreatmentPlanId { get; init; }
     public TreatmentPlan? TreatmentPlan { get; init; }
     
+    public DateTime VisitDateTime { get; init; }
+    
+    public Money PricePaid { get; init; }
+    public Feedback? Feedback { get; init; }
+    public VisitStatus Status { get; init; }
+    
     /// <summary>
-    /// String with procedures separated by comma.
+    /// A list of procedures (names) done during the visit.
     /// </summary>
     //TODO: consider using JSON to store procedures.
-    public string ProceduresDone { get; init; }
+    public IEnumerable<string> ProceduresDone { get; init; }
     
-    public DateTime VisitDateTime { get; private set; }
-    
-    public Money PricePaid { get; private set; }
-    public Feedback? Feedback { get; private set; }
-    
-    public VisitStatus Status { get; private set; }
-    
-    internal Visit(
+    internal PastVisit(
         VisitId id,
         DoctorId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
         Money pricePaid,
-        string proceduresDone)
+        IEnumerable<string> proceduresDone)
     {
         Id = id;
         DoctorId = doctorId;
@@ -51,17 +51,17 @@ public class Visit: AggregateRoot, IEntity<VisitId, Guid>
         ProceduresDone = proceduresDone;
     }
     
-    public static Visit Create(
+    public static PastVisit Create(
         DoctorId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
         Money pricePaid,
-        string proceduresDone)
+        IEnumerable<string> proceduresDone)
     {
         //TODO: if decided to store the procedures as JSON, then
         //consider passing the list of procedures instead of string into the Create method.
         var visitId = TypedId.New<VisitId>();
-        return new Visit(
+        return new PastVisit(
             visitId,
             doctorId,
             patientId,

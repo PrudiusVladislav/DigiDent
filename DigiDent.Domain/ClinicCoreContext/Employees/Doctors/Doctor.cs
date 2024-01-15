@@ -31,7 +31,7 @@ public class Doctor :
     
     public ICollection<DentalProcedure> ProvidedServices { get; set; } = new List<DentalProcedure>();
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-    public ICollection<Visit> PastVisits { get; set; } = new List<Visit>();
+    public ICollection<PastVisit> PastVisits { get; set; } = new List<PastVisit>();
     public ICollection<WorkingDay> WorkingDays { get; set; } = new List<WorkingDay>();
     public ICollection<SchedulePreference> SchedulePreferences { get; set; } 
         = new List<SchedulePreference>();

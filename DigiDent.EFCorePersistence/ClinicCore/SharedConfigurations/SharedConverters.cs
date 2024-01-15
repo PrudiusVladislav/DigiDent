@@ -18,4 +18,9 @@ public static class SharedConverters
                 .Serialize(se, JsonSerializerOptions.Default),
             value => JsonSerializer
                 .Deserialize<T>(value, JsonSerializerOptions.Default)!);
+    
+    public static ValueConverter<TimeDuration, TimeSpan> TimeDurationConverter =>
+        new ValueConverter<TimeDuration, TimeSpan>(
+            duration => duration.Duration,
+            value => new TimeDuration(value));
 }

@@ -21,7 +21,7 @@ public class ClinicCoreDbContext: DbContext
     public DbSet<Patient> Patients { get; set; } = null!;
     
     public DbSet<Appointment> Appointments { get; set; } = null!;
-    public DbSet<Visit> Visits { get; set; } = null!;
+    public DbSet<PastVisit> PastVisits { get; set; } = null!;
     
     public DbSet<DentalProcedure> DentalProcedures { get; set; } = null!;
     public DbSet<TreatmentPlan> TreatmentPlans { get; set; } = null!;

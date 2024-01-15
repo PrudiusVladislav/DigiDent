@@ -21,7 +21,7 @@ public class Patient:
     public DateOnly? DateOfBirth { get; private set; }
     
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-    public ICollection<Visit> PastVisits { get; set; } = new List<Visit>();
+    public ICollection<PastVisit> PastVisits { get; set; } = new List<PastVisit>();
     public ICollection<TreatmentPlan> TreatmentPlans { get; set; } = new List<TreatmentPlan>();
     
     internal Patient(

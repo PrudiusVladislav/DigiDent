@@ -24,9 +24,7 @@ public class DentalProcedureConfiguration
 
         builder
             .Property(procedure => procedure.UsualDuration)
-            .HasConversion(
-                duration => duration.Duration,
-                value => new TimeDuration(value));
+            .HasConversion(SharedConverters.TimeDurationConverter);
 
         builder
             .Property(procedure => procedure.Price)

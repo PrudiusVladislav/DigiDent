@@ -21,7 +21,7 @@ public class TreatmentPlan: IEntity<TreatmentPlanId, Guid>
     public TreatmentPlanStatus Status { get; private set; }
     
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-    public ICollection<Visit> PastVisits { get; set; } = new List<Visit>();
+    public ICollection<PastVisit> PastVisits { get; set; } = new List<PastVisit>();
 
     internal TreatmentPlan(
         TreatmentPlanId id,

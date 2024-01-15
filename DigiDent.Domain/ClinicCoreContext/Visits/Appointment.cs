@@ -3,12 +3,15 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
+using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
-public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
+public class Appointment : 
+    AggregateRoot,
+    IEntity<AppointmentId, Guid>
 {
     public AppointmentId Id { get; init; }
     
@@ -19,7 +22,7 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
     public Patient Patient { get; private set; } = null!;
     
     public DateTime VisitDateTime { get; private set; }
-    public TimeSpan Duration { get; private set; }
+    public TimeDuration Duration { get; private set; }
     
     public TreatmentPlanId? TreatmentPlanId { get; private set; }
     public TreatmentPlan? TreatmentPlan { get; private set; }
@@ -34,7 +37,7 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
         DoctorId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
-        TimeSpan duration,
+        TimeDuration duration,
         AppointmentStatus status)
     {
         Id = id;
@@ -49,7 +52,7 @@ public class Appointment: AggregateRoot, IEntity<AppointmentId, Guid>
         DoctorId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
-        TimeSpan duration,
+        TimeDuration duration,
         AppointmentStatus status)
     {
         var appointmentId = TypedId.New<AppointmentId>();

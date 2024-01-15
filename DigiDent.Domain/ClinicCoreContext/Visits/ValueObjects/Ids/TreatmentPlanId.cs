@@ -2,4 +2,4 @@
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 
-public record TreatmentPlanId(Guid Value): TypedId<Guid>(Value);
+public record TreatmentPlanId(Guid Value): ITypedId<Guid>;

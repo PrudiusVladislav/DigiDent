@@ -33,6 +33,6 @@ public static class AppointmentExtensions
         return appointments
             .Select(a => new EventTimeNode(
                 TimeOnly.FromDateTime(a.VisitDateTime),
-                a.Duration));
+                a.Duration.Duration));
     }
 }

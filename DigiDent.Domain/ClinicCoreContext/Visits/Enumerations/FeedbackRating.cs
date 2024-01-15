@@ -2,6 +2,7 @@
 
 public enum FeedbackRating
 {
+   NotSpecified = 0,
    Awful = 1,
    Bad = 2,
    Average = 3,
