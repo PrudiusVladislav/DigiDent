@@ -1,17 +1,22 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 
+/// <summary>
+/// Contains the default configuration for entities that implement <see cref="IPerson{TId,TIdValue}"/>.
+/// </summary>
+/// <typeparam name="TId"> The type of the person id. </typeparam>
+/// <typeparam name="TIdValue"> The primitive type of the person id value. </typeparam>
+/// <typeparam name="TPersonEntity">The person type. Should implement <see cref="IPerson{TId,TIdValue}"/>. </typeparam>
 public class PersonConfiguration<TId, TIdValue, TPersonEntity>
     : AggregateRootConfiguration<TId, TIdValue, TPersonEntity>
     where TId : IPersonId<TIdValue>
     where TIdValue : notnull
-    where TPersonEntity : class, IPerson, IAggregateRoot, IEntity<TId, TIdValue>
+    where TPersonEntity : class, IPerson<TId, TIdValue>
     
 {
     protected override void ConfigureEntity(EntityTypeBuilder<TPersonEntity> builder)

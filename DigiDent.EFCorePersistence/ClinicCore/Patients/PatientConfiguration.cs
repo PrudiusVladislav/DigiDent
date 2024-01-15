@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DigiDent.EFCorePersistence.ClinicCore.Patients;
 
 [ClinicCoreEntityConfiguration]
-public class PatientConfiguration: PersonConfiguration<PatientId, Guid, Patient>
+public class PatientConfiguration
+    : PersonConfiguration<PatientId, Guid, Patient>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<Patient> builder)
     {

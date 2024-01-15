@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 
+/// <summary>
+/// Contains ValueConverters that are used in multiple configurations in the ClinicCoreContext.
+/// </summary>
 public static class SharedConverters
 {
     public static ValueConverter<Money, decimal> MoneyConverter =>

@@ -9,8 +9,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Patients;
 
 public class Patient:
     AggregateRoot,
-    IEntity<PatientId, Guid>,
-    IPerson
+    IPerson<PatientId, Guid>
 {
     public PatientId Id { get; init; }
     public FullName FullName { get; private set; }
