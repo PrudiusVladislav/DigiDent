@@ -1,6 +1,7 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -29,9 +30,7 @@ public class DentalProcedureConfiguration
 
         builder
             .Property(procedure => procedure.Price)
-            .HasConversion(
-                price => price.Amount,
-                value => new Money(value));
+            .HasConversion(SharedConverters.MoneyConverter);
 
     }
 }
