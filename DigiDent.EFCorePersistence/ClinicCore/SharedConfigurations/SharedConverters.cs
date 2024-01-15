@@ -12,10 +12,10 @@ public static class SharedConverters
             money => money.Amount,
             value => new Money(value));
     
-    public static ValueConverter<StartEndTime, string> StartEndTimeConverter =>
-        new ValueConverter<StartEndTime, string>(
+    public static ValueConverter<T, string> JsonSerializeConverter<T>() =>
+        new ValueConverter<T, string>(
             se => JsonSerializer
                 .Serialize(se, JsonSerializerOptions.Default),
             value => JsonSerializer
-                .Deserialize<StartEndTime>(value, JsonSerializerOptions.Default)!);
+                .Deserialize<T>(value, JsonSerializerOptions.Default)!);
 }

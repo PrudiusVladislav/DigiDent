@@ -7,15 +7,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Schedule;
 
 [ClinicCoreEntityConfiguration]
-public class WorkingDayConfiguration
-    : BaseEntityConfiguration<WorkingDayId, Guid, WorkingDay>
+public class SchedulePreferenceConfiguration
+    : BaseEntityConfiguration<SchedulePreferenceId, Guid, SchedulePreference>
 {
-    protected override void ConfigureEntity(EntityTypeBuilder<WorkingDay> builder)
+    protected override void ConfigureEntity(EntityTypeBuilder<SchedulePreference> builder)
     {
         builder
-            .Property(wd => wd.StartEndTime)
+            .Property(sp => sp.StartEndTime)
             .HasConversion(SharedConverters
-                .JsonSerializeConverter<StartEndTime>());
-
+                .JsonSerializeConverter<StartEndTime?>());
     }
 }
