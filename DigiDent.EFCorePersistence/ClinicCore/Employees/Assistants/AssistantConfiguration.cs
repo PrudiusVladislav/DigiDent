@@ -2,7 +2,7 @@
 using DigiDent.Domain.ClinicCoreContext.Employees.Assistants.ValueObjects;
 using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Assistants;
+namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Assistants;
 
 [ClinicCoreEntityConfiguration]
 public class AssistantConfiguration
