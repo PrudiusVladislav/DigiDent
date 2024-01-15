@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.UserAccess.Users;
 
+[UserAccessEntityConfiguration]
 public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<User> builder)

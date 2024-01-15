@@ -10,7 +10,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Doctors;
 
 [ClinicCoreEntityConfiguration]
 public class DoctorsConfiguration
-    : PersonConfiguration<DoctorId, Guid, Doctor>
+    : EmployeeConfiguration<DoctorId, Guid, Doctor>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<Doctor> builder)
     {

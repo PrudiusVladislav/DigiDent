@@ -1,4 +1,5 @@
-﻿using DigiDent.Application.UserAccess.Tokens;
+﻿using System.Reflection;
+using DigiDent.Application.UserAccess.Tokens;
 using DigiDent.Domain.UserAccessContext.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,11 @@ public class UserAccessDbContext: DbContext
     {
         //TODO: Consider dividing the bounded contexts into separate schemas
         //modelBuilder.HasDefaultSchema()
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserAccessDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            Assembly.GetExecutingAssembly(),
+            type => type
+                .GetCustomAttributes(typeof(UserAccessEntityConfigurationAttribute), true)
+                .Any());
     }
     
 }
