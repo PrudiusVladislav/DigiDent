@@ -28,9 +28,8 @@ public class UserConfiguration: AggregateRootConfiguration<UserId, Guid, User>
         
         builder
             .Property(u => u.Role)
-            .HasConversion(
-            r => r.ToString(),
-            value => Enum.Parse<Role>(value));
+            .HasConversion(EnumerationsConverter
+                .EnumToStringConverter<Role>());
 
         builder.HasData(new List<User>{ User.TempAdmin });
     }

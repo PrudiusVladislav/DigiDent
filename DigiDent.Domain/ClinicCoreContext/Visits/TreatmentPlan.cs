@@ -16,10 +16,12 @@ public class TreatmentPlan: IEntity<TreatmentPlanId, Guid>
     public Patient Patient { get; init; } = null!;
     
     public DateOnly DateOfStart { get; init; }
-    public DateOnly DateOfFinish { get; private set; }
+    public DateOnly? DateOfFinish { get; private set; }
     
     public TreatmentPlanStatus Status { get; private set; }
-    public ICollection<Visit> Visits { get; set; } = new List<Visit>();
+    
+    public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+    public ICollection<Visit> PastVisits { get; set; } = new List<Visit>();
 
     internal TreatmentPlan(
         TreatmentPlanId id,

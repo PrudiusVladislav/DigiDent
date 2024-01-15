@@ -31,7 +31,7 @@ public class PersonConfiguration<TId, TIdValue, TPersonEntity>
 
         builder
             .Property(p => p.Gender)
-            .HasConversion(EnumerationsConverters
+            .HasConversion(EnumerationsConverter
                 .EnumToStringConverter<Gender>());
     }
 

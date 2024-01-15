@@ -1,4 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
+using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
@@ -11,23 +13,20 @@ public class Visit: AggregateRoot, IEntity<VisitId, Guid>
 {
     public VisitId Id { get; init; }
     
-    public DoctorId DoctorId { get; private set; }
-    public string DoctorFullName { get; private set; }
-    public string DoctorEmail { get; private set; }
-    public string DoctorPhoneNumber { get; private set; } 
+    public DoctorId DoctorId { get; init; }
+    public Doctor Doctor { get; init; } = null!;
     
-    public PatientId PatientId { get; private set; }
-    public string PatientFullName { get; private set; }
-    public string PatientEmail { get; private set; }
-    public string PatientPhoneNumber { get; private set; }
+    public PatientId PatientId { get; init; }
+    public Patient Patient { get; init; } = null!;
     
-    public TreatmentPlanId? TreatmentPlanId { get; private set; }
-    public string TreatmentPlanDiagnosis { get; private set; }
+    public TreatmentPlanId? TreatmentPlanId { get; init; }
+    public TreatmentPlan? TreatmentPlan { get; init; }
     
     /// <summary>
     /// String with procedures separated by comma.
     /// </summary>
-    public string ProceduresDone { get; private set; }
+    //TODO: consider using JSON to store procedures.
+    public string ProceduresDone { get; init; }
     
     public DateTime VisitDateTime { get; private set; }
     
@@ -36,69 +35,38 @@ public class Visit: AggregateRoot, IEntity<VisitId, Guid>
     
     public VisitStatus Status { get; private set; }
     
-    //TODO: here store also additional media files:
-    //like computer tomography, x-ray, photos, etc.
-    
     internal Visit(
         VisitId id,
         DoctorId doctorId,
-        string doctorFullName,
-        string doctorEmail,
-        string doctorPhoneNumber,
         PatientId patientId,
-        string patientFullName,
-        string patientEmail,
-        string patientPhoneNumber,
-        TreatmentPlanId? treatmentPlanId,
-        string treatmentPlanDiagnosis,
-        string proceduresDone,
         DateTime visitDateTime,
         Money pricePaid,
-        Feedback? feedback,
-        VisitStatus status)
+        string proceduresDone)
     {
         Id = id;
         DoctorId = doctorId;
-        DoctorFullName = doctorFullName;
-        DoctorEmail = doctorEmail;
-        DoctorPhoneNumber = doctorPhoneNumber;
         PatientId = patientId;
-        PatientFullName = patientFullName;
-        PatientEmail = patientEmail;
-        PatientPhoneNumber = patientPhoneNumber;
-        TreatmentPlanId = treatmentPlanId;
-        TreatmentPlanDiagnosis = treatmentPlanDiagnosis;
-        ProceduresDone = proceduresDone;
         VisitDateTime = visitDateTime;
         PricePaid = pricePaid;
-        Feedback = feedback;
-        Status = status;
+        ProceduresDone = proceduresDone;
     }
-
+    
     public static Visit Create(
-        Appointment appointment,
+        DoctorId doctorId,
+        PatientId patientId,
+        DateTime visitDateTime,
         Money pricePaid,
-        Feedback? feedback,
-        VisitStatus status)
+        string proceduresDone)
     {
+        //TODO: if decided to store the procedures as JSON, then
+        //consider passing the list of procedures instead of string into the Create method.
         var visitId = TypedId.New<VisitId>();
         return new Visit(
             visitId,
-            appointment.DoctorId,
-            appointment.Doctor.FullName.ToString(),
-            appointment.Doctor.Email.ToString(),
-            appointment.Doctor.PhoneNumber.ToString(),
-            appointment.PatientId,
-            appointment.Patient.FullName.ToString(),
-            appointment.Patient.Email.ToString(),
-            appointment.Patient.PhoneNumber.ToString(),
-            appointment.TreatmentPlanId,
-            appointment.TreatmentPlan?.Details.Diagnosis?? string.Empty,
-            string.Join(", ", appointment.DentalProcedures
-                .Select(x => x.Details.Name.ToString())),
-            appointment.VisitDateTime,
+            doctorId,
+            patientId,
+            visitDateTime,
             pricePaid,
-            feedback,
-            status);
+            proceduresDone);
     }
 }

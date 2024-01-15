@@ -1,6 +1,7 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
@@ -17,7 +18,7 @@ public class EmployeeConfiguration<TId, TIdValue, TEmployeeEntity>
         
         builder
             .Property(e => e.Status)
-            .HasConversion(EnumerationsConverters
+            .HasConversion(EnumerationsConverter
                 .EnumToStringConverter<EmployeeStatus>());
 
         builder

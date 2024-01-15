@@ -10,6 +10,8 @@ namespace DigiDent.EFCorePersistence.ClinicCore;
 
 public class ClinicCoreDbContext: DbContext
 {
+    private const string Schema = "Clinic_Core";
+    
     public DbSet<Doctor> Doctors { get; set; } = null!;
     public DbSet<Assistant> Assistants { get; set; } = null!;
     
@@ -34,6 +36,7 @@ public class ClinicCoreDbContext: DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //TODO: resolve the hierarchy mappings here
+        modelBuilder.HasDefaultSchema(Schema);
         
         modelBuilder.ApplyConfigurationsFromAssembly(
             Assembly.GetExecutingAssembly(),

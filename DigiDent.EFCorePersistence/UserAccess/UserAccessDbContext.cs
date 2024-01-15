@@ -7,6 +7,7 @@ namespace DigiDent.EFCorePersistence.UserAccess;
 
 public class UserAccessDbContext: DbContext
 {
+    private const string Schema = "User_Access";
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
@@ -17,8 +18,7 @@ public class UserAccessDbContext: DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //TODO: Consider dividing the bounded contexts into separate schemas
-        //modelBuilder.HasDefaultSchema()
+        modelBuilder.HasDefaultSchema(Schema);
         modelBuilder.ApplyConfigurationsFromAssembly(
             Assembly.GetExecutingAssembly(),
             type => type

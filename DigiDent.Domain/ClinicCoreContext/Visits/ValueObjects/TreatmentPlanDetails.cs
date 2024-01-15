@@ -5,25 +5,24 @@ namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 
 public class TreatmentPlanDetails
 {
-    public string Diagnosis { get; private set; }
-    public string? PlanDescription { get; private set; }
+    private const int DiagnosisDescriptionMinLength = 3;
+    public string DiagnosisDescription { get; private set; }
     
-    internal TreatmentPlanDetails(string diagnosis, string? planDescription)
+    internal TreatmentPlanDetails(string diagnosisDescription)
     {
-        Diagnosis = diagnosis;
-        PlanDescription = planDescription;
+        DiagnosisDescription = diagnosisDescription;
     }
     
-    public static Result<TreatmentPlanDetails> Create(string diagnosis, string? planDescription)
+    public static Result<TreatmentPlanDetails> Create(string diagnosisDescription)
     {
-        if (string.IsNullOrWhiteSpace(diagnosis) || 
-            string.IsNullOrWhiteSpace(planDescription))
+        if (string.IsNullOrWhiteSpace(diagnosisDescription) ||
+            diagnosisDescription.Length < DiagnosisDescriptionMinLength)
         {
             return Result.Fail<TreatmentPlanDetails>(TreatmentPlanErrors
                 .TreatmentPlanDetailsAreInvalid);
         }
         
         return Result.Ok(new TreatmentPlanDetails(
-            diagnosis, planDescription));
+            diagnosisDescription));
     }
 }

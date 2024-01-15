@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
+namespace DigiDent.EFCorePersistence.Shared;
 
-public static class EnumerationsConverters
+public static class EnumerationsConverter
 {
     public static ValueConverter<TEnum, string> EnumToStringConverter<TEnum>()
         where TEnum : struct, Enum
