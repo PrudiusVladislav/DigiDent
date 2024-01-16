@@ -1,6 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 using DigiDent.EFCorePersistence.Shared;
@@ -12,7 +11,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
 
 [ClinicCoreEntityConfiguration]
 public class PastVisitConfiguration
-    : BaseEntityConfiguration<VisitId, Guid, PastVisit>
+    : AggregateRootConfiguration<PastVisit, PastVisitId, Guid>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<PastVisit> builder)
     {
@@ -41,5 +40,9 @@ public class PastVisitConfiguration
                     .Property(f => f.Comment)
                     .HasColumnName("Feedback_Comment");
             });
+    }
+
+    protected override void ConfigureAggregateRoot(EntityTypeBuilder<PastVisit> builder)
+    {
     }
 }

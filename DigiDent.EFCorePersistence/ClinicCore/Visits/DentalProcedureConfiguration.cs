@@ -10,7 +10,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
 
 [ClinicCoreEntityConfiguration]
 public class DentalProcedureConfiguration
-    : BaseEntityConfiguration<DentalProcedureId, Guid, DentalProcedure>
+    : BaseEntityConfiguration<DentalProcedure, DentalProcedureId, Guid>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<DentalProcedure> builder)
     {

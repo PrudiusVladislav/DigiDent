@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 

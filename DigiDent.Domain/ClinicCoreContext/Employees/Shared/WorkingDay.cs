@@ -1,5 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 

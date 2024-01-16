@@ -1,8 +1,8 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
@@ -12,7 +12,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
 public class Appointment : 
     AggregateRoot,
-    IEntity<AppointmentId, Guid>
+    IVisit<AppointmentId, Guid>
 {
     public AppointmentId Id { get; init; }
     

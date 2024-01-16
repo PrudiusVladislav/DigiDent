@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
 {
     [DbContext(typeof(ClinicCoreDbContext))]
-    [Migration("20240116160441_CreateDatabase")]
+    [Migration("20240116170125_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />

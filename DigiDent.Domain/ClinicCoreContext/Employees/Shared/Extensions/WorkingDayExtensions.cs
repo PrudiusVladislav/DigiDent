@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.Constants;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Constants;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 

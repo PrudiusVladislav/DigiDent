@@ -1,5 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,7 +9,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Schedule;
 
 [ClinicCoreEntityConfiguration]
 public class WorkingDayConfiguration
-    : BaseEntityConfiguration<WorkingDayId, Guid, WorkingDay>
+    : BaseEntityConfiguration<WorkingDay, WorkingDayId, Guid>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<WorkingDay> builder)
     {

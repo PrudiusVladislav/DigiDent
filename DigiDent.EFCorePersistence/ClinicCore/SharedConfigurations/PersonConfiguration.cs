@@ -12,12 +12,11 @@ namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 /// <typeparam name="TId"> The type of the person id. </typeparam>
 /// <typeparam name="TIdValue"> The primitive type of the person id value. </typeparam>
 /// <typeparam name="TPersonEntity">The person type. Should implement <see cref="IPerson{TId,TIdValue}"/>. </typeparam>
-public class PersonConfiguration<TId, TIdValue, TPersonEntity>
-    : AggregateRootConfiguration<TId, TIdValue, TPersonEntity>
+public class PersonConfiguration<TPersonEntity, TId, TIdValue>
+    : AggregateRootConfiguration<TPersonEntity, TId, TIdValue>
+    where TPersonEntity : class, IPerson<TId, TIdValue>
     where TId : IPersonId<TIdValue>
     where TIdValue : notnull
-    where TPersonEntity : class, IPerson<TId, TIdValue>
-    
 {
     protected override void ConfigureEntity(EntityTypeBuilder<TPersonEntity> builder)
     {

@@ -2,6 +2,7 @@
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
@@ -10,9 +11,10 @@ using DigiDent.Domain.SharedKernel.Abstractions;
 namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
 public class PastVisit : 
-    IEntity<VisitId, Guid>
+    AggregateRoot,
+    IVisit<PastVisitId, Guid>
 {
-    public VisitId Id { get; init; }
+    public PastVisitId Id { get; init; }
     
     public EmployeeId DoctorId { get; init; }
     public Doctor Doctor { get; init; } = null!;
@@ -36,7 +38,7 @@ public class PastVisit :
     public IEnumerable<string> ProceduresDone { get; init; }
     
     internal PastVisit(
-        VisitId id,
+        PastVisitId id,
         EmployeeId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
@@ -58,9 +60,7 @@ public class PastVisit :
         Money pricePaid,
         IEnumerable<string> proceduresDone)
     {
-        //TODO: if decided to store the procedures as JSON, then
-        //consider passing the list of procedures instead of string into the Create method.
-        var visitId = TypedId.New<VisitId>();
+        var visitId = TypedId.New<PastVisitId>();
         return new PastVisit(
             visitId,
             doctorId,

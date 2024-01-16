@@ -9,7 +9,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
 
 [ClinicCoreEntityConfiguration]
 public class AppointmentConfiguration
-    : AggregateRootConfiguration<AppointmentId, Guid, Appointment>
+    : AggregateRootConfiguration<Appointment, AppointmentId, Guid>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<Appointment> builder)
     {

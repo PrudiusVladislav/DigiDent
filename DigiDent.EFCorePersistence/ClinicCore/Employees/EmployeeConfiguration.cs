@@ -11,7 +11,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Employees;
 /// </summary>
 [ClinicCoreEntityConfiguration]
 public class EmployeeConfiguration
-    : PersonConfiguration<EmployeeId, Guid, Employee>
+    : PersonConfiguration<Employee, EmployeeId, Guid>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<Employee> builder)
     {

@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Shared.Constants;
+﻿namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Constants;
 
 public class ScheduleConstants
 {

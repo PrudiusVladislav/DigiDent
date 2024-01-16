@@ -9,11 +9,12 @@ namespace DigiDent.EFCorePersistence.Shared;
 /// <typeparam name="TId">The type of the entity id.</typeparam>
 /// <typeparam name="TIdValue">The primitive type of the entity id value.</typeparam>
 /// <typeparam name="TAggregateRoot">The type of the aggregate root instance.</typeparam>
-public abstract class AggregateRootConfiguration<TId, TIdValue, TAggregateRoot>
-    : BaseEntityConfiguration<TId, TIdValue, TAggregateRoot>
+public abstract class AggregateRootConfiguration<TAggregateRoot, TId, TIdValue>
+    : BaseEntityConfiguration<TAggregateRoot, TId, TIdValue>
+    where TAggregateRoot : class, IAggregateRoot, IEntity<TId, TIdValue>
     where TId : ITypedId<TIdValue>
     where TIdValue : notnull
-    where TAggregateRoot : class, IAggregateRoot, IEntity<TId, TIdValue>
+    
 {
     public override void Configure(EntityTypeBuilder<TAggregateRoot> builder)
     {
