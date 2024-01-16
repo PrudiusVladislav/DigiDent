@@ -14,8 +14,11 @@ public record Feedback
     private const int MinRatingWithNoComment = 4;
     private const int MaxCommentLength = 500;
     
-    public FeedbackRating Rating { get; private set; }
-    public string? Comment { get; private set; }
+    public FeedbackRating Rating { get; init; }
+    public string? Comment { get; init; }
+    
+    // for EF Core
+    internal Feedback() { }
 
     internal Feedback(int rating, string? comment)
     {

@@ -1,5 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
@@ -15,7 +16,7 @@ public class Appointment :
 {
     public AppointmentId Id { get; init; }
     
-    public DoctorId DoctorId { get; private set; }
+    public EmployeeId DoctorId { get; private set; }
     public Doctor Doctor { get; private set; } = null!;
     
     public PatientId PatientId { get; private set; }
@@ -34,7 +35,7 @@ public class Appointment :
 
     internal Appointment(
         AppointmentId id,
-        DoctorId doctorId,
+        EmployeeId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
         TimeDuration duration,
@@ -49,7 +50,7 @@ public class Appointment :
     }
     
     public static Appointment Create(
-        DoctorId doctorId,
+        EmployeeId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
         TimeDuration duration,

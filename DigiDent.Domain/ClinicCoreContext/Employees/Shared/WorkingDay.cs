@@ -11,13 +11,14 @@ public class WorkingDay: IEntity<WorkingDayId, Guid>
     public DateOnly Date { get; private set; }
     public StartEndTime StartEndTime { get; private set; }
     
-    public IEmployeeId<Guid> EmployeeId { get; init; }
+    public EmployeeId EmployeeId { get; init; }
+    public Employee Employee { get; init; } = null!;
     
     internal WorkingDay(
         WorkingDayId id,
         DateOnly date,
         StartEndTime startEndTime,
-        IEmployeeId<Guid> employeeId)
+        EmployeeId employeeId)
     {
         Id = id;
         Date = date;
@@ -28,7 +29,7 @@ public class WorkingDay: IEntity<WorkingDayId, Guid>
     public static Result<WorkingDay> Create(
         DateOnly date,
         StartEndTime startEndTime,
-        IEmployeeId<Guid> employeeId)
+        EmployeeId employeeId)
     {
         var workingDayId = TypedId.New<WorkingDayId>();
         return Result.Ok(new WorkingDay(

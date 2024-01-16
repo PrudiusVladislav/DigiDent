@@ -3,9 +3,7 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
@@ -13,31 +11,17 @@ using DigiDent.Domain.SharedKernel.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 
-public class Doctor :
-    AggregateRoot,
-    IEmployee<DoctorId, Guid>
+public class Doctor : Employee
 {
-    public DoctorId Id { get; init; }
-    public FullName FullName { get; private set; }
-    public Email Email { get; private set; }
-    public PhoneNumber PhoneNumber { get; private set; }
-    
-    public Gender Gender { get; set; }
-    public DateOnly? DateOfBirth { get; private set; }
-    public EmployeeStatus Status { get; set; }
-    
     public DoctorSpecialization Specialization { get; private set; }
     public string? Biography { get; private set; }
     
     public ICollection<DentalProcedure> ProvidedServices { get; set; } = new List<DentalProcedure>();
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     public ICollection<PastVisit> PastVisits { get; set; } = new List<PastVisit>();
-    public ICollection<WorkingDay> WorkingDays { get; set; } = new List<WorkingDay>();
-    public ICollection<SchedulePreference> SchedulePreferences { get; set; } 
-        = new List<SchedulePreference>();
 
     internal Doctor(
-        DoctorId id,
+        EmployeeId id,
         FullName fullName,
         Email email,
         PhoneNumber phoneNumber)
@@ -53,7 +37,7 @@ public class Doctor :
         Email email,
         PhoneNumber phoneNumber)
     {
-        var doctorId = TypedId.New<DoctorId>();
+        var doctorId = TypedId.New<EmployeeId>();
         return new Doctor(doctorId, fullName, email, phoneNumber);
     }
 

@@ -1,6 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
-using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,13 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Doctors;
 
 [ClinicCoreEntityConfiguration]
-public class DoctorsConfiguration
-    : EmployeeConfiguration<DoctorId, Guid, Doctor>
+public class DoctorsConfiguration : IEntityTypeConfiguration<Doctor>
 {
-    protected override void ConfigureEntity(EntityTypeBuilder<Doctor> builder)
+    public void Configure(EntityTypeBuilder<Doctor> builder)
     {
-        base.ConfigureEntity(builder);
-
         builder
             .Property(d => d.Specialization)
             .HasConversion(EnumerationsConverter
@@ -33,10 +29,8 @@ public class DoctorsConfiguration
         
         builder
             .HasMany(d => d.PastVisits)
-            .WithOne()
+            .WithOne(pv => pv.Doctor)
             .HasForeignKey(pv => pv.DoctorId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        //TODO: configure the relations and collections
     }
 }

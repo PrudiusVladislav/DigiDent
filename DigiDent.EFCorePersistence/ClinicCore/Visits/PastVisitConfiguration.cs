@@ -5,10 +5,12 @@ using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
 
+[ClinicCoreEntityConfiguration]
 public class PastVisitConfiguration
     : BaseEntityConfiguration<VisitId, Guid, PastVisit>
 {
@@ -17,7 +19,10 @@ public class PastVisitConfiguration
         builder
             .Property(pv => pv.ProceduresDone)
             .HasConversion(SharedConverters
-                .JsonSerializeConverter<IEnumerable<string>>());
+                .JsonSerializeConverter<IEnumerable<string>>())
+            .Metadata.SetValueComparer(
+                new ListComparer<string>(
+                    new ValueComparer<string>(false)));
 
         builder
             .Property(pv => pv.PricePaid)

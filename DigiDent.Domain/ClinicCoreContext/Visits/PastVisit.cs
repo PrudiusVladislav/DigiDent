@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
@@ -14,7 +14,7 @@ public class PastVisit :
 {
     public VisitId Id { get; init; }
     
-    public DoctorId DoctorId { get; init; }
+    public EmployeeId DoctorId { get; init; }
     public Doctor Doctor { get; init; } = null!;
     
     public PatientId PatientId { get; init; }
@@ -37,7 +37,7 @@ public class PastVisit :
     
     internal PastVisit(
         VisitId id,
-        DoctorId doctorId,
+        EmployeeId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
         Money pricePaid,
@@ -52,7 +52,7 @@ public class PastVisit :
     }
     
     public static PastVisit Create(
-        DoctorId doctorId,
+        EmployeeId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
         Money pricePaid,

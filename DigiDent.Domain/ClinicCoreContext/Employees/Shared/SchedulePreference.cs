@@ -12,12 +12,13 @@ public class SchedulePreference: IEntity<SchedulePreferenceId, Guid>
     public DateOnly Date { get; private set; }
     public StartEndTime? StartEndTime { get; private set; }
     public bool IsSetAsDayOff { get; private set; }
-    public IEmployeeId<Guid> EmployeeId { get; init; }
+    public EmployeeId EmployeeId { get; init; }
+    public Employee Employee { get; init; } = null!;
     
     internal SchedulePreference(
         SchedulePreferenceId id,
         DateOnly date,
-        IEmployeeId<Guid> employeeId,
+        EmployeeId employeeId,
         StartEndTime? startEndTime=null,
         bool isSetAsDayOff=true)
     {
@@ -30,7 +31,7 @@ public class SchedulePreference: IEntity<SchedulePreferenceId, Guid>
     
     public static Result<SchedulePreference> Create(
         DateOnly date,
-        IEmployeeId<Guid> employeeId,
+        EmployeeId employeeId,
         StartEndTime? startEndTime=null,
         bool isSetAsDayOff=true)
     {

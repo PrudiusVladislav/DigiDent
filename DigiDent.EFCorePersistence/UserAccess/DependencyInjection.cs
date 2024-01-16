@@ -22,10 +22,12 @@ public static class DependencyInjection
         services.AddSingleton<PublishDomainEventsInterceptor>();
         services.AddDbContext<UserAccessDbContext>((sp, options) =>
         {
-            options.UseSqlServer(configuration
-                    .GetConnectionString("SqlServer"), 
+            options.UseSqlServer(configuration.GetConnectionString("SqlServer"), 
                 builder => builder
-                    .MigrationsAssembly(typeof(UserAccessDbContext).Assembly.FullName));
+                    .MigrationsAssembly(typeof(UserAccessDbContext).Assembly.FullName)
+                    .MigrationsHistoryTable(
+                        tableName: "__EFMigrationsHistory",
+                        schema: UserAccessDbContext.UserAccessSchema));
             
             options.AddInterceptors(sp
                 .GetRequiredService<PublishDomainEventsInterceptor>());

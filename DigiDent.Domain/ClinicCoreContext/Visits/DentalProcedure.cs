@@ -14,6 +14,9 @@ public class DentalProcedure: IEntity<DentalProcedureId, Guid>
     
     public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
     
+    // for EF Core
+    internal DentalProcedure() { }
+    
     internal DentalProcedure(
         DentalProcedureId id,
         DentalProcedureDetails details,
