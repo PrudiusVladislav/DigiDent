@@ -1,12 +1,30 @@
-﻿using DigiDent.Domain.UserAccessContext.Users.Events;
+﻿using DigiDent.Application.Shared.IntegrationEvents;
+using DigiDent.Domain.UserAccessContext.Users.Events;
 using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
 public class UserSignedUpEventHandler: INotificationHandler<UserSignedUpDomainEvent>
 {
-    public Task Handle(UserSignedUpDomainEvent notification, CancellationToken cancellationToken)
+    private readonly IPublisher _publisher;
+
+    public UserSignedUpEventHandler(IPublisher publisher)
     {
-        throw new NotImplementedException();
+        _publisher = publisher;
+    }
+
+    public async Task Handle(
+        UserSignedUpDomainEvent notification,
+        CancellationToken cancellationToken)
+    {
+        var userSignedUpIntegrationEvent = new UserSignedUpIntegrationEvent(
+            notification.Id,
+            notification.TimeOfOccurrence,
+            notification.User.FullName,
+            notification.User.Email,
+            notification.User.PhoneNumber,
+            notification.User.Role);
+        
+        await _publisher.Publish(userSignedUpIntegrationEvent, cancellationToken);
     }
 }
