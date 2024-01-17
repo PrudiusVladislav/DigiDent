@@ -2,7 +2,7 @@
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DigiDent.EFCorePersistence.Shared;
+namespace DigiDent.EFCorePersistence.Shared.Converters;
 
 /// <summary>
 /// Contains EF Core value objects converters for shared value objects.

@@ -1,7 +1,7 @@
 ﻿using DigiDent.Domain.SharedKernel.Abstractions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.Shared;
+namespace DigiDent.EFCorePersistence.Shared.Configurations;
 
 /// <summary>
 /// Base class for aggregate root configuration.

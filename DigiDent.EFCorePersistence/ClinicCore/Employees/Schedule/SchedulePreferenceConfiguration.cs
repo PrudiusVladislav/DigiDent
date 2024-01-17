@@ -2,7 +2,7 @@
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
-using DigiDent.EFCorePersistence.Shared;
+using DigiDent.EFCorePersistence.Shared.Configurations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Schedule;

@@ -6,17 +6,17 @@
 public abstract class AggregateRoot
     : IAggregateRoot
 {
-    private readonly List<DomainEvent> _domainEvents = [];
+    private readonly List<IDomainEvent> _domainEvents = [];
     
-    public IReadOnlyCollection<DomainEvent> DomainEvents => 
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => 
         _domainEvents.AsReadOnly();
     
-    protected void Raise(DomainEvent eventItem)
+    protected void Raise(IDomainEvent eventItem)
     {
         _domainEvents.Add(eventItem);
     }
     
-    protected void RemoveDomainEvent(DomainEvent eventItem)
+    protected void RemoveDomainEvent(IDomainEvent eventItem)
     {
         _domainEvents.Remove(eventItem);
     }

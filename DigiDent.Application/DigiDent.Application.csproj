@@ -10,4 +10,9 @@
       <ProjectReference Include="..\DigiDent.Domain\DigiDent.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ClinicCore\" />
+      <Folder Include="Shared\" />
+    </ItemGroup>
+
 </Project>

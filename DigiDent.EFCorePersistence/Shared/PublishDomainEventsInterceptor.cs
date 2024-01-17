@@ -26,7 +26,7 @@ public class PublishDomainEventsInterceptor: SaveChangesInterceptor
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData eventData,
         InterceptionResult<int> result,
-        CancellationToken cancellationToken = new())
+        CancellationToken cancellationToken=default)
     {
         await PublishDomainEvents(eventData.Context);
         return await base.SavingChangesAsync(eventData, result, cancellationToken);
@@ -41,16 +41,19 @@ public class PublishDomainEventsInterceptor: SaveChangesInterceptor
             .Entries<IHasDomainEvents>()
             .Where(entry => entry.Entity.DomainEvents.Count != 0)
             .Select(entry => entry.Entity)
+            .SelectMany(entity =>
+            {
+                var domainEvents = entity.DomainEvents;
+
+                entity.ClearDomainEvents();
+
+                return domainEvents;
+            })
             .ToList();
 
-        foreach (var entity in entitiesWithDomainEvents)
-        {
-            var events = entity.DomainEvents.ToArray();
-            entity.ClearDomainEvents();
-            foreach (var domainEvent in events)
-            {
-                await _publisher.Publish(domainEvent);
-            }
-        }
+        IEnumerable<Task> eventsPublishingTasks = entitiesWithDomainEvents
+            .Select(async domainEvent => await _publisher.Publish(domainEvent));
+        
+        await Task.WhenAll(eventsPublishingTasks);
     }
 }

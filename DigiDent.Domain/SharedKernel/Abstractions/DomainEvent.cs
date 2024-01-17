@@ -3,7 +3,10 @@
 namespace DigiDent.Domain.SharedKernel.Abstractions;
 
 /// <summary>
-/// Base class for all domain events.
+/// Interface that represents a domain event.
 /// </summary>
-public abstract record DomainEvent(Guid Id, DateTime TimeOfOccurence)
-    : INotification;
+public interface IDomainEvent : INotification
+{
+    Guid Id { get; }
+    DateTime TimeOfOccurrence { get; }
+}

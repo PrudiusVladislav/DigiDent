@@ -6,6 +6,6 @@
 /// </summary>
 public interface IHasDomainEvents
 {
-    IReadOnlyCollection<DomainEvent> DomainEvents { get; }
+    IReadOnlyCollection<IDomainEvent> DomainEvents { get; }
     void ClearDomainEvents();
 }
