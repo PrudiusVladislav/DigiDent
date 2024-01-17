@@ -4,11 +4,10 @@ using DigiDent.Domain.SharedKernel.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 
-public interface IPerson<TId, TIdValue> :
+public interface IPerson<TId> :
     IAggregateRoot,
-    IEntity<TId, TIdValue>
-    where TId : IPersonId<TIdValue>
-    where TIdValue : notnull
+    IEntity<TId, Guid>
+    where TId : IPersonId
 {
     Email Email { get; }
     PhoneNumber PhoneNumber { get; }

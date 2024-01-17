@@ -9,7 +9,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 
 public abstract class Employee: 
     AggregateRoot,
-    IEmployee<EmployeeId, Guid>
+    IEmployee<EmployeeId>
 {
     public EmployeeId Id { get; init; }
     public Email Email { get; protected set; }

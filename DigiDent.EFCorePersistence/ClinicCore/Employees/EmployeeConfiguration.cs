@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DigiDent.EFCorePersistence.ClinicCore.Employees;
 
 /// <summary>
-/// Contains the default configuration for entities that implement <see cref="IEmployee{TId,TIdValue}"/>.
+/// Contains the default configuration for entities that implement <see cref="Employee"/>.
 /// </summary>
 [ClinicCoreEntityConfiguration]
 public class EmployeeConfiguration
-    : PersonConfiguration<Employee, EmployeeId, Guid>
+    : PersonConfiguration<Employee, EmployeeId>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<Employee> builder)
     {

@@ -8,16 +8,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
 
 /// <summary>
-/// Contains the default configuration for entities that implement <see cref="IPerson{TId,TIdValue}"/>.
+/// Contains the default configuration for entities that implement <see cref="IPerson{TId}"/>.
 /// </summary>
 /// <typeparam name="TId"> The type of the person id. </typeparam>
-/// <typeparam name="TIdValue"> The primitive type of the person id value. </typeparam>
-/// <typeparam name="TPersonEntity">The person type. Should implement <see cref="IPerson{TId,TIdValue}"/>. </typeparam>
-public class PersonConfiguration<TPersonEntity, TId, TIdValue>
-    : AggregateRootConfiguration<TPersonEntity, TId, TIdValue>
-    where TPersonEntity : class, IPerson<TId, TIdValue>
-    where TId : IPersonId<TIdValue>
-    where TIdValue : notnull
+/// <typeparam name="TPersonEntity">The person type. Should implement <see cref="IPerson{TId}"/>.</typeparam>
+public class PersonConfiguration<TPersonEntity, TId>
+    : AggregateRootConfiguration<TPersonEntity, TId, Guid>
+    where TPersonEntity : class, IPerson<TId>
+    where TId : IPersonId
 {
     protected override void ConfigureEntity(EntityTypeBuilder<TPersonEntity> builder)
     {

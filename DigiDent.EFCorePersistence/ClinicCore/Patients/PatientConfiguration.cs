@@ -8,7 +8,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Patients;
 
 [ClinicCoreEntityConfiguration]
 public class PatientConfiguration
-    : PersonConfiguration<Patient, PatientId, Guid>
+    : PersonConfiguration<Patient, PatientId>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<Patient> builder)
     {

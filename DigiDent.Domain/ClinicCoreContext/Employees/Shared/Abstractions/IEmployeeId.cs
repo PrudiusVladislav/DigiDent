@@ -2,6 +2,6 @@
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 
-public interface IEmployeeId<T>: IPersonId<T>
+public interface IEmployeeId: IPersonId
 {
 }
