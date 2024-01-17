@@ -1,12 +1,9 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using DigiDent.API.Extensions;
+﻿using DigiDent.API.Extensions;
 using DigiDent.Application.UserAccess.Commands.DeleteUser;
 using DigiDent.Application.UserAccess.Commands.Refresh;
 using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Application.UserAccess.Commands.SignUp;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using DigiDent.Infrastructure.UserAccess.Authorization;
+using DigiDent.Domain.SharedKernel.ValueObjects;
 using MediatR;
 
 namespace DigiDent.API.Endpoints.UserAccess;

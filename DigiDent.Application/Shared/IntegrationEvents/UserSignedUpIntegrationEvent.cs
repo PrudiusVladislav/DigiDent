@@ -9,4 +9,5 @@ public record UserSignedUpIntegrationEvent(
     DateTime TimeOfOccurrence,
     FullName FullName,
     Email Email,
-    PhoneNumber PhoneNumber) : IIntegrationEvent;
+    PhoneNumber PhoneNumber,
+    Role Role) : IIntegrationEvent;

@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+﻿namespace DigiDent.Domain.SharedKernel.ValueObjects;
 
 public enum Role
 {

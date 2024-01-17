@@ -30,14 +30,16 @@ public class SignUpCommandHandler
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
+        
+        var fullNameResult = FullName.Create(request.FirstName, request.LastName);
         var emailResult = await _usersDomainService.CreateEmailAsync(
             request.Email, cancellationToken);
+        var phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
         var passwordResult = Password.Create(request.Password);
-        var fullNameResult = FullName.Create(request.FirstName, request.LastName);
         var roleResult = _usersDomainService.CreateRole(request.Role);
         
         var validationResult = Result.Merge(
-            emailResult, passwordResult, fullNameResult, roleResult);
+            fullNameResult, emailResult, phoneNumberResult, passwordResult, roleResult);
 
         if (validationResult.IsFailure) 
             return validationResult.MapToType<AuthenticationResponse>();
@@ -46,6 +48,7 @@ public class SignUpCommandHandler
             TypedId.New<UserId>(),
             fullNameResult.Value!,
             emailResult.Value!,
+            phoneNumberResult.Value!,
             passwordResult.Value!,
             roleResult.Value!);
         await _usersDomainService.AddUserAsync(userToAdd, cancellationToken);

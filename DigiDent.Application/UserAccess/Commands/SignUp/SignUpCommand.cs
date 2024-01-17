@@ -5,8 +5,9 @@ using MediatR;
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
 public record SignUpCommand(
-    string Email,
-    string Password,
     string FirstName,
     string LastName,
+    string Email,
+    string PhoneNumber,
+    string Password,
     string Role) : IRequest<Result<AuthenticationResponse>>;
