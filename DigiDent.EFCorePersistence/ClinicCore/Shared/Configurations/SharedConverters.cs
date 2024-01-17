@@ -3,7 +3,7 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
+namespace DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
 
 /// <summary>
 /// Contains ValueConverters that are used in multiple configurations in the ClinicCoreContext.

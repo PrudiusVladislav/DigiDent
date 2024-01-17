@@ -5,7 +5,7 @@ using DigiDent.EFCorePersistence.Shared.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
+namespace DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
 
 /// <summary>
 /// Contains the default configuration for entities that implement <see cref="IPerson{TId}"/>.

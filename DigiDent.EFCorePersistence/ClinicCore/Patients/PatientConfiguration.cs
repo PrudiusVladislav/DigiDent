@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
+using DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
