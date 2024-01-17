@@ -9,19 +9,29 @@ namespace DigiDent.Application.ClinicCore.IntegrationEventHandlers;
 public class UserSignedUpEventHandler 
     : INotificationHandler<UserSignedUpIntegrationEvent>
 {
-    public Task Handle(
+    private readonly IPersonRepository _personRepository;
+
+    public UserSignedUpEventHandler(IPersonRepository personRepository)
+    {
+        _personRepository = personRepository;
+    }
+
+    public async Task Handle(
         UserSignedUpIntegrationEvent notification,
         CancellationToken cancellationToken)
     {
         var personType = GetPersonType(notification.Role);
         var idType = GetPersonIdType(personType);
         
-        typeof(PersonFactory)
+        var person = typeof(PersonFactory)
             .GetMethod(nameof(PersonFactory.CreatePerson), BindingFlags.Public | BindingFlags.Static)!
             .MakeGenericMethod(personType, idType)
             .Invoke(null, [notification.FullName, notification.Email, notification.PhoneNumber]);
         
-        //TODO: add to the database
+        await (Task)typeof(IPersonRepository)
+            .GetMethod(nameof(IPersonRepository.AddAsync), BindingFlags.Public | BindingFlags.Instance)!
+            .MakeGenericMethod(personType, idType)
+            .Invoke(_personRepository, [person])!;
     }
 
     private static Type GetPersonType(Role role)
