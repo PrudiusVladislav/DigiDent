@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <Folder Include="ClinicCore\" />
-      <Folder Include="Shared\" />
     </ItemGroup>
 
 </Project>

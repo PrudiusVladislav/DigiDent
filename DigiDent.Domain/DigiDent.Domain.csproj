@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <Folder Include="ClinicCoreContext\Visits\Events\" />
-      <Folder Include="UserAccessContext\Users\Events\" />
     </ItemGroup>
     
     <ItemGroup>
