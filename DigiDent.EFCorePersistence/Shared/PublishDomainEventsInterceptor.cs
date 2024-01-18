@@ -2,17 +2,21 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DigiDent.EFCorePersistence.Shared;
 
 public class PublishDomainEventsInterceptor: SaveChangesInterceptor
 {
+    // private readonly IPublisher _publisher;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     
-    private readonly IPublisher _publisher;
-    
-    public PublishDomainEventsInterceptor(IPublisher publisher)
+    public PublishDomainEventsInterceptor(
+        IServiceScopeFactory serviceScopeFactory)
     {
-        _publisher = publisher;
+        // _publisher = publisher;
+        _serviceScopeFactory = serviceScopeFactory;
     }
     
     public override InterceptionResult<int> SavingChanges(
@@ -35,24 +39,31 @@ public class PublishDomainEventsInterceptor: SaveChangesInterceptor
     private async Task PublishDomainEvents(DbContext? context)
     {
         if (context is null) return;
-
-        var entitiesWithDomainEvents = context
+        
+        using var scope = _serviceScopeFactory.CreateScope();
+        var serviceProvider = scope.ServiceProvider;
+        
+        var entries = context
             .ChangeTracker
             .Entries<IHasDomainEvents>()
-            .Where(entry => entry.Entity.DomainEvents.Count != 0)
+            .Where(entry => entry.Entity.DomainEvents.Count != 0);
+        
+        var entitiesWithDomainEvents = entries
             .Select(entry => entry.Entity)
             .SelectMany(entity =>
-            {
-                var domainEvents = entity.DomainEvents;
+            { 
+                var domainEvents = entity.DomainEvents.ToList();
 
                 entity.ClearDomainEvents();
 
                 return domainEvents;
             })
             .ToList();
-
+        
         IEnumerable<Task> eventsPublishingTasks = entitiesWithDomainEvents
-            .Select(domainEvent =>  _publisher.Publish(domainEvent));
+            .Select(domainEvent =>  serviceProvider
+                .GetRequiredService<IPublisher>()
+                .Publish(domainEvent));
         
         await Task.WhenAll(eventsPublishingTasks);
     }

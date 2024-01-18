@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.SharedKernel.Abstractions;
+﻿using System.Reflection;
+using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
@@ -13,6 +14,11 @@ public static class PersonFactory
         where TId : IPersonId
     {
         var personId = TypedId.New<TId>();
-        return (TPerson)Activator.CreateInstance(typeof(TPerson), personId, fullName, email, phoneNumber)!;
+        
+        BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+        object[] parameters = [personId, fullName, email, phoneNumber];
+        
+        return (TPerson)Activator.CreateInstance(
+            typeof(TPerson), flags,null, parameters, null)!;
     }
 }
