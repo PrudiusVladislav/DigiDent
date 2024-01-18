@@ -1,7 +1,7 @@
 ﻿using DigiDent.Infrastructure.UserAccess.Authentication;
 using Microsoft.AspNetCore.Authorization;
 
-namespace DigiDent.Infrastructure.UserAccess.Authorization;
+namespace DigiDent.Infrastructure.UserAccess.Authorization.RolesRequirement;
 
 public class RolesAuthorizationHandler: AuthorizationHandler<RolesAuthorizationRequirement>
 {

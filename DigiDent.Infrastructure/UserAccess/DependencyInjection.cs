@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Infrastructure.UserAccess.Authentication;
-using DigiDent.Infrastructure.UserAccess.Authorization;
+using DigiDent.Infrastructure.UserAccess.Authorization.RolesRequirement;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
