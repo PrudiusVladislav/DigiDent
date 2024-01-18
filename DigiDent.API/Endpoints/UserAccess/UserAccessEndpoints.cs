@@ -10,14 +10,15 @@ namespace DigiDent.API.Endpoints.UserAccess;
 
 public static class UserAccessEndpoints
 {
-    public static void MapUserAccessEndpoints(this WebApplication app)
+    public static RouteGroupBuilder MapUserAccessEndpoints(this RouteGroupBuilder groupBuilder)
     {
-        app.MapGroup("/users")
+        groupBuilder.MapGroup("/users")
             .MapSignInEndpoint()
             .MapSignUpEndpoint()
             .MapRefreshEndpoint()
-            .MapDeleteUserEndpoint()
-            .TestEndpoint();
+            .MapDeleteUserEndpoint();
+        
+        return groupBuilder;
     }
     
     private static IEndpointRouteBuilder MapSignInEndpoint(this IEndpointRouteBuilder app)
@@ -83,11 +84,5 @@ public static class UserAccessEndpoints
         }).RequireRoles(Role.Administrator);
         
         return app;
-    }
-    
-    private static void TestEndpoint(this IEndpointRouteBuilder app)
-    {
-        app.MapGet("/test", () => Results.Ok("Success!"))
-            .RequireRoles(Role.Administrator, Role.Doctor);
     }
 }

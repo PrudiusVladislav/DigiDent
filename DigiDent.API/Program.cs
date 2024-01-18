@@ -28,7 +28,8 @@ var app = builder.Build();
     app.UseAuthentication();
     app.UseAuthorization();
     
-    app.MapUserAccessEndpoints();
+    app.MapGroup("/api")
+        .MapUserAccessEndpoints();
 }
 
 app.Run();
