@@ -30,7 +30,7 @@ public static class UserAccessEndpoints
         {
             var signInResult = await mediator.Send(signInCommand, cancellationToken);
             return signInResult.Match(
-                onFailure: _ => signInResult.MapFailureToIResult(),
+                onFailure: _ => signInResult.MapToIResult(),
                 onSuccess: response => Results.Ok(response));
         });
         
@@ -46,7 +46,7 @@ public static class UserAccessEndpoints
         {
             var signUpResult = await mediator.Send(signUpCommand, cancellationToken);
             return signUpResult.Match(
-                onFailure: _ => signUpResult.MapFailureToIResult(),
+                onFailure: _ => signUpResult.MapToIResult(),
                 onSuccess: token => Results.Ok(token));
         }).RequireRoles(Role.Administrator);
         
@@ -62,7 +62,7 @@ public static class UserAccessEndpoints
         {
             var refreshResult = await mediator.Send(refreshCommand, cancellationToken);
             return refreshResult.Match(
-                onFailure: _ => refreshResult.MapFailureToIResult(),
+                onFailure: _ => refreshResult.MapToIResult(),
                 onSuccess: response => Results.Ok(response));
         });
         
@@ -79,7 +79,7 @@ public static class UserAccessEndpoints
             var deleteResult = await mediator.Send(
                 new DeleteUserCommand(userId), cancellationToken);
             return deleteResult.Match(
-                onFailure: _ => deleteResult.MapFailureToIResult(),
+                onFailure: _ => deleteResult.MapToIResult(),
                 onSuccess: () => Results.Ok());
         }).RequireRoles(Role.Administrator);
         

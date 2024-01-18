@@ -10,4 +10,8 @@
       <ProjectReference Include="..\DigiDent.Domain\DigiDent.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ClinicCore\Doctors\Queries\GetDoctorById\" />
+    </ItemGroup>
+
 </Project>
