@@ -1,6 +1,7 @@
 ﻿using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users.DTO;
+using DigiDent.Domain.UserAccessContext.Users.Events;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Domain.UserAccessContext.Users;
@@ -28,6 +29,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         Id = id;
         FullName = fullName;
         Email = email;
+        PhoneNumber = phoneNumber;
         Password = password;
         Role = role;
     }
@@ -42,8 +44,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
     {
         var user = new User(id, fullName, email, phoneNumber, password, role);
         
-        //TODO: add event
-        //user.Raise(new UserCreatedDomainEvent(Guid.NewGuid(), DateTime.UtcNow, id));
+        user.Raise(new UserSignedUpDomainEvent(Guid.NewGuid(), DateTime.UtcNow, user));
         
         return user;
     }

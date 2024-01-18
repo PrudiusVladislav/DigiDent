@@ -52,7 +52,7 @@ public class PublishDomainEventsInterceptor: SaveChangesInterceptor
             .ToList();
 
         IEnumerable<Task> eventsPublishingTasks = entitiesWithDomainEvents
-            .Select(async domainEvent => await _publisher.Publish(domainEvent));
+            .Select(domainEvent =>  _publisher.Publish(domainEvent));
         
         await Task.WhenAll(eventsPublishingTasks);
     }

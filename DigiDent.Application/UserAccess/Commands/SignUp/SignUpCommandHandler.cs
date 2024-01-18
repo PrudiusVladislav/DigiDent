@@ -50,7 +50,7 @@ public class SignUpCommandHandler
             emailResult.Value!,
             phoneNumberResult.Value!,
             passwordResult.Value!,
-            roleResult.Value!);
+            roleResult.Value);
         await _usersDomainService.AddUserAsync(userToAdd, cancellationToken);
         
         var tokensResponse = await _jwtService

@@ -22,6 +22,7 @@ namespace DigiDent.EFCorePersistence.Migrations.UserAccessDb
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FullName = table.Column<string>(name: "Full Name", type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -56,8 +57,8 @@ namespace DigiDent.EFCorePersistence.Migrations.UserAccessDb
             migrationBuilder.InsertData(
                 schema: "User_Access",
                 table: "Users",
-                columns: new[] { "Id", "Email", "Full Name", "Password", "Role" },
-                values: new object[] { new Guid("77bf255c-c6f1-4e84-b5c9-9622ebf8b097"), "temp@admin.tmp", "Temporary Administrator", "RoWCsmdl9X5+v9wBXxDNmD3z1LATpfYxFLFdUXQ+/PI=:/YHVABtHq6neX2S48I0J2P3zY/kujBIB5dZN0CcbrdI=", "Administrator" });
+                columns: new[] { "Id", "Email", "Full Name", "Password", "PhoneNumber", "Role" },
+                values: new object[] { new Guid("0db83e32-7cca-42a5-b35b-7b9e96041b4f"), "temp@admin.tmp", "Temporary Administrator", "jewtOvEUIx6ttNpKCWwtvnE+fT/h6zMGhELVFgRGBW4=:+KdLbLuio1Q1w5YuWdtxk4G6739OY6pE6yPaZ2zqBFQ=", "+380000000000", "Administrator" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
