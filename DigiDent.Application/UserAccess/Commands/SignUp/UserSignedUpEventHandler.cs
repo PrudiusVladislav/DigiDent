@@ -4,7 +4,8 @@ using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
-public class UserSignedUpEventHandler: INotificationHandler<UserSignedUpDomainEvent>
+public class UserSignedUpEventHandler 
+    : INotificationHandler<UserSignedUpDomainEvent>
 {
     private readonly IPublisher _publisher;
 

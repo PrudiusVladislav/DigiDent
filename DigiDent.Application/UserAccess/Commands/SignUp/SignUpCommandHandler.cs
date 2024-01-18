@@ -1,16 +1,16 @@
-﻿using DigiDent.Application.UserAccess.Abstractions;
+﻿using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
 public class SignUpCommandHandler
-    : IRequestHandler<SignUpCommand, Result<AuthenticationResponse>> 
+    : ICommandHandler<SignUpCommand, Result<AuthenticationResponse>> 
 {
     private readonly IUsersRepository _usersRepository;
     private readonly UsersDomainService _usersDomainService;

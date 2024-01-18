@@ -1,12 +1,12 @@
-﻿using DigiDent.Domain.SharedKernel.Abstractions;
+﻿using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.DeleteUser;
 
-public class DeleteUserCommandHandler: IRequestHandler<DeleteUserCommand, Result>
+public class DeleteUserCommandHandler
+    : ICommandHandler<DeleteUserCommand, Result>
 {
     private readonly UsersDomainService _usersDomainService;
     
