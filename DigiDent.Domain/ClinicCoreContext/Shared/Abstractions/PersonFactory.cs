@@ -15,8 +15,4 @@ public static class PersonFactory
         var personId = TypedId.New<TId>();
         return (TPerson)Activator.CreateInstance(typeof(TPerson), personId, fullName, email, phoneNumber)!;
     }
-    
-    public static string ClinicCoreContextRootNamespace
-        => typeof(DependencyInjection).Namespace!;
-    
 }

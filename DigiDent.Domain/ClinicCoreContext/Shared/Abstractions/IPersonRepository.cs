@@ -2,7 +2,9 @@
 
 public interface IPersonRepository
 {
-     Task AddAsync<TPerson, TPersonId>(TPerson person)
-          where TPerson : class, IPerson<TPersonId>
-          where TPersonId : IPersonId;
+     Task AddAsync<TPerson, TPersonId>(
+         TPerson person,
+         CancellationToken cancellationToken) 
+         where TPerson : class, IPerson<TPersonId> 
+         where TPersonId : IPersonId;
 }

@@ -1,4 +1,6 @@
-﻿using DigiDent.EFCorePersistence.Shared;
+﻿using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+using DigiDent.EFCorePersistence.ClinicCore.Shared.Repositories;
+using DigiDent.EFCorePersistence.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +25,8 @@ public static class DependencyInjection
             options.AddInterceptors(sp
                 .GetRequiredService<PublishDomainEventsInterceptor>());
         });
-        
+
+        services.AddTransient<IPersonRepository, PersonRepository>();
         // services.AddTransient<IAssistantsRepository, AssistantsRepository>();
         // services.AddTransient<IDoctorsRepository, DoctorsRepository>();
         // services.AddTransient<IPatientsRepository, PatientsRepository>();

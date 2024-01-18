@@ -1,6 +1,5 @@
 ﻿
 using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
-using Microsoft.EntityFrameworkCore;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Shared.Repositories;
 
@@ -14,13 +13,15 @@ public class PersonRepository
         _context = context;
     }
 
-    public async Task AddAsync<TPerson, TPersonId>(TPerson person)
+    public async Task AddAsync<TPerson, TPersonId>(
+        TPerson person,
+        CancellationToken cancellationToken)
         where TPerson : class, IPerson<TPersonId>
         where TPersonId : IPersonId
     {
         await _context
             .Set<TPerson>()
-            .AddAsync(person);
-        await _context.SaveChangesAsync();
+            .AddAsync(person, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

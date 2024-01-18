@@ -31,16 +31,23 @@ public class UserSignedUpEventHandler
         await (Task)typeof(IPersonRepository)
             .GetMethod(nameof(IPersonRepository.AddAsync), BindingFlags.Public | BindingFlags.Instance)!
             .MakeGenericMethod(personType, idType)
-            .Invoke(_personRepository, [person])!;
+            .Invoke(_personRepository, [person, cancellationToken])!;
     }
 
     private static Type GetPersonType(Role role)
     {
+        var personType = Assembly
+            .GetAssembly(typeof(IPerson<>))!
+            .GetTypes()
+            .SingleOrDefault(type =>
+                type is { IsClass: true, IsAbstract: false } &&
+                type.GetInterfaces()
+                    .Any(i => 
+                        i.IsGenericType &&
+                        i.GetGenericTypeDefinition() == typeof(IPerson<>)) &&
+                type.Name.Equals(role.ToString()));
         
-        var personTypeNamespace = $"{PersonFactory.ClinicCoreContextRootNamespace}.{role.ToString()}";
-        var personType = Type.GetType(personTypeNamespace);
-        
-        if (personType == null || !typeof(IPerson<>).IsAssignableFrom(personType))
+        if (personType == null)
             throw new InvalidOperationException("Invalid role or type.");
         
         return personType;
@@ -48,10 +55,10 @@ public class UserSignedUpEventHandler
     
     private static Type GetPersonIdType(Type personType)
     {
-        //or via the naming convention like Employee -> Employee[Id]
         var idType = personType
             .GetProperties()
-            .FirstOrDefault(property => property.Name == nameof(IPerson<IPersonId>.Id))!
+            .SingleOrDefault(property => 
+                property.Name == nameof(IPerson<IPersonId>.Id))!
             .PropertyType;
         
         return idType;
