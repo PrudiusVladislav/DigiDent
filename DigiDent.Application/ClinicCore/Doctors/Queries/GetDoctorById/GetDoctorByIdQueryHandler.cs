@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Application.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
@@ -23,7 +24,8 @@ public class GetDoctorByIdQueryHandler
         var doctorId = new EmployeeId(request.Id);
         Doctor? doctor = await _doctorRepository.GetByIdAsync(doctorId, cancellationToken);
         if (doctor is null)
-            return Result.Fail<DoctorDTO>(); //TODO: Add error for the not found doctor
+            return Result.Fail<DoctorDTO>(CrudRepositoryErrors
+                .EntityNotFound(nameof(Doctor), doctorId.Value));
 
         return Result.Ok(_mapper.Map<DoctorDTO>(doctor));
     }
