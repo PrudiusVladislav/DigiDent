@@ -4,4 +4,4 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 
-public record GetAllDoctorsQuery: IQuery<Result<IEnumerable<Doctor>>>;
+public record GetAllDoctorsQuery: IQuery<IReadOnlyCollection<DoctorDTO>>;

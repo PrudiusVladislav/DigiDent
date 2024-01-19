@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using DigiDent.API.Extensions;
-using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
+﻿using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 using MediatR;
 
-namespace DigiDent.API.Endpoints.ClinicCore.Doctors;
+namespace DigiDent.API.Endpoints.ClinicCore;
 
 public static class DoctorsEndpoints
 {
@@ -17,13 +15,11 @@ public static class DoctorsEndpoints
     {
         app.MapGet("/", async (
             IMediator mediator,
-            IMapper mapper,
             CancellationToken cancellationToken) =>
         {
-            var result = await mediator.Send(new GetAllDoctorsQuery(), cancellationToken);
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: response => Results.Ok(response));
+            IReadOnlyCollection<DoctorDTO> result = await mediator.Send(
+                new GetAllDoctorsQuery(), cancellationToken);
+            return Results.Ok(result);
         });
         
         return app;

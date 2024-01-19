@@ -3,8 +3,7 @@ using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Shared.Repositories;
 
-public class PersonRepository
-    : IPersonRepository
+public class PersonRepository: IPersonRepository
 {
     private readonly ClinicCoreDbContext _context;
 
