@@ -25,7 +25,7 @@ public abstract class BaseEntityConfiguration<TEntity, TId, TIdValue>
             .ValueGeneratedNever()
             .HasConversion(
             id => id.Value,
-            value => TypedId.Create<TIdValue, TId>(value));
+            value => TypedId.Create<TId, TIdValue>(value));
 
         ConfigureEntity(builder);
     }
