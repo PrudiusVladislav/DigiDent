@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Shared.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;

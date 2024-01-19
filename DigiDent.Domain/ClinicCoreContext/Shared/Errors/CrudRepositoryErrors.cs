@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
 
-namespace DigiDent.Application.Shared.Errors;
+namespace DigiDent.Domain.ClinicCoreContext.Shared.Errors;
 
 public static class CrudRepositoryErrors
 {

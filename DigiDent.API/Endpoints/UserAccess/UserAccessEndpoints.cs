@@ -63,7 +63,7 @@ public static class UserAccessEndpoints
             var refreshResult = await mediator.Send(refreshCommand, cancellationToken);
             return refreshResult.Match(
                 onFailure: _ => refreshResult.MapToIResult(),
-                onSuccess: response => Results.Ok(response));
+                onSuccess: Results.Ok);
         });
         
         return app;
