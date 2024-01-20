@@ -3,15 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DigiDent.Application;
 
-public static class DependencyInjection
+public static class ApplicationAssembly
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddMediatR(options => 
             options.RegisterServicesFromAssembly(
-                typeof(DependencyInjection).Assembly));
+                typeof(ApplicationAssembly).Assembly));
         
-        services.AddAutoMapper(typeof(DependencyInjection).Assembly);
+        services.AddAutoMapper(typeof(ApplicationAssembly).Assembly);
         
         return services;
     }

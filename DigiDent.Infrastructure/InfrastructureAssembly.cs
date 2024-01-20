@@ -8,9 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DigiDent.Infrastructure.UserAccess;
+namespace DigiDent.Infrastructure;
 
-public static class DependencyInjection
+public static class InfrastructureAssembly
 {
     /// <summary>
     /// Adds and configures infrastructure of the UserAccess bounded context.

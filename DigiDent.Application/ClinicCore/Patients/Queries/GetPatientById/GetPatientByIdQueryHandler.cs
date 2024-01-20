@@ -2,33 +2,30 @@
 using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Shared.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Patients.Queries.GetPatientById;
 
 public class GetPatientByIdQueryHandler
-    : IQueryHandler<GetPatientByIdQuery, Result<PatientProfileDTO>>
+    : IQueryHandler<GetPatientByIdQuery, PatientProfileDTO?>
 {
-    private readonly IPatientRepository _patientRepository;
+    private readonly IPatientsRepository _patientsRepository;
     private readonly IMapper _mapper;
 
-    public GetPatientByIdQueryHandler(IPatientRepository patientRepository, IMapper mapper)
+    public GetPatientByIdQueryHandler(IPatientsRepository patientsRepository, IMapper mapper)
     {
-        _patientRepository = patientRepository;
+        _patientsRepository = patientsRepository;
         _mapper = mapper;
     }
 
-    public async Task<Result<PatientProfileDTO>> Handle(GetPatientByIdQuery request, CancellationToken cancellationToken)
+    public async Task<PatientProfileDTO?> Handle(
+        GetPatientByIdQuery request, CancellationToken cancellationToken)
     {
         var patientId = new PatientId(request.Id);
-        Patient? patient = await _patientRepository.GetByIdAsync(patientId, cancellationToken);
-        if (patient is null)
-            return Result.Fail<PatientProfileDTO>(CrudRepositoryErrors
-                .EntityNotFound(nameof(Patient), patientId.Value));
+        
+        Patient? patient = await _patientsRepository.GetByIdAsync(
+            patientId, cancellationToken);
 
-        var patientDto = _mapper.Map<PatientProfileDTO>(patient);
-
-        return Result.Ok(patientDto);
+        return _mapper.Map<PatientProfileDTO?>(patient);
     }
 }

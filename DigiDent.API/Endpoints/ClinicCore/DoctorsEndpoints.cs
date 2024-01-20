@@ -36,11 +36,12 @@ public static class DoctorsEndpoints
             IMediator mediator,
             CancellationToken cancellationToken) =>
         {
-            var result = await mediator.Send(
+            DoctorProfileDTO? doctor = await mediator.Send(
                 new GetDoctorByIdQuery(id), cancellationToken);
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: Results.Ok);
+            
+            return doctor is null
+                ? Results.NotFound()
+                : Results.Ok(doctor);
         });
         
         return app;
