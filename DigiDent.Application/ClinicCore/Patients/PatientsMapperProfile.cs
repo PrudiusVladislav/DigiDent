@@ -9,8 +9,8 @@ public class PatientsMapperProfile: Profile
 {
     public PatientsMapperProfile()
     {
-        CreateMap<Appointment, AppointmentDTO>();
-        CreateMap<Patient, PatientDTO>()
+        CreateMap<Appointment, NearestAppointmentDTO>();
+        CreateMap<Patient, PatientProfileDTO>()
             .ForMember(
                 dest => dest.NearestAppointments,
                 opt => opt.MapFrom(src => src.Appointments

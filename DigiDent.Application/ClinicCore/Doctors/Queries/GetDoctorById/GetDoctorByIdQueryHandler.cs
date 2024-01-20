@@ -8,7 +8,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 
 public class GetDoctorByIdQueryHandler
-    : IQueryHandler<GetDoctorByIdQuery, Result<DoctorDTO>>
+    : IQueryHandler<GetDoctorByIdQuery, Result<DoctorProfileDTO>>
 {
     private readonly IDoctorRepository _doctorRepository;
     private readonly IMapper _mapper;
@@ -19,14 +19,14 @@ public class GetDoctorByIdQueryHandler
         _mapper = mapper;
     }
 
-    public async Task<Result<DoctorDTO>> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<DoctorProfileDTO>> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
     {
         var doctorId = new EmployeeId(request.Id);
         Doctor? doctor = await _doctorRepository.GetByIdAsync(doctorId, cancellationToken);
         if (doctor is null)
-            return Result.Fail<DoctorDTO>(CrudRepositoryErrors
+            return Result.Fail<DoctorProfileDTO>(CrudRepositoryErrors
                 .EntityNotFound(nameof(Doctor), doctorId.Value));
 
-        return Result.Ok(_mapper.Map<DoctorDTO>(doctor));
+        return Result.Ok(_mapper.Map<DoctorProfileDTO>(doctor));
     }
 }

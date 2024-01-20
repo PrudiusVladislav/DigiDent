@@ -3,4 +3,4 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 
-public record GetDoctorByIdQuery(Guid Id): IQuery<Result<DoctorDTO>>;
+public record GetDoctorByIdQuery(Guid Id): IQuery<Result<DoctorProfileDTO>>;

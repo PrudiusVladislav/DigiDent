@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
+using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 
 namespace DigiDent.Application.ClinicCore.Doctors;
@@ -7,7 +9,7 @@ public class DoctorsMapperProfile: Profile
 {
     public DoctorsMapperProfile()
     {
-        CreateMap<Doctor, Queries.GetAllDoctors.DoctorDTO>();
-        CreateMap<Doctor, Queries.GetDoctorById.DoctorDTO>();
+        CreateMap<Doctor, DoctorDTO>();
+        CreateMap<Doctor, DoctorProfileDTO>();
     }
 }

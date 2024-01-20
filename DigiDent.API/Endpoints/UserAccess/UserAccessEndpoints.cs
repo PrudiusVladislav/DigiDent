@@ -31,7 +31,7 @@ public static class UserAccessEndpoints
             var signInResult = await mediator.Send(signInCommand, cancellationToken);
             return signInResult.Match(
                 onFailure: _ => signInResult.MapToIResult(),
-                onSuccess: response => Results.Ok(response));
+                onSuccess: Results.Ok);
         });
         
         return app;
@@ -47,7 +47,7 @@ public static class UserAccessEndpoints
             var signUpResult = await mediator.Send(signUpCommand, cancellationToken);
             return signUpResult.Match(
                 onFailure: _ => signUpResult.MapToIResult(),
-                onSuccess: token => Results.Ok(token));
+                onSuccess: Results.Ok);
         }).RequireRoles(Role.Administrator);
         
         return app;

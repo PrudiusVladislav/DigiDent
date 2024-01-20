@@ -1,7 +1,7 @@
 ﻿
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 
-public record DoctorDTO(
+public record DoctorProfileDTO(
     Guid Id,
     string FullName,
     string Email,
