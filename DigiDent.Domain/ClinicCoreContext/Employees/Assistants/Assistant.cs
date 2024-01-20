@@ -1,4 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 
@@ -18,17 +19,13 @@ public class Assistant : Employee
         FullName = fullName;
     }
     
-    public static Assistant Create(
-        Email email,
-        PhoneNumber phoneNumber,
-        FullName fullName)
+    public static Assistant Create(PersonCreationArgs args)
     {
         var assistantId = TypedId.New<EmployeeId>();
         return new Assistant(
             assistantId,
-            email,
-            phoneNumber,
-            fullName);
+            args.Email,
+            args.PhoneNumber,
+            args.FullName);
     }
-        
 }

@@ -11,12 +11,9 @@ public class PersonRepository: IPersonRepository
     {
         _context = context;
     }
-
-    public async Task AddAsync<TPerson, TPersonId>(
-        TPerson person,
-        CancellationToken cancellationToken)
-        where TPerson : class, IPerson<TPersonId>
-        where TPersonId : IPersonId
+    
+    public async Task AddPersonAsync<TPerson>(TPerson person, CancellationToken cancellationToken)
+        where TPerson : class, IPerson<IPersonId>
     {
         await _context
             .Set<TPerson>()

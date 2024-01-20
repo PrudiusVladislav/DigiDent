@@ -4,6 +4,7 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
@@ -32,13 +33,14 @@ public class Doctor : Employee
         PhoneNumber = phoneNumber;
     }
 
-    public static Doctor Create(
-        FullName fullName,
-        Email email,
-        PhoneNumber phoneNumber)
+    public static Doctor Create(PersonCreationArgs args)
     {
         var doctorId = TypedId.New<EmployeeId>();
-        return new Doctor(doctorId, fullName, email, phoneNumber);
+        return new Doctor(
+            doctorId,
+            args.FullName,
+            args.Email,
+            args.PhoneNumber);
     }
 
     public void SetSpecialization(DoctorSpecialization specialization)
