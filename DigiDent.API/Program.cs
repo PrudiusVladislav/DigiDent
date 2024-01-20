@@ -9,11 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
         .AddUserAccessDomain()
-        .AddUserAccessInfrastructure(builder.Configuration
-            .GetSection("Authentication:Jwt"));
-
-    builder.Services
         .AddEFCorePersistence(builder.Configuration)
+        .AddInfrastructure(builder
+            .Configuration.GetSection("Authentication:Jwt"))
         .AddApplication();
 
     builder.Services.AddErrorHandlingMiddleware();

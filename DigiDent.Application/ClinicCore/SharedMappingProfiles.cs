@@ -5,6 +5,9 @@ using DigiDent.Domain.SharedKernel.ValueObjects;
 
 namespace DigiDent.Application.ClinicCore;
 
+/// <summary>
+/// Contains common AutoMapper profiles that are shared among multiple aggregates.
+/// </summary>
 public class SharedMappingProfiles: Profile
 {
     public SharedMappingProfiles()
@@ -24,12 +27,13 @@ public class SharedMappingProfiles: Profile
         CreateMap<Gender, string>()
             .ConvertUsing(gender => gender.ToString());
     }
-}
-
-public class TypedIdGuidResolver: IValueResolver<ITypedId<Guid>, Guid, Guid>
-{
-    public Guid Resolve(ITypedId<Guid> source, Guid destination, Guid destMember, ResolutionContext context)
+    
+    private class TypedIdGuidResolver: IValueResolver<ITypedId<Guid>, Guid, Guid>
     {
-        return source.Value;
+        public Guid Resolve(ITypedId<Guid> source, Guid destination, Guid destMember, ResolutionContext context)
+        {
+            return source.Value;
+        }
     }
 }
+

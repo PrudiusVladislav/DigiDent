@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Patients;
 
-public class PatientsesRepository: IPatientsRepository
+public class PatientsRepository: IPatientsRepository
 {
     private readonly ClinicCoreDbContext _context;
 
-    public PatientsesRepository(ClinicCoreDbContext context)
+    public PatientsRepository(ClinicCoreDbContext context)
     {
         _context = context;
     }

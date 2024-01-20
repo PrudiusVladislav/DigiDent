@@ -2,7 +2,11 @@
 
 namespace DigiDent.Application.Shared.Abstractions;
 
-public interface IQuery<TResult>: IRequest<TResult>
+/// <summary>
+/// Marker interface to represent a query.
+/// </summary>
+/// <typeparam name="TResponse">The type of the response.</typeparam>
+public interface IQuery<TResponse>: IRequest<TResponse>
 {
     
 }

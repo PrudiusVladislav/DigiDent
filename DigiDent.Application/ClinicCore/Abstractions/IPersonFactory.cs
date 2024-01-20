@@ -4,6 +4,9 @@ using DigiDent.Domain.SharedKernel.ValueObjects;
 
 namespace DigiDent.Application.ClinicCore.Abstractions;
 
+/// <summary>
+/// Defines a factory for creating <see cref="IPerson{TPersonId}"/> objects.
+/// </summary>
 public interface IPersonFactory
 {
     Type GetPersonTypeFromRole(Role role);

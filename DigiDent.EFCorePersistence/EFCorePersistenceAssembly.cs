@@ -10,8 +10,11 @@ using Scrutor;
 
 namespace DigiDent.EFCorePersistence;
 
-public static  class EFCorePersistenceAssembly
+public static class EFCorePersistenceAssembly
 {
+    /// <summary>
+    /// Adds and configures EF Core persistence services.
+    /// </summary>
     public static IServiceCollection AddEFCorePersistence(
         this IServiceCollection services,
         IConfiguration configuration)

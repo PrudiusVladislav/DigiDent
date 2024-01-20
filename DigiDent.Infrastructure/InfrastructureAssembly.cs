@@ -1,5 +1,7 @@
 ﻿using System.Text;
+using DigiDent.Application.ClinicCore.Abstractions;
 using DigiDent.Application.UserAccess.Abstractions;
+using DigiDent.Infrastructure.ClinicCore;
 using DigiDent.Infrastructure.UserAccess.Authentication;
 using DigiDent.Infrastructure.UserAccess.Authorization.RolesRequirement;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,17 +15,18 @@ namespace DigiDent.Infrastructure;
 public static class InfrastructureAssembly
 {
     /// <summary>
-    /// Adds and configures infrastructure of the UserAccess bounded context.
+    /// Adds and configures infrastructure services.
     /// </summary>
     /// <returns></returns>
-    public static IServiceCollection AddUserAccessInfrastructure(
+    public static IServiceCollection AddInfrastructure(
         this IServiceCollection services, 
         IConfigurationSection configurationSection)
     {
         services
             .ConfigureJwt(configurationSection)
             .ConfigureAuthorizationServices(configurationSection)
-            .AddAuthorization();
+            .AddAuthorization()
+            .AddFactories();
         return services;
     }
     
@@ -69,6 +72,13 @@ public static class InfrastructureAssembly
             {
                 options.TokenValidationParameters = tokenValidationParameters;
             });
+        return services;
+    }
+    
+    private static IServiceCollection AddFactories(
+        this IServiceCollection services)
+    {
+        services.AddSingleton<IPersonFactory, PersonFactory>();
         return services;
     }
 }
