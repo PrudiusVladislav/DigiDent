@@ -27,8 +27,6 @@ public class ClinicCoreDbContext: DbContext
     public DbSet<DentalProcedure> DentalProcedures { get; set; } = null!;
     public DbSet<TreatmentPlan> TreatmentPlans { get; set; } = null!;
     
-    
-    
     public ClinicCoreDbContext(DbContextOptions<ClinicCoreDbContext> options)
         : base(options)
     {
@@ -52,9 +50,3 @@ public class ClinicCoreDbContext: DbContext
             .HasValue<Assistant>("Assistant");
     }
 }
-
-//TODO: Create abstract class Employee that would implement the properties
-// from the IEmployee, and later inherit the Doctor and Assistant
-// from the Employee abstract class
-//TODO: if there will be problem with the FK id being still an interface
-// then create an abstract implementation of the IEmployeeId and use that

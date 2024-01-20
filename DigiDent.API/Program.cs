@@ -5,6 +5,7 @@ using DigiDent.Application.UserAccess;
 using DigiDent.Domain.UserAccessContext;
 using DigiDent.EFCorePersistence.ClinicCore;
 using DigiDent.EFCorePersistence.UserAccess;
+using DigiDent.Infrastructure.ClinicCore;
 using DigiDent.Infrastructure.UserAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
             .GetSection("Authentication:Jwt"));
 
     builder.Services
-        .AddClinicCorePersistence(builder.Configuration);
+        .AddClinicCorePersistence(builder.Configuration)
+        .AddClinicCoreInfrastructure();
 
     builder.Services.AddApplication();
 
