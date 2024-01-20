@@ -1,5 +1,4 @@
 ﻿using DigiDent.Application.ClinicCore.Abstractions;
-using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Patients;

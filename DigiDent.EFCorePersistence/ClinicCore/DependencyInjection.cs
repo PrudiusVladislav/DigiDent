@@ -25,14 +25,14 @@ public static class DependencyInjection
                     .MigrationsHistoryTable(
                         tableName: "__EFMigrationsHistory",
                         schema: ClinicCoreDbContext.ClinicCoreSchema));
-            
+
             options.AddInterceptors(sp
                 .GetRequiredService<PublishDomainEventsInterceptor>());
         });
 
         services.AddTransient<IPersonRepository, PersonRepository>();
-        services.AddTransient<IPatientRepository, PatientRepository>();
-        services.AddTransient<IDoctorRepository, DoctorRepository>();
+        services.AddTransient<IPatientsRepository, PatientsesRepository>();
+        services.AddTransient<IDoctorsRepository, DoctorsRepository>();
         // services.AddTransient<IAssistantsRepository, AssistantsRepository>();
         // services.AddTransient<IDoctorsRepository, DoctorsRepository>();
         // services.AddTransient<IPatientsRepository, PatientsRepository>();

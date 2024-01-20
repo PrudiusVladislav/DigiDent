@@ -1,11 +1,13 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Shared.Errors;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 
 public abstract class Employee: 
     AggregateRoot,
@@ -19,11 +21,11 @@ public abstract class Employee:
     public DateOnly? DateOfBirth { get; protected set;}
     public EmployeeStatus Status { get; protected set;}
     
-    public ICollection<WorkingDay> WorkingDays { get; set; }
+    public ICollection<WorkingDay> WorkingDays { get; protected set; }
         = new List<WorkingDay>();
-    public ICollection<SchedulePreference> SchedulePreferences { get; set; }
+    public ICollection<SchedulePreference> SchedulePreferences { get; protected set; }
         = new List<SchedulePreference>();
-
+    
     
     private const int LegalWorkingAge = 18;
     

@@ -1,5 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
@@ -34,7 +35,6 @@ public class PastVisit :
     /// <summary>
     /// A list of procedures (names) done during the visit.
     /// </summary>
-    //TODO: consider using JSON to store procedures.
     public IEnumerable<string> ProceduresDone { get; init; }
     
     internal PastVisit(

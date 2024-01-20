@@ -1,5 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
 using DigiDent.EFCorePersistence.Shared.Converters;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
