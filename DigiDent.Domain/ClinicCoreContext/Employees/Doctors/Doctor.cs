@@ -1,8 +1,8 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
@@ -16,7 +16,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 public class Doctor : Employee
 {
     public DoctorSpecialization Specialization { get; private set; }
-    public string? Biography { get; private set; }
+    public string? Biography { get; set; }
     
     public ICollection<DentalProcedure> ProvidedServices { get; set; } = new List<DentalProcedure>();
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
@@ -42,22 +42,6 @@ public class Doctor : Employee
             args.FullName,
             args.Email,
             args.PhoneNumber);
-    }
-
-    public void SetSpecialization(DoctorSpecialization specialization)
-    {
-        Specialization = specialization;
-    }
-
-    private const int BiographyMaxLength = 1000;
-
-    public Result SetBiography(string biography)
-    {
-        if (biography.Length > BiographyMaxLength)
-            return Result.Fail(DoctorErrors.BiographyIsTooLong);
-
-        Biography = biography;
-        return Result.Ok();
     }
 
     /// <summary>
@@ -111,5 +95,54 @@ public class Doctor : Employee
         return availableDateTimes.Any(slot => 
             slot.Hour == dateTimeToCheck.Hour && 
             slot.Minute == dateTimeToCheck.Minute);
+    }
+    
+    public Result Update(UpdateDoctorDTO dto)
+    {
+        var baseUpdateDTO = dto.ToUpdateEmployeeDTO;
+        
+        var validationResult = IsUpdateDtoValid(dto, baseUpdateDTO);
+        if (validationResult.IsFailure) return validationResult;
+        
+        UpdateProperties(dto, baseUpdateDTO);
+        
+        return Result.Ok();
+    }
+    
+    private void UpdateProperties(
+        UpdateDoctorDTO dto, UpdateEmployeeDTO baseUpdateDTO)
+    {
+        base.UpdateProperties(baseUpdateDTO);
+        
+        Specialization = dto.Specialization ?? Specialization;
+        Biography = dto.Biography ?? Biography;
+    }
+    
+    private Result IsUpdateDtoValid(
+        UpdateDoctorDTO dto, UpdateEmployeeDTO baseUpdateDTO)
+    {
+        var baseValidationResult = base.IsUpdateDtoValid(baseUpdateDTO);
+        var biographyValidationResult = dto.Biography is null 
+            ? Result.Ok()
+            : ValidateBiography(dto.Biography);
+        
+        return Result.Merge(baseValidationResult, biographyValidationResult);
+    }
+
+    public override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
+    {
+        const int legalWorkingAge = 18;
+        return ValidateBirthDate<Doctor>(birthDateToCheck, legalWorkingAge);
+    }
+    
+    public Result ValidateBiography(string biography)
+    {
+        const int biographyMaxLength = 1000;
+        
+        if (biography.Length > biographyMaxLength)
+            return Result.Fail(DoctorErrors.BiographyIsTooLong);
+
+        Biography = biography;
+        return Result.Ok();
     }
 }

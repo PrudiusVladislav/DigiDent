@@ -1,8 +1,8 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
@@ -29,5 +29,11 @@ public class Assistant : Employee
             args.Email,
             args.PhoneNumber,
             args.FullName);
+    }
+    
+    public override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
+    {
+        const int legalWorkingAge = 18;
+        return ValidateBirthDate<Assistant>(birthDateToCheck, legalWorkingAge);
     }
 }
