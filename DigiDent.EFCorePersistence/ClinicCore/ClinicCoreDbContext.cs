@@ -15,6 +15,7 @@ public class ClinicCoreDbContext: DbContext
     
     public DbSet<Doctor> Doctors { get; set; } = null!;
     public DbSet<Assistant> Assistants { get; set; } = null!;
+    public DbSet<Administrator> Administrators { get; set; } = null!;
     
     public DbSet<WorkingDay> WorkingDays { get; set; } = null!;
     public DbSet<SchedulePreference> SchedulePreferences { get; set; } = null!;
@@ -24,7 +25,7 @@ public class ClinicCoreDbContext: DbContext
     public DbSet<Appointment> Appointments { get; set; } = null!;
     public DbSet<PastVisit> PastVisits { get; set; } = null!;
     
-    public DbSet<DentalProcedure> DentalProcedures { get; set; } = null!;
+    public DbSet<ProvidedService> ProvidedServices { get; set; } = null!;
     public DbSet<TreatmentPlan> TreatmentPlans { get; set; } = null!;
     
     public ClinicCoreDbContext(DbContextOptions<ClinicCoreDbContext> options)

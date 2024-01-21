@@ -31,8 +31,8 @@ public class Appointment :
     
     public AppointmentStatus Status { get; private set; }
     
-    public ICollection<DentalProcedure> DentalProcedures { get; set; } 
-        = new List<DentalProcedure>();
+    public ICollection<ProvidedService> ProvidedServices { get; set; } 
+        = new List<ProvidedService>();
 
     internal Appointment(
         AppointmentId id,

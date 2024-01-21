@@ -3,9 +3,9 @@ using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 
-namespace DigiDent.Application.ClinicCore.Doctors;
+namespace DigiDent.Application.ClinicCore.Doctors.Queries;
 
-public class DoctorsMapperProfile: Profile
+public sealed class DoctorsMapperProfile: Profile
 {
     public DoctorsMapperProfile()
     {

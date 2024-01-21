@@ -15,15 +15,14 @@ public static class DoctorsEndpoints
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/doctors")
-            .MapGetAllDoctorsEndpoint()
-            .MapGetDoctorByIdEndpoint()
+            .MapGetDoctorsInfoEndpoints()
             .MapDoctorAvailabilityEndpoints()
             .MapDoctorUpdateEndpoint();
         
         return groupBuilder;
     }
     
-    private static IEndpointRouteBuilder MapGetAllDoctorsEndpoint(
+    private static IEndpointRouteBuilder MapGetDoctorsInfoEndpoints(
         this IEndpointRouteBuilder app)
     {
         app.MapGet("/", async (
@@ -35,12 +34,6 @@ public static class DoctorsEndpoints
             return Results.Ok(doctors);
         });
         
-        return app;
-    }
-    
-    private static IEndpointRouteBuilder MapGetDoctorByIdEndpoint(
-        this IEndpointRouteBuilder app)
-    {
         app.MapGet("/{id}", async (
             [FromRoute]Guid id,
             IMediator mediator,

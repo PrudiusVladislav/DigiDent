@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
 
 [ClinicCoreEntityConfiguration]
-public class DentalProcedureConfiguration
-    : BaseEntityConfiguration<DentalProcedure, DentalProcedureId, Guid>
+public class ProvidedServiceConfiguration
+    : BaseEntityConfiguration<ProvidedService, ProvidedServiceId, Guid>
 {
-    protected override void ConfigureEntity(EntityTypeBuilder<DentalProcedure> builder)
+    protected override void ConfigureEntity(EntityTypeBuilder<ProvidedService> builder)
     {
         builder.OwnsOne(
             procedure => procedure.Details, 

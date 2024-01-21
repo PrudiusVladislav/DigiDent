@@ -5,21 +5,21 @@ using DigiDent.Domain.SharedKernel.Abstractions;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
-public class DentalProcedure: IEntity<DentalProcedureId, Guid>
+public class ProvidedService: IEntity<ProvidedServiceId, Guid>
 {
-    public DentalProcedureId Id { get; init; }
-    public DentalProcedureDetails Details { get; private set; }
+    public ProvidedServiceId Id { get; init; }
+    public ProvidedServiceDetails Details { get; private set; }
     public TimeDuration UsualDuration { get; private set; }
     public Money Price { get; private set; }
     
     public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
     
     // for EF Core
-    internal DentalProcedure() { }
+    internal ProvidedService() { }
     
-    internal DentalProcedure(
-        DentalProcedureId id,
-        DentalProcedureDetails details,
+    internal ProvidedService(
+        ProvidedServiceId id,
+        ProvidedServiceDetails details,
         TimeDuration usualDuration,
         Money price)
     {
@@ -29,14 +29,14 @@ public class DentalProcedure: IEntity<DentalProcedureId, Guid>
         Price = price;
     }
     
-    public static DentalProcedure Create(
-        DentalProcedureDetails details,
+    public static ProvidedService Create(
+        ProvidedServiceDetails details,
         TimeDuration usualDuration,
         Money price)
     {
-        var dentalProcedureId = TypedId.New<DentalProcedureId>();
-        return new DentalProcedure(
-            dentalProcedureId,
+        var serviceId = TypedId.New<ProvidedServiceId>();
+        return new ProvidedService(
+            serviceId,
             details,
             usualDuration,
             price);

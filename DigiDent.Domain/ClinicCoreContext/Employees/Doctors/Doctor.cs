@@ -18,7 +18,7 @@ public class Doctor : Employee
     public DoctorSpecialization Specialization { get; private set; }
     public string? Biography { get; set; }
     
-    public ICollection<DentalProcedure> ProvidedServices { get; set; } = new List<DentalProcedure>();
+    public ICollection<ProvidedService> ProvidedServices { get; set; } = new List<ProvidedService>();
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     public ICollection<PastVisit> PastVisits { get; set; } = new List<PastVisit>();
 
