@@ -6,9 +6,9 @@ namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 public record ProvidedServiceDetails
 {
     public string Name { get; init; }
-    public string? Description { get; init; }
+    public string Description { get; init; }
     
-    internal ProvidedServiceDetails(string name, string? description)
+    internal ProvidedServiceDetails(string name, string description)
     {
         Name = name;
         Description = description;
@@ -16,7 +16,7 @@ public record ProvidedServiceDetails
     
     public static Result<ProvidedServiceDetails> Create(
         string name,
-        string? description)
+        string description)
     {
         const int nameMinLength = 3;
         const int nameMaxLength = 100;
@@ -30,7 +30,7 @@ public record ProvidedServiceDetails
                 .NameHasInvalidLength(nameMinLength, nameMaxLength));
         }
         
-        if (description?.Length > descriptionMaxLength)
+        if (description.Length > descriptionMaxLength)
         {
             return Result.Fail<ProvidedServiceDetails>(ProvidedServiceErrors
                 .DescriptionHasInvalidLength(descriptionMaxLength));
