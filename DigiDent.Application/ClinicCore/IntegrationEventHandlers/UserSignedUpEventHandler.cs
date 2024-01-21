@@ -28,16 +28,18 @@ public class UserSignedUpEventHandler
             notification.FullName,
             notification.Email,
             notification.PhoneNumber);
-
-        var personType = _personFactory.GetPersonTypeFromRole(notification.Role);
+        
+        (Type, Type) personTypes = _personFactory
+            .GetPersonTypesFromRole(notification.Role);
+        
         var person = typeof(IPersonFactory)
             .GetMethod(nameof(IPersonFactory.CreatePerson))!
-            .MakeGenericMethod(personType)
+            .MakeGenericMethod(personTypes.Item1, personTypes.Item2)
             .Invoke(_personFactory, [personCreationArgs]);
         
         await (Task)typeof(IPersonRepository)
             .GetMethod(nameof(IPersonRepository.AddPersonAsync))!
-            .MakeGenericMethod(personType)
+            .MakeGenericMethod(personTypes.Item1, personTypes.Item2)
             .Invoke(_personRepository, [person, cancellationToken])!;
     }
 }

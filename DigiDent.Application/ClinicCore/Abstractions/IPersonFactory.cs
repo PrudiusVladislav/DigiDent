@@ -9,7 +9,9 @@ namespace DigiDent.Application.ClinicCore.Abstractions;
 /// </summary>
 public interface IPersonFactory
 {
-    Type GetPersonTypeFromRole(Role role);
-    TPerson CreatePerson<TPerson>(PersonCreationArgs args)
-        where TPerson : class, IPerson<IPersonId>;
+    (Type, Type) GetPersonTypesFromRole(Role role);
+
+    TPerson CreatePerson<TPerson, TId>(PersonCreationArgs args)
+        where TPerson : class, IPerson<TId>
+        where TId : IPersonId;
 }

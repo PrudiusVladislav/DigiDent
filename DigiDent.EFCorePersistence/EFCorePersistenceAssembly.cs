@@ -64,7 +64,7 @@ public static class EFCorePersistenceAssembly
                 .Where(x => x.Name.EndsWith("Repository")))
             .UsingRegistrationStrategy(RegistrationStrategy.Skip)
             .AsMatchingInterface()
-            .WithScopedLifetime());
+            .WithTransientLifetime());
         
         return services;
     }

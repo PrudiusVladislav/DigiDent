@@ -1,5 +1,4 @@
-﻿using DigiDent.API.Extensions;
-using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
+﻿using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 using MediatR;
 

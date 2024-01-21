@@ -15,18 +15,15 @@ public class SignInCommandHandler
     private readonly IJwtService _jwtService;
     private readonly UsersDomainService _usersDomainService;
     private readonly IUsersRepository _usersRepository;
-    private readonly IRefreshTokensRepository _refreshTokensRepository;
     
     public SignInCommandHandler(
         IJwtService jwtService,
         UsersDomainService usersDomainService,
-        IUsersRepository usersRepository,
-        IRefreshTokensRepository refreshTokensRepository)
+        IUsersRepository usersRepository)
     {
         _jwtService = jwtService;
         _usersDomainService = usersDomainService;
         _usersRepository = usersRepository;
-        _refreshTokensRepository = refreshTokensRepository;
     }
     
     public async Task<Result<AuthenticationResponse>> Handle(
