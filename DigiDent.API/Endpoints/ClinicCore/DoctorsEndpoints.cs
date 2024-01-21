@@ -1,4 +1,5 @@
 ﻿using DigiDent.API.Extensions;
+using DigiDent.Application.ClinicCore.Doctors.Commands.Update;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
@@ -90,6 +91,27 @@ public static class DoctorsEndpoints
                 query, cancellationToken);
             
             return Results.Ok(response);
+        });
+        
+        return app;
+    }
+
+    private static IEndpointRouteBuilder MapDoctorUpdateEndpoint(
+        this IEndpointRouteBuilder app)
+    {
+        app.MapPut("/{id}", async (
+            [FromRoute]Guid id,
+            [FromBody]UpdateDoctorRequest request,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var command = UpdateDoctorCommand.CreateFromRequest(id, request);
+            
+            var result = await mediator.Send(command, cancellationToken);
+
+            return result.Match(
+                onFailure: _ => result.MapToIResult(),
+                onSuccess: Results.NoContent);
         });
         
         return app;
