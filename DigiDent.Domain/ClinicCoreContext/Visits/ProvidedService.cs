@@ -41,4 +41,12 @@ public class ProvidedService: IEntity<ProvidedServiceId, Guid>
             usualDuration,
             price);
     }
+
+    public void Update(
+        TimeDuration? usualDuration = null,
+        Money? price = null)
+    {
+        UsualDuration = usualDuration ?? UsualDuration;
+        Price = price ?? Price;
+    }
 }

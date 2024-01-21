@@ -14,5 +14,5 @@ public static class ProvidedServiceErrors
         => new Error(
             ErrorType.Validation,
             nameof(ProvidedService),
-            $"Description must be less than {maxLength} characters long.");
+            $"Description must be non-empty and less than {maxLength} characters long.");
 }

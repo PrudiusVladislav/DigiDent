@@ -30,7 +30,8 @@ public record ProvidedServiceDetails
                 .NameHasInvalidLength(nameMinLength, nameMaxLength));
         }
         
-        if (description.Length > descriptionMaxLength)
+        if (string.IsNullOrWhiteSpace(description) ||
+            description.Length > descriptionMaxLength)
         {
             return Result.Fail<ProvidedServiceDetails>(ProvidedServiceErrors
                 .DescriptionHasInvalidLength(descriptionMaxLength));
