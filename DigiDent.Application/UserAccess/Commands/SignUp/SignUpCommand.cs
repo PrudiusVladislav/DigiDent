@@ -11,4 +11,4 @@ public record SignUpCommand(
     string Email,
     string PhoneNumber,
     string Password,
-    string Role) : ICommand<Result<AuthenticationResponse>>;
+    string Role) : ICommand<Result>;

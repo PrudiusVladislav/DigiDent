@@ -1,3 +1,4 @@
+using DigiDent.API.Endpoints.ClinicCore;
 using DigiDent.API.Endpoints.UserAccess;
 using DigiDent.API.Extensions;
 using DigiDent.Application;
@@ -25,7 +26,8 @@ var app = builder.Build();
     app.UseAuthorization();
     
     app.MapGroup("/api")
-        .MapUserAccessEndpoints();
+        .MapUserAccessEndpoints()
+        .MapDoctorsEndpoints();
 }
 
 app.Run();

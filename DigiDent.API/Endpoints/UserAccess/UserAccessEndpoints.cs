@@ -32,7 +32,7 @@ public static class UserAccessEndpoints
             
             return signInResult.Match(
                 onFailure: _ => signInResult.MapToIResult(),
-                onSuccess: Results.Ok);
+                onSuccess: tokens => Results.Ok(tokens));
         });
         
         return app;
@@ -49,7 +49,7 @@ public static class UserAccessEndpoints
             
             return signUpResult.Match(
                 onFailure: _ => signUpResult.MapToIResult(),
-                onSuccess: Results.Ok);
+                onSuccess: () => Results.Ok());
             
         }).RequireRoles(Role.Administrator);
         
@@ -67,7 +67,7 @@ public static class UserAccessEndpoints
             
             return refreshResult.Match(
                 onFailure: _ => refreshResult.MapToIResult(),
-                onSuccess: Results.Ok);
+                onSuccess: tokens => Results.Ok(tokens));
         });
         
         return app;

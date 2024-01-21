@@ -10,23 +10,16 @@ using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
 public class SignUpCommandHandler
-    : ICommandHandler<SignUpCommand, Result<AuthenticationResponse>> 
+    : ICommandHandler<SignUpCommand, Result> 
 {
-    private readonly IUsersRepository _usersRepository;
     private readonly UsersDomainService _usersDomainService;
-    private readonly IJwtService _jwtService;
     
-    public SignUpCommandHandler(
-        IUsersRepository usersRepository,
-        UsersDomainService usersDomainService,
-        IJwtService jwtService)
+    public SignUpCommandHandler(UsersDomainService usersDomainService)
     {
-        _usersRepository = usersRepository;
         _usersDomainService = usersDomainService;
-        _jwtService = jwtService;
     }
     
-    public async Task<Result<AuthenticationResponse>> Handle(
+    public async Task<Result> Handle(
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
@@ -41,8 +34,7 @@ public class SignUpCommandHandler
         var validationResult = Result.Merge(
             fullNameResult, emailResult, phoneNumberResult, passwordResult, roleResult);
 
-        if (validationResult.IsFailure) 
-            return validationResult.MapToType<AuthenticationResponse>();
+        if (validationResult.IsFailure) return validationResult;
         
         var userToAdd = User.Create(
             TypedId.New<UserId>(),
@@ -53,8 +45,6 @@ public class SignUpCommandHandler
             roleResult.Value);
         await _usersDomainService.AddUserAsync(userToAdd, cancellationToken);
         
-        var tokensResponse = await _jwtService
-            .GenerateAuthenticationResponseAsync(userToAdd, cancellationToken);
-        return Result.Ok(tokensResponse);
+        return Result.Ok();
     }
 }

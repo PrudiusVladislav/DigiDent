@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.Shared.IntegrationEvents;
+using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users.Events;
 using MediatR;
 
@@ -18,6 +19,10 @@ public class UserSignedUpEventHandler
         UserSignedUpDomainEvent notification,
         CancellationToken cancellationToken)
     {
+        //TODO: add adequate handling for administrator role
+        if (notification.User.Role == Role.Administrator)
+            return;
+        
         var userSignedUpIntegrationEvent = new UserSignedUpIntegrationEvent(
             notification.Id,
             notification.TimeOfOccurrence,
