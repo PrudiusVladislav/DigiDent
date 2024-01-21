@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.ClinicCore.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
 using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
@@ -21,14 +22,16 @@ public class PersonFactory: IPersonFactory
         {
             [Role.Patient] = (typeof(Patient), typeof(PatientId)),
             [Role.Doctor] = (typeof(Doctor), typeof(EmployeeId)),
-            [Role.Assistant] = (typeof(Assistant), typeof(EmployeeId))
+            [Role.Assistant] = (typeof(Assistant), typeof(EmployeeId)),
+            [Role.Administrator] = (typeof(Administrator), typeof(EmployeeId))
         };
         
         _personRoleFactories = new Dictionary<Type, Func<PersonCreationArgs, object>>
         {
             [typeof(Patient)] = Patient.Create,
             [typeof(Doctor)] = Doctor.Create,
-            [typeof(Assistant)] = Assistant.Create
+            [typeof(Assistant)] = Assistant.Create,
+            [typeof(Administrator)] = Administrator.Create
         };
     }
     
