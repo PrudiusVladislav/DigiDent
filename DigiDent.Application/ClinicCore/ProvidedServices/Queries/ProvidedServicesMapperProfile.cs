@@ -16,6 +16,12 @@ public sealed class ProvidedServicesMapperProfile: Profile
                 opt => opt.MapFrom(src => src.Details.Name));
 
         CreateMap<Doctor, DoctorByProvidedServiceDTO>();
-        CreateMap<ProvidedService, SpecificProvidedServiceDTO>();
+        CreateMap<ProvidedService, SpecificProvidedServiceDTO>()
+            .ForMember(
+                ps => ps.Name,
+                opt => opt.MapFrom(src => src.Details.Name))
+            .ForMember(
+                ps => ps.Description,
+                opt => opt.MapFrom(src => src.Details.Description)); 
     }
 }
