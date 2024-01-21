@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Visits.Repositories;
 
-public class ProvidedServicesRepository
-    : IProvidedServicesRepository
+public class ProvidedServicesRepository: IProvidedServicesRepository
 {
     private readonly ClinicCoreDbContext _dbContext;
     

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
 
@@ -16,8 +18,13 @@ public class GetProvidedServiceByIdQueryHandler
         _mapper = mapper;
     }
 
-    public Task<SpecificProvidedServiceDTO?> Handle(GetProvidedServiceByIdQuery request, CancellationToken cancellationToken)
+    public async Task<SpecificProvidedServiceDTO?> Handle(
+        GetProvidedServiceByIdQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var serviceId = new ProvidedServiceId(request.Id);
+        ProvidedService? providedService = await _providedServicesRepository
+            .GetByIdAsync(serviceId, cancellationToken);
+        
+        return _mapper.Map<SpecificProvidedServiceDTO?>(providedService);
     }
 }

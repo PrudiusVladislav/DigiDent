@@ -13,6 +13,7 @@ public class ClinicCoreDbContext: DbContext
 {
     internal const string ClinicCoreSchema = "Clinic_Core";
     
+    public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Doctor> Doctors { get; set; } = null!;
     public DbSet<Assistant> Assistants { get; set; } = null!;
     public DbSet<Administrator> Administrators { get; set; } = null!;

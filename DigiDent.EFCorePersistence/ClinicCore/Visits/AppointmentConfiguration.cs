@@ -4,6 +4,7 @@ using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
 using DigiDent.EFCorePersistence.Shared.Configurations;
 using DigiDent.EFCorePersistence.Shared.Converters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
@@ -22,6 +23,11 @@ public class AppointmentConfiguration
             .Property(a => a.Status)
             .HasConversion(EnumerationsConverter
                 .EnumToStringConverter<AppointmentStatus>());
+        
+        builder
+            .HasMany(a => a.ProvidedServices)
+            .WithMany()
+            .UsingEntity(j => j.ToTable("AppointmentsProvidedServices"));
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<Appointment> builder)

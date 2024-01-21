@@ -9,12 +9,13 @@ namespace DigiDent.API.Endpoints.ClinicCore;
 
 public static class ProvidedServicesEndpoints
 {
-    public static RouteGroupBuilder MapProvidedServices(
+    public static RouteGroupBuilder MapProvidedServicesEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/services")
             .MapGetProvidedServicesEndpoints()
-            .MapAddProvidedServiceEndpoint();
+            .MapAddProvidedServiceEndpoint()
+            .MapUpdateProvidedServiceEndpoint();
         
         return groupBuilder;
     }
