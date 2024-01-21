@@ -32,7 +32,7 @@ public class Assistant : Employee
     }
 
     protected override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
-    {
+    { 
         const int legalWorkingAge = 18;
         return ValidateBirthDate<Assistant>(birthDateToCheck, legalWorkingAge);
     }

@@ -132,13 +132,13 @@ public class Doctor : Employee
     }
 
     protected override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
-    {
+    { 
         const int legalWorkingAge = 18;
         return ValidateBirthDate<Doctor>(birthDateToCheck, legalWorkingAge);
     }
-    
-    public Result ValidateBiography(string biography)
-    {
+
+    private Result ValidateBiography(string biography)
+    { 
         const int biographyMaxLength = 1000;
         
         if (biography.Length > biographyMaxLength)

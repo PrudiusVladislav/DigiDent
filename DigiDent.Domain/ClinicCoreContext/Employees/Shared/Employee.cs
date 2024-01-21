@@ -27,6 +27,46 @@ public abstract class Employee:
     public ICollection<SchedulePreference> SchedulePreferences { get; protected set; }
         = new List<SchedulePreference>();
     
+    /// <summary>
+    /// Adds a working day to the employee's working days.
+    /// </summary>
+    /// <param name="workingDay"> The working day to be added. </param>
+    /// <returns> A result indicating whether the addition was successful or not. </returns>
+    public Result AddWorkingDay(WorkingDay workingDay)
+    {
+        var validationResult = IsWorkingDayValid(workingDay);
+        if (validationResult.IsFailure) return validationResult;
+        
+        WorkingDays.Add(workingDay);
+        return Result.Ok();
+    }
+    
+    /// <summary>
+    /// Validates the working day and checks if it conflicts with the schedule preferences.
+    /// </summary>
+    /// <param name="workingDay"> The working day to be validated. </param>
+    /// <returns> A result indicating whether the working day is valid or not. </returns>
+    public Result IsWorkingDayValid(WorkingDay workingDay)
+    {
+        var validationResult = new Result();
+        
+        var isDateEmpty = WorkingDays.All(wd => wd.Date != workingDay.Date);
+        if (isDateEmpty is false)
+            validationResult.AddError(ScheduleErrors
+                .WorkingDayIsAlreadySet(Id, workingDay.Date));
+        
+        var conflictsWithSchedulePreferences = SchedulePreferences.Any(sp => 
+            sp.Date == workingDay.Date && 
+            (sp.IsSetAsDayOff || 
+             workingDay.StartEndTime.StartTime < sp.StartEndTime!.StartTime || 
+             workingDay.StartEndTime.EndTime > sp.StartEndTime.EndTime));
+        
+        if (conflictsWithSchedulePreferences)
+            validationResult.AddError(ScheduleErrors
+                .WorkingDayConflictsWithSchedulePreference(Id, workingDay.Date));
+        
+        return validationResult;
+    }
     
     /// <summary>
     /// Calculates the work time of the employee for the given period.
