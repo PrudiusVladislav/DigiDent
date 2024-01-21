@@ -61,13 +61,13 @@ public class Doctor : Employee
     }
 
     /// <summary>
-    /// Returns available date times for the doctor.
+    /// Returns available date time slots for the doctor.
     /// </summary>
     /// <param name="fromDateTime">The date time from which the available time slots are returned.</param>
     /// <param name="untilDate">The date until which the available date times are returned.</param>
     /// <param name="duration">The duration of the appointment.</param>
     /// <returns></returns>
-    public IReadOnlyCollection<DateTime> GetAvailableDateTimes(
+    public IReadOnlyCollection<DateTime> GetAvailableTimeSlots(
         DateTime fromDateTime,
         DateOnly untilDate,
         TimeSpan duration)

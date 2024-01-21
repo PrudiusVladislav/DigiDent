@@ -1,6 +1,9 @@
-﻿using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
+﻿using DigiDent.API.Extensions;
+using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
+using DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 using DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +17,7 @@ public static class DoctorsEndpoints
         groupBuilder.MapGroup("/doctors")
             .MapGetAllDoctorsEndpoint()
             .MapGetDoctorByIdEndpoint()
-            .MapGetDoctorAvailabilityEndpoint();
+            .MapDoctorAvailabilityEndpoints();
         
         return groupBuilder;
     }
@@ -53,10 +56,10 @@ public static class DoctorsEndpoints
         return app;
     }
     
-    private static IEndpointRouteBuilder MapGetDoctorAvailabilityEndpoint(
+    private static IEndpointRouteBuilder MapDoctorAvailabilityEndpoints(
         this IEndpointRouteBuilder app)
     {
-        app.MapGet("/{id}/availability", async (
+        app.MapGet("/{id}/availability/check", async (
             [FromRoute]Guid id,
             [FromQuery]DateTime dateTime,
             [FromQuery]int duration,
@@ -67,6 +70,23 @@ public static class DoctorsEndpoints
                 id, dateTime, duration);
             
             IsDoctorAvailableResponse response  = await mediator.Send(
+                query, cancellationToken);
+            
+            return Results.Ok(response);
+        });
+        
+        app.MapGet("/{id}/availability/slots", async (
+            [FromRoute]Guid id,
+            [FromQuery]DateTime from,
+            [FromQuery]DateOnly until,
+            [FromQuery]int duration,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var query = new GetAvailableTimeSlotsQuery(
+                id, from, until, duration);
+            
+            IReadOnlyCollection<DateTime> response = await mediator.Send(
                 query, cancellationToken);
             
             return Results.Ok(response);
