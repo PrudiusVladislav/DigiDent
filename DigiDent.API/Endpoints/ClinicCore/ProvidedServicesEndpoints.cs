@@ -1,4 +1,6 @@
-﻿using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
+﻿using DigiDent.API.Extensions;
+using DigiDent.Application.ClinicCore.ProvidedServices.Commands.AddService;
+using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
 using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
 using MediatR;
 
@@ -10,7 +12,8 @@ public static class ProvidedServicesEndpoints
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/services")
-            .MapGetProvidedServicesEndpoints();
+            .MapGetProvidedServicesEndpoints()
+            .MapAddProvidedServiceEndpoint();
         
         return groupBuilder;
     }
@@ -38,6 +41,32 @@ public static class ProvidedServicesEndpoints
             return providedService is null
                 ? Results.NotFound()
                 : Results.Ok(providedService);
+        });
+        
+        return app;
+    }
+    
+    public static IEndpointRouteBuilder MapAddProvidedServiceEndpoint(
+        this IEndpointRouteBuilder app)
+    {
+        app.MapPost("/", async (
+            AddProvidedServiceRequest request,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var commandCreationResult = AddProvidedServiceCommand
+                .CreateFromRequest(request);
+            
+            if (commandCreationResult.IsFailure)
+                return commandCreationResult.MapToIResult();
+            
+            var result = await mediator.Send(
+                commandCreationResult.Value!, cancellationToken);
+            
+            return result.Match(
+                onFailure: _ => result.MapToIResult(),
+                onSuccess: id => Results.Created(
+                    $"/services/{id}", id));
         });
         
         return app;
