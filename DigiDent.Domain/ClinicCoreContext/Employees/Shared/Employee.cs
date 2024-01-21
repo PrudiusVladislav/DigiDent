@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+﻿using System.Text;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
@@ -37,7 +38,8 @@ public abstract class Employee:
 
     protected virtual void UpdateProperties(UpdateEmployeeDTO dto)
     {
-        Gender = dto.Gender ?? Gender;
+        if (dto.Gender is not null && dto.Gender.Value != default)
+            Gender = dto.Gender.Value;
         ChangeEmployeeStatus(dto.Status);
         DateOfBirth = dto.BirthDate ?? DateOfBirth;
     }
@@ -45,9 +47,7 @@ public abstract class Employee:
     protected virtual Result IsUpdateDtoValid(UpdateEmployeeDTO dto)
     {
         if (dto.BirthDate is not null)
-        {
             return IsLegalWorkingAge(dto.BirthDate.Value);
-        }
         
         return Result.Ok();
     }
@@ -101,7 +101,7 @@ public abstract class Employee:
     /// <param name="status"> The new status of the employee. </param>
     protected virtual void ChangeEmployeeStatus(EmployeeStatus? status)
     {
-        if (status is null) return;
+        if (status is null || status.Value == default) return;
         
         if (status == EmployeeStatus.Dismissed)
         {

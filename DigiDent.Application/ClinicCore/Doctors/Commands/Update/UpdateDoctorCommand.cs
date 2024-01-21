@@ -16,28 +16,47 @@ public record UpdateDoctorCommand : ICommand<Result>
     public DoctorSpecialization? Specialization { get; init; }
     public string? Biography { get; init; }
 
-    public static UpdateDoctorCommand CreateFromRequest(
+    public static Result<UpdateDoctorCommand> CreateFromRequest(
         Guid id, UpdateDoctorRequest request)
     {
         var doctorId = new EmployeeId(id);
+
+        var genderResult = ParseEnum<Gender>(request.Gender);
+        var statusResult = ParseEnum<EmployeeStatus>(request.Status);
+        var specializationResult = ParseEnum<DoctorSpecialization>(request.Specialization);
         
-        Gender? parsedGender = Enum.TryParse<Gender>(
-            request.Gender, true, out var gender) ? gender : null;
+        var mergedResult = Result.Merge(
+            genderResult, statusResult, specializationResult);
+
+        if (mergedResult.IsFailure) 
+            return mergedResult.MapToType<UpdateDoctorCommand>();
         
-        EmployeeStatus? parsedStatus = Enum.TryParse<EmployeeStatus>(
-            request.Status, true, out var status) ? status : null;
-        
-        DoctorSpecialization? parsedSpecialization = Enum.TryParse<DoctorSpecialization>(
-            request.Specialization, true, out var specialization) ? specialization : null;
-        
-        return new UpdateDoctorCommand
+        return Result.Ok(new UpdateDoctorCommand
         {
             DoctorId = doctorId,
-            Gender = parsedGender,
+            Gender = genderResult.Value,
             BirthDate = request.BirthDate,
-            Status = parsedStatus,
-            Specialization = parsedSpecialization,
+            Status = statusResult.Value,
+            Specialization = specializationResult.Value,
             Biography = request.Biography
-        };
+        });
     }
+
+    private static Result<TEnum> ParseEnum<TEnum>(string? value)
+        where TEnum : struct, Enum
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Result.Ok().MapToType<TEnum>();
+        if(!Enum.TryParse<TEnum>(value, out var parsedValue))
+            return Result.Fail<TEnum>(
+                IncorrectUpdateParameter(typeof(TEnum).Name));
+        
+        return Result.Ok(parsedValue);
+    }
+
+    private static Error IncorrectUpdateParameter(string parameterName)
+     => new (
+         ErrorType.Validation,
+         nameof(UpdateDoctorCommand),
+         $"Incorrect value of parameter: {parameterName}.");
 };

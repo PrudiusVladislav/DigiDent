@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
+using DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
 using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +47,7 @@ public class ClinicCoreDbContext: DbContext
         modelBuilder.Entity<Employee>()
             .HasDiscriminator<string>("EmployeeType")
             .HasValue<Doctor>("Doctor")
-            .HasValue<Assistant>("Assistant");
+            .HasValue<Assistant>("Assistant")
+            .HasValue<Administrator>("Administrator");
     }
 }

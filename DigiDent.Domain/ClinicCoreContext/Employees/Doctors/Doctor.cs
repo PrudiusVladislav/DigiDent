@@ -114,7 +114,9 @@ public class Doctor : Employee
     {
         base.UpdateProperties(baseUpdateDTO);
         
-        Specialization = dto.Specialization ?? Specialization;
+        if (dto.Specialization is not null && dto.Specialization.Value != default)
+            Specialization = dto.Specialization.Value;
+        
         Biography = dto.Biography ?? Biography;
     }
     

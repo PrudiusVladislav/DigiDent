@@ -17,7 +17,8 @@ public static class DoctorsEndpoints
         groupBuilder.MapGroup("/doctors")
             .MapGetAllDoctorsEndpoint()
             .MapGetDoctorByIdEndpoint()
-            .MapDoctorAvailabilityEndpoints();
+            .MapDoctorAvailabilityEndpoints()
+            .MapDoctorUpdateEndpoint();
         
         return groupBuilder;
     }
@@ -104,9 +105,14 @@ public static class DoctorsEndpoints
             IMediator mediator,
             CancellationToken cancellationToken) =>
         {
-            var command = UpdateDoctorCommand.CreateFromRequest(id, request);
+            var commandCreationResult = UpdateDoctorCommand
+                .CreateFromRequest(id, request);
+
+            if (commandCreationResult.IsFailure)
+                return commandCreationResult.MapToIResult();
             
-            var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(
+                commandCreationResult.Value!, cancellationToken);
 
             return result.Match(
                 onFailure: _ => result.MapToIResult(),
