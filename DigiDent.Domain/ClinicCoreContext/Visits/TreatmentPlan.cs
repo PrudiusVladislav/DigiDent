@@ -39,6 +39,7 @@ public class TreatmentPlan: IEntity<TreatmentPlanId, Guid>
     
     public static TreatmentPlan Create(
         TreatmentPlanDetails details,
+        DateOnly dateOfStart,
         PatientId patientId)
     {
         var treatmentPlanId = TypedId.New<TreatmentPlanId>();
@@ -46,7 +47,7 @@ public class TreatmentPlan: IEntity<TreatmentPlanId, Guid>
             treatmentPlanId,
             details,
             patientId,
-            DateOnly.FromDateTime(DateTime.UtcNow),
+            dateOfStart,
             TreatmentPlanStatus.Active);
     }
 }

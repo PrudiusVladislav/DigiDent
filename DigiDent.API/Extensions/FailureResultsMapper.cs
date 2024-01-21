@@ -5,7 +5,7 @@ namespace DigiDent.API.Extensions;
 
 public static class FailureResultsMapper
 {
-    public static IResult MapFailureToIResult(this Result result)
+    public static IResult MapToIResult(this Result result)
     {
         var firstError = result.Errors.FirstOrDefault();
 

@@ -19,7 +19,7 @@ public static class TypedId
     /// <returns></returns>
     public static TId New<TId>() where TId : ITypedId<Guid>
     {
-        return Create<Guid, TId>(Guid.NewGuid());
+        return Create<TId, Guid>(Guid.NewGuid());
     }
     
     /// <summary>
@@ -29,9 +29,11 @@ public static class TypedId
     /// <typeparam name="TIdValue">The primitive type of the value behind the id.</typeparam>
     /// <typeparam name="TId">The type of the <see cref="TypedId{TId}"/>.</typeparam>
     /// <returns></returns>
-    public static TId Create<TIdValue, TId>(TIdValue value) 
+    public static TId Create<TId, TIdValue>(TIdValue value) 
         where TId : ITypedId<TIdValue>
     {
         return (TId)Activator.CreateInstance(typeof(TId), value)!;
     }
+    
+
 }

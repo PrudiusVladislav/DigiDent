@@ -1,7 +1,8 @@
 ﻿using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using DigiDent.EFCorePersistence.Shared;
+using DigiDent.EFCorePersistence.Shared.Configurations;
+using DigiDent.EFCorePersistence.Shared.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,6 +22,10 @@ public class UserConfiguration: AggregateRootConfiguration<User, UserId, Guid>
         builder
             .Property(u => u.Email)
             .HasConversion(ValueObjectsConverters.EmailConverter);
+        
+        builder
+            .Property(u => u.PhoneNumber)
+            .HasConversion(ValueObjectsConverters.PhoneNumberConverter);
 
         builder
             .Property(u => u.Password)

@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.EFCorePersistence.ClinicCore.SharedConfigurations;
+using DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,7 @@ namespace DigiDent.EFCorePersistence.ClinicCore.Patients;
 
 [ClinicCoreEntityConfiguration]
 public class PatientConfiguration
-    : PersonConfiguration<Patient, PatientId, Guid>
+    : PersonConfiguration<Patient, PatientId>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<Patient> builder)
     {

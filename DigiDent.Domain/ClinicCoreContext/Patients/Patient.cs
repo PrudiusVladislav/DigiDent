@@ -9,7 +9,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Patients;
 
 public class Patient:
     AggregateRoot,
-    IPerson<PatientId, Guid>
+    IPerson<PatientId>
 {
     public PatientId Id { get; init; }
     public FullName FullName { get; private set; }
@@ -35,16 +35,13 @@ public class Patient:
         PhoneNumber = phoneNumber;
     }
     
-    public static Patient Create(
-        FullName fullName,
-        Email email,
-        PhoneNumber phoneNumber)
+    public static Patient Create(PersonCreationArgs args)
     {
         var patientId = TypedId.New<PatientId>();
         return new Patient(
             patientId,
-            fullName,
-            email,
-            phoneNumber);
+            args.FullName,
+            args.Email,
+            args.PhoneNumber);
     }
 }

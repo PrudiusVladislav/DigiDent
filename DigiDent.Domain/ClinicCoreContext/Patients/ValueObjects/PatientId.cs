@@ -2,4 +2,4 @@
 
 namespace DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 
-public record PatientId(Guid Value) : IPersonId<Guid>;
+public record PatientId(Guid Value) : IPersonId;

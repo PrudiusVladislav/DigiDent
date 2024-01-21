@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
+using DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
 using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +27,6 @@ public class ClinicCoreDbContext: DbContext
     public DbSet<DentalProcedure> DentalProcedures { get; set; } = null!;
     public DbSet<TreatmentPlan> TreatmentPlans { get; set; } = null!;
     
-    
-    
     public ClinicCoreDbContext(DbContextOptions<ClinicCoreDbContext> options)
         : base(options)
     {
@@ -49,12 +47,7 @@ public class ClinicCoreDbContext: DbContext
         modelBuilder.Entity<Employee>()
             .HasDiscriminator<string>("EmployeeType")
             .HasValue<Doctor>("Doctor")
-            .HasValue<Assistant>("Assistant");
+            .HasValue<Assistant>("Assistant")
+            .HasValue<Administrator>("Administrator");
     }
 }
-
-//TODO: Create abstract class Employee that would implement the properties
-// from the IEmployee, and later inherit the Doctor and Assistant
-// from the Employee abstract class
-//TODO: if there will be problem with the FK id being still an interface
-// then create an abstract implementation of the IEmployeeId and use that

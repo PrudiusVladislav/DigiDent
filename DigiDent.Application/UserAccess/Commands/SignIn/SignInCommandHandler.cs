@@ -1,34 +1,29 @@
-﻿using DigiDent.Application.UserAccess.Abstractions;
+﻿using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
-using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.Errors;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignIn;
 
 public class SignInCommandHandler
-    : IRequestHandler<SignInCommand, Result<AuthenticationResponse>>
+    : ICommandHandler<SignInCommand, Result<AuthenticationResponse>>
 {
     private readonly IJwtService _jwtService;
     private readonly UsersDomainService _usersDomainService;
     private readonly IUsersRepository _usersRepository;
-    private readonly IRefreshTokensRepository _refreshTokensRepository;
     
     public SignInCommandHandler(
         IJwtService jwtService,
         UsersDomainService usersDomainService,
-        IUsersRepository usersRepository,
-        IRefreshTokensRepository refreshTokensRepository)
+        IUsersRepository usersRepository)
     {
         _jwtService = jwtService;
         _usersDomainService = usersDomainService;
         _usersRepository = usersRepository;
-        _refreshTokensRepository = refreshTokensRepository;
     }
     
     public async Task<Result<AuthenticationResponse>> Handle(
