@@ -13,7 +13,7 @@ public class SharedMappingProfiles: Profile
     public SharedMappingProfiles()
     {
         CreateMap(typeof(ITypedId<Guid>), typeof(Guid))
-            .ConvertUsing(typeof(TypedIdGuidResolver));
+            .ConvertUsing(typeof(TypedIdGuidConverter));
         
         CreateMap<FullName, string>()
             .ConvertUsing(fullName => fullName.ToString());
@@ -28,9 +28,9 @@ public class SharedMappingProfiles: Profile
             .ConvertUsing(gender => gender.ToString());
     }
     
-    private class TypedIdGuidResolver: IValueResolver<ITypedId<Guid>, Guid, Guid>
+    private class TypedIdGuidConverter: ITypeConverter<ITypedId<Guid>, Guid>
     {
-        public Guid Resolve(ITypedId<Guid> source, Guid destination, Guid destMember, ResolutionContext context)
+        public Guid Convert(ITypedId<Guid> source, Guid destination, ResolutionContext context)
         {
             return source.Value;
         }
