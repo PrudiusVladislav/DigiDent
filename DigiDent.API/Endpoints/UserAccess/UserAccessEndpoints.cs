@@ -75,7 +75,7 @@ public static class UserAccessEndpoints
     
     private static IEndpointRouteBuilder MapDeleteUserEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapDelete("/{userId}", async (
+        app.MapDelete("/{userId:guid}", async (
             Guid userId,
             IMediator mediator,
             CancellationToken cancellationToken) =>

@@ -34,7 +34,7 @@ public static class DoctorsEndpoints
             return Results.Ok(doctors);
         });
         
-        app.MapGet("/{id}", async (
+        app.MapGet("/{id:guid}", async (
             [FromRoute]Guid id,
             IMediator mediator,
             CancellationToken cancellationToken) =>
@@ -53,7 +53,7 @@ public static class DoctorsEndpoints
     private static IEndpointRouteBuilder MapDoctorAvailabilityEndpoints(
         this IEndpointRouteBuilder app)
     {
-        app.MapGet("/{id}/availability/check", async (
+        app.MapGet("/{id:guid}/availability/check", async (
             [FromRoute]Guid id,
             [FromQuery]DateTime dateTime,
             [FromQuery]int duration,
@@ -69,7 +69,7 @@ public static class DoctorsEndpoints
             return Results.Ok(response);
         });
         
-        app.MapGet("/{id}/availability/slots", async (
+        app.MapGet("/{id:guid}/availability/slots", async (
             [FromRoute]Guid id,
             [FromQuery]DateTime from,
             [FromQuery]DateOnly until,
@@ -92,7 +92,7 @@ public static class DoctorsEndpoints
     private static IEndpointRouteBuilder MapDoctorUpdateEndpoint(
         this IEndpointRouteBuilder app)
     {
-        app.MapPut("/{id}", async (
+        app.MapPut("/{id:guid}", async (
             [FromRoute]Guid id,
             [FromBody]UpdateDoctorRequest request,
             IMediator mediator,
