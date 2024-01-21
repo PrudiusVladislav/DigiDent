@@ -26,52 +26,7 @@ public abstract class Employee:
         = new List<WorkingDay>();
     public ICollection<SchedulePreference> SchedulePreferences { get; protected set; }
         = new List<SchedulePreference>();
-
-    public virtual Result Update(UpdateEmployeeDTO dto)
-    {
-        var validationResult = IsUpdateDtoValid(dto);
-        if (validationResult.IsFailure) return validationResult;
-        
-        UpdateProperties(dto);
-        return Result.Ok();
-    }
-
-    protected virtual void UpdateProperties(UpdateEmployeeDTO dto)
-    {
-        if (dto.Gender is not null && dto.Gender.Value != default)
-            Gender = dto.Gender.Value;
-        ChangeEmployeeStatus(dto.Status);
-        DateOfBirth = dto.BirthDate ?? DateOfBirth;
-    }
     
-    protected virtual Result IsUpdateDtoValid(UpdateEmployeeDTO dto)
-    {
-        if (dto.BirthDate is not null)
-            return IsLegalWorkingAge(dto.BirthDate.Value);
-        
-        return Result.Ok();
-    }
-
-    public abstract Result IsLegalWorkingAge(DateOnly birthDateToCheck);
-    
-    /// <summary>
-    /// Validates the birth date of the employee.
-    /// </summary>
-    /// <param name="birthDate"> The birth date of the employee. </param>
-    /// <typeparam name="TEmployee"> The type of the employee. </typeparam>
-    /// <param name="minAllowedWorkingAge"> The minimum allowed working age of the employee. </param>
-    /// <returns></returns>
-    protected Result ValidateBirthDate<TEmployee>(
-        DateOnly birthDate, int minAllowedWorkingAge)
-    {
-        var age = DateTime.UtcNow.Year - birthDate.Year;
-        
-        if (age < minAllowedWorkingAge)
-            return Result.Fail(EmployeeErrors
-                .EmployeeIsTooYoung(nameof(TEmployee)));
-
-        return Result.Ok();
-    }
     
     /// <summary>
     /// Calculates the work time of the employee for the given period.
@@ -93,6 +48,69 @@ public abstract class Employee:
             }
         }
         return workTime;
+    }
+    
+    /// <summary>
+    /// Validates new values and updates the properties of the employee if the validation is successful. 
+    /// </summary>
+    /// <param name="dto"> The DTO containing the new values. </param>
+    /// <returns> A result indicating whether the update was successful or not. </returns>
+    public virtual Result Update(UpdateEmployeeDTO dto)
+    {
+        var validationResult = IsUpdateDtoValid(dto);
+        if (validationResult.IsFailure) return validationResult;
+        
+        UpdateProperties(dto);
+        return Result.Ok();
+    }
+    
+    /// <summary>
+    /// Encapsulates the logic for updating the properties of the employee. No validation is performed.
+    /// </summary>
+    protected virtual void UpdateProperties(UpdateEmployeeDTO dto)
+    {
+        if (dto.Gender is not null && dto.Gender.Value != default)
+            Gender = dto.Gender.Value;
+        ChangeEmployeeStatus(dto.Status);
+        DateOfBirth = dto.BirthDate ?? DateOfBirth;
+    }
+    
+    /// <summary>
+    /// Encapsulates the rules for validating the update DTO values.
+    /// </summary>
+    /// <returns> A result indicating whether the update DTO is valid or not. </returns>
+    protected virtual Result IsUpdateDtoValid(UpdateEmployeeDTO dto)
+    {
+        if (dto.BirthDate is not null)
+            return IsLegalWorkingAge(dto.BirthDate.Value);
+        
+        return Result.Ok();
+    }
+    
+    /// <summary>
+    /// Validates the birth date of the employee. Must be implemented by the derived classes.
+    /// </summary>
+    /// <param name="birthDateToCheck"> The birth date of the employee. </param>
+    /// <returns> A result indicating whether the birth date is valid or not. </returns>
+    protected abstract Result IsLegalWorkingAge(DateOnly birthDateToCheck);
+    
+    /// <summary>
+    /// Validates the birth date of the employee.
+    /// </summary>
+    /// <param name="birthDate"> The birth date of the employee. </param>
+    /// <typeparam name="TEmployee"> The type of the employee. </typeparam>
+    /// <param name="minAllowedWorkingAge"> The minimum allowed working age of the employee. </param>
+    /// <returns></returns>
+    protected Result ValidateBirthDate<TEmployee>(
+        DateOnly birthDate, int minAllowedWorkingAge)
+    {
+        var age = DateTime.UtcNow.Year - birthDate.Year;
+        
+        if (age < minAllowedWorkingAge)
+            return Result.Fail(EmployeeErrors
+                .EmployeeIsTooYoung(nameof(TEmployee)));
+
+        return Result.Ok();
     }
     
     /// <summary>
