@@ -54,7 +54,7 @@ public class Doctor : Employee
     public IReadOnlyCollection<DateTime> GetAvailableTimeSlots(
         DateTime fromDateTime,
         DateOnly untilDate,
-        TimeSpan duration)
+        TimeDuration duration)
     {
         var availableDateTimes = new List<DateTime>();
         IOrderedEnumerable<WorkingDay> workingDaysToLookThrough = WorkingDays
@@ -82,7 +82,7 @@ public class Doctor : Employee
     public bool IsAvailableAt(
         DateTime dateTimeToCheck,
         DateTime currentDateTime,
-        TimeSpan duration)
+        TimeDuration duration)
     {
         var workingDay = WorkingDays.FirstOrDefault(wd => 
             wd.Date == dateTimeToCheck.ToDateOnly());

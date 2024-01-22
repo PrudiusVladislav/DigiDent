@@ -1,6 +1,7 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Constants;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
@@ -98,7 +99,7 @@ public static class WorkingDayExtensions
         this WorkingDay workingDay,
         IEnumerable<Appointment> appointments,
         DateTime fromDateTime,
-        TimeSpan duration)
+        TimeDuration duration)
     {
         IReadOnlyList<EventTimeNode> workingDayEvents = workingDay
             .GetWorkingDayEventsNodes(
