@@ -1,4 +1,6 @@
 ﻿
+using DigiDent.API.Extensions;
+using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +36,32 @@ public static class EmployeesScheduleEndpoints
             return Results.Ok(workingDays);
             //TODO: create a query to fetch the working days of an employee
             //possibly implement pdf response
+        });
+        
+        return app;
+    }
+    
+    private static IEndpointRouteBuilder MapAddWorkingDayEndpoint(
+        this IEndpointRouteBuilder app)
+    {
+        app.MapPost("/{id:guid}/schedule", async (
+            [FromRoute]Guid id,
+            [FromBody]AddWorkingDayRequest request,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var commandCreationResult = AddWorkingDayCommand
+                .CreateFromRequest(id, request);
+            
+            if (commandCreationResult.IsFailure)
+                return commandCreationResult.MapToIResult();
+            
+            var result = await mediator.Send(
+                commandCreationResult.Value!, cancellationToken);
+
+            return result.Match(
+                onFailure: _ => result.MapToIResult(),
+                onSuccess: () => Results.NoContent());
         });
         
         return app;
