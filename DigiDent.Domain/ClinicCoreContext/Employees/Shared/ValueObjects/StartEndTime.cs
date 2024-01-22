@@ -1,4 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
+﻿using System.Text.Json.Serialization;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
@@ -7,7 +8,8 @@ public record StartEndTime
 {
     public TimeOnly StartTime { get; init; }
     public TimeOnly EndTime { get; init; }
-    
+
+    [JsonConstructor]
     internal StartEndTime(
         TimeOnly startTime,
         TimeOnly endTime)

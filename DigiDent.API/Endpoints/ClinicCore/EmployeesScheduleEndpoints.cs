@@ -13,7 +13,8 @@ public static class EmployeesScheduleEndpoints
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/employees")
-            .MapGetEmployeeScheduleEndpoint();
+            .MapGetEmployeeScheduleEndpoint()
+            .MapAddWorkingDayEndpoint();
         
         return groupBuilder;
     }

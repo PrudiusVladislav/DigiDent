@@ -8,6 +8,7 @@ public class Result
 
     public Result()
     {
+        IsSuccess = true;
         Errors = new List<Error>();
     }
     
@@ -29,12 +30,6 @@ public class Result
             IsSuccess = false;
         Errors.Add(error);
         return this;
-    }
-    
-    public void SetSuccess()
-    {
-        if (IsFailure)
-            IsSuccess = true;
     }
     
     /// <summary>
