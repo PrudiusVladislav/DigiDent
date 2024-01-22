@@ -1,11 +1,10 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
 
@@ -34,13 +33,19 @@ public class Appointment :
     public ICollection<ProvidedService> ProvidedServices { get; set; } 
         = new List<ProvidedService>();
 
+    // for EF core
+    internal Appointment()
+    {
+    }
+
     internal Appointment(
         AppointmentId id,
         EmployeeId doctorId,
         PatientId patientId,
         DateTime visitDateTime,
         TimeDuration duration,
-        AppointmentStatus status)
+        AppointmentStatus status,
+        IEnumerable<ProvidedService> providedServices)
     {
         Id = id;
         DoctorId = doctorId;
@@ -48,6 +53,11 @@ public class Appointment :
         VisitDateTime = visitDateTime;
         Duration = duration;
         Status = status;
+        
+        foreach (var service in providedServices)
+        {
+            ProvidedServices.Add(service);
+        }
     }
     
     public static Appointment Create(
@@ -55,8 +65,9 @@ public class Appointment :
         PatientId patientId,
         DateTime visitDateTime,
         TimeDuration duration,
-        AppointmentStatus status)
+        IEnumerable<ProvidedService> providedServices)
     {
+            
         var appointmentId = TypedId.New<AppointmentId>();
         return new Appointment(
             appointmentId,
@@ -64,6 +75,7 @@ public class Appointment :
             patientId,
             visitDateTime,
             duration,
-            status);
+            AppointmentStatus.Scheduled,
+            providedServices);
     }
 }

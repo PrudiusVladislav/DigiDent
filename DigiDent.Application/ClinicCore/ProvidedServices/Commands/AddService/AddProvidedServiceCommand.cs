@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 

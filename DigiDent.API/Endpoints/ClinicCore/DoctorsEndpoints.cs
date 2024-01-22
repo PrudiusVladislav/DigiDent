@@ -4,6 +4,7 @@ using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 using DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,10 +64,12 @@ public static class DoctorsEndpoints
             var query = new IsDoctorAvailableQuery(
                 id, dateTime, duration);
             
-            IsDoctorAvailableResponse response  = await mediator.Send(
+            Result<IsDoctorAvailableResponse> result  = await mediator.Send(
                 query, cancellationToken);
             
-            return Results.Ok(response);
+            return result.Match(
+                onFailure: _ => result.MapToIResult(),
+                onSuccess: response => Results.Ok(response));
         });
         
         app.MapGet("/{id:guid}/availability/slots", async (
@@ -109,7 +112,7 @@ public static class DoctorsEndpoints
 
             return result.Match(
                 onFailure: _ => result.MapToIResult(),
-                onSuccess: Results.NoContent);
+                onSuccess: () => Results.NoContent());
         });
         
         return app;

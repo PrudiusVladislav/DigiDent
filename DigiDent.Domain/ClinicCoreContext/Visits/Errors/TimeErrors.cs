@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
+﻿using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits.Errors;
