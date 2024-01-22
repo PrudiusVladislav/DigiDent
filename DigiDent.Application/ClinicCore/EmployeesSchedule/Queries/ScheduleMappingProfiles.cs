@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 
@@ -15,5 +16,7 @@ public class ScheduleMappingProfiles: Profile
             .ForMember(
                 wd => wd.End,
                 opt => opt.MapFrom(src => src.StartEndTime.EndTime));
+        
+        CreateMap<SchedulePreference, SchedulePreferenceDTO>();
     }
 }

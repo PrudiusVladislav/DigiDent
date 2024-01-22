@@ -1,6 +1,7 @@
 ﻿
 using DigiDent.API.Extensions;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
+using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,13 @@ public static class EmployeesScheduleEndpoints
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/employees")
-            .MapGetEmployeeScheduleEndpoint()
-            .MapAddWorkingDayEndpoint();
+            .MapGetEmployeeScheduleDataEndpoints()
+            .MapAddScheduleDataEndpoints();
         
         return groupBuilder;
     }
 
-    private static IEndpointRouteBuilder MapGetEmployeeScheduleEndpoint(
+    private static IEndpointRouteBuilder MapGetEmployeeScheduleDataEndpoints(
         this IEndpointRouteBuilder app)
     {
         app.MapGet("/{id:guid}/schedule", async (
@@ -35,14 +36,26 @@ public static class EmployeesScheduleEndpoints
                 query, cancellationToken);
             
             return Results.Ok(workingDays);
-            //TODO: create a query to fetch the working days of an employee
-            //possibly implement pdf response
+            //TODO: implement pdf response
+        });
+        
+        app.MapGet("/{id:guid}/schedule/preferences", async (
+            [FromRoute]Guid id,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var query = new GetSchedulePreferencesQuery(id);
+            
+            var workingDays = await mediator.Send(
+                query, cancellationToken);
+            
+            return Results.Ok(workingDays);
         });
         
         return app;
     }
     
-    private static IEndpointRouteBuilder MapAddWorkingDayEndpoint(
+    private static IEndpointRouteBuilder MapAddScheduleDataEndpoints(
         this IEndpointRouteBuilder app)
     {
         app.MapPost("/{id:guid}/schedule", async (
