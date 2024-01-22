@@ -20,7 +20,7 @@ public class AddWorkingDayCommand: ICommand<Result>
         if (request.Date <= DateOnly.FromDateTime(DateTime.Now))
             dateResult.AddError(WorkingDayDateIsInThePast);
         
-        var timeResult = StartEndTime.Create(request.Start, request.End);
+        var timeResult = StartEndTime.Create(request.StartTime, request.EndTime);
         
         var mergedResult = Result.Merge(dateResult, timeResult);
         if (mergedResult.IsFailure)

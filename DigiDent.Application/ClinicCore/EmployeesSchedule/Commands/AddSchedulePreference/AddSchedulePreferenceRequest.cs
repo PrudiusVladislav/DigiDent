@@ -1,5 +1,4 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-
+﻿
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
 
 public record AddSchedulePreferenceRequest(

@@ -15,8 +15,10 @@ public class ScheduleMappingProfiles: Profile
                 opt => opt.MapFrom(src => src.StartEndTime.StartTime))
             .ForMember(
                 wd => wd.End,
-                opt => opt.MapFrom(src => src.StartEndTime.EndTime));
-        
+                opt => opt.MapFrom(src => src.StartEndTime.EndTime))
+            .ForMember(
+                wd => wd.EmployeeFullName,
+                opt => opt.MapFrom(src => src.Employee.FullName));
         CreateMap<SchedulePreference, SchedulePreferenceDTO>();
     }
 }

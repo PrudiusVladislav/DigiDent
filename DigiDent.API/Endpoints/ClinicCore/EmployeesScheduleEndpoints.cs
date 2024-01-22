@@ -1,11 +1,12 @@
-﻿
-using DigiDent.API.Extensions;
+﻿using DigiDent.API.Extensions;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+using DigiDent.Infrastructure.ClinicCore.EmployeeSchedulePDFDoc;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using QuestPDF.Fluent;
 
 namespace DigiDent.API.Endpoints.ClinicCore;
 
@@ -29,15 +30,28 @@ public static class EmployeesScheduleEndpoints
             [FromQuery]DateOnly from,
             [FromQuery]DateOnly until,
             IMediator mediator,
-            CancellationToken cancellationToken) =>
+            CancellationToken cancellationToken,
+            [FromQuery]bool asPdf = false) =>
         {
             var query = new GetWorkingDaysForEmployeeQuery(id, from, until);
             
             var workingDays = await mediator.Send(
                 query, cancellationToken);
             
-            return Results.Ok(workingDays);
-            //TODO: implement pdf response
+            if (asPdf is false)
+                return Results.Ok(workingDays);
+            
+            var documentDataModel = new ScheduleDocumentDataModel(
+                "DigiDent",
+                workingDays.First().EmployeeFullName,
+                from,
+                until,
+                workingDays.ToList());
+
+            var document = new EmployeeScheduleDocument(documentDataModel)
+                .GeneratePdf();
+            
+            return Results.File(document, "application/pdf", "schedule.pdf");
         });
         
         app.MapGet("/{id:guid}/schedule/preferences", async (
