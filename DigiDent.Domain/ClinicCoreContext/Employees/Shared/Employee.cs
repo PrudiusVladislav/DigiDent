@@ -1,6 +1,6 @@
-﻿using System.Text;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
@@ -58,8 +58,8 @@ public abstract class Employee:
         var conflictsWithSchedulePreferences = SchedulePreferences.Any(sp => 
             sp.Date == workingDay.Date && 
             (sp.IsSetAsDayOff || 
-             workingDay.StartEndTime.StartTime < sp.StartEndTime!.StartTime || 
-             workingDay.StartEndTime.EndTime > sp.StartEndTime.EndTime));
+             workingDay.StartsBefore(sp.StartEndTime!.StartTime) || 
+             workingDay.EndsAfter(sp.StartEndTime.EndTime)));
         
         if (conflictsWithSchedulePreferences)
             validationResult.AddError(ScheduleErrors

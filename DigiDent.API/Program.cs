@@ -28,7 +28,8 @@ var app = builder.Build();
     app.MapGroup("/api")
         .MapUserAccessEndpoints()
         .MapDoctorsEndpoints()
-        .MapProvidedServicesEndpoints();
+        .MapProvidedServicesEndpoints()
+        .MapEmployeesScheduleEndpoints();
 }
 
 app.Run();
