@@ -31,6 +31,16 @@ public class ProvidedServicesRepository: IProvidedServicesRepository
                 providedService => providedService.Id == id, 
                 cancellationToken);
     }
+    
+    public async Task<IReadOnlyCollection<ProvidedService>> GetAllFromIdsAsync(
+        IEnumerable<ProvidedServiceId> ids, CancellationToken cancellationToken)
+    {
+        return (await _dbContext.ProvidedServices
+            .Include(ps => ps.Doctors)
+            .Where(providedService => ids.Contains(providedService.Id))
+            .ToListAsync(cancellationToken))
+            .AsReadOnly();
+    }
 
     public async Task AddAsync(
         ProvidedService providedService, CancellationToken cancellationToken)

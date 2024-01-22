@@ -10,6 +10,9 @@ public interface IProvidedServicesRepository
     Task<ProvidedService?> GetByIdAsync(
         ProvidedServiceId id, CancellationToken cancellationToken);
     
+    Task<IReadOnlyCollection<ProvidedService>> GetAllFromIdsAsync(
+        IEnumerable<ProvidedServiceId> ids, CancellationToken cancellationToken);
+    
     Task AddAsync(ProvidedService providedService, CancellationToken cancellationToken);
     
     Task UpdateAsync(ProvidedService providedService, CancellationToken cancellationToken);
