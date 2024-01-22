@@ -41,12 +41,7 @@ public abstract class Employee:
         return Result.Ok();
     }
     
-    /// <summary>
-    /// Validates the working day and checks if it conflicts with the schedule preferences.
-    /// </summary>
-    /// <param name="workingDay"> The working day to be validated. </param>
-    /// <returns> A result indicating whether the working day is valid or not. </returns>
-    public Result IsWorkingDayValid(WorkingDay workingDay)
+    private Result IsWorkingDayValid(WorkingDay workingDay)
     {
         var validationResult = new Result();
         
@@ -65,6 +60,45 @@ public abstract class Employee:
             validationResult.AddError(ScheduleErrors
                 .WorkingDayConflictsWithSchedulePreference(Id, workingDay.Date));
         
+        return validationResult;
+    }
+    
+    /// <summary>
+    /// Adds a schedule preference to the employee's schedule preferences.
+    /// </summary>
+    /// <param name="schedulePreference"> The schedule preference to be added. </param>
+    /// <returns> A result indicating whether the addition was successful or not. </returns>
+    public Result AddSchedulePreference(SchedulePreference schedulePreference)
+    {
+        var validationResult = IsSchedulePreferenceValid(schedulePreference);
+        if (validationResult.IsFailure) return validationResult;
+        
+        SchedulePreferences.Add(schedulePreference);
+        return Result.Ok();
+    }
+
+    private Result IsSchedulePreferenceValid(SchedulePreference schedulePreference)
+    {
+        const int allowedSchedulePreferences = 2;
+        var validationResult = new Result();
+        
+        var isPreferencesCountAtLimit = SchedulePreferences.Count == allowedSchedulePreferences;
+        if (isPreferencesCountAtLimit)
+            validationResult.AddError(ScheduleErrors
+                .SchedulePreferenceCountLimitReached(Id, allowedSchedulePreferences));
+        
+        var isDateEmpty = SchedulePreferences.All(sp => sp.Date != schedulePreference.Date);
+        if (isDateEmpty is false)
+            validationResult.AddError(ScheduleErrors
+                .SchedulePreferenceIsAlreadySet(Id, schedulePreference.Date));
+
+        var conflictsWithWorkingDay = WorkingDays.Any(wd =>
+            wd.Date == schedulePreference.Date);
+        if (conflictsWithWorkingDay)
+            validationResult.AddError(ScheduleErrors
+                .SchedulePreferenceConflictsWithWorkingDay(Id, schedulePreference.Date));
+        
+
         return validationResult;
     }
     

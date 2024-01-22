@@ -4,20 +4,20 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
+namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
 
-public class AddWorkingDayCommandHandler
-    : ICommandHandler<AddWorkingDayCommand, Result>
+public class AddSchedulePreferenceCommandHandler
+    : ICommandHandler<AddSchedulePreferenceCommand, Result>
 {
     private readonly IAllEmployeesRepository _allEmployeesRepository;
 
-    public AddWorkingDayCommandHandler(IAllEmployeesRepository allEmployeesRepository)
+    public AddSchedulePreferenceCommandHandler(IAllEmployeesRepository allEmployeesRepository)
     {
         _allEmployeesRepository = allEmployeesRepository;
     }
 
     public async Task<Result> Handle(
-        AddWorkingDayCommand request, CancellationToken cancellationToken)
+        AddSchedulePreferenceCommand request, CancellationToken cancellationToken)
     {
         var employee = await _allEmployeesRepository.GetByIdAsync(
             request.EmployeeId,
@@ -28,17 +28,19 @@ public class AddWorkingDayCommandHandler
             return Result.Fail(RepositoryErrors
                 .EntityNotFound<Employee>(request.EmployeeId.Value));
         
-        var workingDayResult = WorkingDay.Create(
+        var schedulePreferenceResult = SchedulePreference.Create(
             request.Date,
+            request.EmployeeId,
             request.StartEndTime,
-            request.EmployeeId);
-
-        if (workingDayResult.IsFailure)
-            return workingDayResult;
+            request.IsSetAsDayOff);
         
-        var additionResult = employee.AddWorkingDay(workingDayResult.Value!);
+        if (schedulePreferenceResult.IsFailure) 
+            return schedulePreferenceResult;
         
-        if (additionResult.IsFailure) 
+        var additionResult = employee.AddSchedulePreference(
+            schedulePreferenceResult.Value!);
+        
+        if (additionResult.IsFailure)
             return additionResult;
         
         await _allEmployeesRepository.UpdateAsync(employee, cancellationToken);

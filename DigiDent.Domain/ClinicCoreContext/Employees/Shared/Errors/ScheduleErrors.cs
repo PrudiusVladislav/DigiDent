@@ -30,4 +30,23 @@ public static class ScheduleErrors
             nameof(WorkingDay),
             $"The working day on {date} conflicts with a schedule preference" + 
             $" of employee with id '{employeeId.Value}'");
+    
+    public static Error SchedulePreferenceIsAlreadySet(
+        EmployeeId employeeId, DateOnly date) => new(
+        ErrorType.Conflict,
+        nameof(SchedulePreference),
+        $"Employee with id {employeeId.Value} already set a schedule preference on {date}");
+    
+    public static Error SchedulePreferenceConflictsWithWorkingDay(
+        EmployeeId employeeId, DateOnly date) => new(
+        ErrorType.Conflict,
+        nameof(SchedulePreference),
+        $"It is not allowed to set a schedule preference on {date} because" +
+        $" the employee with id '{employeeId.Value}' already has a working day on that date");
+    
+    public static Error SchedulePreferenceCountLimitReached(
+        EmployeeId employeeId, int limit) => new(
+        ErrorType.Validation,
+    nameof(SchedulePreference),
+    $"Employee with id {employeeId.Value} has reached the limit of {limit} schedule preferences");
 }

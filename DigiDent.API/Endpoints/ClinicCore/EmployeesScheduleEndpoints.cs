@@ -1,5 +1,6 @@
 ﻿
 using DigiDent.API.Extensions;
+using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
@@ -65,6 +66,26 @@ public static class EmployeesScheduleEndpoints
             CancellationToken cancellationToken) =>
         {
             var commandCreationResult = AddWorkingDayCommand
+                .CreateFromRequest(id, request);
+            
+            if (commandCreationResult.IsFailure)
+                return commandCreationResult.MapToIResult();
+            
+            var result = await mediator.Send(
+                commandCreationResult.Value!, cancellationToken);
+
+            return result.Match(
+                onFailure: _ => result.MapToIResult(),
+                onSuccess: () => Results.NoContent());
+        });
+        
+        app.MapPost("/{id:guid}/schedule/preferences", async (
+            [FromRoute]Guid id,
+            [FromBody]AddSchedulePreferenceRequest request,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var commandCreationResult = AddSchedulePreferenceCommand
                 .CreateFromRequest(id, request);
             
             if (commandCreationResult.IsFailure)
