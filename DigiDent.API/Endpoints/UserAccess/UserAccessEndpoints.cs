@@ -1,5 +1,4 @@
 ﻿using DigiDent.API.Extensions;
-using DigiDent.Application.UserAccess.Commands.DeleteUser;
 using DigiDent.Application.UserAccess.Commands.Refresh;
 using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Application.UserAccess.Commands.SignUp;
@@ -16,9 +15,8 @@ public static class UserAccessEndpoints
     {
         groupBuilder
             .MapSignInEndpoint()
-            .MapSignUpEndpoint()
-            .MapRefreshEndpoint()
-            .MapDeleteUserEndpoint();
+            .MapSignUpEndpoints()
+            .MapRefreshEndpoint();
         
         return groupBuilder;
     }
@@ -40,7 +38,7 @@ public static class UserAccessEndpoints
         return app;
     }
 
-    private static IEndpointRouteBuilder MapSignUpEndpoint(this IEndpointRouteBuilder app)
+    private static IEndpointRouteBuilder MapSignUpEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("/employees/sign-up", async (
                 [FromBody] SignUpRequest request, 
@@ -93,25 +91,6 @@ public static class UserAccessEndpoints
                 onFailure: _ => refreshResult.MapToIResult(),
                 onSuccess: tokens => Results.Ok(tokens));
         });
-        
-        return app;
-    }
-    
-    private static IEndpointRouteBuilder MapDeleteUserEndpoint(this IEndpointRouteBuilder app)
-    {
-        app.MapDelete("/users/{userId:guid}", async (
-            [FromRoute]Guid userId,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var deleteResult = await mediator.Send(
-                new DeleteUserCommand(userId), cancellationToken);
-            
-            return deleteResult.Match(
-                onFailure: _ => deleteResult.MapToIResult(),
-                onSuccess: () => Results.Ok());
-            
-        }).RequireRoles(Role.Administrator);
         
         return app;
     }
