@@ -5,14 +5,16 @@ using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Application.UserAccess.Commands.SignUp;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DigiDent.API.Endpoints.UserAccess;
 
 public static class UserAccessEndpoints
 {
-    public static RouteGroupBuilder MapUserAccessEndpoints(this RouteGroupBuilder groupBuilder)
+    public static RouteGroupBuilder MapUserAccessEndpoints(
+        this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGroup("/users")
+        groupBuilder
             .MapSignInEndpoint()
             .MapSignUpEndpoint()
             .MapRefreshEndpoint()
@@ -23,7 +25,7 @@ public static class UserAccessEndpoints
     
     private static IEndpointRouteBuilder MapSignInEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/sign-in", async (
+        app.MapPost("/users/sign-in", async (
             SignInCommand signInCommand,
             IMediator mediator,
             CancellationToken cancellationToken) =>
@@ -40,26 +42,48 @@ public static class UserAccessEndpoints
 
     private static IEndpointRouteBuilder MapSignUpEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/sign-up", async (
-            SignUpCommand signUpCommand,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var signUpResult = await mediator.Send(signUpCommand, cancellationToken);
-            
-            return signUpResult.Match(
-                onFailure: _ => signUpResult.MapToIResult(),
-                onSuccess: () => Results.Ok());
-            
-        }).RequireRoles(Role.Administrator);
+        app.MapPost("/employees/sign-up", async (
+                [FromBody] SignUpRequest request, 
+                IMediator mediator, 
+                CancellationToken cancellationToken) 
+            => await SignUp(request, mediator, cancellationToken,
+                allowedRoles: RoleFactory.EmployeeRoles))
+            .RequireRoles(Role.Administrator);;
+
+        app.MapPost("/patients/sign-up", async (
+                [FromBody] SignUpRequest request, 
+                IMediator mediator, 
+                CancellationToken cancellationToken) 
+            => await SignUp(request, mediator, cancellationToken,
+                allowedRoles: Role.Patient));
         
         return app;
+    }
+    
+    private static async Task<IResult> SignUp(
+        SignUpRequest request,
+        IMediator mediator,
+        CancellationToken cancellationToken,
+        params Role[] allowedRoles)                
+    {
+        var signUpCommandResult = SignUpCommand.CreateFromRequest(
+            request, allowedRoles);
+            
+        if (signUpCommandResult.IsFailure)
+            return signUpCommandResult.MapToIResult();
+            
+        var signUpResult = await mediator.Send(
+            signUpCommandResult.Value!, cancellationToken);
+
+        return signUpResult.Match(
+            onFailure: _ => signUpResult.MapToIResult(),
+            onSuccess: () => Results.Ok());
     }
     
     private static IEndpointRouteBuilder MapRefreshEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapPost("/refresh", async (
-            RefreshCommand refreshCommand,
+            [FromBody]RefreshCommand refreshCommand,
             IMediator mediator,
             CancellationToken cancellationToken) =>
         {
@@ -75,8 +99,8 @@ public static class UserAccessEndpoints
     
     private static IEndpointRouteBuilder MapDeleteUserEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapDelete("/{userId:guid}", async (
-            Guid userId,
+        app.MapDelete("/users/{userId:guid}", async (
+            [FromRoute]Guid userId,
             IMediator mediator,
             CancellationToken cancellationToken) =>
         {
