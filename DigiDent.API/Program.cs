@@ -29,7 +29,8 @@ var app = builder.Build();
         .MapUserAccessEndpoints()
         .MapDoctorsEndpoints()
         .MapProvidedServicesEndpoints()
-        .MapEmployeesScheduleEndpoints();
+        .MapEmployeesScheduleEndpoints()
+        .MapAppointmentsEndpoints();
 }
 
 app.Run();
