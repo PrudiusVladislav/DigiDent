@@ -12,7 +12,8 @@ public static class AppointmentsEndpoints
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/appointments")
-            .MapCreateAppointmentEndpoint();
+            .MapCreateAppointmentEndpoint()
+            .MapCloseAppointmentEndpoint();
         return groupBuilder;
     }
     
