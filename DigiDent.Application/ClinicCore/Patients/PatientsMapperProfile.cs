@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using DigiDent.Application.ClinicCore.Patients.Queries.GetPatientById;
+using DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
+using DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 
@@ -9,14 +10,21 @@ public class PatientsMapperProfile: Profile
 {
     public PatientsMapperProfile()
     {
-        CreateMap<Appointment, NearestAppointmentDTO>();
-        CreateMap<Patient, PatientProfileDTO>()
+        CreateMap<Patient, PatientDTO>();
+        
+        
+        CreateMap<TreatmentPlan, PatientTreatmentPlanDTO>()
             .ForMember(
-                dest => dest.NearestAppointments,
-                opt => opt.MapFrom(src => src.Appointments
-                    .Where(a => a.VisitDateTime >= DateTime.Now)
-                    .OrderBy(a => a.VisitDateTime)
-                    .Take(5)
-                    .ToList()));
+                tp => tp.DiagnosisDescription,
+                opt => opt.MapFrom(src => src.Details.DiagnosisDescription));
+        CreateMap<Appointment, PatientAppointmentDTO>()
+            .ForMember(
+                a => a.DoctorFullName,
+                opt => opt.MapFrom(src => src.Doctor.FullName));
+        CreateMap<PastVisit, PatientPastVisitDTO>()
+            .ForMember(
+                pv => pv.DoctorFullName,
+                opt => opt.MapFrom(src => src.Doctor.FullName));
+        CreateMap<Patient, PatientProfileDTO>();
     }
 }

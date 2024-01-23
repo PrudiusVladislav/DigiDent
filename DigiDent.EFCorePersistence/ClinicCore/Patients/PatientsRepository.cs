@@ -26,7 +26,9 @@ public class PatientsRepository: IPatientsRepository
     {
         return await _context.Patients
             .Include(p => p.Appointments)
+            .ThenInclude(a => a.Doctor)
             .Include(p => p.PastVisits)
+            .ThenInclude(pv => pv.Doctor)
             .Include(p => p.TreatmentPlans)
             .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
