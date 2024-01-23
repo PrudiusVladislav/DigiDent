@@ -1,5 +1,4 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
@@ -29,7 +28,7 @@ public class PastVisit :
     public DateTime VisitDateTime { get; init; }
     
     public Money PricePaid { get; init; }
-    public Feedback? Feedback { get; init; }
+    public Feedback? Feedback { get; private set; }
     public VisitStatus Status { get; init; }
     
     /// <summary>
@@ -43,14 +42,18 @@ public class PastVisit :
         PatientId patientId,
         DateTime visitDateTime,
         Money pricePaid,
-        IEnumerable<string> proceduresDone)
+        VisitStatus status,
+        IEnumerable<string> proceduresDone,
+        TreatmentPlanId? treatmentPlanId)
     {
         Id = id;
         DoctorId = doctorId;
         PatientId = patientId;
         VisitDateTime = visitDateTime;
         PricePaid = pricePaid;
+        Status = status;
         ProceduresDone = proceduresDone;
+        TreatmentPlanId = treatmentPlanId;
     }
     
     public static PastVisit Create(
@@ -58,7 +61,9 @@ public class PastVisit :
         PatientId patientId,
         DateTime visitDateTime,
         Money pricePaid,
-        IEnumerable<string> proceduresDone)
+        VisitStatus status,
+        IEnumerable<string> proceduresDone,
+        TreatmentPlanId? treatmentPlanId)
     {
         var visitId = TypedId.New<PastVisitId>();
         return new PastVisit(
@@ -67,6 +72,8 @@ public class PastVisit :
             patientId,
             visitDateTime,
             pricePaid,
-            proceduresDone);
+            status,
+            proceduresDone,
+            treatmentPlanId);
     }
 }

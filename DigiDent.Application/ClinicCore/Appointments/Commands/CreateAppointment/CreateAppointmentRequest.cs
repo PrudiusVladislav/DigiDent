@@ -3,6 +3,6 @@
 public sealed record CreateAppointmentRequest(
     Guid DoctorId,
     Guid PatientId,
-    DateTime Date,
-    TimeSpan Duration, 
+    DateTime DateTime,
+    int Duration, 
     IEnumerable<Guid> Services);

@@ -5,8 +5,12 @@ using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
+using DigiDent.Domain.ClinicCoreContext.Visits.Errors;
+using DigiDent.Domain.ClinicCoreContext.Visits.Events;
+using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
@@ -77,5 +81,25 @@ public class Appointment :
             duration,
             AppointmentStatus.Scheduled,
             providedServices);
+    }
+
+    public Result Close(VisitStatus status, Money pricePaid)
+    {
+        if (status == VisitStatus.Completed && pricePaid == Money.Zero)
+            return Result.Fail(AppointmentErrors
+                .PricePaidIsZeroWhenStatusIsComplete);
+        
+        if (status != VisitStatus.Completed && pricePaid != Money.Zero)
+            return Result.Fail(AppointmentErrors
+                .PricePaidIsNotZeroWhenStatusIsNotComplete);
+        
+        Raise(new AppointmentClosedDomainEvent(
+            Guid.NewGuid(),
+            DateTime.Now,
+            status,
+            pricePaid,
+            this));
+        
+        return Result.Ok();
     }
 }

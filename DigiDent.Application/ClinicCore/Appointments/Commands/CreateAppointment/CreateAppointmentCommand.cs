@@ -20,7 +20,8 @@ public sealed record CreateAppointmentCommand
     public static Result<CreateAppointmentCommand> CreateFromRequest(
         CreateAppointmentRequest request)
     {
-        var timeResult = TimeDuration.Create(request.Duration);
+        var timeResult = TimeDuration.Create(TimeSpan
+            .FromMinutes(request.Duration));
         if (timeResult.IsFailure)
             return timeResult.MapToType<CreateAppointmentCommand>();
 
@@ -28,7 +29,7 @@ public sealed record CreateAppointmentCommand
         {
             DoctorId = new EmployeeId(request.DoctorId),
             PatientId = new PatientId(request.PatientId),
-            DateTime = request.Date,
+            DateTime = request.DateTime,
             Duration = timeResult.Value!,
             ServicesIds = request.Services
                 .Select(id => new ProvidedServiceId(id))

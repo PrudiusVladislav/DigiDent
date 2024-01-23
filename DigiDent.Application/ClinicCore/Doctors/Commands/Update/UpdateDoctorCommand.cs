@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Application.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
@@ -41,22 +42,19 @@ public record UpdateDoctorCommand : ICommand<Result>
             Biography = request.Biography
         });
     }
-
+    
     private static Result<TEnum> ParseEnum<TEnum>(string? value)
         where TEnum : struct, Enum
     {
         if (string.IsNullOrWhiteSpace(value))
             return Result.Ok().MapToType<TEnum>();
-        if(!Enum.TryParse<TEnum>(value, out var parsedValue))
-            return Result.Fail<TEnum>(
-                IncorrectUpdateParameter(typeof(TEnum).Name));
+
+        if (!Enum.TryParse<TEnum>(value, out var parsedValue))
+        {
+            return Result.Fail<TEnum>(CommandParametersErrors
+                .IncorrectParameter<UpdateDoctorCommand>(typeof(TEnum).Name));
+        }
         
         return Result.Ok(parsedValue);
     }
-
-    private static Error IncorrectUpdateParameter(string parameterName)
-     => new (
-         ErrorType.Validation,
-         nameof(UpdateDoctorCommand),
-         $"Incorrect value of parameter: {parameterName}.");
 };

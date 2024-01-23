@@ -8,6 +8,7 @@ namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 /// </summary>
 public record Money
 {
+    public static Money Zero => new(0);
     public decimal Amount { get; }
     
     internal Money(decimal amount)
