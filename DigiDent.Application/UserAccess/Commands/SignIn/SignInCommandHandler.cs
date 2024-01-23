@@ -27,29 +27,22 @@ public class SignInCommandHandler
     }
     
     public async Task<Result<AuthenticationResponse>> Handle(
-        SignInCommand request,
-        CancellationToken cancellationToken)
+        SignInCommand request, CancellationToken cancellationToken)
     {
-        var emailResult = Email.Create(request.Email);
-        if (emailResult.IsFailure)
-            return Result.Fail<AuthenticationResponse>(EmailErrors
-                .EmailIsNotRegistered(request.Email));
-        
         var userToSignIn = await _usersRepository
-            .GetByEmailAsync(emailResult.Value!, cancellationToken);
+            .GetByEmailAsync(request.Email, cancellationToken);
         if (userToSignIn == null)
+        {
             return Result.Fail<AuthenticationResponse>(EmailErrors
-                .EmailIsNotRegistered(request.Email));
-        
-        var roleResult = _usersDomainService.CreateRole(request.Role);
-        if (roleResult.IsFailure || userToSignIn.Role != roleResult.Value)
-            return Result.Fail<AuthenticationResponse>(RoleErrors
-                .RoleIsNotValid(request.Role));
+                .EmailIsNotRegistered(request.Email.Value));
+        }
         
         var isPasswordCorrect = userToSignIn.Password.IsEqualTo(request.Password);
         if (!isPasswordCorrect)
+        {
             return Result.Fail<AuthenticationResponse>(PasswordErrors
                 .PasswordDoesNotMatch);
+        }
         
         var tokensResponse = await _jwtService
             .GenerateAuthenticationResponseAsync(userToSignIn, cancellationToken);

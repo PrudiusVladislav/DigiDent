@@ -16,27 +16,15 @@ public class UsersDomainService
         _usersRepository = usersRepository;
     }
     
-    public async Task<Result<Email>> CreateEmailAsync(string value, CancellationToken cancellationToken)
+    public async Task<bool> IsEmailUnique(
+        Email value, CancellationToken cancellationToken)
     {
-        var emailResult = Email.Create(value);
-        if (emailResult.IsFailure)
-            return emailResult;
-        
-        var user = await _usersRepository.GetByEmailAsync(emailResult.Value!, cancellationToken);
-        if (user != null)
-            return emailResult.AddError(EmailErrors
-                .EmailIsNotUnique(emailResult.Value!.Value));
-        
-        return Result.Ok(emailResult.Value!);
+        User? user = await _usersRepository.GetByEmailAsync(
+            value, cancellationToken);
+        return user is null;
     }
 
-    public Result<Role> CreateRole(string roleName)
-    {
-        var isRoleValid = Enum.TryParse<Role>(roleName, true, out var role);
-        if (!isRoleValid)
-            return Result.Fail<Role>(RoleErrors.RoleIsNotValid(roleName));
-        return Result.Ok(role);
-    }
+    
     
     private Result ValidateAndUpdateUserName(
         User userToUpdate,
