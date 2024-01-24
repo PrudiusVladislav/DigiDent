@@ -3,6 +3,7 @@ using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePref
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Infrastructure.ClinicCore.EmployeeSchedulePDFDoc;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ public static class EmployeesScheduleEndpoints
         CancellationToken cancellationToken,
         [FromQuery]bool pdf = false)
     {
-        var query = new GetWorkingDaysForEmployeeQuery(id, from, until);
+        GetWorkingDaysForEmployeeQuery query = new(id, from, until);
             
         var workingDays = await sender.Send(
             query, cancellationToken);
@@ -41,7 +42,7 @@ public static class EmployeesScheduleEndpoints
         if (pdf is false)
             return Results.Ok(workingDays);
             
-        var documentDataModel = new ScheduleDocumentDataModel(
+        ScheduleDocumentDataModel documentDataModel = new(
             "DigiDent",
             workingDays.First().EmployeeFullName,
             from,
@@ -59,7 +60,7 @@ public static class EmployeesScheduleEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var query = new GetSchedulePreferencesQuery(id);
+        GetSchedulePreferencesQuery query = new(id);
             
         var preferences = await sender.Send(
             query, cancellationToken);
@@ -73,17 +74,17 @@ public static class EmployeesScheduleEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandCreationResult = AddWorkingDayCommand
+        Result<AddWorkingDayCommand> commandResult = AddWorkingDayCommand
             .CreateFromRequest(id, request);
             
-        if (commandCreationResult.IsFailure)
-            return commandCreationResult.MapToIResult();
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
             
-        var result = await sender.Send(
-            commandCreationResult.Value!, cancellationToken);
+        Result additionResult = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
-        return result.Match(
-            onFailure: _ => result.MapToIResult(),
+        return additionResult.Match(
+            onFailure: _ => additionResult.MapToIResult(),
             onSuccess: () => Results.NoContent());
     }
     
@@ -93,17 +94,17 @@ public static class EmployeesScheduleEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandCreationResult = AddSchedulePreferenceCommand
+        Result<AddSchedulePreferenceCommand> commandResult = AddSchedulePreferenceCommand
             .CreateFromRequest(id, request);
             
-        if (commandCreationResult.IsFailure)
-            return commandCreationResult.MapToIResult();
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
             
-        var result = await sender.Send(
-            commandCreationResult.Value!, cancellationToken);
+        Result additionResult = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
-        return result.Match(
-            onFailure: _ => result.MapToIResult(),
+        return additionResult.Match(
+            onFailure: _ => additionResult.MapToIResult(),
             onSuccess: () => Results.NoContent());
     }
 }

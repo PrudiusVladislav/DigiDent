@@ -1,6 +1,7 @@
 ﻿using DigiDent.API.Extensions;
 using DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
 using DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,17 +25,17 @@ public static class AppointmentsEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandCreationResult = CreateAppointmentCommand
+        Result<CreateAppointmentCommand> commandResult = CreateAppointmentCommand
             .CreateFromRequest(request);
             
-        if (commandCreationResult.IsFailure)
-            return commandCreationResult.MapToIResult();
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
             
-        var result = await sender.Send(
-            commandCreationResult.Value!, cancellationToken);
+        Result<Guid> creationResult = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
-        return result.Match(
-            onFailure: _ => result.MapToIResult(),
+        return creationResult.Match(
+            onFailure: _ => creationResult.MapToIResult(),
             onSuccess: id => Results.Created(
                 $"/appointments/{id}", id));
     }
@@ -45,12 +46,13 @@ public static class AppointmentsEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandResult = CloseAppointmentCommand.CreateFromRequest(
-            id, request);
+        Result<CloseAppointmentCommand> commandResult = CloseAppointmentCommand
+            .CreateFromRequest(id, request);
+        
         if (commandResult.IsFailure)
             return commandResult.MapToIResult();
             
-        var result = await sender.Send(
+        Result result = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return result.Match(

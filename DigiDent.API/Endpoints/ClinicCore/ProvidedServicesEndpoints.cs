@@ -3,6 +3,7 @@ using DigiDent.Application.ClinicCore.ProvidedServices.Commands.AddService;
 using DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
 using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
 using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +28,10 @@ public static class ProvidedServicesEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
+        GetAllProvidedServicesQuery query = new();
+        
         var providedServices = await sender.Send(
-            new GetAllProvidedServicesQuery(), cancellationToken);
+            query, cancellationToken);
 
         return Results.Ok(providedServices);
     }
@@ -38,8 +41,10 @@ public static class ProvidedServicesEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
+        GetProvidedServiceByIdQuery query = new(id);
+        
         SpecificProvidedServiceDTO? providedService = await sender.Send(
-            new GetProvidedServiceByIdQuery(id), cancellationToken);
+            query, cancellationToken);
 
         return providedService is null
             ? Results.NotFound()
@@ -51,17 +56,17 @@ public static class ProvidedServicesEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandCreationResult = AddProvidedServiceCommand
+        Result<AddProvidedServiceCommand> commandResult = AddProvidedServiceCommand
             .CreateFromRequest(request);
             
-        if (commandCreationResult.IsFailure)
-            return commandCreationResult.MapToIResult();
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
             
-        var result = await sender.Send(
-            commandCreationResult.Value!, cancellationToken);
+        Result<Guid> additionResult = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
-        return result.Match(
-            onFailure: _ => result.MapToIResult(),
+        return additionResult.Match(
+            onFailure: _ => additionResult.MapToIResult(),
             onSuccess: id => Results.Created(
                 $"/services/{id}", id));
     }
@@ -72,17 +77,17 @@ public static class ProvidedServicesEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandCreationResult = UpdateProvidedServiceCommand
+        Result<UpdateProvidedServiceCommand> commandResult = UpdateProvidedServiceCommand
             .CreateFromRequest(id, request);
 
-        if (commandCreationResult.IsFailure)
-            return commandCreationResult.MapToIResult();
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
         
-        var result = await sender.Send(
-            commandCreationResult.Value!, cancellationToken);
+        Result updateResult = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
-        return result.Match(
-            onFailure: _ => result.MapToIResult(),
+        return updateResult.Match(
+            onFailure: _ => updateResult.MapToIResult(),
             onSuccess: () => Results.NoContent());
     }
 }

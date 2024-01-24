@@ -2,6 +2,7 @@
 using DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
 using DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
 using DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,8 +37,10 @@ public static class PatientsEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
+        GetPatientProfileQuery query = new(id);
+        
         PatientProfileDTO? patient = await sender.Send(
-            new GetPatientProfileQuery(id), cancellationToken);
+            query, cancellationToken);
 
         return patient is null
             ? Results.NotFound()
@@ -50,16 +53,17 @@ public static class PatientsEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandResult = CreateTreatmentPlanCommand.CreateFromRequest(
-            request, patientId: id);
+        Result<CreateTreatmentPlanCommand> commandResult = CreateTreatmentPlanCommand
+            .CreateFromRequest(request, patientId: id);
+        
         if (commandResult.IsFailure)
             return commandResult.MapToIResult();
         
-        var result = await sender.Send(
+        Result<Guid> creationResult = await sender.Send(
             commandResult.Value!, cancellationToken);
 
-        return result.Match(
-            onFailure: _ => result.MapToIResult(),
+        return creationResult.Match(
+            onFailure: _ => creationResult.MapToIResult(),
             onSuccess: planId => Results.Created(
                 $"/patients/treatment-plans/{planId}", planId));
     }

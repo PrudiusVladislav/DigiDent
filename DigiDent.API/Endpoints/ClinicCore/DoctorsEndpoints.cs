@@ -55,8 +55,7 @@ public static class DoctorsEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var query = new IsDoctorAvailableQuery(
-            id, dateTime, duration);
+        IsDoctorAvailableQuery query = new(id, dateTime, duration);
         
         Result<IsDoctorAvailableResponse> result  = await sender.Send(
             query, cancellationToken);
@@ -74,8 +73,7 @@ public static class DoctorsEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var query = new GetAvailableTimeSlotsQuery(
-            id, from, until, duration);
+        GetAvailableTimeSlotsQuery query = new(id, from, until, duration);
         
         IReadOnlyCollection<DateTime> response = await sender.Send(
             query, cancellationToken);
@@ -89,14 +87,14 @@ public static class DoctorsEndpoints
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var commandCreationResult = UpdateDoctorCommand
+        Result<UpdateDoctorCommand> commandResult = UpdateDoctorCommand
             .CreateFromRequest(id, request);
 
-        if (commandCreationResult.IsFailure)
-            return commandCreationResult.MapToIResult();
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
         
-        var result = await sender.Send(
-            commandCreationResult.Value!, cancellationToken);
+        Result result = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
         return result.Match(
             onFailure: _ => result.MapToIResult(),
