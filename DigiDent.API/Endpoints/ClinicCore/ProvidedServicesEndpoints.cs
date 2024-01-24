@@ -4,6 +4,7 @@ using DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
 using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
 using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DigiDent.API.Endpoints.ClinicCore;
 
@@ -12,91 +13,76 @@ public static class ProvidedServicesEndpoints
     public static RouteGroupBuilder MapProvidedServicesEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGroup("/services")
-            .MapGetProvidedServicesEndpoints()
-            .MapAddProvidedServiceEndpoint()
-            .MapUpdateProvidedServiceEndpoint();
+        var servicesGroup = groupBuilder.MapGroup("/services");
+        
+        servicesGroup.MapGet("/", GetAllProvidedServices);
+        servicesGroup.MapGet("/{id}", GetSpecificProvidedServiceInfo);
+        servicesGroup.MapPost("/", AddProvidedService);
+        servicesGroup.MapPut("/{id}", UpdateProvidedService);
         
         return groupBuilder;
     }
     
-    private static IEndpointRouteBuilder MapGetProvidedServicesEndpoints(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> GetAllProvidedServices(
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapGet("/", async (
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var providedServices = await mediator.Send(
-                new GetAllProvidedServicesQuery(), cancellationToken);
-            return Results.Ok(providedServices);
-        });
+        var providedServices = await sender.Send(
+            new GetAllProvidedServicesQuery(), cancellationToken);
 
-        app.MapGet("/{id:guid}", async (
-            Guid id,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var providedService = await mediator.Send(
-                new GetProvidedServiceByIdQuery(id), cancellationToken);
-            
-            return providedService is null
-                ? Results.NotFound()
-                : Results.Ok(providedService);
-        });
-        
-        return app;
+        return Results.Ok(providedServices);
     }
     
-    private static IEndpointRouteBuilder MapAddProvidedServiceEndpoint(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> GetSpecificProvidedServiceInfo(
+        [FromRoute]Guid id,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPost("/", async (
-            AddProvidedServiceRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandCreationResult = AddProvidedServiceCommand
-                .CreateFromRequest(request);
-            
-            if (commandCreationResult.IsFailure)
-                return commandCreationResult.MapToIResult();
-            
-            var result = await mediator.Send(
-                commandCreationResult.Value!, cancellationToken);
-            
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: id => Results.Created(
-                    $"/services/{id}", id));
-        });
-        
-        return app;
+        SpecificProvidedServiceDTO? providedService = await sender.Send(
+            new GetProvidedServiceByIdQuery(id), cancellationToken);
+
+        return providedService is null
+            ? Results.NotFound()
+            : Results.Ok(providedService);
     }
     
-    private static IEndpointRouteBuilder MapUpdateProvidedServiceEndpoint(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> AddProvidedService(
+        [FromBody]AddProvidedServiceRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPut("/{id:guid}", async (
-            Guid id,
-            UpdateProvidedServiceRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandCreationResult = UpdateProvidedServiceCommand
-                .CreateFromRequest(id, request);
+        var commandCreationResult = AddProvidedServiceCommand
+            .CreateFromRequest(request);
             
-            if (commandCreationResult.IsFailure)
-                return commandCreationResult.MapToIResult();
+        if (commandCreationResult.IsFailure)
+            return commandCreationResult.MapToIResult();
             
-            var result = await mediator.Send(
-                commandCreationResult.Value!, cancellationToken);
-            
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: () => Results.NoContent());
-        });
+        var result = await sender.Send(
+            commandCreationResult.Value!, cancellationToken);
+
+        return result.Match(
+            onFailure: _ => result.MapToIResult(),
+            onSuccess: id => Results.Created(
+                $"/services/{id}", id));
+    }
+    
+    private static async Task<IResult> UpdateProvidedService(
+        [FromRoute]Guid id,
+        [FromBody]UpdateProvidedServiceRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        var commandCreationResult = UpdateProvidedServiceCommand
+            .CreateFromRequest(id, request);
+
+        if (commandCreationResult.IsFailure)
+            return commandCreationResult.MapToIResult();
         
-        return app;
+        var result = await sender.Send(
+            commandCreationResult.Value!, cancellationToken);
+
+        return result.Match(
+            onFailure: _ => result.MapToIResult(),
+            onSuccess: () => Results.NoContent());
     }
 }
