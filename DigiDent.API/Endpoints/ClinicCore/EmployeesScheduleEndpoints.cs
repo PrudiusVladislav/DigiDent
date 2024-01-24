@@ -15,104 +15,95 @@ public static class EmployeesScheduleEndpoints
     public static RouteGroupBuilder MapEmployeesScheduleEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGroup("/employees")
-            .MapGetEmployeeScheduleDataEndpoints()
-            .MapAddScheduleDataEndpoints();
+        var employeesGroup = groupBuilder.MapGroup("/employees");
+        
+        employeesGroup.MapGet("/{id}/schedule", GetEmployeeWorkingSchedule);
+        employeesGroup.MapGet("/{id}/preferences", GetEmployeeSchedulePreferences);
+        employeesGroup.MapPost("/{id}/schedule", AddEmployeeWorkingDay);
+        employeesGroup.MapPost("/{id}/preferences", AddEmployeeSchedulePreference);
         
         return groupBuilder;
     }
-
-    private static IEndpointRouteBuilder MapGetEmployeeScheduleDataEndpoints(
-        this IEndpointRouteBuilder app)
+    
+    private static async Task<IResult> GetEmployeeWorkingSchedule(
+        [FromRoute]Guid id,
+        [FromQuery]DateOnly from,
+        [FromQuery]DateOnly until,
+        ISender sender,
+        CancellationToken cancellationToken,
+        [FromQuery]bool pdf = false)
     {
-        app.MapGet("/{id:guid}/schedule", async (
-            [FromRoute]Guid id,
-            [FromQuery]DateOnly from,
-            [FromQuery]DateOnly until,
-            IMediator mediator,
-            CancellationToken cancellationToken,
-            [FromQuery]bool asPdf = false) =>
-        {
-            var query = new GetWorkingDaysForEmployeeQuery(id, from, until);
+        var query = new GetWorkingDaysForEmployeeQuery(id, from, until);
             
-            var workingDays = await mediator.Send(
-                query, cancellationToken);
+        var workingDays = await sender.Send(
+            query, cancellationToken);
             
-            if (asPdf is false)
-                return Results.Ok(workingDays);
-            
-            var documentDataModel = new ScheduleDocumentDataModel(
-                "DigiDent",
-                workingDays.First().EmployeeFullName,
-                from,
-                until,
-                workingDays.ToList());
-
-            var document = new EmployeeScheduleDocument(documentDataModel)
-                .GeneratePdf();
-            
-            return Results.File(document, "application/pdf", "schedule.pdf");
-        });
-        
-        app.MapGet("/{id:guid}/schedule/preferences", async (
-            [FromRoute]Guid id,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var query = new GetSchedulePreferencesQuery(id);
-            
-            var workingDays = await mediator.Send(
-                query, cancellationToken);
-            
+        if (pdf is false)
             return Results.Ok(workingDays);
-        });
-        
-        return app;
+            
+        var documentDataModel = new ScheduleDocumentDataModel(
+            "DigiDent",
+            workingDays.First().EmployeeFullName,
+            from,
+            until,
+            workingDays.ToList());
+
+        byte[] document = new EmployeeScheduleDocument(documentDataModel)
+            .GeneratePdf();
+            
+        return Results.File(document, "application/pdf", "schedule.pdf");
     }
     
-    private static IEndpointRouteBuilder MapAddScheduleDataEndpoints(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> GetEmployeeSchedulePreferences(
+        [FromRoute]Guid id,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPost("/{id:guid}/schedule", async (
-            [FromRoute]Guid id,
-            [FromBody]AddWorkingDayRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandCreationResult = AddWorkingDayCommand
-                .CreateFromRequest(id, request);
+        var query = new GetSchedulePreferencesQuery(id);
             
-            if (commandCreationResult.IsFailure)
-                return commandCreationResult.MapToIResult();
+        var preferences = await sender.Send(
+            query, cancellationToken);
             
-            var result = await mediator.Send(
-                commandCreationResult.Value!, cancellationToken);
+        return Results.Ok(preferences);
+    }
+    
+    private static async Task<IResult> AddEmployeeWorkingDay(
+        [FromRoute]Guid id,
+        [FromBody]AddWorkingDayRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        var commandCreationResult = AddWorkingDayCommand
+            .CreateFromRequest(id, request);
+            
+        if (commandCreationResult.IsFailure)
+            return commandCreationResult.MapToIResult();
+            
+        var result = await sender.Send(
+            commandCreationResult.Value!, cancellationToken);
 
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: () => Results.NoContent());
-        });
-        
-        app.MapPost("/{id:guid}/schedule/preferences", async (
-            [FromRoute]Guid id,
-            [FromBody]AddSchedulePreferenceRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandCreationResult = AddSchedulePreferenceCommand
-                .CreateFromRequest(id, request);
+        return result.Match(
+            onFailure: _ => result.MapToIResult(),
+            onSuccess: () => Results.NoContent());
+    }
+    
+    private static async Task<IResult> AddEmployeeSchedulePreference(
+        [FromRoute]Guid id,
+        [FromBody]AddSchedulePreferenceRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        var commandCreationResult = AddSchedulePreferenceCommand
+            .CreateFromRequest(id, request);
             
-            if (commandCreationResult.IsFailure)
-                return commandCreationResult.MapToIResult();
+        if (commandCreationResult.IsFailure)
+            return commandCreationResult.MapToIResult();
             
-            var result = await mediator.Send(
-                commandCreationResult.Value!, cancellationToken);
+        var result = await sender.Send(
+            commandCreationResult.Value!, cancellationToken);
 
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: () => Results.NoContent());
-        });
-        
-        return app;
+        return result.Match(
+            onFailure: _ => result.MapToIResult(),
+            onSuccess: () => Results.NoContent());
     }
 }
