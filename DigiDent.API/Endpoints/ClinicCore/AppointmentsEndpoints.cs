@@ -21,7 +21,7 @@ public static class AppointmentsEndpoints
 
     private static async Task<IResult> CreateAppointment(
         [FromBody]CreateAppointmentRequest request,
-        IMediator mediator,
+        ISender sender,
         CancellationToken cancellationToken)
     {
         var commandCreationResult = CreateAppointmentCommand
@@ -30,7 +30,7 @@ public static class AppointmentsEndpoints
         if (commandCreationResult.IsFailure)
             return commandCreationResult.MapToIResult();
             
-        var result = await mediator.Send(
+        var result = await sender.Send(
             commandCreationResult.Value!, cancellationToken);
 
         return result.Match(
@@ -42,7 +42,7 @@ public static class AppointmentsEndpoints
     private static async Task<IResult> CloseAppointment(
         [FromRoute]Guid id,
         [FromBody]CloseAppointmentRequest request,
-        IMediator mediator,
+        ISender sender,
         CancellationToken cancellationToken)
     {
         var commandResult = CloseAppointmentCommand.CreateFromRequest(
@@ -50,7 +50,7 @@ public static class AppointmentsEndpoints
         if (commandResult.IsFailure)
             return commandResult.MapToIResult();
             
-        var result = await mediator.Send(
+        var result = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return result.Match(

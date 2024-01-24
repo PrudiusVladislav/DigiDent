@@ -15,106 +15,91 @@ public static class DoctorsEndpoints
     public static RouteGroupBuilder MapDoctorsEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGroup("/doctors")
-            .MapGetDoctorsInfoEndpoints()
-            .MapDoctorAvailabilityEndpoints()
-            .MapDoctorUpdateEndpoint();
+        var doctorsGroup = groupBuilder.MapGroup("/doctors");
+        
+        doctorsGroup.MapGet("/", GetAllDoctorsInfo);
+        doctorsGroup.MapGet("/{id}", GetDoctorProfile);
+        doctorsGroup.MapGet("/{id}/availability/check", CheckDoctorAvailability);
+        doctorsGroup.MapGet("/{id}/availability/slots", GetAvailableTimeSlots);
+        doctorsGroup.MapPut("/{id}", UpdateDoctor);
         
         return groupBuilder;
     }
     
-    private static IEndpointRouteBuilder MapGetDoctorsInfoEndpoints(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> GetAllDoctorsInfo(
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapGet("/", async (
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var doctors = await mediator.Send(
-                new GetAllDoctorsQuery(), cancellationToken);
-            return Results.Ok(doctors);
-        });
-        
-        app.MapGet("/{id:guid}", async (
-            [FromRoute]Guid id,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            DoctorProfileDTO? doctor = await mediator.Send(
-                new GetDoctorByIdQuery(id), cancellationToken);
-            
-            return doctor is null
-                ? Results.NotFound()
-                : Results.Ok(doctor);
-        });
-        
-        return app;
+        var doctors = await sender.Send(
+            new GetAllDoctorsQuery(), cancellationToken);
+        return Results.Ok(doctors);
     }
     
-    private static IEndpointRouteBuilder MapDoctorAvailabilityEndpoints(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> GetDoctorProfile(
+        [FromRoute]Guid id,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapGet("/{id:guid}/availability/check", async (
-            [FromRoute]Guid id,
-            [FromQuery]DateTime dateTime,
-            [FromQuery]int duration,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var query = new IsDoctorAvailableQuery(
-                id, dateTime, duration);
-            
-            Result<IsDoctorAvailableResponse> result  = await mediator.Send(
-                query, cancellationToken);
-            
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: response => Results.Ok(response));
-        });
+        DoctorProfileDTO? doctor = await sender.Send(
+            new GetDoctorByIdQuery(id), cancellationToken);
         
-        app.MapGet("/{id:guid}/availability/slots", async (
-            [FromRoute]Guid id,
-            [FromQuery]DateTime from,
-            [FromQuery]DateOnly until,
-            [FromQuery]int duration,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var query = new GetAvailableTimeSlotsQuery(
-                id, from, until, duration);
-            
-            IReadOnlyCollection<DateTime> response = await mediator.Send(
-                query, cancellationToken);
-            
-            return Results.Ok(response);
-        });
-        
-        return app;
+        return doctor is null
+            ? Results.NotFound()
+            : Results.Ok(doctor);
     }
-
-    private static IEndpointRouteBuilder MapDoctorUpdateEndpoint(
-        this IEndpointRouteBuilder app)
+    
+    private static async Task<IResult> CheckDoctorAvailability(
+        [FromRoute]Guid id,
+        [FromQuery]DateTime dateTime,
+        [FromQuery]int duration,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPut("/{id:guid}", async (
-            [FromRoute]Guid id,
-            [FromBody]UpdateDoctorRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandCreationResult = UpdateDoctorCommand
-                .CreateFromRequest(id, request);
-
-            if (commandCreationResult.IsFailure)
-                return commandCreationResult.MapToIResult();
-            
-            var result = await mediator.Send(
-                commandCreationResult.Value!, cancellationToken);
-
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: () => Results.NoContent());
-        });
+        var query = new IsDoctorAvailableQuery(
+            id, dateTime, duration);
         
-        return app;
+        Result<IsDoctorAvailableResponse> result  = await sender.Send(
+            query, cancellationToken);
+        
+        return result.Match(
+            onFailure: _ => result.MapToIResult(),
+            onSuccess: response => Results.Ok(response));
+    }
+    
+    private static async Task<IResult> GetAvailableTimeSlots(
+        [FromRoute]Guid id,
+        [FromQuery]DateTime from,
+        [FromQuery]DateOnly until,
+        [FromQuery]int duration,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetAvailableTimeSlotsQuery(
+            id, from, until, duration);
+        
+        IReadOnlyCollection<DateTime> response = await sender.Send(
+            query, cancellationToken);
+        
+        return Results.Ok(response);
+    }
+    
+    private static async Task<IResult> UpdateDoctor(
+        [FromRoute]Guid id,
+        [FromBody]UpdateDoctorRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        var commandCreationResult = UpdateDoctorCommand
+            .CreateFromRequest(id, request);
+
+        if (commandCreationResult.IsFailure)
+            return commandCreationResult.MapToIResult();
+        
+        var result = await sender.Send(
+            commandCreationResult.Value!, cancellationToken);
+
+        return result.Match(
+            onFailure: _ => result.MapToIResult(),
+            onSuccess: () => Results.NoContent());
     }
 }
