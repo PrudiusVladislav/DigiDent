@@ -1,7 +1,9 @@
 ﻿using DigiDent.API.Extensions;
 using DigiDent.Application.UserAccess.Commands.Refresh;
+using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Application.UserAccess.Commands.SignIn;
 using DigiDent.Application.UserAccess.Commands.SignUp;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,70 +15,66 @@ public static class UserAccessEndpoints
     public static RouteGroupBuilder MapUserAccessEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder
-            .MapSignInEndpoint()
-            .MapSignUpEndpoints()
-            .MapRefreshEndpoint();
-        
+        var userAccessGroup = groupBuilder.MapGroup("/user-access");
+
+        userAccessGroup.MapPost("/sign-in", SignIn);
+        userAccessGroup.MapPost("/employees/sign-up", EmployeesSignUp);
+        userAccessGroup.MapPost("/patients/sign-up", PatientsSignUp);
+        userAccessGroup.MapPost("/refresh", Refresh);
+
         return groupBuilder;
     }
-    
-    private static IEndpointRouteBuilder MapSignInEndpoint(this IEndpointRouteBuilder app)
+
+    private static async Task<IResult> SignIn(
+        [FromBody]SignInRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPost("/users/sign-in", async (
-            SignInRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var signInCommandResult = SignInCommand.CreateFromRequest(request);
-            
-            if (signInCommandResult.IsFailure)
-                return signInCommandResult.MapToIResult();
-            
-            var signInResult = await mediator.Send(
-                signInCommandResult.Value!, cancellationToken);
-            
-            return signInResult.Match(
-                onFailure: _ => signInResult.MapToIResult(),
-                onSuccess: tokens => Results.Ok(tokens));
-        });
+        Result<SignInCommand> signInCommandResult = SignInCommand
+            .CreateFromRequest(request);
         
-        return app;
+        if (signInCommandResult.IsFailure)
+            return signInCommandResult.MapToIResult();
+        
+        Result<AuthenticationResponse> signInResult = await sender.Send(
+            signInCommandResult.Value!, cancellationToken);
+        
+        return signInResult.Match(
+            onFailure: _ => signInResult.MapToIResult(),
+            onSuccess: tokens => Results.Ok(tokens));
     }
-
-    private static IEndpointRouteBuilder MapSignUpEndpoints(this IEndpointRouteBuilder app)
+    
+    private static async Task<IResult> EmployeesSignUp(
+        [FromBody]SignUpRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPost("/employees/sign-up", async (
-                [FromBody] SignUpRequest request, 
-                IMediator mediator, 
-                CancellationToken cancellationToken) 
-            => await SignUp(request, mediator, cancellationToken,
-                allowedRoles: RoleFactory.EmployeeRoles))
-            .RequireRoles(Role.Administrator);;
-
-        app.MapPost("/patients/sign-up", async (
-                [FromBody] SignUpRequest request, 
-                IMediator mediator, 
-                CancellationToken cancellationToken) 
-            => await SignUp(request, mediator, cancellationToken,
-                allowedRoles: Role.Patient));
-        
-        return app;
+        return await SignUp(request, sender, cancellationToken,
+            allowedRoles: RoleFactory.EmployeeRoles);
+    }
+    
+    private static async Task<IResult> PatientsSignUp(
+        [FromBody]SignUpRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        return await SignUp(request, sender, cancellationToken,
+            allowedRoles: Role.Patient);
     }
     
     private static async Task<IResult> SignUp(
         SignUpRequest request,
-        IMediator mediator,
+        ISender sender,
         CancellationToken cancellationToken,
         params Role[] allowedRoles)                
     {
-        var signUpCommandResult = SignUpCommand.CreateFromRequest(
-            request, allowedRoles);
+        Result<SignUpCommand> signUpCommandResult = SignUpCommand
+            .CreateFromRequest(request, allowedRoles);
             
         if (signUpCommandResult.IsFailure)
             return signUpCommandResult.MapToIResult();
             
-        var signUpResult = await mediator.Send(
+        Result signUpResult = await sender.Send(
             signUpCommandResult.Value!, cancellationToken);
 
         return signUpResult.Match(
@@ -84,20 +82,16 @@ public static class UserAccessEndpoints
             onSuccess: () => Results.Ok());
     }
     
-    private static IEndpointRouteBuilder MapRefreshEndpoint(this IEndpointRouteBuilder app)
+    private static async Task<IResult> Refresh(
+        [FromBody]RefreshCommand refreshCommand,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPost("/refresh", async (
-            [FromBody]RefreshCommand refreshCommand,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var refreshResult = await mediator.Send(refreshCommand, cancellationToken);
-            
-            return refreshResult.Match(
-                onFailure: _ => refreshResult.MapToIResult(),
-                onSuccess: tokens => Results.Ok(tokens));
-        });
+        Result<AuthenticationResponse> refreshResult = await sender.Send(
+            refreshCommand, cancellationToken);
         
-        return app;
+        return refreshResult.Match(
+            onFailure: _ => refreshResult.MapToIResult(),
+            onSuccess: tokens => Results.Ok(tokens));
     }
 }
