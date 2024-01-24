@@ -30,7 +30,8 @@ var app = builder.Build();
         .MapDoctorsEndpoints()
         .MapProvidedServicesEndpoints()
         .MapEmployeesScheduleEndpoints()
-        .MapAppointmentsEndpoints();
+        .MapAppointmentsEndpoints()
+        .MapPatientsEndpoints();
 }
 
 app.Run();

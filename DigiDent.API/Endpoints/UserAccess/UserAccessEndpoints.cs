@@ -24,11 +24,17 @@ public static class UserAccessEndpoints
     private static IEndpointRouteBuilder MapSignInEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapPost("/users/sign-in", async (
-            SignInCommand signInCommand,
+            SignInRequest request,
             IMediator mediator,
             CancellationToken cancellationToken) =>
         {
-            var signInResult = await mediator.Send(signInCommand, cancellationToken);
+            var signInCommandResult = SignInCommand.CreateFromRequest(request);
+            
+            if (signInCommandResult.IsFailure)
+                return signInCommandResult.MapToIResult();
+            
+            var signInResult = await mediator.Send(
+                signInCommandResult.Value!, cancellationToken);
             
             return signInResult.Match(
                 onFailure: _ => signInResult.MapToIResult(),

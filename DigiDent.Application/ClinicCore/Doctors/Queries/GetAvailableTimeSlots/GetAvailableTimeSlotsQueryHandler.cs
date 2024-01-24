@@ -33,6 +33,7 @@ public class GetAvailableTimeSlotsQueryHandler
         IReadOnlyCollection<DateTime> timeSlots = doctor.GetAvailableTimeSlots(
             request.FromDateTime,
             request.UntilDate,
+            DateTime.Now, 
             timeResult.Value!);
 
         return timeSlots;

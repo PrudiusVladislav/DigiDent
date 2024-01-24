@@ -104,7 +104,7 @@ public static class WorkingDayExtensions
         IReadOnlyList<EventTimeNode> workingDayEvents = workingDay
             .GetWorkingDayEventsNodes(
                 appointments,
-                fromDateTime.Date.ToDateOnly(),
+                fromDateTime.ToDateOnly(),
                 TimeOnly.FromDateTime(fromDateTime));
 
         var availableDateTimes = new List<DateTime>();

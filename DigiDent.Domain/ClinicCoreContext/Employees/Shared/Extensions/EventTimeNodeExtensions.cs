@@ -17,7 +17,8 @@ public static class EventTimeNodeExtensions
         EventTimeNode previousNode,
         EventTimeNode nextNode)
     {
-        return previousNode.StartTime.Add(eventToFit.Duration) <= nextNode.StartTime;
+        return !(eventToFit.StartTime < previousNode.EndTime ||
+               eventToFit.EndTime > nextNode.StartTime);
     }
 
     /// <summary>

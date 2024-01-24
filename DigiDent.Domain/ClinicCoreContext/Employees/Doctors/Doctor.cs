@@ -49,11 +49,13 @@ public class Doctor : Employee
     /// </summary>
     /// <param name="fromDateTime">The date time from which the available time slots are returned.</param>
     /// <param name="untilDate">The date until which the available date times are returned.</param>
+    /// <param name="currentDateTime">The current date time.</param>
     /// <param name="duration">The duration of the appointment.</param>
     /// <returns></returns>
     public IReadOnlyCollection<DateTime> GetAvailableTimeSlots(
         DateTime fromDateTime,
         DateOnly untilDate,
+        DateTime currentDateTime,
         TimeDuration duration)
     {
         var availableDateTimes = new List<DateTime>();
@@ -64,7 +66,7 @@ public class Doctor : Employee
         {
             var availableDateTimesForDay = workingDay
                 .GetAvailableDateTimesForDay(
-                    Appointments, fromDateTime, duration);
+                    Appointments, currentDateTime, duration);
             
             availableDateTimes.AddRange(availableDateTimesForDay);
         }

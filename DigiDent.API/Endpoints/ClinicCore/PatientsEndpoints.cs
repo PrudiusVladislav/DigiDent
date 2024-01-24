@@ -10,7 +10,8 @@ public static class PatientsEndpoints
     public static RouteGroupBuilder MapPatientsEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGroup("/patients");
+        groupBuilder.MapGroup("/patients")
+            .MapGetPatientsInfoEndpoints();
 
         return groupBuilder;
     }
