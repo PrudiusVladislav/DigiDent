@@ -10,6 +10,6 @@ public static class RepositoryErrors
         return new Error(
             ErrorType.NotFound,
             $"{typeof(TEntity).Name}Repository",
-            $"Entity {typeof(TEntity).Name} with id {id} not found");
+            $"Entity {typeof(TEntity).Name} with id '{id}' not found");
     }
 }

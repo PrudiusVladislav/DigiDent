@@ -9,5 +9,11 @@ public static class RoleErrors
         => new(
             ErrorType.Validation,
             nameof(Role),
-            $"Role {roleName} is not valid.");   
+            $"Role {roleName} is not valid.");
+
+    public static Error RoleIsNotAllowed(string roleName)
+        => new(
+            ErrorType.Validation,
+            nameof(Role),
+            $"Role {roleName} is not allowed.");
 }

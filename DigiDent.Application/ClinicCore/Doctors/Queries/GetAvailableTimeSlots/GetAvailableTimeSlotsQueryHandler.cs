@@ -1,6 +1,7 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 
@@ -17,6 +18,10 @@ public class GetAvailableTimeSlotsQueryHandler
     public async Task<IReadOnlyCollection<DateTime>> Handle(
         GetAvailableTimeSlotsQuery request, CancellationToken cancellationToken)
     {
+        var timeResult = TimeDuration.Create(TimeSpan
+            .FromMinutes(request.DurationInMinutes));
+        if (timeResult.IsFailure) return Array.Empty<DateTime>();
+        
         var doctorId = new EmployeeId(request.DoctorId);
         var doctor = await _doctorsRepository.GetByIdAsync(
             doctorId,
@@ -28,7 +33,8 @@ public class GetAvailableTimeSlotsQueryHandler
         IReadOnlyCollection<DateTime> timeSlots = doctor.GetAvailableTimeSlots(
             request.FromDateTime,
             request.UntilDate,
-            TimeSpan.FromMinutes(request.DurationInMinutes));
+            DateTime.Now, 
+            timeResult.Value!);
 
         return timeSlots;
     }

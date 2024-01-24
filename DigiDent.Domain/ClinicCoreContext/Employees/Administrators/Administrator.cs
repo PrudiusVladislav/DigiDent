@@ -30,8 +30,8 @@ public class Administrator: Employee
             args.PhoneNumber,
             args.FullName);
     }
-    
-    public override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
+
+    protected override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
     {
         const int legalWorkingAge = 18;
         return ValidateBirthDate<Administrator>(birthDateToCheck, legalWorkingAge);

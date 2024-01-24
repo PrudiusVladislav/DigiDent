@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 

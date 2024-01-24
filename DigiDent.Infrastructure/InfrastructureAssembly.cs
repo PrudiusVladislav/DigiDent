@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using QuestPDF.Infrastructure;
 
 namespace DigiDent.Infrastructure;
 
@@ -22,6 +23,8 @@ public static class InfrastructureAssembly
         this IServiceCollection services, 
         IConfigurationSection configurationSection)
     {
+        QuestPDF.Settings.License = LicenseType.Community;
+        
         services
             .ConfigureJwt(configurationSection)
             .ConfigureAuthorizationServices(configurationSection)

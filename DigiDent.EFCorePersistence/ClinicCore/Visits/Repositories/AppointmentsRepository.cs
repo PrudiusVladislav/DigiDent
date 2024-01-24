@@ -16,6 +16,17 @@ public class AppointmentsRepository :
         _context = context;
     }
 
+    public override async Task<Appointment?> GetByIdAsync(
+        AppointmentId id, CancellationToken cancellationToken)
+    {
+        return await _context.Appointments
+            .Include(a => a.Doctor)
+            .Include(a => a.Patient)
+            .Include(a => a.TreatmentPlan)
+            .Include(a => a.ProvidedServices)
+            .SingleOrDefaultAsync(a => a.Id == id, cancellationToken);
+    }
+
     public async Task DeleteAsync(AppointmentId id, CancellationToken cancellationToken)
     {
         var appointment = await _context.Appointments

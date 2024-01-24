@@ -15,29 +15,15 @@ public class UsersDomainService
     {
         _usersRepository = usersRepository;
     }
-    
-    public async Task<Result<Email>> CreateEmailAsync(string value, CancellationToken cancellationToken)
+
+    public async Task<bool> IsEmailUnique(
+        Email value, CancellationToken cancellationToken)
     {
-        var emailResult = Email.Create(value);
-        if (emailResult.IsFailure)
-            return emailResult;
-        
-        var user = await _usersRepository.GetByEmailAsync(emailResult.Value!, cancellationToken);
-        if (user != null)
-            return emailResult.AddError(EmailErrors
-                .EmailIsNotUnique(emailResult.Value!.Value));
-        
-        return Result.Ok(emailResult.Value!);
+        User? user = await _usersRepository.GetByEmailAsync(
+            value, cancellationToken);
+        return user is null;
     }
 
-    public Result<Role> CreateRole(string roleName)
-    {
-        var isRoleValid = Enum.TryParse<Role>(roleName, true, out var role);
-        if (!isRoleValid)
-            return Result.Fail<Role>(RoleErrors.RoleIsNotValid(roleName));
-        return Result.Ok(role);
-    }
-    
     private Result ValidateAndUpdateUserName(
         User userToUpdate,
         UpdateUserDto updateUserDto,
@@ -82,47 +68,4 @@ public class UsersDomainService
         
         await _usersRepository.AddAsync(userToAdd, cancellationToken);
     }
-
-    public async Task<Result> DeleteUserAsync(UserId userId, CancellationToken cancellationToken)
-    {
-        var users = await _usersRepository.GetAllAsync(cancellationToken);
-        var userToDelete = await _usersRepository.GetByIdAsync(userId, cancellationToken);
-        if (userToDelete is null) return Result.Ok();
-        
-        if (userToDelete.Role == Role.Administrator)
-        {
-            if (users.Count(u => u.Role == Role.Administrator) == 1)
-                return Result.Fail(UserErrors.CannotDeleteLastAdmin);
-        }
-        await _usersRepository.DeleteAsync(userToDelete.Id, cancellationToken);
-        return Result.Ok();
-    }
-    
-    //TODO: implement the change password method
-    // public async Task<Result> UpdateUser(
-    //     Email email,
-    //     string oldPassword,
-    //     string newPassword,
-    //     CancellationToken cancellationToken)
-    // {
-    //     var checkOldPasswordResult = await MatchPasswordByEmailAsync(
-    //         email, oldPassword, cancellationToken);
-    //     var newPasswordResult = Password.Create(newPassword);
-    //     
-    //     var validationResult = Result.Merge<bool>(
-    //         checkOldPasswordResult, newPasswordResult);
-    //
-    //     return await validationResult.MatchAsync(
-    //         onFailure: _ => validationResult,
-    //         onSuccess: async () =>
-    //         {
-    //             User user = (await _usersRepository.GetByEmailAsync(email, cancellationToken))!;
-    //             
-    //             await _usersRepository.UpdateAsync(
-    //                 cancellationToken,
-    //                 password: newPasswordResult.Value!);
-    //
-    //             return Result.Ok<bool>(true);
-    //         });
-    // }
 }

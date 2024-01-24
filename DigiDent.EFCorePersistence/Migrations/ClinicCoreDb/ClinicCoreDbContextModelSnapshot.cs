@@ -23,22 +23,22 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DentalProcedureDoctor", b =>
+            modelBuilder.Entity("AppointmentProvidedService", b =>
                 {
-                    b.Property<Guid>("DoctorsId")
+                    b.Property<Guid>("AppointmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProvidedServicesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("DoctorsId", "ProvidedServicesId");
+                    b.HasKey("AppointmentId", "ProvidedServicesId");
 
                     b.HasIndex("ProvidedServicesId");
 
-                    b.ToTable("DoctorsProvidedServices", "Clinic_Core");
+                    b.ToTable("AppointmentsProvidedServices", "Clinic_Core");
                 });
 
-            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions.Employee", b =>
+            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -74,7 +74,7 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employee", "Clinic_Core");
+                    b.ToTable("Employees", "Clinic_Core");
 
                     b.HasDiscriminator<string>("EmployeeType").HasValue("Employee");
 
@@ -192,27 +192,6 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.ToTable("Appointments", "Clinic_Core");
                 });
 
-            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.DentalProcedure", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AppointmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<TimeSpan>("UsualDuration")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.ToTable("DentalProcedures", "Clinic_Core");
-                });
-
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.PastVisit", b =>
                 {
                     b.Property<Guid>("Id")
@@ -251,6 +230,22 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.ToTable("PastVisits", "Clinic_Core");
                 });
 
+            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.ProvidedService", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<TimeSpan>("UsualDuration")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProvidedServices", "Clinic_Core");
+                });
+
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.TreatmentPlan", b =>
                 {
                     b.Property<Guid>("Id")
@@ -280,16 +275,38 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.ToTable("TreatmentPlans", "Clinic_Core");
                 });
 
+            modelBuilder.Entity("DoctorProvidedService", b =>
+                {
+                    b.Property<Guid>("DoctorsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProvidedServicesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DoctorsId", "ProvidedServicesId");
+
+                    b.HasIndex("ProvidedServicesId");
+
+                    b.ToTable("DoctorsProvidedServices", "Clinic_Core");
+                });
+
+            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Administrators.Administrator", b =>
+                {
+                    b.HasBaseType("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Employee");
+
+                    b.HasDiscriminator().HasValue("Administrator");
+                });
+
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Assistants.Assistant", b =>
                 {
-                    b.HasBaseType("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions.Employee");
+                    b.HasBaseType("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Employee");
 
                     b.HasDiscriminator().HasValue("Assistant");
                 });
 
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Doctors.Doctor", b =>
                 {
-                    b.HasBaseType("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions.Employee");
+                    b.HasBaseType("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Employee");
 
                     b.Property<string>("Biography")
                         .HasColumnType("nvarchar(max)");
@@ -301,15 +318,15 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.HasDiscriminator().HasValue("Doctor");
                 });
 
-            modelBuilder.Entity("DentalProcedureDoctor", b =>
+            modelBuilder.Entity("AppointmentProvidedService", b =>
                 {
-                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Employees.Doctors.Doctor", null)
+                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Visits.Appointment", null)
                         .WithMany()
-                        .HasForeignKey("DoctorsId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Visits.DentalProcedure", null)
+                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Visits.ProvidedService", null)
                         .WithMany()
                         .HasForeignKey("ProvidedServicesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -318,7 +335,7 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
 
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Shared.SchedulePreference", b =>
                 {
-                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions.Employee", "Employee")
+                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Employee", "Employee")
                         .WithMany("SchedulePreferences")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -329,7 +346,7 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
 
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Shared.WorkingDay", b =>
                 {
-                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions.Employee", "Employee")
+                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Employee", "Employee")
                         .WithMany("WorkingDays")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -362,38 +379,6 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.Navigation("Patient");
 
                     b.Navigation("TreatmentPlan");
-                });
-
-            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.DentalProcedure", b =>
-                {
-                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Visits.Appointment", null)
-                        .WithMany("DentalProcedures")
-                        .HasForeignKey("AppointmentId");
-
-                    b.OwnsOne("DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.DentalProcedureDetails", "Details", b1 =>
-                        {
-                            b1.Property<Guid>("DentalProcedureId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Description")
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Description");
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Name");
-
-                            b1.HasKey("DentalProcedureId");
-
-                            b1.ToTable("DentalProcedures", "Clinic_Core");
-
-                            b1.WithOwner()
-                                .HasForeignKey("DentalProcedureId");
-                        });
-
-                    b.Navigation("Details")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.PastVisit", b =>
@@ -446,6 +431,35 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.Navigation("TreatmentPlan");
                 });
 
+            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.ProvidedService", b =>
+                {
+                    b.OwnsOne("DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.ProvidedServiceDetails", "Details", b1 =>
+                        {
+                            b1.Property<Guid>("ProvidedServiceId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Description")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Description");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Name");
+
+                            b1.HasKey("ProvidedServiceId");
+
+                            b1.ToTable("ProvidedServices", "Clinic_Core");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProvidedServiceId");
+                        });
+
+                    b.Navigation("Details")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.TreatmentPlan", b =>
                 {
                     b.HasOne("DigiDent.Domain.ClinicCoreContext.Patients.Patient", "Patient")
@@ -457,7 +471,22 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions.Employee", b =>
+            modelBuilder.Entity("DoctorProvidedService", b =>
+                {
+                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Employees.Doctors.Doctor", null)
+                        .WithMany()
+                        .HasForeignKey("DoctorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DigiDent.Domain.ClinicCoreContext.Visits.ProvidedService", null)
+                        .WithMany()
+                        .HasForeignKey("ProvidedServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Employees.Shared.Employee", b =>
                 {
                     b.Navigation("SchedulePreferences");
 
@@ -471,11 +500,6 @@ namespace DigiDent.EFCorePersistence.Migrations.ClinicCoreDb
                     b.Navigation("PastVisits");
 
                     b.Navigation("TreatmentPlans");
-                });
-
-            modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.Appointment", b =>
-                {
-                    b.Navigation("DentalProcedures");
                 });
 
             modelBuilder.Entity("DigiDent.Domain.ClinicCoreContext.Visits.TreatmentPlan", b =>

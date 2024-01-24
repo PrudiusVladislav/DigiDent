@@ -1,4 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 
@@ -16,7 +17,8 @@ public static class EventTimeNodeExtensions
         EventTimeNode previousNode,
         EventTimeNode nextNode)
     {
-        return previousNode.StartTime.Add(eventToFit.Duration) <= nextNode.StartTime;
+        return !(eventToFit.StartTime < previousNode.EndTime ||
+               eventToFit.EndTime > nextNode.StartTime);
     }
 
     /// <summary>
@@ -104,13 +106,13 @@ public static class EventTimeNodeExtensions
     internal static IReadOnlyList<DateTime> GetAllTimePointsBetweenNodes(
         this (EventTimeNode, EventTimeNode) nodes,
         DateOnly date,
-        TimeSpan duration,
+        TimeDuration duration,
         TimeSpan timeStep)
     {
         var availableTimePoints = new List<DateTime>();
         var eventNode = new EventTimeNode(
             startTime: nodes.Item1.EndTime,
-            duration: duration);
+            duration: duration.Duration);
         
         while (eventNode.EventCanFitBetween(nodes.Item1, nodes.Item2))
         {

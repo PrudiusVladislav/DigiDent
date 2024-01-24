@@ -1,13 +1,16 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
+using DigiDent.Domain.ClinicCoreContext.Visits.Errors;
+using DigiDent.Domain.ClinicCoreContext.Visits.Events;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits;
 
@@ -31,8 +34,13 @@ public class Appointment :
     
     public AppointmentStatus Status { get; private set; }
     
-    public ICollection<DentalProcedure> DentalProcedures { get; set; } 
-        = new List<DentalProcedure>();
+    public ICollection<ProvidedService> ProvidedServices { get; set; } 
+        = new List<ProvidedService>();
+
+    // for EF core
+    internal Appointment()
+    {
+    }
 
     internal Appointment(
         AppointmentId id,
@@ -40,7 +48,8 @@ public class Appointment :
         PatientId patientId,
         DateTime visitDateTime,
         TimeDuration duration,
-        AppointmentStatus status)
+        AppointmentStatus status,
+        IEnumerable<ProvidedService> providedServices)
     {
         Id = id;
         DoctorId = doctorId;
@@ -48,6 +57,11 @@ public class Appointment :
         VisitDateTime = visitDateTime;
         Duration = duration;
         Status = status;
+        
+        foreach (var service in providedServices)
+        {
+            ProvidedServices.Add(service);
+        }
     }
     
     public static Appointment Create(
@@ -55,8 +69,9 @@ public class Appointment :
         PatientId patientId,
         DateTime visitDateTime,
         TimeDuration duration,
-        AppointmentStatus status)
+        IEnumerable<ProvidedService> providedServices)
     {
+            
         var appointmentId = TypedId.New<AppointmentId>();
         return new Appointment(
             appointmentId,
@@ -64,6 +79,27 @@ public class Appointment :
             patientId,
             visitDateTime,
             duration,
-            status);
+            AppointmentStatus.Scheduled,
+            providedServices);
+    }
+
+    public Result Close(VisitStatus status, Money pricePaid)
+    {
+        if (status == VisitStatus.Completed && pricePaid == Money.Zero)
+            return Result.Fail(AppointmentErrors
+                .PricePaidIsZeroWhenStatusIsComplete);
+        
+        if (status != VisitStatus.Completed && pricePaid != Money.Zero)
+            return Result.Fail(AppointmentErrors
+                .PricePaidIsNotZeroWhenStatusIsNotComplete);
+        
+        Raise(new AppointmentClosedDomainEvent(
+            Guid.NewGuid(),
+            DateTime.Now,
+            status,
+            pricePaid,
+            this));
+        
+        return Result.Ok();
     }
 }

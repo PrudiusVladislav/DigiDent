@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 
@@ -26,6 +27,12 @@ public class SharedMappingProfiles: Profile
 
         CreateMap<Gender, string>()
             .ConvertUsing(gender => gender.ToString());
+        
+        CreateMap<Money, decimal>()
+            .ConstructUsing(money => money.Amount);
+        
+        CreateMap<TimeDuration, TimeSpan>()
+            .ConvertUsing(duration => duration.Duration);
     }
     
     private class TypedIdGuidConverter: ITypeConverter<ITypedId<Guid>, Guid>

@@ -4,6 +4,7 @@ using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 using DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,15 +16,14 @@ public static class DoctorsEndpoints
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/doctors")
-            .MapGetAllDoctorsEndpoint()
-            .MapGetDoctorByIdEndpoint()
+            .MapGetDoctorsInfoEndpoints()
             .MapDoctorAvailabilityEndpoints()
             .MapDoctorUpdateEndpoint();
         
         return groupBuilder;
     }
     
-    private static IEndpointRouteBuilder MapGetAllDoctorsEndpoint(
+    private static IEndpointRouteBuilder MapGetDoctorsInfoEndpoints(
         this IEndpointRouteBuilder app)
     {
         app.MapGet("/", async (
@@ -35,13 +35,7 @@ public static class DoctorsEndpoints
             return Results.Ok(doctors);
         });
         
-        return app;
-    }
-    
-    private static IEndpointRouteBuilder MapGetDoctorByIdEndpoint(
-        this IEndpointRouteBuilder app)
-    {
-        app.MapGet("/{id}", async (
+        app.MapGet("/{id:guid}", async (
             [FromRoute]Guid id,
             IMediator mediator,
             CancellationToken cancellationToken) =>
@@ -60,7 +54,7 @@ public static class DoctorsEndpoints
     private static IEndpointRouteBuilder MapDoctorAvailabilityEndpoints(
         this IEndpointRouteBuilder app)
     {
-        app.MapGet("/{id}/availability/check", async (
+        app.MapGet("/{id:guid}/availability/check", async (
             [FromRoute]Guid id,
             [FromQuery]DateTime dateTime,
             [FromQuery]int duration,
@@ -70,13 +64,15 @@ public static class DoctorsEndpoints
             var query = new IsDoctorAvailableQuery(
                 id, dateTime, duration);
             
-            IsDoctorAvailableResponse response  = await mediator.Send(
+            Result<IsDoctorAvailableResponse> result  = await mediator.Send(
                 query, cancellationToken);
             
-            return Results.Ok(response);
+            return result.Match(
+                onFailure: _ => result.MapToIResult(),
+                onSuccess: response => Results.Ok(response));
         });
         
-        app.MapGet("/{id}/availability/slots", async (
+        app.MapGet("/{id:guid}/availability/slots", async (
             [FromRoute]Guid id,
             [FromQuery]DateTime from,
             [FromQuery]DateOnly until,
@@ -99,7 +95,7 @@ public static class DoctorsEndpoints
     private static IEndpointRouteBuilder MapDoctorUpdateEndpoint(
         this IEndpointRouteBuilder app)
     {
-        app.MapPut("/{id}", async (
+        app.MapPut("/{id:guid}", async (
             [FromRoute]Guid id,
             [FromBody]UpdateDoctorRequest request,
             IMediator mediator,
@@ -116,7 +112,7 @@ public static class DoctorsEndpoints
 
             return result.Match(
                 onFailure: _ => result.MapToIResult(),
-                onSuccess: Results.NoContent);
+                onSuccess: () => Results.NoContent());
         });
         
         return app;

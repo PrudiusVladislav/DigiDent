@@ -16,7 +16,7 @@ public abstract class VisitsRepository<TVisit, TId, TIdValue> :
         _context = context;
     }
     
-    public async Task<TVisit?> GetByIdAsync(TId id, CancellationToken cancellationToken)
+    public virtual async Task<TVisit?> GetByIdAsync(TId id, CancellationToken cancellationToken)
     {
         return await _context.Set<TVisit>()
             .Include(v => v.Doctor)

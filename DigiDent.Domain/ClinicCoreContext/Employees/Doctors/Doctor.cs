@@ -18,7 +18,7 @@ public class Doctor : Employee
     public DoctorSpecialization Specialization { get; private set; }
     public string? Biography { get; set; }
     
-    public ICollection<DentalProcedure> ProvidedServices { get; set; } = new List<DentalProcedure>();
+    public ICollection<ProvidedService> ProvidedServices { get; set; } = new List<ProvidedService>();
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     public ICollection<PastVisit> PastVisits { get; set; } = new List<PastVisit>();
 
@@ -49,12 +49,14 @@ public class Doctor : Employee
     /// </summary>
     /// <param name="fromDateTime">The date time from which the available time slots are returned.</param>
     /// <param name="untilDate">The date until which the available date times are returned.</param>
+    /// <param name="currentDateTime">The current date time.</param>
     /// <param name="duration">The duration of the appointment.</param>
     /// <returns></returns>
     public IReadOnlyCollection<DateTime> GetAvailableTimeSlots(
         DateTime fromDateTime,
         DateOnly untilDate,
-        TimeSpan duration)
+        DateTime currentDateTime,
+        TimeDuration duration)
     {
         var availableDateTimes = new List<DateTime>();
         IOrderedEnumerable<WorkingDay> workingDaysToLookThrough = WorkingDays
@@ -64,7 +66,7 @@ public class Doctor : Employee
         {
             var availableDateTimesForDay = workingDay
                 .GetAvailableDateTimesForDay(
-                    Appointments, fromDateTime, duration);
+                    Appointments, currentDateTime, duration);
             
             availableDateTimes.AddRange(availableDateTimesForDay);
         }
@@ -82,7 +84,7 @@ public class Doctor : Employee
     public bool IsAvailableAt(
         DateTime dateTimeToCheck,
         DateTime currentDateTime,
-        TimeSpan duration)
+        TimeDuration duration)
     {
         var workingDay = WorkingDays.FirstOrDefault(wd => 
             wd.Date == dateTimeToCheck.ToDateOnly());
@@ -131,14 +133,14 @@ public class Doctor : Employee
         return Result.Merge(baseValidationResult, biographyValidationResult);
     }
 
-    public override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
-    {
+    protected override Result IsLegalWorkingAge(DateOnly birthDateToCheck)
+    { 
         const int legalWorkingAge = 18;
         return ValidateBirthDate<Doctor>(birthDateToCheck, legalWorkingAge);
     }
-    
-    public Result ValidateBiography(string biography)
-    {
+
+    private Result ValidateBiography(string biography)
+    { 
         const int biographyMaxLength = 1000;
         
         if (biography.Length > biographyMaxLength)

@@ -10,10 +10,6 @@
       <PackageReference Include="MediatR" Version="12.2.0" />
       <PackageReference Include="zxcvbn-core" Version="8.0.0-beta0002" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ClinicCoreContext\Visits\Events\" />
-    </ItemGroup>
     
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

@@ -1,6 +1,7 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Constants;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
+using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
@@ -12,9 +13,8 @@ public static class WorkingDayExtensions
     /// </summary>
     /// <param name="workingDays">The working days collection.</param>
     /// <param name="fromDate">The start date.</param>
-    /// /// <param name="untilDate">The end date.</param>
-    /// <returns></returns>
-    internal static IOrderedEnumerable<WorkingDay> GetRequestedWorkingDays(
+    /// <param name="untilDate">The end date.</param>
+    public static IOrderedEnumerable<WorkingDay> GetRequestedWorkingDays(
         this IEnumerable<WorkingDay> workingDays,
         DateOnly fromDate,
         DateOnly untilDate)
@@ -30,9 +30,20 @@ public static class WorkingDayExtensions
     /// <param name="workingDay">The working day.</param>
     /// <param name="time">The time to check.</param>
     /// <returns></returns>
-    internal static bool StartsBefore(this WorkingDay workingDay, TimeOnly time)
+    public static bool StartsBefore(this WorkingDay workingDay, TimeOnly time)
     {
         return workingDay.StartEndTime.StartTime < time;
+    }
+    
+    /// <summary>
+    /// Checks if the working day ends after the given date time.
+    /// </summary>
+    /// <param name="workingDay">The working day.</param>
+    /// <param name="time">The time to check.</param>
+    /// <returns></returns>
+    public static bool EndsAfter(this WorkingDay workingDay, TimeOnly time)
+    {
+        return workingDay.StartEndTime.EndTime > time;
     }
 
     /// <summary>
@@ -88,12 +99,12 @@ public static class WorkingDayExtensions
         this WorkingDay workingDay,
         IEnumerable<Appointment> appointments,
         DateTime fromDateTime,
-        TimeSpan duration)
+        TimeDuration duration)
     {
         IReadOnlyList<EventTimeNode> workingDayEvents = workingDay
             .GetWorkingDayEventsNodes(
                 appointments,
-                fromDateTime.Date.ToDateOnly(),
+                fromDateTime.ToDateOnly(),
                 TimeOnly.FromDateTime(fromDateTime));
 
         var availableDateTimes = new List<DateTime>();

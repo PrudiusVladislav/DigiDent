@@ -2,9 +2,11 @@
 using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Domain.SharedKernel.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users;
+using DigiDent.Domain.UserAccessContext.Users.Errors;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
@@ -23,26 +25,20 @@ public class SignUpCommandHandler
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
-        
-        var fullNameResult = FullName.Create(request.FirstName, request.LastName);
-        var emailResult = await _usersDomainService.CreateEmailAsync(
+        var isEmailUnique = await _usersDomainService.IsEmailUnique(
             request.Email, cancellationToken);
-        var phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
-        var passwordResult = Password.Create(request.Password);
-        var roleResult = _usersDomainService.CreateRole(request.Role);
         
-        var validationResult = Result.Merge(
-            fullNameResult, emailResult, phoneNumberResult, passwordResult, roleResult);
-
-        if (validationResult.IsFailure) return validationResult;
+        if (!isEmailUnique)
+            return Result.Fail(EmailErrors
+                .EmailIsNotUnique(request.Email.Value));
         
         var userToAdd = User.Create(
             TypedId.New<UserId>(),
-            fullNameResult.Value!,
-            emailResult.Value!,
-            phoneNumberResult.Value!,
-            passwordResult.Value!,
-            roleResult.Value);
+            request.FullName,
+            request.Email,
+            request.PhoneNumber,
+            request.Password,
+            request.Role);
         await _usersDomainService.AddUserAsync(userToAdd, cancellationToken);
         
         return Result.Ok();
