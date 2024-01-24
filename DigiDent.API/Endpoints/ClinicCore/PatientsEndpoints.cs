@@ -12,65 +12,55 @@ public static class PatientsEndpoints
     public static RouteGroupBuilder MapPatientsEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGroup("/patients")
-            .MapGetPatientsInfoEndpoints()
-            .MapCreateTreatmentPlanForPatient();
+        var patientsGroup = groupBuilder.MapGroup("/patients");
+        
+        patientsGroup.MapGet("/", GetAllPatientsInfo);
+        patientsGroup.MapGet("/{id}", GetPatientProfileInfo);
+        patientsGroup.MapPost("/{id}/treatment-plans", CreateTreatmentPlan);
 
         return groupBuilder;
     }
     
-    private static IEndpointRouteBuilder MapGetPatientsInfoEndpoints(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> GetAllPatientsInfo(
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapGet("/", async (
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var patients = await mediator.Send(
-                new GetAllPatientsQuery(), cancellationToken);
+        var patients = await sender.Send(
+            new GetAllPatientsQuery(), cancellationToken);
 
-            return Results.Ok(patients);
-        });
-        
-        app.MapGet("/{id:guid}", async (
-            [FromRoute]Guid id,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            PatientProfileDTO? patient = await mediator.Send(
-                new GetPatientProfileQuery(id), cancellationToken);
-
-            return patient is null
-                ? Results.NotFound()
-                : Results.Ok(patient);
-        });
-        
-        return app;
+        return Results.Ok(patients);
     }
-
-    private static IEndpointRouteBuilder MapCreateTreatmentPlanForPatient(
-        this IEndpointRouteBuilder app)
+    
+    private static async Task<IResult> GetPatientProfileInfo(
+        [FromRoute]Guid id,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPost("/{id:guid}/treatment-plans", async (
-            [FromRoute]Guid id,
-            [FromBody]CreateTreatmentPlanRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandResult = CreateTreatmentPlanCommand.CreateFromRequest(
-                request, patientId: id);
-            if (commandResult.IsFailure)
-                return commandResult.MapToIResult();
-            
-            var result = await mediator.Send(
-                commandResult.Value!, cancellationToken);
+        PatientProfileDTO? patient = await sender.Send(
+            new GetPatientProfileQuery(id), cancellationToken);
 
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: planId => Results.Created(
-                    $"/patients/{planId}", planId));
-        });
+        return patient is null
+            ? Results.NotFound()
+            : Results.Ok(patient);
+    }
+    
+    private static async Task<IResult> CreateTreatmentPlan(
+        [FromRoute]Guid id,
+        [FromBody]CreateTreatmentPlanRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        var commandResult = CreateTreatmentPlanCommand.CreateFromRequest(
+            request, patientId: id);
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
         
-        return app;
+        var result = await sender.Send(
+            commandResult.Value!, cancellationToken);
+
+        return result.Match(
+            onFailure: _ => result.MapToIResult(),
+            onSuccess: planId => Results.Created(
+                $"/patients/treatment-plans/{planId}", planId));
     }
 }
