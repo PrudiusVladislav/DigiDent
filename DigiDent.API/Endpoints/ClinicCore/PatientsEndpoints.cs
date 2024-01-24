@@ -1,4 +1,6 @@
-﻿using DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
+﻿using DigiDent.API.Extensions;
+using DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
+using DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
 using DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +13,8 @@ public static class PatientsEndpoints
         this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGroup("/patients")
-            .MapGetPatientsInfoEndpoints();
+            .MapGetPatientsInfoEndpoints()
+            .MapCreateTreatmentPlanForPatient();
 
         return groupBuilder;
     }
@@ -40,6 +43,32 @@ public static class PatientsEndpoints
             return patient is null
                 ? Results.NotFound()
                 : Results.Ok(patient);
+        });
+        
+        return app;
+    }
+
+    private static IEndpointRouteBuilder MapCreateTreatmentPlanForPatient(
+        this IEndpointRouteBuilder app)
+    {
+        app.MapPost("/{id:guid}/treatment-plans", async (
+            [FromRoute]Guid id,
+            [FromBody]CreateTreatmentPlanRequest request,
+            IMediator mediator,
+            CancellationToken cancellationToken) =>
+        {
+            var commandResult = CreateTreatmentPlanCommand.CreateFromRequest(
+                request, patientId: id);
+            if (commandResult.IsFailure)
+                return commandResult.MapToIResult();
+            
+            var result = await mediator.Send(
+                commandResult.Value!, cancellationToken);
+
+            return result.Match(
+                onFailure: _ => result.MapToIResult(),
+                onSuccess: planId => Results.Created(
+                    $"/patients/{planId}", planId));
         });
         
         return app;

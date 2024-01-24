@@ -5,7 +5,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
 
-public sealed record CreateTreatmentPlanCommand : ICommand<Result>
+public sealed record CreateTreatmentPlanCommand : ICommand<Result<Guid>>
 {
     public PatientId PatientId { get; init; } = null!;
     public TreatmentPlanDetails PlanDetails { get; init; } = null!;

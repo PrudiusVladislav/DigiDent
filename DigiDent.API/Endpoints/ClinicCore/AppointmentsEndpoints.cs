@@ -46,7 +46,7 @@ public static class AppointmentsEndpoints
     private static IEndpointRouteBuilder MapCloseAppointmentEndpoint(
         this IEndpointRouteBuilder app)
     {
-        app.MapPost("/{id:guid}", async (
+        app.MapPost("/{id:guid}/close", async (
             [FromRoute]Guid id,
             [FromBody]CloseAppointmentRequest request,
             IMediator mediator,
