@@ -3,6 +3,6 @@
 namespace DigiDent.Domain.UserAccessContext.Users.Events;
 
 public record UserSignedUpDomainEvent(
-    Guid Id,
+    Guid EventId,
     DateTime TimeOfOccurrence,
-    User User) : IDomainEvent;
+    User SignedUpUser) : IDomainEvent;

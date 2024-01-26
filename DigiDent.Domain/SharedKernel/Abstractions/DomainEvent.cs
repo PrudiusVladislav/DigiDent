@@ -7,6 +7,6 @@ namespace DigiDent.Domain.SharedKernel.Abstractions;
 /// </summary>
 public interface IDomainEvent : INotification
 {
-    Guid Id { get; }
+    Guid EventId { get; }
     DateTime TimeOfOccurrence { get; }
 }
