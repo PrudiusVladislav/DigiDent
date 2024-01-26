@@ -14,17 +14,16 @@ public sealed record SignInCommand
     public Email Email { get; init; } = null!;
     public string Password { get; init; } = string.Empty;
 
-    public static Result<SignInCommand> CreateFromRequest(
-        SignInRequest request)
+    public static Result<SignInCommand> CreateFromRequest(SignInRequest request)
     {
-        var emailResult = Email.Create(request.Email);
+        Result<Email> emailResult = Email.Create(request.Email);
         if (emailResult.IsFailure)
         {
             return Result.Fail<SignInCommand>(EmailErrors
                 .EmailIsNotRegistered(request.Email));
         }
         
-        var roleResult = RoleFactory.CreateRole(request.Role);
+        Result<Role> roleResult = RoleFactory.CreateRole(request.Role);
         if (roleResult.IsFailure)
             return roleResult.MapToType<SignInCommand>();
         
