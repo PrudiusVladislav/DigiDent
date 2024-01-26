@@ -88,7 +88,7 @@ public static class DoctorsEndpoints
         CancellationToken cancellationToken)
     {
         Result<UpdateDoctorCommand> commandResult = UpdateDoctorCommand
-            .CreateFromRequest(id, request);
+            .CreateFromRequest(request, doctorToUpdateId: id);
 
         if (commandResult.IsFailure)
             return commandResult.MapToIResult();

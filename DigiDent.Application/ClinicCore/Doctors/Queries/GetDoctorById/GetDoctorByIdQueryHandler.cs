@@ -2,11 +2,10 @@
 using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 
-public class GetDoctorByIdQueryHandler
+public sealed class GetDoctorByIdQueryHandler
     : IQueryHandler<GetDoctorByIdQuery, DoctorProfileDTO?>
 {
     private readonly IDoctorsRepository _doctorsRepository;

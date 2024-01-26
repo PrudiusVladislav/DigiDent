@@ -5,7 +5,7 @@ using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 
-public class GetAvailableTimeSlotsQueryHandler
+public sealed class GetAvailableTimeSlotsQueryHandler
     : IQueryHandler<GetAvailableTimeSlotsQuery, IReadOnlyCollection<DateTime>>
 {
     private readonly IDoctorsRepository _doctorsRepository;

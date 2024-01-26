@@ -8,7 +8,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Commands.Update;
 
-public record UpdateDoctorCommand : ICommand<Result>
+public sealed record UpdateDoctorCommand : ICommand<Result>
 {
     public EmployeeId DoctorId { get; init; } = null!;
     public Gender? Gender { get; init; }
@@ -18,13 +18,14 @@ public record UpdateDoctorCommand : ICommand<Result>
     public string? Biography { get; init; }
 
     public static Result<UpdateDoctorCommand> CreateFromRequest(
-        Guid id, UpdateDoctorRequest request)
+        UpdateDoctorRequest request, Guid doctorToUpdateId)
     {
-        var doctorId = new EmployeeId(id);
+        EmployeeId doctorId = new(doctorToUpdateId);
 
-        var genderResult = ParseEnum<Gender>(request.Gender);
-        var statusResult = ParseEnum<EmployeeStatus>(request.Status);
-        var specializationResult = ParseEnum<DoctorSpecialization>(request.Specialization);
+        Result<Gender> genderResult = ParseEnum<Gender>(request.Gender);
+        Result<EmployeeStatus> statusResult = ParseEnum<EmployeeStatus>(request.Status);
+        Result<DoctorSpecialization> specializationResult = ParseEnum<DoctorSpecialization>(
+            request.Specialization);
         
         var mergedResult = Result.Merge(
             genderResult, statusResult, specializationResult);

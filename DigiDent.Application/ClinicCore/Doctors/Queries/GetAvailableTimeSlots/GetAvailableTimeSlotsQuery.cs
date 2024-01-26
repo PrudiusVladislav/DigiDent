@@ -2,7 +2,7 @@
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 
-public record GetAvailableTimeSlotsQuery(
+public sealed record GetAvailableTimeSlotsQuery(
     Guid DoctorId,
     DateTime FromDateTime,
     DateOnly UntilDate,
