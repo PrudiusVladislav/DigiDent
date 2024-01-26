@@ -1,6 +1,6 @@
 ﻿namespace DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
 
-public sealed class PatientAppointmentDTO
+public class PatientAppointmentDTO
 {
     public Guid Id { get; init; }
     public Guid DoctorId { get; init; }

@@ -5,22 +5,24 @@ using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 
 namespace DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
 
-public class GetPatientProfileQueryHandler
+public sealed class GetPatientProfileQueryHandler
     : IQueryHandler<GetPatientProfileQuery, PatientProfileDTO?>
 {
     private readonly IPatientsRepository _patientsRepository;
     private readonly IMapper _mapper;
 
-    public GetPatientProfileQueryHandler(IPatientsRepository patientsRepository, IMapper mapper)
+    public GetPatientProfileQueryHandler(
+        IPatientsRepository patientsRepository,
+        IMapper mapper)
     {
         _patientsRepository = patientsRepository;
         _mapper = mapper;
     }
 
     public async Task<PatientProfileDTO?> Handle(
-        GetPatientProfileQuery request, CancellationToken cancellationToken)
+        GetPatientProfileQuery query, CancellationToken cancellationToken)
     {
-        var patientId = new PatientId(request.Id);
+        PatientId patientId = new(query.Id);
         
         Patient? patient = await _patientsRepository.GetByIdAsync(
             patientId, cancellationToken);

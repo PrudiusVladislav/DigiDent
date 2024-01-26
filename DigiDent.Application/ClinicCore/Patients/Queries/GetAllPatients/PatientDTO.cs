@@ -1,6 +1,6 @@
 ﻿namespace DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
 
-public sealed class PatientDTO
+public class PatientDTO
 {
     public Guid Id { get; init; }
     public string FullName { get; init; } = string.Empty;
