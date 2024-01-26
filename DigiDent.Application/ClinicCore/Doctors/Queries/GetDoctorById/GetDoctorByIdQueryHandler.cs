@@ -18,9 +18,9 @@ public sealed class GetDoctorByIdQueryHandler
     }
 
     public async Task<DoctorProfileDTO?> Handle(
-        GetDoctorByIdQuery request, CancellationToken cancellationToken)
+        GetDoctorByIdQuery query, CancellationToken cancellationToken)
     {
-        var doctorId = new EmployeeId(request.Id);
+        EmployeeId doctorId = new(query.Id);
         
         Doctor? doctor = await _doctorsRepository.GetByIdAsync(
             doctorId, cancellationToken);

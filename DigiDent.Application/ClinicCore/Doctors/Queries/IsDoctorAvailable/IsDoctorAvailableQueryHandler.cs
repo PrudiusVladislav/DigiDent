@@ -7,7 +7,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
 
-public class IsDoctorAvailableQueryHandler
+public sealed class IsDoctorAvailableQueryHandler
     : IQueryHandler<IsDoctorAvailableQuery, Result<IsDoctorAvailableResponse>>
 {
     private readonly IDoctorsRepository _doctorsRepository;
@@ -18,15 +18,17 @@ public class IsDoctorAvailableQueryHandler
     }
 
     public async Task<Result<IsDoctorAvailableResponse>> Handle(
-        IsDoctorAvailableQuery request, CancellationToken cancellationToken)
+        IsDoctorAvailableQuery query, CancellationToken cancellationToken)
     {
-        var timeResult = TimeDuration.Create(TimeSpan
-            .FromMinutes(request.DurationInMinutes));
+        Result<TimeDuration> timeResult = TimeDuration.Create(TimeSpan
+            .FromMinutes(query.DurationInMinutes));
+        
         if (timeResult.IsFailure)
             return timeResult.MapToType<IsDoctorAvailableResponse>();
         
-        var doctorId = new EmployeeId(request.DoctorId);
-        var doctor = await _doctorsRepository.GetByIdAsync(
+        EmployeeId doctorId = new(query.DoctorId);
+        
+        Doctor? doctor = await _doctorsRepository.GetByIdAsync(
             doctorId,
             includeScheduling: true,
             cancellationToken: cancellationToken);
@@ -36,8 +38,8 @@ public class IsDoctorAvailableQueryHandler
                 .EntityNotFound<Doctor>(doctorId.Value));
         
         bool isAvailable = doctor.IsAvailableAt(
-            request.DateTime,
-            DateTime.Now, 
+            query.DateTime,
+            currentDateTime: DateTime.Now, 
             timeResult.Value!);
         
         return Result.Ok(new IsDoctorAvailableResponse(isAvailable));
