@@ -6,22 +6,23 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
 
-public record UpdateProvidedServiceCommand: ICommand<Result>
+public sealed record UpdateProvidedServiceCommand: ICommand<Result>
 {
     public ProvidedServiceId Id { get; init; } = null!;
     public TimeDuration? UsualDuration { get; init; }
     public Money? Price { get; init; }
     
     public static Result<UpdateProvidedServiceCommand> CreateFromRequest(
-        Guid id, UpdateProvidedServiceRequest request)
+        UpdateProvidedServiceRequest request, Guid serviceToUpdateId)
     {
-        var serviceId = new ProvidedServiceId(id);
-        var durationResult = request.Duration is null
+        ProvidedServiceId serviceId = new(serviceToUpdateId);
+        
+        Result<TimeDuration> durationResult = request.Duration is null
             ? Result.Ok().MapToType<TimeDuration>()
             : TimeDuration.Create(TimeSpan
                 .FromMinutes(request.Duration.Value));
         
-        var priceResult = request.Price is null
+        Result<Money> priceResult = request.Price is null
             ? Result.Ok().MapToType<Money>()
             : Money.Create(request.Price.Value);
         

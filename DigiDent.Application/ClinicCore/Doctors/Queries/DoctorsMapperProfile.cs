@@ -5,7 +5,7 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries;
 
-public sealed class DoctorsMapperProfile: Profile
+public class DoctorsMapperProfile: Profile
 {
     public DoctorsMapperProfile()
     {

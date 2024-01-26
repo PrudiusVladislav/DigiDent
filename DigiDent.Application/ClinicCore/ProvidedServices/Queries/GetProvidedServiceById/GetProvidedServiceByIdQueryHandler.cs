@@ -6,22 +6,24 @@ using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
 
-public class GetProvidedServiceByIdQueryHandler
+public sealed class GetProvidedServiceByIdQueryHandler
     : IQueryHandler<GetProvidedServiceByIdQuery, SpecificProvidedServiceDTO?>
 {
     private readonly IProvidedServicesRepository _providedServicesRepository;
     private readonly IMapper _mapper;
 
-    public GetProvidedServiceByIdQueryHandler(IProvidedServicesRepository providedServicesRepository, IMapper mapper)
+    public GetProvidedServiceByIdQueryHandler(
+        IProvidedServicesRepository providedServicesRepository,
+        IMapper mapper)
     {
         _providedServicesRepository = providedServicesRepository;
         _mapper = mapper;
     }
 
     public async Task<SpecificProvidedServiceDTO?> Handle(
-        GetProvidedServiceByIdQuery request, CancellationToken cancellationToken)
+        GetProvidedServiceByIdQuery query, CancellationToken cancellationToken)
     {
-        var serviceId = new ProvidedServiceId(request.Id);
+        ProvidedServiceId serviceId = new(query.Id);
         ProvidedService? providedService = await _providedServicesRepository
             .GetByIdAsync(serviceId, cancellationToken);
         

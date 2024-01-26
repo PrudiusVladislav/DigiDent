@@ -5,23 +5,24 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Commands.AddService;
 
-public class AddProvidedServiceCommandHandler
+public sealed class AddProvidedServiceCommandHandler
     : ICommandHandler<AddProvidedServiceCommand, Result<Guid>>
 {
     private readonly IProvidedServicesRepository _providedServicesRepository;
 
-    public AddProvidedServiceCommandHandler(IProvidedServicesRepository providedServicesRepository)
+    public AddProvidedServiceCommandHandler(
+        IProvidedServicesRepository providedServicesRepository)
     {
         _providedServicesRepository = providedServicesRepository;
     }
 
     public async Task<Result<Guid>> Handle(
-        AddProvidedServiceCommand request, CancellationToken cancellationToken)
+        AddProvidedServiceCommand command, CancellationToken cancellationToken)
     {
-        var providedService = ProvidedService.Create(
-            request.Details,
-            request.UsualDuration,
-            request.Price);
+        ProvidedService providedService = ProvidedService.Create(
+            command.Details,
+            command.UsualDuration,
+            command.Price);
         
         await _providedServicesRepository.AddAsync(
             providedService, cancellationToken);

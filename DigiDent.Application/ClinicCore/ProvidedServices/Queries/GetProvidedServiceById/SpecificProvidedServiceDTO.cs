@@ -1,7 +1,7 @@
 ﻿
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
 
-public sealed class SpecificProvidedServiceDTO
+public class SpecificProvidedServiceDTO
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;

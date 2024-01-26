@@ -6,7 +6,7 @@ using DigiDent.Domain.ClinicCoreContext.Visits;
 
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries;
 
-public sealed class ProvidedServicesMapperProfile: Profile
+public class ProvidedServicesMapperProfile: Profile
 {
     public ProvidedServicesMapperProfile()
     {

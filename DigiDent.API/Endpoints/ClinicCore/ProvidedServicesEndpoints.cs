@@ -78,7 +78,7 @@ public static class ProvidedServicesEndpoints
         CancellationToken cancellationToken)
     {
         Result<UpdateProvidedServiceCommand> commandResult = UpdateProvidedServiceCommand
-            .CreateFromRequest(id, request);
+            .CreateFromRequest(request, serviceToUpdateId: id);
 
         if (commandResult.IsFailure)
             return commandResult.MapToIResult();
