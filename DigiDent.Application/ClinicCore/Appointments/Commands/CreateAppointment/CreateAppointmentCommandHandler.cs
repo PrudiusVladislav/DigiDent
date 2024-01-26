@@ -8,7 +8,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
 
-public class CreateAppointmentCommandHandler
+public sealed class CreateAppointmentCommandHandler
     : ICommandHandler<CreateAppointmentCommand, Result<Guid>>
 {
     private readonly IAppointmentsRepository _appointmentsRepository;
@@ -29,47 +29,47 @@ public class CreateAppointmentCommandHandler
     }
 
     public async Task<Result<Guid>> Handle(
-        CreateAppointmentCommand request, CancellationToken cancellationToken)
+        CreateAppointmentCommand command, CancellationToken cancellationToken)
     {
-        if (request.DateTime <= DateTime.Now)
+        if (command.DateTime <= DateTime.Now)
             return Result.Fail<Guid>(AppointmentCreationErrors
                 .AppointmentDateIsInThePast);
         
         Patient? patient = await _patientsRepository.GetByIdAsync(
-            request.PatientId, cancellationToken);
+            command.PatientId, cancellationToken);
         
         if (patient is null)
             return Result.Fail<Guid>(RepositoryErrors
-                .EntityNotFound<Patient>(request.PatientId.Value));
+                .EntityNotFound<Patient>(command.PatientId.Value));
         
         Doctor? doctor = await _doctorsRepository.GetByIdAsync(
-                request.DoctorId,
+                command.DoctorId,
                 includeScheduling: true,
                 cancellationToken: cancellationToken);
         
         if (doctor is null)
             return Result.Fail<Guid>(RepositoryErrors
-                .EntityNotFound<Doctor>(request.DoctorId.Value));
+                .EntityNotFound<Doctor>(command.DoctorId.Value));
         
-        if (!doctor.IsAvailableAt(request.DateTime,
-                currentDateTime: DateTime.Now, request.Duration))
+        if (!doctor.IsAvailableAt(command.DateTime,
+                currentDateTime: DateTime.Now, command.Duration))
         {
             return Result.Fail<Guid>(AppointmentCreationErrors
                 .DoctorIsNotAvailable);
         }
         
         var services = await _providedServicesRepository
-            .GetAllFromIdsAsync(request.ServicesIds, cancellationToken);
+            .GetAllFromIdsAsync(command.ServicesIds, cancellationToken);
         
         if (services.Count == 0)
             return Result.Fail<Guid>(AppointmentCreationErrors
                 .NoServicesProvided);
         
-        var appointment = Appointment.Create(
-            request.DoctorId,
-            request.PatientId,
-            request.DateTime,
-            request.Duration,
+        Appointment appointment = Appointment.Create(
+            command.DoctorId,
+            command.PatientId,
+            command.DateTime,
+            command.Duration,
             services);
         
         await _appointmentsRepository.AddAsync(appointment, cancellationToken);

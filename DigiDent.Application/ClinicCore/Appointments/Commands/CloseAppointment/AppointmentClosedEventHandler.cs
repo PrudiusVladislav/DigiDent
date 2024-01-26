@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
 
-public class AppointmentClosedEventHandler
+public sealed class AppointmentClosedEventHandler
     : INotificationHandler<AppointmentClosedDomainEvent>
 {
     private readonly IPastVisitsRepository _pastVisitsRepository;
@@ -18,7 +18,7 @@ public class AppointmentClosedEventHandler
     public async Task Handle(
         AppointmentClosedDomainEvent notification, CancellationToken cancellationToken)
     {
-        var pastVisit = PastVisit.Create(
+        PastVisit pastVisit = PastVisit.Create(
             notification.ClosedAppointment.DoctorId,
             notification.ClosedAppointment.PatientId,
             notification.ClosedAppointment.VisitDateTime,

@@ -6,7 +6,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
 
-public class CloseAppointmentCommandHandler
+public sealed class CloseAppointmentCommandHandler
     : ICommandHandler<CloseAppointmentCommand, Result>
 {
     private readonly IAppointmentsRepository _appointmentsRepository;
@@ -17,16 +17,16 @@ public class CloseAppointmentCommandHandler
     }
 
     public async Task<Result> Handle(
-        CloseAppointmentCommand request, CancellationToken cancellationToken)
+        CloseAppointmentCommand command, CancellationToken cancellationToken)
     {
-        var appointment = await _appointmentsRepository.GetByIdAsync(
-            request.AppointmentId, cancellationToken);
+        Appointment? appointment = await _appointmentsRepository.GetByIdAsync(
+            command.AppointmentId, cancellationToken);
         
         if (appointment is null) 
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Appointment>(request.AppointmentId.Value));
+                .EntityNotFound<Appointment>(command.AppointmentId.Value));
         
-        var closeResult = appointment.Close(request.ClosureStatus, request.Price);
+        Result closeResult = appointment.Close(command.ClosureStatus, command.Price);
         if (closeResult.IsFailure)
             return closeResult;
         
