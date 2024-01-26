@@ -3,12 +3,10 @@ using System.Security.Claims;
 using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Application.UserAccess.Tokens;
-using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.UserAccessContext.Users;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace DigiDent.Infrastructure.UserAccess.Authentication;
 
@@ -29,8 +27,7 @@ public class JwtService: IJwtService
     }
     
     public async Task<AuthenticationResponse> GenerateAuthenticationResponseAsync(
-        User user,
-        CancellationToken cancellationToken)
+        User user, CancellationToken cancellationToken)
     {
         var claims = new List<Claim>
         {
@@ -40,23 +37,24 @@ public class JwtService: IJwtService
             new (CustomClaims.Role, user.Role.ToString())
         };
         
-        var signingCredentials = new SigningCredentials(
-            _jwtOptions.SigningKey,
+        SigningCredentials signingCredentials = new(
+            _jwtOptions.SigningKey, 
             SecurityAlgorithms.HmacSha256);
         
-        var token = new JwtSecurityToken(
+        JwtSecurityToken token = new(
             _jwtOptions.Issuer,
             _jwtOptions.Audience,
             claims,
             expires: DateTime.UtcNow.Add(_jwtOptions.TokenLifetime),
             signingCredentials: signingCredentials);
+        
         string serializedToken = new JwtSecurityTokenHandler()
             .WriteToken(token);
         
         await _refreshTokensRepository.DeleteRefreshTokenByUserIdAsync(
             user.Id, cancellationToken);
         
-        var refreshToken = new RefreshToken()
+        RefreshToken refreshToken = new()
         {
             Token = Guid.NewGuid().ToString(),
             JwtId = token.Id,
@@ -68,7 +66,9 @@ public class JwtService: IJwtService
         await _refreshTokensRepository
             .AddRefreshTokenAsync(refreshToken, cancellationToken);
         
-        return new AuthenticationResponse(serializedToken, refreshToken.Token);
+        return new AuthenticationResponse(
+            AccessToken: serializedToken, 
+            RefreshToken: refreshToken.Token);
     }
 
     public async Task<Result<ClaimsPrincipal>> ValidateRefreshRequestAsync(
@@ -76,26 +76,27 @@ public class JwtService: IJwtService
         string refreshToken,
         CancellationToken cancellationToken)
     {
-        var claimsPrincipal = GetPrincipalFromExpiredToken(accessToken);
+        ClaimsPrincipal? tokenClaimsPrincipal = GetPrincipalFromExpiredToken(accessToken);
 
-        if (claimsPrincipal is null)
+        if (tokenClaimsPrincipal is null)
             return Result.Fail<ClaimsPrincipal>(TokensErrors
                 .InvalidToken);
         
-        var expiryDateUnix = long.Parse(claimsPrincipal.Claims
-                .Single(x => x.Type == JwtRegisteredClaimNames.Exp)
+        var expiryDateUnix = long.Parse(tokenClaimsPrincipal.Claims
+                .Single(x => x.Type == CustomClaims.Exp)
                 .Value);
-        var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-            .AddSeconds(expiryDateUnix);
+        
+        var expiryDateTimeUtc = DateTime.UnixEpoch.AddSeconds(expiryDateUnix);
         
         if (expiryDateTimeUtc > DateTime.UtcNow)
             return Result.Fail<ClaimsPrincipal>(TokensErrors
                 .TokenIsNotExpired);
         
-        string jti = claimsPrincipal.Claims
+        string jti = tokenClaimsPrincipal.Claims
             .Single(x => x.Type == CustomClaims.Jti)
             .Value;
-        var storedRefreshToken = await _refreshTokensRepository
+        
+        RefreshToken? storedRefreshToken = await _refreshTokensRepository
             .GetRefreshTokenAsync(refreshToken, cancellationToken);
 
         if (storedRefreshToken is null ||
@@ -106,19 +107,22 @@ public class JwtService: IJwtService
                 .InvalidToken);
         }
         
-        return Result.Ok(claimsPrincipal);
+        return Result.Ok(tokenClaimsPrincipal);
     }
     
     private ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
+        JwtSecurityTokenHandler tokenHandler = new();
         try
         {
             var originalValidator = _tokenValidationParameters.LifetimeValidator;
             _tokenValidationParameters.LifetimeValidator = (
-                notBefore, expires, securityToken, validationParameters) => true;
+                notBefore,
+                expires,
+                securityToken,
+                validationParameters) => true;
             
-            var principal = tokenHandler.ValidateToken(
+            ClaimsPrincipal tokenClaimsPrincipal = tokenHandler.ValidateToken(
                 token,
                 _tokenValidationParameters,
                 out var validatedToken);
@@ -127,7 +131,8 @@ public class JwtService: IJwtService
             
             if (!JwtHasValidSecurityAlgorithm(validatedToken))
                 return null;
-            return principal;
+            
+            return tokenClaimsPrincipal;
         }
         catch
         {
@@ -135,7 +140,7 @@ public class JwtService: IJwtService
         }
     }
     
-    private bool JwtHasValidSecurityAlgorithm(SecurityToken validatedToken)
+    private static bool JwtHasValidSecurityAlgorithm(SecurityToken validatedToken)
     {
         return (validatedToken is JwtSecurityToken jwtSecurityToken) &&
                jwtSecurityToken.Header.Alg.Equals(

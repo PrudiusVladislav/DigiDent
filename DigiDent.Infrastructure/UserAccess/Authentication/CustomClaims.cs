@@ -9,4 +9,5 @@ public class CustomClaims
     public const string Jti = JwtRegisteredClaimNames.Jti;
     public const string Email = JwtRegisteredClaimNames.Email;
     public const string Role = "role";
+    public const string Exp = JwtRegisteredClaimNames.Exp;
 }

@@ -23,13 +23,14 @@ public static class InfrastructureAssembly
         this IServiceCollection services, 
         IConfigurationSection configurationSection)
     {
-        QuestPDF.Settings.License = LicenseType.Community;
         
         services
             .ConfigureJwt(configurationSection)
             .ConfigureAuthorizationServices(configurationSection)
             .AddAuthorization()
-            .AddFactories();
+            .AddFactories()
+            .ConfigurePDFLicense();
+        
         return services;
     }
     
@@ -82,6 +83,13 @@ public static class InfrastructureAssembly
         this IServiceCollection services)
     {
         services.AddSingleton<IPersonFactory, PersonFactory>();
+        return services;
+    }
+    
+    private static IServiceCollection ConfigurePDFLicense(
+        this IServiceCollection services)
+    {
+        QuestPDF.Settings.License = LicenseType.Community;
         return services;
     }
 }

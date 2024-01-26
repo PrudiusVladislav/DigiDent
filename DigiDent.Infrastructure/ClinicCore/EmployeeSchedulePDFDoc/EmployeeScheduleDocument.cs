@@ -97,7 +97,8 @@ public class EmployeeScheduleDocument: IDocument
                 header.Cell().Element(CellStyle).AlignRight().Text("Start time"); 
                 header.Cell().Element(CellStyle).AlignRight().Text("End time");
                 header.Cell().Element(CellStyle).AlignRight().Text("Total hours");
-                
+                return;
+
                 static IContainer CellStyle(IContainer container)
                 {
                     return container.DefaultTextStyle(x => x.SemiBold())
@@ -119,7 +120,8 @@ public class EmployeeScheduleDocument: IDocument
                     .Text(item.End.ToString("t"));
                 table.Cell().Element(CellStyle).AlignRight()
                     .Text((item.End - item.Start).ToString("h\\:mm"));
-                
+                continue;
+
                 static IContainer CellStyle(IContainer container)
                 {
                     return container.BorderBottom(3)
