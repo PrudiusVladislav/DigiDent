@@ -1,8 +1,10 @@
 ﻿using DigiDent.Application;
 using DigiDent.Domain;
+using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.EFCorePersistence.ClinicCore;
 using DigiDent.EFCorePersistence.Shared;
 using DigiDent.EFCorePersistence.UserAccess;
+using DigiDent.EFCorePersistence.UserAccess.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +27,8 @@ public static class EFCorePersistenceAssembly
                 configuration, UserAccessDbContext.UserAccessSchema)
             .AddConfiguredDbContext<ClinicCoreDbContext>(
                 configuration, ClinicCoreDbContext.ClinicCoreSchema)
-            .RegisterRepositories();
+            .RegisterRepositories()
+            .RegisterUnitOfWork();
         
         return services;
     }
@@ -66,6 +69,13 @@ public static class EFCorePersistenceAssembly
             .AsMatchingInterface()
             .WithTransientLifetime());
         
+        return services;
+    }
+    
+    private static IServiceCollection RegisterUnitOfWork(
+        this IServiceCollection services)
+    {
+        services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
         return services;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Domain.SharedKernel.ValueObjects;
@@ -16,13 +17,15 @@ public sealed record SignUpCommand: ICommand<Result>
     public Role Role { get; init; }
     
     public static Result<SignUpCommand> CreateFromRequest(
-        SignUpRequest request, params Role[] allowedRoles)
+        SignUpRequest request,
+        IRoleFactory roleFactory,
+        params Role[] allowedRoles)
     {
         var fullNameResult = FullName.Create(request.FirstName, request.LastName);
         var emailResult = Email.Create(request.Email);
         var phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
         var passwordResult = Password.Create(request.Password);
-        var roleResult = RoleFactory.CreateRole(request.Role, allowedRoles);
+        var roleResult = roleFactory.CreateRole(request.Role, allowedRoles);
         
         var validationResult = Result.Merge(
             fullNameResult, emailResult, phoneNumberResult, passwordResult, roleResult);

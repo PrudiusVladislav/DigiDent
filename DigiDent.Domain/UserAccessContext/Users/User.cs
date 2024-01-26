@@ -5,6 +5,9 @@ using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Domain.UserAccessContext.Users;
 
+/// <summary>
+/// Represents a User entity - aggregate root within Users aggregate in UserAccess bounded context.
+/// </summary>
 public class User: AggregateRoot, IEntity<UserId, Guid>
 {
     public UserId Id { get; init; }
@@ -34,13 +37,13 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
     }
     
     public static User Create(
-        UserId id,
         FullName fullName,
         Email email,
         PhoneNumber phoneNumber,
         Password password,
         Role role)
     {
+        UserId id = new(Guid.NewGuid());
         User user = new(id, fullName, email, phoneNumber, password, role);
         
         UserSignedUpDomainEvent userSignedUpEvent = new(

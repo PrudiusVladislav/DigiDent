@@ -1,4 +1,5 @@
 ﻿using DigiDent.API.Extensions;
+using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Refresh;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Application.UserAccess.Commands.SignIn;
@@ -28,10 +29,11 @@ public static class UserAccessEndpoints
     private static async Task<IResult> SignIn(
         [FromBody]SignInRequest request,
         ISender sender,
+        IRoleFactory roleFactory,
         CancellationToken cancellationToken)
     {
         Result<SignInCommand> signInCommandResult = SignInCommand
-            .CreateFromRequest(request);
+            .CreateFromRequest(request, roleFactory);
         
         if (signInCommandResult.IsFailure)
             return signInCommandResult.MapToIResult();
@@ -47,29 +49,32 @@ public static class UserAccessEndpoints
     private static async Task<IResult> EmployeesSignUp(
         [FromBody]SignUpRequest request,
         ISender sender,
+        IRoleFactory roleFactory,
         CancellationToken cancellationToken)
     {
-        return await SignUp(request, sender, cancellationToken,
-            allowedRoles: RoleFactory.EmployeeRoles);
+        return await SignUp(request, sender, roleFactory, cancellationToken,
+            allowedRoles: roleFactory.GetEmployeeRoles());
     }
     
     private static async Task<IResult> PatientsSignUp(
         [FromBody]SignUpRequest request,
         ISender sender,
+        IRoleFactory roleFactory,
         CancellationToken cancellationToken)
     {
-        return await SignUp(request, sender, cancellationToken,
+        return await SignUp(request, sender, roleFactory, cancellationToken,
             allowedRoles: Role.Patient);
     }
     
     private static async Task<IResult> SignUp(
         SignUpRequest request,
         ISender sender,
+        IRoleFactory roleFactory,
         CancellationToken cancellationToken,
         params Role[] allowedRoles)                
     {
         Result<SignUpCommand> signUpCommandResult = SignUpCommand
-            .CreateFromRequest(request, allowedRoles);
+            .CreateFromRequest(request, roleFactory, allowedRoles);
             
         if (signUpCommandResult.IsFailure)
             return signUpCommandResult.MapToIResult();
