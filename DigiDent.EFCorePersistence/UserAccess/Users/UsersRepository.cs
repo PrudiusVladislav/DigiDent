@@ -1,6 +1,5 @@
 ﻿using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.DTO;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,14 +29,6 @@ public class UsersRepository: IUsersRepository
     {
         return await _dbContext.Users.FirstOrDefaultAsync(
             x => x.Email == email, cancellationToken);
-    }
-
-    public async Task UpdateAsync(UpdateUserDto newUserDto, CancellationToken cancellationToken)
-    {
-        var userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(
-            x => x.Id == newUserDto.Id, cancellationToken);
-
-        userToUpdate?.Update(newUserDto);
     }
     
     public async Task DeleteAsync(UserId userId, CancellationToken cancellationToken)
