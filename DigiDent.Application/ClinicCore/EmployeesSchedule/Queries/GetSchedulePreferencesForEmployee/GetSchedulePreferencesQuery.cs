@@ -2,5 +2,5 @@
 
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 
-public record GetSchedulePreferencesQuery(Guid EmployeeId)
+public sealed record GetSchedulePreferencesQuery(Guid EmployeeId)
     : IQuery<IReadOnlyCollection<SchedulePreferenceDTO>>;

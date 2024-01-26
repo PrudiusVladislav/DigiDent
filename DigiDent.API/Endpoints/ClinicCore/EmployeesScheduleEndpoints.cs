@@ -95,7 +95,7 @@ public static class EmployeesScheduleEndpoints
         CancellationToken cancellationToken)
     {
         Result<AddSchedulePreferenceCommand> commandResult = AddSchedulePreferenceCommand
-            .CreateFromRequest(id, request);
+            .CreateFromRequest(request, employeeId: id);
             
         if (commandResult.IsFailure)
             return commandResult.MapToIResult();

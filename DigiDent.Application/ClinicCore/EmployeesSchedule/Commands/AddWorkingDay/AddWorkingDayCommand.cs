@@ -5,7 +5,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 
-public class AddWorkingDayCommand: ICommand<Result>
+public sealed class AddWorkingDayCommand: ICommand<Result>
 {
     public EmployeeId EmployeeId { get; init; } = null!;
     public DateOnly Date { get; init; }

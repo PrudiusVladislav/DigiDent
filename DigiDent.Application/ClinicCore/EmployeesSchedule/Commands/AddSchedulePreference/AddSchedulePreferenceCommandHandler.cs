@@ -6,38 +6,39 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
 
-public class AddSchedulePreferenceCommandHandler
+public sealed class AddSchedulePreferenceCommandHandler
     : ICommandHandler<AddSchedulePreferenceCommand, Result>
 {
     private readonly IAllEmployeesRepository _allEmployeesRepository;
 
-    public AddSchedulePreferenceCommandHandler(IAllEmployeesRepository allEmployeesRepository)
+    public AddSchedulePreferenceCommandHandler(
+        IAllEmployeesRepository allEmployeesRepository)
     {
         _allEmployeesRepository = allEmployeesRepository;
     }
 
     public async Task<Result> Handle(
-        AddSchedulePreferenceCommand request, CancellationToken cancellationToken)
+        AddSchedulePreferenceCommand command, CancellationToken cancellationToken)
     {
-        var employee = await _allEmployeesRepository.GetByIdAsync(
-            request.EmployeeId,
+        Employee? employee = await _allEmployeesRepository.GetByIdAsync(
+            command.EmployeeId,
             includeScheduling: true,
             cancellationToken: cancellationToken);
         
         if (employee is null)
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Employee>(request.EmployeeId.Value));
+                .EntityNotFound<Employee>(command.EmployeeId.Value));
         
-        var schedulePreferenceResult = SchedulePreference.Create(
-            request.Date,
-            request.EmployeeId,
-            request.StartEndTime,
-            request.IsSetAsDayOff);
+        Result<SchedulePreference> schedulePreferenceResult = SchedulePreference.Create(
+            command.Date,
+            command.EmployeeId,
+            command.StartEndTime,
+            command.IsSetAsDayOff);
         
         if (schedulePreferenceResult.IsFailure) 
             return schedulePreferenceResult;
         
-        var additionResult = employee.AddSchedulePreference(
+        Result additionResult = employee.AddSchedulePreference(
             schedulePreferenceResult.Value!);
         
         if (additionResult.IsFailure)

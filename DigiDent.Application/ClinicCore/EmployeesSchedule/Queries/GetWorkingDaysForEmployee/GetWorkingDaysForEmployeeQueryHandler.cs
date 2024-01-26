@@ -1,29 +1,31 @@
 ﻿using AutoMapper;
 using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 
-public class GetWorkingDaysForEmployeeQueryHandler
+public sealed class GetWorkingDaysForEmployeeQueryHandler
     : IQueryHandler<GetWorkingDaysForEmployeeQuery, IReadOnlyCollection<WorkingDayDTO>>
 {
     private readonly IAllEmployeesRepository _allEmployeesRepository;
     private readonly IMapper _mapper;
 
     public GetWorkingDaysForEmployeeQueryHandler(
-        IAllEmployeesRepository allEmployeesRepository, IMapper mapper)
+        IAllEmployeesRepository allEmployeesRepository,
+        IMapper mapper)
     {
         _allEmployeesRepository = allEmployeesRepository;
         _mapper = mapper;
     }
     
     public async Task<IReadOnlyCollection<WorkingDayDTO>> Handle(
-        GetWorkingDaysForEmployeeQuery request, CancellationToken cancellationToken)
+        GetWorkingDaysForEmployeeQuery query, CancellationToken cancellationToken)
     {
-        var employeeId = new EmployeeId(request.EmployeeId);
-        var employee = await _allEmployeesRepository.GetByIdAsync(
+        EmployeeId employeeId = new(query.EmployeeId);
+        Employee? employee = await _allEmployeesRepository.GetByIdAsync(
             employeeId,
             includeScheduling: true,
             cancellationToken: cancellationToken);
@@ -32,7 +34,7 @@ public class GetWorkingDaysForEmployeeQueryHandler
             return Array.Empty<WorkingDayDTO>();
         
         return employee.WorkingDays
-            .GetRequestedWorkingDays(request.From, request.Until)
+            .GetRequestedWorkingDays(query.From, query.Until)
             .Select(_mapper.Map<WorkingDayDTO>)
             .ToList()
             .AsReadOnly();
