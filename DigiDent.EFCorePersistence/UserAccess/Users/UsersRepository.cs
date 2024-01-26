@@ -18,7 +18,6 @@ public class UsersRepository: IUsersRepository
     public async Task AddAsync(User user, CancellationToken cancellationToken)
     {
         await _dbContext.Users.AddAsync(user, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<User?> GetByIdAsync(UserId userId, CancellationToken cancellationToken)
@@ -37,12 +36,8 @@ public class UsersRepository: IUsersRepository
     {
         var userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(
             x => x.Id == newUserDto.Id, cancellationToken);
-        
-        if (userToUpdate == null) return;
-        
-        userToUpdate.Update(newUserDto);
-        
-        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        userToUpdate?.Update(newUserDto);
     }
     
     public async Task DeleteAsync(UserId userId, CancellationToken cancellationToken)
@@ -53,7 +48,5 @@ public class UsersRepository: IUsersRepository
         if (userToDelete == null) return;
         
         _dbContext.Users.Remove(userToDelete);
-        
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
