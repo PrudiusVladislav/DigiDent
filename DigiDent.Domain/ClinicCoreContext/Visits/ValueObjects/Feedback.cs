@@ -9,11 +9,6 @@ namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 /// </summary>
 public record Feedback
 {
-    private const int MinRating = 1;
-    private const int MaxRating = 5;
-    private const int MinRatingWithNoComment = 4;
-    private const int MaxCommentLength = 500;
-    
     public FeedbackRating Rating { get; init; }
     public string? Comment { get; init; }
     
@@ -27,24 +22,29 @@ public record Feedback
     }
     
     public static Result<Feedback> Create(int ratingValue, string? comment)
-    {
-        if (ratingValue is < MinRating or > MaxRating)
+    { 
+        const int minRating = 1;
+        const int maxRating = 5;
+        const int minRatingWithNoComment = 4;
+        const int maxCommentLength = 500;
+        
+        if (ratingValue is < minRating or > maxRating)
         {
             return Result.Fail<Feedback>(FeedbackErrors
-                .FeedbackRatingOutOfRange(MinRating, MaxRating));
+                .FeedbackRatingOutOfRange(minRating, maxRating));
         }
 
-        if (ratingValue < MinRatingWithNoComment && 
+        if (ratingValue < minRatingWithNoComment && 
             string.IsNullOrWhiteSpace(comment))
         {
             return Result.Fail<Feedback>(FeedbackErrors
-                .NoCommentForLowRating(MinRatingWithNoComment));
+                .NoCommentForLowRating(minRatingWithNoComment));
         }
         
-        if (comment?.Length > MaxCommentLength)
+        if (comment?.Length > maxCommentLength)
         {
             return Result.Fail<Feedback>(FeedbackErrors
-                .CommentTooLong(MaxCommentLength));
+                .CommentTooLong(maxCommentLength));
         }
         
         return Result.Ok(new Feedback(ratingValue, comment));
