@@ -6,22 +6,6 @@ namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 public static class EventTimeNodeExtensions
 {
     /// <summary>
-    /// Checks if the event can fit between the previous and next nodes.
-    /// </summary>
-    /// <param name="eventToFit">The event to fit.</param>
-    /// <param name="previousNode">The previous node.</param>
-    /// <param name="nextNode">The next node.</param>
-    /// <returns></returns>
-    internal static bool EventCanFitBetween(
-        this EventTimeNode eventToFit,
-        EventTimeNode previousNode,
-        EventTimeNode nextNode)
-    {
-        return !(eventToFit.StartTime < previousNode.EndTime ||
-               eventToFit.EndTime > nextNode.StartTime);
-    }
-
-    /// <summary>
     /// Returns the closest node to the given time.
     /// </summary>
     /// <param name="nodes">The collection of <see cref="EventTimeNode"/>s.</param>
@@ -69,19 +53,19 @@ public static class EventTimeNodeExtensions
         TimeOnly fromTime,
         bool isNextNode = true)
     {
-        var nodesList = nodes.OrderBy(node => node.StartTime).ToList();
-        var resultNodes = new List<EventTimeNode>();
+        List<EventTimeNode> sourceNodes = nodes.OrderBy(node => node.StartTime).ToList();
+        List<EventTimeNode> resultNodes = [];
 
-        if (nodesList.Count == 0) return resultNodes;
+        if (sourceNodes.Count == 0) return resultNodes;
 
         int startIndex = isNextNode
-            ? nodesList.FindIndex(node => node.StartTime > fromTime)
-            : nodesList.FindLastIndex(node => node.StartTime < fromTime);
+            ? sourceNodes.FindIndex(node => node.StartTime > fromTime)
+            : sourceNodes.FindLastIndex(node => node.StartTime < fromTime);
 
-        if (startIndex == -1 || startIndex >= nodesList.Count) 
+        if (startIndex == -1 || startIndex >= sourceNodes.Count) 
             return resultNodes;
 
-        resultNodes = nodesList.GetRange(startIndex, nodesList.Count - startIndex);
+        resultNodes = sourceNodes.GetRange(startIndex, sourceNodes.Count - startIndex);
         if (isNextNode is false)
         {
             // If the first node, that starts before the given time,
@@ -92,7 +76,6 @@ public static class EventTimeNodeExtensions
         }
         
         return resultNodes;
-        
     }
     
     /// <summary>
@@ -103,25 +86,28 @@ public static class EventTimeNodeExtensions
     /// <param name="duration">The duration of the event to fit between the two nodes.</param>
     /// <param name="timeStep">The time step to use when generating the time points.</param>
     /// <returns></returns>
-    internal static IReadOnlyList<DateTime> GetAllTimePointsBetweenNodes(
+    internal static IReadOnlyList<DateTime> GetAllTimeSlotsBetweenEvents(
         this (EventTimeNode, EventTimeNode) nodes,
         DateOnly date,
         TimeDuration duration,
         TimeSpan timeStep)
     {
-        var availableTimePoints = new List<DateTime>();
-        var eventNode = new EventTimeNode(
-            startTime: nodes.Item1.EndTime,
-            duration: duration.Duration);
+        List<DateTime> availableTimeSlots= [];
+        EventTimeNode previousEvent = nodes.Item1;
+        EventTimeNode nextEvent = nodes.Item2;
         
-        while (eventNode.EventCanFitBetween(nodes.Item1, nodes.Item2))
+        EventTimeNode eventNode = new(
+            startTime: previousEvent.EndTime,
+            duration.Duration);
+        
+        while (eventNode.EventCanFitBetween(previousEvent, nextEvent))
         {
-            var dateTime = date.ToDateTime(eventNode.StartTime);
-            availableTimePoints.Add(dateTime);
+            DateTime timeSlot = date.ToDateTime(eventNode.StartTime);
+            availableTimeSlots.Add(timeSlot);
             eventNode.StartTime = eventNode.StartTime.Add(timeStep);
         }
         
-        return availableTimePoints;
+        return availableTimeSlots;
     }
     
 }

@@ -5,7 +5,6 @@ namespace DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 
 public class TreatmentPlanDetails
 {
-    private const int DiagnosisDescriptionMinLength = 3;
     public string DiagnosisDescription { get; private set; }
     
     internal TreatmentPlanDetails(string diagnosisDescription)
@@ -15,8 +14,10 @@ public class TreatmentPlanDetails
     
     public static Result<TreatmentPlanDetails> Create(string diagnosisDescription)
     {
+        const int diagnosisDescriptionMinLength = 3;
+        
         if (string.IsNullOrWhiteSpace(diagnosisDescription) ||
-            diagnosisDescription.Length < DiagnosisDescriptionMinLength)
+            diagnosisDescription.Length < diagnosisDescriptionMinLength)
         {
             return Result.Fail<TreatmentPlanDetails>(TreatmentPlanErrors
                 .TreatmentPlanDetailsAreInvalid);

@@ -58,17 +58,20 @@ public class Doctor : Employee
         DateTime currentDateTime,
         TimeDuration duration)
     {
-        var availableDateTimes = new List<DateTime>();
-        IOrderedEnumerable<WorkingDay> workingDaysToLookThrough = WorkingDays
-            .GetRequestedWorkingDays(fromDateTime.ToDateOnly(), untilDate);
+        List<DateTime> availableDateTimes = [];
+        
+        var workingDaysToLookThrough = WorkingDays
+            .GetWorkingDaysBetweenDates(fromDateTime.ToDateOnly(), untilDate);
 
         foreach (var workingDay in workingDaysToLookThrough)
         {
-            var availableDateTimesForDay = workingDay
-                .GetAvailableDateTimesForDay(
-                    Appointments, currentDateTime, duration);
+            var availableTimeSlotsForDay = workingDay
+                .GetAvailableTimeSlots(
+                    Appointments.GetAppointmentsOnWorkingDay(workingDay),
+                    currentDateTime,
+                    duration);
             
-            availableDateTimes.AddRange(availableDateTimesForDay);
+            availableDateTimes.AddRange(availableTimeSlotsForDay);
         }
 
         return availableDateTimes;
@@ -91,7 +94,7 @@ public class Doctor : Employee
         if (workingDay is null) return false;
         
         var availableDateTimes = workingDay
-            .GetAvailableDateTimesForDay(
+            .GetAvailableTimeSlots(
                 Appointments, currentDateTime, duration);
         
         return availableDateTimes.Any(slot => 

@@ -34,7 +34,7 @@ public sealed class GetWorkingDaysForEmployeeQueryHandler
             return Array.Empty<WorkingDayDTO>();
         
         return employee.WorkingDays
-            .GetRequestedWorkingDays(query.From, query.Until)
+            .GetWorkingDaysBetweenDates(query.From, query.Until)
             .Select(_mapper.Map<WorkingDayDTO>)
             .ToList()
             .AsReadOnly();
