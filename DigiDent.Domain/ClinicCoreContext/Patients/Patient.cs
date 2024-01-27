@@ -7,9 +7,7 @@ using DigiDent.Domain.SharedKernel.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Patients;
 
-public class Patient:
-    AggregateRoot,
-    IPerson<PatientId>
+public class Patient: AggregateRoot, IPerson<PatientId>
 {
     public PatientId Id { get; init; }
     public FullName FullName { get; private set; }

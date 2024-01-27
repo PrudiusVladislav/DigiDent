@@ -1,13 +1,11 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+﻿using DigiDent.Domain.ClinicCoreContext.Patients;
+using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.EFCorePersistence.Shared.Configurations;
 using DigiDent.EFCorePersistence.Shared.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
+namespace DigiDent.EFCorePersistence.ClinicCore.Patients;
 
 [ClinicCoreEntityConfiguration]
 public class TreatmentPlanConfiguration

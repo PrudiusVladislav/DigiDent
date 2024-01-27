@@ -1,11 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+﻿using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.SharedKernel.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits;
+namespace DigiDent.Domain.ClinicCoreContext.Patients;
 
 public class TreatmentPlan: IEntity<TreatmentPlanId, Guid>
 {
