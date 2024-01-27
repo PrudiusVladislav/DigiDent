@@ -5,7 +5,8 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
 
-public sealed record CreateTreatmentPlanCommand : ICommand<Result<Guid>>
+public sealed record CreateTreatmentPlanCommand : 
+    ICommand<Result<Guid>>
 {
     public PatientId PatientId { get; init; } = null!;
     public TreatmentPlanDetails PlanDetails { get; init; } = null!;
@@ -14,7 +15,7 @@ public sealed record CreateTreatmentPlanCommand : ICommand<Result<Guid>>
     public static Result<CreateTreatmentPlanCommand> CreateFromRequest(
         CreateTreatmentPlanRequest request, Guid patientId)
     {
-        var detailsResult = TreatmentPlanDetails.Create(
+        Result<TreatmentPlanDetails> detailsResult = TreatmentPlanDetails.Create(
             request.DiagnosisDescription);
 
         if (detailsResult.IsFailure)

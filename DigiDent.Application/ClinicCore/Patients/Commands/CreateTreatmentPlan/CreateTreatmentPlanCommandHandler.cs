@@ -6,7 +6,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
 
-public class CreateTreatmentPlanCommandHandler
+public sealed class CreateTreatmentPlanCommandHandler
     : ICommandHandler<CreateTreatmentPlanCommand, Result<Guid>>
 {
     private readonly IPatientsRepository _patientsRepository;

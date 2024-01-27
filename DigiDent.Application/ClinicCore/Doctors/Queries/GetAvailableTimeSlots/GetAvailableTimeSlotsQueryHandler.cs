@@ -2,10 +2,11 @@
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 
-public class GetAvailableTimeSlotsQueryHandler
+public sealed class GetAvailableTimeSlotsQueryHandler
     : IQueryHandler<GetAvailableTimeSlotsQuery, IReadOnlyCollection<DateTime>>
 {
     private readonly IDoctorsRepository _doctorsRepository;
@@ -16,23 +17,27 @@ public class GetAvailableTimeSlotsQueryHandler
     }
 
     public async Task<IReadOnlyCollection<DateTime>> Handle(
-        GetAvailableTimeSlotsQuery request, CancellationToken cancellationToken)
+        GetAvailableTimeSlotsQuery query, CancellationToken cancellationToken)
     {
-        var timeResult = TimeDuration.Create(TimeSpan
-            .FromMinutes(request.DurationInMinutes));
-        if (timeResult.IsFailure) return Array.Empty<DateTime>();
+        Result<TimeDuration> timeResult = TimeDuration.Create(TimeSpan
+            .FromMinutes(query.DurationInMinutes));
         
-        var doctorId = new EmployeeId(request.DoctorId);
-        var doctor = await _doctorsRepository.GetByIdAsync(
+        if (timeResult.IsFailure) 
+            return Array.Empty<DateTime>();
+        
+        EmployeeId doctorId = new(query.DoctorId);
+        
+        Doctor? doctor = await _doctorsRepository.GetByIdAsync(
             doctorId,
             includeScheduling: true,
             cancellationToken: cancellationToken);
         
-        if (doctor is null) return Array.Empty<DateTime>();
+        if (doctor is null) 
+            return Array.Empty<DateTime>();
         
         IReadOnlyCollection<DateTime> timeSlots = doctor.GetAvailableTimeSlots(
-            request.FromDateTime,
-            request.UntilDate,
+            query.FromDateTime,
+            query.UntilDate,
             DateTime.Now, 
             timeResult.Value!);
 

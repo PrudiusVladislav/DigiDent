@@ -11,5 +11,5 @@ public record UpdateDoctorDTO(
     string? Biography = null)
 {
     public UpdateEmployeeDTO ToUpdateEmployeeDTO
-        => new UpdateEmployeeDTO(Gender, BirthDate, Status);
+        => new (Gender, BirthDate, Status);
 };

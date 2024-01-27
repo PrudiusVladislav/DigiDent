@@ -9,7 +9,7 @@ using DigiDent.Domain.UserAccessContext.Users.Errors;
 
 namespace DigiDent.Application.UserAccess.Commands.SignIn;
 
-public class SignInCommandHandler
+public sealed class SignInCommandHandler
     : ICommandHandler<SignInCommand, Result<AuthenticationResponse>>
 {
     private readonly IJwtService _jwtService;
@@ -27,24 +27,25 @@ public class SignInCommandHandler
     }
     
     public async Task<Result<AuthenticationResponse>> Handle(
-        SignInCommand request, CancellationToken cancellationToken)
+        SignInCommand command, CancellationToken cancellationToken)
     {
-        var userToSignIn = await _usersRepository
-            .GetByEmailAsync(request.Email, cancellationToken);
+        User? userToSignIn = await _usersRepository
+            .GetByEmailAsync(command.Email, cancellationToken);
+        
         if (userToSignIn == null)
         {
             return Result.Fail<AuthenticationResponse>(EmailErrors
-                .EmailIsNotRegistered(request.Email.Value));
+                .EmailIsNotRegistered(command.Email.Value));
         }
         
-        var isPasswordCorrect = userToSignIn.Password.IsEqualTo(request.Password);
+        var isPasswordCorrect = userToSignIn.Password.IsEqualTo(command.Password);
         if (!isPasswordCorrect)
         {
             return Result.Fail<AuthenticationResponse>(PasswordErrors
                 .PasswordDoesNotMatch);
         }
         
-        var tokensResponse = await _jwtService
+        AuthenticationResponse tokensResponse = await _jwtService
             .GenerateAuthenticationResponseAsync(userToSignIn, cancellationToken);
         return Result.Ok(tokensResponse);
         

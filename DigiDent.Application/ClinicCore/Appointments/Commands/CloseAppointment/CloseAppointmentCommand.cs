@@ -16,9 +16,10 @@ public sealed record CloseAppointmentCommand: ICommand<Result>
     public static Result<CloseAppointmentCommand> CreateFromRequest(
         Guid appointmentId, CloseAppointmentRequest request)
     {
-        var moneyResult = Money.Create(request.Price);
-        var statusResult = ParseVisitStatus(request.Status);
-        var mergedResult = Result.Merge(moneyResult, statusResult);
+        Result<Money> moneyResult = Money.Create(request.Price);
+        Result<VisitStatus> statusResult = ParseVisitStatus(request.Status);
+        
+        Result mergedResult = Result.Merge(moneyResult, statusResult);
         if (mergedResult.IsFailure)
             return mergedResult.MapToType<CloseAppointmentCommand>();
 

@@ -6,12 +6,13 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 
-public class AddWorkingDayCommandHandler
+public sealed class AddWorkingDayCommandHandler
     : ICommandHandler<AddWorkingDayCommand, Result>
 {
     private readonly IAllEmployeesRepository _allEmployeesRepository;
 
-    public AddWorkingDayCommandHandler(IAllEmployeesRepository allEmployeesRepository)
+    public AddWorkingDayCommandHandler(
+        IAllEmployeesRepository allEmployeesRepository)
     {
         _allEmployeesRepository = allEmployeesRepository;
     }
@@ -19,7 +20,7 @@ public class AddWorkingDayCommandHandler
     public async Task<Result> Handle(
         AddWorkingDayCommand request, CancellationToken cancellationToken)
     {
-        var employee = await _allEmployeesRepository.GetByIdAsync(
+        Employee? employee = await _allEmployeesRepository.GetByIdAsync(
             request.EmployeeId,
             includeScheduling: true,
             cancellationToken: cancellationToken);
@@ -28,7 +29,7 @@ public class AddWorkingDayCommandHandler
             return Result.Fail(RepositoryErrors
                 .EntityNotFound<Employee>(request.EmployeeId.Value));
         
-        var workingDayResult = WorkingDay.Create(
+        Result<WorkingDay> workingDayResult = WorkingDay.Create(
             request.Date,
             request.StartEndTime,
             request.EmployeeId);
@@ -36,7 +37,7 @@ public class AddWorkingDayCommandHandler
         if (workingDayResult.IsFailure)
             return workingDayResult;
         
-        var additionResult = employee.AddWorkingDay(workingDayResult.Value!);
+        Result additionResult = employee.AddWorkingDay(workingDayResult.Value!);
         
         if (additionResult.IsFailure) 
             return additionResult;

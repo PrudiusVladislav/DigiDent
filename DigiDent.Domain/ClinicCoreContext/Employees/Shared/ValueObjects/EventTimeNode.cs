@@ -1,5 +1,4 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
-
+﻿
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 
 internal class EventTimeNode
@@ -21,4 +20,16 @@ internal class EventTimeNode
         Duration = duration;
     }
     
+    /// <summary>
+    /// Checks if the event can fit between the previous and next nodes.
+    /// </summary>
+    /// <param name="previousNode">The previous node.</param>
+    /// <param name="nextNode">The next node.</param>
+    /// <returns></returns>
+    internal bool EventCanFitBetween(
+        EventTimeNode previousNode, EventTimeNode nextNode)
+    {
+        return !(StartTime < previousNode.EndTime ||
+                 EndTime > nextNode.StartTime);
+    }
 }

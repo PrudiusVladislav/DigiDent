@@ -20,8 +20,9 @@ public sealed record CreateAppointmentCommand
     public static Result<CreateAppointmentCommand> CreateFromRequest(
         CreateAppointmentRequest request)
     {
-        var timeResult = TimeDuration.Create(TimeSpan
+        Result<TimeDuration> timeResult = TimeDuration.Create(TimeSpan
             .FromMinutes(request.Duration));
+        
         if (timeResult.IsFailure)
             return timeResult.MapToType<CreateAppointmentCommand>();
 

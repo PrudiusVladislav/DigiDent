@@ -2,11 +2,10 @@
 using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 
-public class GetDoctorByIdQueryHandler
+public sealed class GetDoctorByIdQueryHandler
     : IQueryHandler<GetDoctorByIdQuery, DoctorProfileDTO?>
 {
     private readonly IDoctorsRepository _doctorsRepository;
@@ -19,9 +18,9 @@ public class GetDoctorByIdQueryHandler
     }
 
     public async Task<DoctorProfileDTO?> Handle(
-        GetDoctorByIdQuery request, CancellationToken cancellationToken)
+        GetDoctorByIdQuery query, CancellationToken cancellationToken)
     {
-        var doctorId = new EmployeeId(request.Id);
+        EmployeeId doctorId = new(query.Id);
         
         Doctor? doctor = await _doctorsRepository.GetByIdAsync(
             doctorId, cancellationToken);

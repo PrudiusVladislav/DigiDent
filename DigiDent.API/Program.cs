@@ -2,14 +2,14 @@ using DigiDent.API.Endpoints.ClinicCore;
 using DigiDent.API.Endpoints.UserAccess;
 using DigiDent.API.Extensions;
 using DigiDent.Application;
-using DigiDent.Domain.UserAccessContext;
+using DigiDent.Domain;
 using DigiDent.EFCorePersistence;
 using DigiDent.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
-        .AddUserAccessDomain()
+        .AddDomain()
         .AddEFCorePersistence(builder.Configuration)
         .AddInfrastructure(builder
             .Configuration.GetSection("Authentication:Jwt"))
@@ -17,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddErrorHandlingMiddleware();
 }
+
 var app = builder.Build();
 {
     app.UseHttpsRedirection();

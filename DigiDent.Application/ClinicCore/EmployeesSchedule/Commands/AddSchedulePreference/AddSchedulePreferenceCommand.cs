@@ -5,7 +5,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
 
-public record AddSchedulePreferenceCommand : ICommand<Result>
+public sealed record AddSchedulePreferenceCommand : ICommand<Result>
 {
     public EmployeeId EmployeeId { get; init; } = null!;
     public DateOnly Date { get; init; }
@@ -13,7 +13,7 @@ public record AddSchedulePreferenceCommand : ICommand<Result>
     public bool IsSetAsDayOff { get; init; }
     
     public static Result<AddSchedulePreferenceCommand> CreateFromRequest(
-        Guid employeeId, AddSchedulePreferenceRequest request)
+        AddSchedulePreferenceRequest request, Guid employeeId)
     {
         var employeeIdTyped = new EmployeeId(employeeId);
         StartEndTime? startEndTime;

@@ -3,6 +3,7 @@ using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePref
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+using DigiDent.Domain.SharedKernel.ReturnTypes;
 using DigiDent.Infrastructure.ClinicCore.EmployeeSchedulePDFDoc;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,104 +16,95 @@ public static class EmployeesScheduleEndpoints
     public static RouteGroupBuilder MapEmployeesScheduleEndpoints(
         this RouteGroupBuilder groupBuilder)
     {
-        groupBuilder.MapGroup("/employees")
-            .MapGetEmployeeScheduleDataEndpoints()
-            .MapAddScheduleDataEndpoints();
+        var employeesGroup = groupBuilder.MapGroup("/employees");
+        
+        employeesGroup.MapGet("/{id}/schedule", GetEmployeeWorkingSchedule);
+        employeesGroup.MapGet("/{id}/preferences", GetEmployeeSchedulePreferences);
+        employeesGroup.MapPost("/{id}/schedule", AddEmployeeWorkingDay);
+        employeesGroup.MapPost("/{id}/preferences", AddEmployeeSchedulePreference);
         
         return groupBuilder;
     }
-
-    private static IEndpointRouteBuilder MapGetEmployeeScheduleDataEndpoints(
-        this IEndpointRouteBuilder app)
+    
+    private static async Task<IResult> GetEmployeeWorkingSchedule(
+        [FromRoute]Guid id,
+        [FromQuery]DateOnly from,
+        [FromQuery]DateOnly until,
+        ISender sender,
+        CancellationToken cancellationToken,
+        [FromQuery]bool pdf = false)
     {
-        app.MapGet("/{id:guid}/schedule", async (
-            [FromRoute]Guid id,
-            [FromQuery]DateOnly from,
-            [FromQuery]DateOnly until,
-            IMediator mediator,
-            CancellationToken cancellationToken,
-            [FromQuery]bool asPdf = false) =>
-        {
-            var query = new GetWorkingDaysForEmployeeQuery(id, from, until);
+        GetWorkingDaysForEmployeeQuery query = new(id, from, until);
             
-            var workingDays = await mediator.Send(
-                query, cancellationToken);
+        var workingDays = await sender.Send(
+            query, cancellationToken);
             
-            if (asPdf is false)
-                return Results.Ok(workingDays);
-            
-            var documentDataModel = new ScheduleDocumentDataModel(
-                "DigiDent",
-                workingDays.First().EmployeeFullName,
-                from,
-                until,
-                workingDays.ToList());
-
-            var document = new EmployeeScheduleDocument(documentDataModel)
-                .GeneratePdf();
-            
-            return Results.File(document, "application/pdf", "schedule.pdf");
-        });
-        
-        app.MapGet("/{id:guid}/schedule/preferences", async (
-            [FromRoute]Guid id,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var query = new GetSchedulePreferencesQuery(id);
-            
-            var workingDays = await mediator.Send(
-                query, cancellationToken);
-            
+        if (pdf is false)
             return Results.Ok(workingDays);
-        });
-        
-        return app;
+            
+        ScheduleDocumentDataModel documentDataModel = new(
+            "DigiDent",
+            workingDays.First().EmployeeFullName,
+            from,
+            until,
+            workingDays.ToList());
+
+        byte[] document = new EmployeeScheduleDocument(documentDataModel)
+            .GeneratePdf();
+            
+        return Results.File(document, "application/pdf", "schedule.pdf");
     }
     
-    private static IEndpointRouteBuilder MapAddScheduleDataEndpoints(
-        this IEndpointRouteBuilder app)
+    private static async Task<IResult> GetEmployeeSchedulePreferences(
+        [FromRoute]Guid id,
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        app.MapPost("/{id:guid}/schedule", async (
-            [FromRoute]Guid id,
-            [FromBody]AddWorkingDayRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandCreationResult = AddWorkingDayCommand
-                .CreateFromRequest(id, request);
+        GetSchedulePreferencesQuery query = new(id);
             
-            if (commandCreationResult.IsFailure)
-                return commandCreationResult.MapToIResult();
+        var preferences = await sender.Send(
+            query, cancellationToken);
             
-            var result = await mediator.Send(
-                commandCreationResult.Value!, cancellationToken);
+        return Results.Ok(preferences);
+    }
+    
+    private static async Task<IResult> AddEmployeeWorkingDay(
+        [FromRoute]Guid id,
+        [FromBody]AddWorkingDayRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        Result<AddWorkingDayCommand> commandResult = AddWorkingDayCommand
+            .CreateFromRequest(id, request);
+            
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
+            
+        Result additionResult = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: () => Results.NoContent());
-        });
-        
-        app.MapPost("/{id:guid}/schedule/preferences", async (
-            [FromRoute]Guid id,
-            [FromBody]AddSchedulePreferenceRequest request,
-            IMediator mediator,
-            CancellationToken cancellationToken) =>
-        {
-            var commandCreationResult = AddSchedulePreferenceCommand
-                .CreateFromRequest(id, request);
+        return additionResult.Match(
+            onFailure: _ => additionResult.MapToIResult(),
+            onSuccess: () => Results.NoContent());
+    }
+    
+    private static async Task<IResult> AddEmployeeSchedulePreference(
+        [FromRoute]Guid id,
+        [FromBody]AddSchedulePreferenceRequest request,
+        ISender sender,
+        CancellationToken cancellationToken)
+    {
+        Result<AddSchedulePreferenceCommand> commandResult = AddSchedulePreferenceCommand
+            .CreateFromRequest(request, employeeId: id);
             
-            if (commandCreationResult.IsFailure)
-                return commandCreationResult.MapToIResult();
+        if (commandResult.IsFailure)
+            return commandResult.MapToIResult();
             
-            var result = await mediator.Send(
-                commandCreationResult.Value!, cancellationToken);
+        Result additionResult = await sender.Send(
+            commandResult.Value!, cancellationToken);
 
-            return result.Match(
-                onFailure: _ => result.MapToIResult(),
-                onSuccess: () => Results.NoContent());
-        });
-        
-        return app;
+        return additionResult.Match(
+            onFailure: _ => additionResult.MapToIResult(),
+            onSuccess: () => Results.NoContent());
     }
 }

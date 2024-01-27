@@ -6,7 +6,7 @@ using MediatR;
 
 namespace DigiDent.Application.ClinicCore.IntegrationEventHandlers;
 
-public class UserSignedUpEventHandler 
+public sealed class UserSignedUpEventHandler 
     : INotificationHandler<UserSignedUpIntegrationEvent>
 {
     private readonly IPersonRepository _personRepository;
@@ -21,7 +21,7 @@ public class UserSignedUpEventHandler
     }
 
     public async Task Handle(
-        UserSignedUpIntegrationEvent notification,
+        UserSignedUpIntegrationEvent notification, 
         CancellationToken cancellationToken)
     {
         PersonCreationArgs personCreationArgs = new(
@@ -29,17 +29,17 @@ public class UserSignedUpEventHandler
             notification.Email,
             notification.PhoneNumber);
         
-        (Type, Type) personTypes = _personFactory
+        (Type personType, Type idType) = _personFactory
             .GetPersonTypesFromRole(notification.Role);
         
         var person = typeof(IPersonFactory)
             .GetMethod(nameof(IPersonFactory.CreatePerson))!
-            .MakeGenericMethod(personTypes.Item1, personTypes.Item2)
+            .MakeGenericMethod(personType, idType)
             .Invoke(_personFactory, [personCreationArgs]);
         
         await (Task)typeof(IPersonRepository)
             .GetMethod(nameof(IPersonRepository.AddPersonAsync))!
-            .MakeGenericMethod(personTypes.Item1, personTypes.Item2)
+            .MakeGenericMethod(personType, idType)
             .Invoke(_personRepository, [person, cancellationToken])!;
     }
 }

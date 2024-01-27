@@ -6,6 +6,9 @@ using Result = DigiDent.Domain.SharedKernel.ReturnTypes.Result;
 
 namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
+/// <summary>
+/// Represents a password value object.
+/// </summary>
 public record Password
 {
     private const int Iterations = 20000;
@@ -23,6 +26,11 @@ public record Password
         PasswordHash = passwordHash;
     }
 
+    /// <summary>
+    /// Validates the plain text password and creates a new <see cref="Password"/> instance.
+    /// </summary>
+    /// <param name="plainTextPassword"> The plain text password to be validated and hashed. </param>
+    /// <returns> The <see cref="Result{T}"/> indicating the outcome of the operation. </returns>
     public static Result<Password> Create(string plainTextPassword)
     {
         var validationResult = ValidatePasswordSecurity(plainTextPassword);
@@ -35,6 +43,11 @@ public record Password
             });
     }
     
+    /// <summary>
+    /// Checks if the plain text password is equal to the hashed password.
+    /// </summary>
+    /// <param name="plainTextPassword"> The plain text password to be checked. </param>
+    /// <returns> True if the passwords are equal, false otherwise. </returns>
     public bool IsEqualTo(string plainTextPassword)
     {
         var parts = PasswordHash.Split(':');

@@ -28,6 +28,12 @@ public class AppointmentConfiguration
             .HasMany(a => a.ProvidedServices)
             .WithMany()
             .UsingEntity(j => j.ToTable("AppointmentsProvidedServices"));
+        
+        builder
+            .HasIndex(a => a.DoctorId, "IX_Appointments_DoctorId");
+        
+        builder
+            .HasIndex(a => a.PatientId, "IX_Appointments_PatientId");
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<Appointment> builder)

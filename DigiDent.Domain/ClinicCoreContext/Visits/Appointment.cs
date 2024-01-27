@@ -92,13 +92,15 @@ public class Appointment :
         if (status != VisitStatus.Completed && pricePaid != Money.Zero)
             return Result.Fail(AppointmentErrors
                 .PricePaidIsNotZeroWhenStatusIsNotComplete);
-        
-        Raise(new AppointmentClosedDomainEvent(
-            Guid.NewGuid(),
+
+        AppointmentClosedDomainEvent appointmentClosedEvent = new(
+            EventId: Guid.NewGuid(),
             DateTime.Now,
             status,
             pricePaid,
-            this));
+            ClosedAppointment: this);
+        
+        Raise(appointmentClosedEvent);
         
         return Result.Ok();
     }

@@ -3,6 +3,9 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 
+/// <summary>
+/// Contains details about provided service, such as name and description.
+/// </summary>
 public record ProvidedServiceDetails
 {
     public string Name { get; init; }

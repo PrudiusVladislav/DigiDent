@@ -14,5 +14,8 @@ public interface IJwtService
         User user, CancellationToken cancellationToken); 
     
     Task<Result<ClaimsPrincipal>> ValidateRefreshRequestAsync(
-        string accessToken, string refreshToken, CancellationToken cancellationToken);
+        string accessToken,
+        string refreshToken,
+        CancellationToken cancellationToken);
+    
 }

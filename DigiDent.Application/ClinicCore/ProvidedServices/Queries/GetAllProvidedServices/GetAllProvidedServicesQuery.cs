@@ -2,5 +2,5 @@
 
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
 
-public record GetAllProvidedServicesQuery
+public sealed record GetAllProvidedServicesQuery
     : IQuery<IReadOnlyCollection<ProvidedServiceDTO>>;

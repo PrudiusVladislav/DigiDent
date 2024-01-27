@@ -2,7 +2,7 @@
 
 namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 
-public record GetWorkingDaysForEmployeeQuery(
+public sealed record GetWorkingDaysForEmployeeQuery(
     Guid EmployeeId,
     DateOnly From,
     DateOnly Until) : IQuery<IReadOnlyCollection<WorkingDayDTO>>;

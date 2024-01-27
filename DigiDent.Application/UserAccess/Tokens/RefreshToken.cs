@@ -4,7 +4,7 @@ using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Application.UserAccess.Tokens;
 
-public class RefreshToken
+public record RefreshToken
 {
     public string Token { get; set; }
     public string JwtId { get; set; }

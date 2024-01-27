@@ -3,6 +3,7 @@ using DigiDent.Application.ClinicCore.Abstractions;
 using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Infrastructure.ClinicCore;
 using DigiDent.Infrastructure.UserAccess.Authentication;
+using DigiDent.Infrastructure.UserAccess.Authorization;
 using DigiDent.Infrastructure.UserAccess.Authorization.RolesRequirement;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -23,13 +24,14 @@ public static class InfrastructureAssembly
         this IServiceCollection services, 
         IConfigurationSection configurationSection)
     {
-        QuestPDF.Settings.License = LicenseType.Community;
         
         services
             .ConfigureJwt(configurationSection)
             .ConfigureAuthorizationServices(configurationSection)
             .AddAuthorization()
-            .AddFactories();
+            .AddFactories()
+            .ConfigurePDFLicense();
+        
         return services;
     }
     
@@ -82,6 +84,14 @@ public static class InfrastructureAssembly
         this IServiceCollection services)
     {
         services.AddSingleton<IPersonFactory, PersonFactory>();
+        services.AddSingleton<IRoleFactory, RoleFactory>();
+        return services;
+    }
+    
+    private static IServiceCollection ConfigurePDFLicense(
+        this IServiceCollection services)
+    {
+        QuestPDF.Settings.License = LicenseType.Community;
         return services;
     }
 }

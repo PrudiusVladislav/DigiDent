@@ -1,4 +1,5 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
+using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Domain.SharedKernel.Errors;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
@@ -15,16 +16,16 @@ public sealed record SignInCommand
     public string Password { get; init; } = string.Empty;
 
     public static Result<SignInCommand> CreateFromRequest(
-        SignInRequest request)
+        SignInRequest request, IRoleFactory roleFactory)
     {
-        var emailResult = Email.Create(request.Email);
+        Result<Email> emailResult = Email.Create(request.Email);
         if (emailResult.IsFailure)
         {
             return Result.Fail<SignInCommand>(EmailErrors
                 .EmailIsNotRegistered(request.Email));
         }
         
-        var roleResult = RoleFactory.CreateRole(request.Role);
+        Result<Role> roleResult = roleFactory.CreateRole(request.Role);
         if (roleResult.IsFailure)
             return roleResult.MapToType<SignInCommand>();
         

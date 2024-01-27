@@ -2,5 +2,5 @@
 
 namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
 
-public record GetProvidedServiceByIdQuery(Guid Id)
+public sealed record GetProvidedServiceByIdQuery(Guid Id)
     : IQuery<SpecificProvidedServiceDTO?>;

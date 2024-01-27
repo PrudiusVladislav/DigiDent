@@ -1,6 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
@@ -14,10 +13,10 @@ public abstract class Employee:
     AggregateRoot,
     IEmployee<EmployeeId>
 {
-    public EmployeeId Id { get; init; }
-    public Email Email { get; init; }
-    public PhoneNumber PhoneNumber { get; protected set;}
-    public FullName FullName { get; init; }
+    public EmployeeId Id { get; init; } = null!;
+    public Email Email { get; init; } = null!;
+    public PhoneNumber PhoneNumber { get; protected set;} = null!;
+    public FullName FullName { get; init; } = null!;
     public Gender Gender { get; set; }
     public DateOnly? DateOfBirth { get; protected set; }
     public EmployeeStatus Status { get; protected set;}
@@ -114,8 +113,7 @@ public abstract class Employee:
         
         foreach (var workingDay in WorkingDays)
         {
-            if (workingDay.Date >= startDate && 
-                workingDay.Date <= endDate)
+            if (workingDay.Date >= startDate && workingDay.Date <= endDate)
             {
                 workTime += workingDay.StartEndTime.EndTime - 
                             workingDay.StartEndTime.StartTime;
@@ -193,7 +191,8 @@ public abstract class Employee:
     /// <param name="status"> The new status of the employee. </param>
     protected virtual void ChangeEmployeeStatus(EmployeeStatus? status)
     {
-        if (status is null || status.Value == default) return;
+        if (status is null || status.Value == default) 
+            return;
         
         if (status == EmployeeStatus.Dismissed)
         {

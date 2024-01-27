@@ -1,9 +1,7 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;

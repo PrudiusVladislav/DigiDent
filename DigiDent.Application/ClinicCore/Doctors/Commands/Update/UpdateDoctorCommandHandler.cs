@@ -6,7 +6,7 @@ using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Commands.Update;
 
-public class UpdateDoctorCommandHandler
+public sealed class UpdateDoctorCommandHandler
     : ICommandHandler<UpdateDoctorCommand, Result>
 {
     private readonly IDoctorsRepository _doctorsRepository;
@@ -17,24 +17,25 @@ public class UpdateDoctorCommandHandler
     }
 
     public async Task<Result> Handle(
-        UpdateDoctorCommand request, CancellationToken cancellationToken)
+        UpdateDoctorCommand command, CancellationToken cancellationToken)
     {
-        var doctor = await _doctorsRepository.GetByIdAsync(
-            request.DoctorId, cancellationToken: cancellationToken);
+        Doctor? doctor = await _doctorsRepository.GetByIdAsync(
+            command.DoctorId, cancellationToken: cancellationToken);
         
         if (doctor is null) 
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Doctor>(request.DoctorId.Value));
+                .EntityNotFound<Doctor>(command.DoctorId.Value));
         
-        var updateDoctorDTO = new UpdateDoctorDTO(
-            request.Gender,
-            request.BirthDate,
-            request.Status,
-            request.Specialization,
-            request.Biography);
+        UpdateDoctorDTO updateDoctorDTO = new(
+            command.Gender,
+            command.BirthDate,
+            command.Status,
+            command.Specialization,
+            command.Biography);
         
-        var updateResult = doctor.Update(updateDoctorDTO);
-        if (updateResult.IsFailure) return updateResult;
+        Result updateResult = doctor.Update(updateDoctorDTO);
+        if (updateResult.IsFailure) 
+            return updateResult;
         
         await _doctorsRepository.UpdateAsync(doctor, cancellationToken);
         return Result.Ok();

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 
-public class GetAllDoctorsQueryHandler  
+public sealed class GetAllDoctorsQueryHandler  
     : IQueryHandler<GetAllDoctorsQuery, IReadOnlyCollection<DoctorDTO>>
 {
     private readonly IMapper _mapper;
@@ -18,8 +17,7 @@ public class GetAllDoctorsQueryHandler
     }
 
     public async Task<IReadOnlyCollection<DoctorDTO>> Handle(
-        GetAllDoctorsQuery request,
-        CancellationToken cancellationToken)
+        GetAllDoctorsQuery query, CancellationToken cancellationToken)
     {
         return (await _doctorsRepository.GetAllAsync(cancellationToken))
             .Select(_mapper.Map<DoctorDTO>)

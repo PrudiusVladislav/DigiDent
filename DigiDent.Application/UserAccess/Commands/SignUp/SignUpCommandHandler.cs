@@ -33,12 +33,12 @@ public class SignUpCommandHandler
                 .EmailIsNotUnique(request.Email.Value));
         
         var userToAdd = User.Create(
-            TypedId.New<UserId>(),
             request.FullName,
             request.Email,
             request.PhoneNumber,
             request.Password,
             request.Role);
+        
         await _usersDomainService.AddUserAsync(userToAdd, cancellationToken);
         
         return Result.Ok();

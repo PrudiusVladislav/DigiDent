@@ -1,7 +1,7 @@
 ﻿
 namespace DigiDent.Application.ClinicCore.Doctors.Commands.Update;
 
-public record UpdateDoctorRequest(
+public sealed record UpdateDoctorRequest(
     string? Gender,
     DateOnly? BirthDate,
     string? Status,

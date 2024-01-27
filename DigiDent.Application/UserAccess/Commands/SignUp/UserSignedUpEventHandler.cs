@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 
-public class UserSignedUpEventHandler 
+public sealed class UserSignedUpEventHandler 
     : INotificationHandler<UserSignedUpDomainEvent>
 {
     private readonly IPublisher _publisher;
@@ -19,14 +19,14 @@ public class UserSignedUpEventHandler
         UserSignedUpDomainEvent notification,
         CancellationToken cancellationToken)
     {
-        var userSignedUpIntegrationEvent = new UserSignedUpIntegrationEvent(
-            notification.Id,
+        UserSignedUpIntegrationEvent userSignedUpEvent = new(
+            notification.EventId,
             notification.TimeOfOccurrence,
-            notification.User.FullName,
-            notification.User.Email,
-            notification.User.PhoneNumber,
-            notification.User.Role);
+            notification.SignedUpUser.FullName,
+            notification.SignedUpUser.Email,
+            notification.SignedUpUser.PhoneNumber,
+            notification.SignedUpUser.Role);
         
-        await _publisher.Publish(userSignedUpIntegrationEvent, cancellationToken);
+        await _publisher.Publish(userSignedUpEvent, cancellationToken);
     }
 }

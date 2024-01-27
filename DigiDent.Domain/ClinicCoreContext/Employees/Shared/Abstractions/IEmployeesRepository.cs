@@ -7,9 +7,11 @@ public interface IEmployeesRepository<TEmployee>
     where TEmployee: Employee 
 {
     Task<IReadOnlyCollection<TEmployee>> GetAllAsync(CancellationToken cancellationToken);
+    
     Task<TEmployee?> GetByIdAsync(
         EmployeeId id,
         CancellationToken cancellationToken,
         bool includeScheduling = false);
+    
     Task UpdateAsync(TEmployee employee, CancellationToken cancellationToken);
 }

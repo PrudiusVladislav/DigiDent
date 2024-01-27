@@ -1,6 +1,5 @@
 ﻿using DigiDent.Domain.SharedKernel.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.DTO;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,16 +14,9 @@ public class UsersRepository: IUsersRepository
         _dbContext = dbContext;
     }
     
-    public async Task<IReadOnlyCollection<User>> GetAllAsync(CancellationToken cancellationToken)
-    {
-        var users = await _dbContext.Users.ToListAsync(cancellationToken);
-        return users.AsReadOnly();
-    }
-    
     public async Task AddAsync(User user, CancellationToken cancellationToken)
     {
         await _dbContext.Users.AddAsync(user, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<User?> GetByIdAsync(UserId userId, CancellationToken cancellationToken)
@@ -38,18 +30,6 @@ public class UsersRepository: IUsersRepository
         return await _dbContext.Users.FirstOrDefaultAsync(
             x => x.Email == email, cancellationToken);
     }
-
-    public async Task UpdateAsync(UpdateUserDto newUserDto, CancellationToken cancellationToken)
-    {
-        var userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(
-            x => x.Id == newUserDto.Id, cancellationToken);
-        
-        if (userToUpdate == null) return;
-        
-        userToUpdate.Update(newUserDto);
-        
-        await _dbContext.SaveChangesAsync(cancellationToken);
-    }
     
     public async Task DeleteAsync(UserId userId, CancellationToken cancellationToken)
     {
@@ -59,7 +39,5 @@ public class UsersRepository: IUsersRepository
         if (userToDelete == null) return;
         
         _dbContext.Users.Remove(userToDelete);
-        
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
