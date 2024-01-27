@@ -18,5 +18,7 @@ public class WorkingDayConfiguration
             .HasConversion(SharedConverters
                 .JsonSerializeConverter<StartEndTime>());
 
+        builder
+            .HasIndex(wd => wd.EmployeeId);
     }
 }

@@ -17,11 +17,14 @@ public class UserConfiguration: AggregateRootConfiguration<User, UserId, Guid>
             .Property(u => u.FullName)
             .HasConversion(ValueObjectsConverters.FullNameConverter)
             .HasColumnName("Full Name");
-                
         
         builder
             .Property(u => u.Email)
             .HasConversion(ValueObjectsConverters.EmailConverter);
+
+        builder
+            .HasIndex(u => u.Email, "IX_Users_Email")
+            .IsUnique();
         
         builder
             .Property(u => u.PhoneNumber)

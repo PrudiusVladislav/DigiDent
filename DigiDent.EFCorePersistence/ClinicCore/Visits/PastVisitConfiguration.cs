@@ -41,6 +41,12 @@ public class PastVisitConfiguration
                     .Property(f => f.Comment)
                     .HasColumnName("Feedback_Comment");
             });
+        
+        builder
+            .HasIndex(a => a.DoctorId, "IX_PastVisits_DoctorId");
+        
+        builder
+            .HasIndex(a => a.PatientId, "IX_PastVisits_PatientId");
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<PastVisit> builder)

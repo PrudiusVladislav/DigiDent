@@ -9,13 +9,14 @@ public static class WorkingDayExtensions
     /// <param name="workingDays">The working days collection.</param>
     /// <param name="fromDate">The start date.</param>
     /// <param name="untilDate">The end date.</param>
-    public static IOrderedEnumerable<WorkingDay> GetWorkingDaysBetweenDates(
+    public static IEnumerable<WorkingDay> GetWorkingDaysBetweenDates(
         this IEnumerable<WorkingDay> workingDays,
         DateOnly fromDate,
         DateOnly untilDate)
     {
         return workingDays
             .Where(wd => wd.Date >= fromDate && wd.Date <= untilDate)
-            .OrderBy(wd => wd.Date);
+            .OrderBy(wd => wd.Date)
+            .ToList();
     } 
 }

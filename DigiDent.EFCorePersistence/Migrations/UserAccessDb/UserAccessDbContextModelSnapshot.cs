@@ -56,7 +56,7 @@ namespace DigiDent.EFCorePersistence.Migrations.UserAccessDb
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -77,15 +77,18 @@ namespace DigiDent.EFCorePersistence.Migrations.UserAccessDb
 
                     b.HasKey("Id");
 
+                    b.HasIndex(new[] { "Email" }, "IX_Users_Email")
+                        .IsUnique();
+
                     b.ToTable("Users", "User_Access");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0db83e32-7cca-42a5-b35b-7b9e96041b4f"),
+                            Id = new Guid("575dadc1-9fbf-492d-8b31-cdd61d567537"),
                             Email = "temp@admin.tmp",
                             FullName = "Temporary Administrator",
-                            Password = "jewtOvEUIx6ttNpKCWwtvnE+fT/h6zMGhELVFgRGBW4=:+KdLbLuio1Q1w5YuWdtxk4G6739OY6pE6yPaZ2zqBFQ=",
+                            Password = "CjEWdqOvMly9mNUYkGdjPunJ2yGRTwjMmp8tvA5vQkU=:By9pbtPc95ZkkDOAZ7obDmfOgAqlJXdqUTrPJQJv+Bc=",
                             PhoneNumber = "+380000000000",
                             Role = "Administrator"
                         });
