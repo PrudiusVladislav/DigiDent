@@ -3,7 +3,7 @@ using FluentAssertions;
 
 namespace DigiDent.Domain.UnitTests.Shared;
 
-public static class AggregateRootTests
+public static class AggregateRootValidationExtensions
 {
     public static void ShouldRaiseDomainEvent<TDomainEvent>(
         this IAggregateRoot aggregateRoot)

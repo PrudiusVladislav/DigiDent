@@ -2,6 +2,7 @@
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
 
 namespace DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
@@ -17,7 +18,7 @@ public interface IVisit<TId, TIdValue>
     PatientId PatientId { get; }
     Patient Patient { get; }
     
-    DateTime VisitDateTime { get; }
+    VisitDateTime VisitDateTime { get; }
     
     TreatmentPlanId? TreatmentPlanId { get; }
     TreatmentPlan? TreatmentPlan { get; }

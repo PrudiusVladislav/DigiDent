@@ -26,7 +26,7 @@ public class PastVisit :
     public TreatmentPlanId? TreatmentPlanId { get; init; }
     public TreatmentPlan? TreatmentPlan { get; init; }
     
-    public DateTime VisitDateTime { get; init; }
+    public VisitDateTime VisitDateTime { get; init; }
     
     public Money PricePaid { get; init; }
     public Feedback? Feedback { get; private set; }
@@ -41,7 +41,7 @@ public class PastVisit :
         PastVisitId id,
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         Money pricePaid,
         VisitStatus status,
         IEnumerable<string> proceduresDone,
@@ -60,7 +60,7 @@ public class PastVisit :
     public static PastVisit Create(
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         Money pricePaid,
         VisitStatus status,
         IEnumerable<string> proceduresDone,
@@ -79,7 +79,7 @@ public class PastVisit :
         
         PastVisitCreatedDomainEvent pastVisitCreatedDomainEvent = new (
             EventId: Guid.NewGuid(),
-            DateTime.UtcNow,
+            DateTime.Now,
             pastVisit);
         
         pastVisit.Raise(pastVisitCreatedDomainEvent);

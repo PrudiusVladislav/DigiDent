@@ -26,7 +26,7 @@ public class Appointment :
     public PatientId PatientId { get; private set; }
     public Patient Patient { get; private set; } = null!;
     
-    public DateTime VisitDateTime { get; private set; }
+    public VisitDateTime VisitDateTime { get; private set; }
     public TimeDuration Duration { get; private set; }
     
     public TreatmentPlanId? TreatmentPlanId { get; private set; }
@@ -46,7 +46,7 @@ public class Appointment :
         AppointmentId id,
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         TimeDuration duration,
         AppointmentStatus status,
         IEnumerable<ProvidedService> providedServices)
@@ -67,7 +67,7 @@ public class Appointment :
     public static Appointment Create(
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         TimeDuration duration,
         IEnumerable<ProvidedService> providedServices)
     {
