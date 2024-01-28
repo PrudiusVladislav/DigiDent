@@ -18,8 +18,8 @@ public class FullNameFactory
     [
         ("John", ""),
         ("", "Doe"),
-        ("J", "Doe"),
-        ("John", string.Join("", Enumerable.Range(0, 17).Select(x => "Doe"))) //length == 51
+        ("J", "D"),
+        ("John", "".PadLeft(51, 'D')),
     ];
     
     public static FullName GetValidFullName()

@@ -73,7 +73,7 @@ public class Appointment :
     {
             
         var appointmentId = TypedId.New<AppointmentId>();
-        return new Appointment(
+        Appointment appointment = new(
             appointmentId,
             doctorId,
             patientId,
@@ -81,6 +81,15 @@ public class Appointment :
             duration,
             AppointmentStatus.Scheduled,
             providedServices);
+
+        AppointmentCreatedDomainEvent appointmentCreatedEvent = new(
+            EventId: Guid.NewGuid(), 
+            DateTime.Now,
+            appointment);
+        
+        appointment.Raise(appointmentCreatedEvent);
+        
+        return appointment;
     }
 
     public Result Close(VisitStatus status, Money pricePaid)

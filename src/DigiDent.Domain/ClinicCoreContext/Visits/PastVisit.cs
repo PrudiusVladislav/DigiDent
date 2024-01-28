@@ -4,6 +4,7 @@ using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
+using DigiDent.Domain.ClinicCoreContext.Visits.Events;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
@@ -66,7 +67,7 @@ public class PastVisit :
         TreatmentPlanId? treatmentPlanId)
     {
         var visitId = TypedId.New<PastVisitId>();
-        return new PastVisit(
+        PastVisit pastVisit = new (
             visitId,
             doctorId,
             patientId,
@@ -75,5 +76,14 @@ public class PastVisit :
             status,
             proceduresDone,
             treatmentPlanId);
+        
+        PastVisitCreatedDomainEvent pastVisitCreatedDomainEvent = new (
+            EventId: Guid.NewGuid(),
+            DateTime.UtcNow,
+            pastVisit);
+        
+        pastVisit.Raise(pastVisitCreatedDomainEvent);
+        
+        return pastVisit;
     }
 }
