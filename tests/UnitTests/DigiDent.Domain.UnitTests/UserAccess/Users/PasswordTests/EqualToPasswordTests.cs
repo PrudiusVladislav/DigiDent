@@ -2,7 +2,7 @@
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.Passwords;
+namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
 
 public class EqualToPasswordTests
 {

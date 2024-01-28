@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.SharedKernel.ValueObjects;
-using DigiDent.Domain.UnitTests.Shared.ValueObjectsFactories;
+using DigiDent.Domain.UnitTests.Shared.TestUtils;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
