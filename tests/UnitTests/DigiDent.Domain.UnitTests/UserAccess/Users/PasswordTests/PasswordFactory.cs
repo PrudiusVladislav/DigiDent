@@ -1,7 +1,9 @@
 ﻿
-namespace DigiDent.Domain.UnitTests.UserAccess.PasswordTests;
+using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
-public static class PasswordUtils
+namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
+
+public static class PasswordFactory
 {
     public static HashSet<string> ValidPasswords =>
         [
@@ -26,4 +28,9 @@ public static class PasswordUtils
             (ValidPasswords.First(), ValidPasswords.First(), true),
             (ValidPasswords.First(), ValidPasswords.Last(), false)
         ];
+    
+    public static Password GetValidPassword()
+    {
+        return Password.Create(ValidPasswords.First()).Value!;
+    }
 }

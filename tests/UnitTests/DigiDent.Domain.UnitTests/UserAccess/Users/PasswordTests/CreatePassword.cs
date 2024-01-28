@@ -2,7 +2,7 @@
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.PasswordTests;
+namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
 
 public class CreatePassword
 {
@@ -33,13 +33,13 @@ public class CreatePassword
     
     public static IEnumerable<object[]> CreateValidPasswords()
     {
-        return PasswordUtils.ValidPasswords
+        return PasswordFactory.ValidPasswords
             .Select(validPassword => (object[])[validPassword]);
     }
     
     public static IEnumerable<object[]> CreateInvalidPasswords()
     {
-        return PasswordUtils.InvalidPasswords
+        return PasswordFactory.InvalidPasswords
             .Select(invalidPassword => (object[])[invalidPassword]);
     }
 }

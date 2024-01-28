@@ -1,7 +1,7 @@
 ﻿using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.PasswordTests;
+namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
 
 public class EqualToPassword
 {
@@ -22,7 +22,7 @@ public class EqualToPassword
 
     public static IEnumerable<object[]> CreatePasswordsEqualityExpectations()
     {
-        return PasswordUtils.PasswordsEqualityExpectations
+        return PasswordFactory.PasswordsEqualityExpectations
             .Select(expectation => (
                 object[])[expectation.Item1, expectation.Item2, expectation.Item3]);
     }
