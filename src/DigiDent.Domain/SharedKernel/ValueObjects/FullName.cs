@@ -7,9 +7,6 @@ public record FullName
 {
     public string FirstName { get; }
     public string LastName { get; }
-    
-    private const int MinLength = 2;
-    private const int MaxLength = 50;
 
     internal FullName(string firstName, string lastName)
     {
@@ -27,10 +24,10 @@ public record FullName
     
     public static Result<FullName> Create(string firstName, string lastName)
     {
-        var firstNameValidationResult = ValidateFirstName(firstName);
-        var lastNameValidationResult = ValidateLastName(lastName);
+        Result firstNameResult = ValidateName(nameof(FirstName), firstName);
+        Result lastNameResult = ValidateName(nameof(LastName), lastName);
         
-        var validationResult = Result.Merge(firstNameValidationResult, lastNameValidationResult);
+        Result validationResult = Result.Merge(firstNameResult, lastNameResult);
         
         return validationResult.Match(
             onFailure: _ => validationResult.MapToType<FullName>(),
@@ -42,26 +39,19 @@ public record FullName
         return $"{FirstName} {LastName}";
     }
 
-    private static Result ValidateFirstName(string firstName)
+    private static Result ValidateName(string propertyName, string nameValue)
     {
-        if (string.IsNullOrWhiteSpace(firstName))
-            return Result.Fail(FullNameErrors.FirstNameIsEmpty);
+        const int minLength = 2;
+        const int maxLength = 50;
         
-        if (firstName.Length is < MinLength or > MaxLength)
-            return Result.Fail(FullNameErrors.FirstNameHasInvalidLength(MinLength, MaxLength));
-        
+        if (string.IsNullOrWhiteSpace(nameValue))
+            return Result.Fail(FullNameErrors.NameIsEmpty(propertyName));
+
+        if (nameValue.Length is < minLength or > maxLength)
+            return Result.Fail(FullNameErrors
+                .NameHasInvalidLength(propertyName, minLength, maxLength));
+
         return Result.Ok();
     }
 
-    private static Result ValidateLastName(string lastName)
-    {
-        if (string.IsNullOrWhiteSpace(lastName))
-            return Result.Fail(FullNameErrors.LastNameIsEmpty);
-        
-        if (lastName.Length is < MinLength or > MaxLength)
-            return Result.Fail(FullNameErrors.LastNameHasInvalidLength(MinLength, MaxLength));
-        
-        return Result.Ok();
-    }
-    
 }
