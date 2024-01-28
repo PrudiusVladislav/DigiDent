@@ -18,8 +18,7 @@ public record ProvidedServiceDetails
     }
     
     public static Result<ProvidedServiceDetails> Create(
-        string name,
-        string description)
+        string name, string description)
     {
         const int nameMinLength = 3;
         const int nameMaxLength = 100;
