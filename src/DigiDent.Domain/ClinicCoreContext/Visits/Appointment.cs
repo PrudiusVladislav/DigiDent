@@ -71,7 +71,6 @@ public class Appointment :
         TimeDuration duration,
         IEnumerable<ProvidedService> providedServices)
     {
-            
         var appointmentId = TypedId.New<AppointmentId>();
         Appointment appointment = new(
             appointmentId,
