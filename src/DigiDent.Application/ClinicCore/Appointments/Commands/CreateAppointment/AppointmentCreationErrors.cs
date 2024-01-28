@@ -4,12 +4,6 @@ namespace DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointmen
 
 public static class AppointmentCreationErrors
 {
-    public static Error AppointmentDateIsInThePast
-        => new (
-            ErrorType.Validation,
-            nameof(CreateAppointmentCommandHandler),
-            "Date of a new appointment must be in the future");
-    
     public static Error DoctorIsNotAvailable
         => new (
             ErrorType.Validation,

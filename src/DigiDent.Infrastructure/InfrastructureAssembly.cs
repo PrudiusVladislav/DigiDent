@@ -1,7 +1,9 @@
 ﻿using System.Text;
 using DigiDent.Application.ClinicCore.Abstractions;
 using DigiDent.Application.UserAccess.Abstractions;
+using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Infrastructure.ClinicCore;
+using DigiDent.Infrastructure.Shared;
 using DigiDent.Infrastructure.UserAccess.Authentication;
 using DigiDent.Infrastructure.UserAccess.Authorization;
 using DigiDent.Infrastructure.UserAccess.Authorization.RolesRequirement;
@@ -85,6 +87,7 @@ public static class InfrastructureAssembly
     {
         services.AddSingleton<IPersonFactory, PersonFactory>();
         services.AddSingleton<IRoleFactory, RoleFactory>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
     

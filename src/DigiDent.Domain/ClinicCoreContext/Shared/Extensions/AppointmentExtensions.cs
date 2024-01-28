@@ -18,7 +18,7 @@ public static class AppointmentExtensions
     {
         return appointments
             .Where(a =>
-                a.VisitDateTime.Date.ToDateOnly() == workingDay.Date)
+                a.VisitDateTime.Value.Date.ToDateOnly() == workingDay.Date)
             .OrderBy(a => a.VisitDateTime);
     }
     
@@ -32,7 +32,7 @@ public static class AppointmentExtensions
     {
         return appointments
             .Select(a => new EventTimeNode(
-                TimeOnly.FromDateTime(a.VisitDateTime),
+                TimeOnly.FromDateTime(a.VisitDateTime.Value),
                 a.Duration.Duration));
     }
 }
