@@ -24,6 +24,7 @@ public class FullNameFactory
     
     public static FullName GetValidFullName()
     {
-        return FullName.Create("John", "Doe").Value!;
+        var (firstName, lastName) = ValidNames.First();
+        return FullName.Create(firstName, lastName).Value!;
     }
 }
