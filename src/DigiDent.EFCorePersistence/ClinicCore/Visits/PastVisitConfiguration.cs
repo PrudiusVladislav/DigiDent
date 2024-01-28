@@ -43,10 +43,8 @@ public class PastVisitConfiguration
             });
         
         builder
-            .HasIndex(a => a.DoctorId, "IX_PastVisits_DoctorId");
-        
-        builder
-            .HasIndex(a => a.PatientId, "IX_PastVisits_PatientId");
+            .Property(pv => pv.VisitDateTime)
+            .HasConversion(SharedConverters.VisitDateTimeConverter);
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<PastVisit> builder)

@@ -30,10 +30,8 @@ public class AppointmentConfiguration
             .UsingEntity(j => j.ToTable("AppointmentsProvidedServices"));
         
         builder
-            .HasIndex(a => a.DoctorId, "IX_Appointments_DoctorId");
-        
-        builder
-            .HasIndex(a => a.PatientId, "IX_Appointments_PatientId");
+            .Property(a => a.VisitDateTime)
+            .HasConversion(SharedConverters.VisitDateTimeConverter);
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<Appointment> builder)
