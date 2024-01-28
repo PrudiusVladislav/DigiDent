@@ -1,9 +1,10 @@
-﻿using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+﻿using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
+using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
+namespace DigiDent.Domain.UnitTests.UserAccess.Users.Passwords;
 
-public class EqualToPassword
+public class EqualToPasswordTests
 {
     [Theory]
     [MemberData(nameof(CreatePasswordsEqualityExpectations))]

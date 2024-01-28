@@ -2,7 +2,7 @@
 using DigiDent.Domain.UnitTests.Shared;
 using DigiDent.Domain.UnitTests.Shared.ValueObjectsFactories;
 using DigiDent.Domain.UnitTests.UserAccess.Users.Extensions;
-using DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
+using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.Events;
 

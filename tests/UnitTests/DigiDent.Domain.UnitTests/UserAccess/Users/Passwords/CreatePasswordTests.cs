@@ -1,10 +1,11 @@
 ﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
+namespace DigiDent.Domain.UnitTests.UserAccess.Users.Passwords;
 
-public class CreatePassword
+public class CreatePasswordTests
 {
     [Theory]
     [MemberData(nameof(CreateValidPasswords))]

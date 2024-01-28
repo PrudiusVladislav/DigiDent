@@ -25,7 +25,7 @@ public class SignUpCommandHandler
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
-        var isEmailUnique = await _usersDomainService.IsEmailUnique(
+        var isEmailUnique = await _usersDomainService.IsEmailUniqueAsync(
             request.Email, cancellationToken);
         
         if (!isEmailUnique)
