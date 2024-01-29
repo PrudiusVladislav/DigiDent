@@ -8,4 +8,6 @@ public class AppointmentConstants
     public static readonly TimeSpan DefaultVisitDateTimeOffset = TimeSpan.FromHours(1);
     
     public static readonly Money DefaultPricePaidWhenCompleted = new(100);
+    public static readonly IReadOnlyList<string> DefaultProcedures 
+        = new List<string> { "Procedure 1", "Procedure 2" };
 }
