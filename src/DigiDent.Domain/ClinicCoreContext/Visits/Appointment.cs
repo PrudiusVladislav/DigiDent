@@ -91,20 +91,30 @@ public class Appointment :
         return appointment;
     }
 
-    public Result Close(VisitStatus status, Money pricePaid)
+    public Result Close(
+        VisitStatus closureStatus,
+        Money pricePaid,
+        IDateTimeProvider dateTimeProvider)
     {
-        if (status == VisitStatus.Completed && pricePaid == Money.Zero)
+        if (closureStatus == VisitStatus.Completed && pricePaid == Money.Zero)
             return Result.Fail(AppointmentErrors
                 .PricePaidIsZeroWhenStatusIsComplete);
         
-        if (status != VisitStatus.Completed && pricePaid != Money.Zero)
+        if (closureStatus != VisitStatus.Completed && pricePaid != Money.Zero)
             return Result.Fail(AppointmentErrors
                 .PricePaidIsNotZeroWhenStatusIsNotComplete);
+
+        if (closureStatus != VisitStatus.Canceled &&
+            dateTimeProvider.Now < VisitDateTime.Value)
+        {
+            return Result.Fail(AppointmentErrors
+                .ClosureStatusIsNotCanceledWhenClosingBeforeVisit);
+        }
 
         AppointmentClosedDomainEvent appointmentClosedEvent = new(
             EventId: Guid.NewGuid(),
             DateTime.Now,
-            status,
+            closureStatus,
             pricePaid,
             ClosedAppointment: this);
         

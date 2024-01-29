@@ -13,4 +13,12 @@ public static class AggregateRootValidationExtensions
         aggregateRoot.DomainEvents.Should().Contain(x => 
             x.GetType() == typeof(TDomainEvent));
     }
+    
+    public static void ShouldNotRaiseDomainEvent<TDomainEvent>(
+        this IAggregateRoot aggregateRoot)
+        where TDomainEvent : IDomainEvent
+    {
+        aggregateRoot.DomainEvents.Should().NotContain(x => 
+            x.GetType() == typeof(TDomainEvent));
+    }
 }

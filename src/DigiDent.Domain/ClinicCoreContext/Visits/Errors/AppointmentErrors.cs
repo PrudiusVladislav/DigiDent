@@ -15,4 +15,10 @@ public static class AppointmentErrors
             ErrorType.Validation,
             nameof(Appointment),
             "Price paid parameter must be zero when visit status is not set to 'Complete'.");
+    
+    public static Error ClosureStatusIsNotCanceledWhenClosingBeforeVisit
+        => new(
+            ErrorType.Validation,
+            nameof(Appointment),
+            "Appointment status must be set to 'Canceled' when closing before visit.");
 }

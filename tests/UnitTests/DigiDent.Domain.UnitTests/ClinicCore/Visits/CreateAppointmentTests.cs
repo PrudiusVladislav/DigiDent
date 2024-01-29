@@ -7,14 +7,13 @@ using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.Extensions;
 using DigiDent.Domain.UnitTests.Shared;
-using FluentAssertions;
 
 namespace DigiDent.Domain.UnitTests.ClinicCore.Visits;
 
 public class CreateAppointmentTests
 {
     [Fact]
-    public void CreateAppointment_WithValidData_ShouldReturnCreatedAndRaiseEvent()
+    public void Create_WithValidData_ShouldReturnCreatedAndRaiseEvent()
     {
         // Arrange
         EmployeeId doctorId = TypedId.New<EmployeeId>();
