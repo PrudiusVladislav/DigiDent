@@ -5,7 +5,7 @@ using DigiDent.EFCorePersistence.Shared.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
+namespace DigiDent.EFCorePersistence.ClinicCore.Visits.Configurations;
 
 [ClinicCoreEntityConfiguration]
 public class ProvidedServiceConfiguration

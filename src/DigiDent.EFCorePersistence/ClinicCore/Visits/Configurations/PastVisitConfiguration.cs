@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
+namespace DigiDent.EFCorePersistence.ClinicCore.Visits.Configurations;
 
 [ClinicCoreEntityConfiguration]
 public class PastVisitConfiguration
