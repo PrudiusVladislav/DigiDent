@@ -1,7 +1,9 @@
 ﻿using DigiDent.Application;
 using DigiDent.Domain;
+using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.EFCorePersistence.ClinicCore;
+using DigiDent.EFCorePersistence.ClinicCore.Visits.Repositories;
 using DigiDent.EFCorePersistence.Shared;
 using DigiDent.EFCorePersistence.UserAccess;
 using DigiDent.EFCorePersistence.UserAccess.Users;
@@ -67,7 +69,11 @@ public static class EFCorePersistenceAssembly
                 .Where(x => x.Name.EndsWith("Repository")))
             .UsingRegistrationStrategy(RegistrationStrategy.Skip)
             .AsMatchingInterface()
-            .WithTransientLifetime());
+            .WithScopedLifetime());
+        
+        services.Decorate<IProvidedServicesRepository, CachingProvidedServicesRepository>();
+
+        services.AddMemoryCache();
         
         return services;
     }
