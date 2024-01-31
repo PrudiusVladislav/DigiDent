@@ -31,10 +31,6 @@ public sealed class CreateAppointmentCommandHandler
     public async Task<Result<Guid>> Handle(
         CreateAppointmentCommand command, CancellationToken cancellationToken)
     {
-        if (command.DateTime <= DateTime.Now)
-            return Result.Fail<Guid>(AppointmentCreationErrors
-                .AppointmentDateIsInThePast);
-        
         Patient? patient = await _patientsRepository.GetByIdAsync(
             command.PatientId, cancellationToken);
         
@@ -51,7 +47,7 @@ public sealed class CreateAppointmentCommandHandler
             return Result.Fail<Guid>(RepositoryErrors
                 .EntityNotFound<Doctor>(command.DoctorId.Value));
         
-        if (!doctor.IsAvailableAt(command.DateTime,
+        if (!doctor.IsAvailableAt(command.DateTime.Value,
                 currentDateTime: DateTime.Now, command.Duration))
         {
             return Result.Fail<Guid>(AppointmentCreationErrors

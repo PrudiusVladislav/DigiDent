@@ -1,6 +1,7 @@
 ﻿using DigiDent.API.Extensions;
 using DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
 using DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
+using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,11 @@ public static class AppointmentsEndpoints
     private static async Task<IResult> CreateAppointment(
         [FromBody]CreateAppointmentRequest request,
         ISender sender,
+        IDateTimeProvider dateTimeProvider,
         CancellationToken cancellationToken)
     {
         Result<CreateAppointmentCommand> commandResult = CreateAppointmentCommand
-            .CreateFromRequest(request);
+            .CreateFromRequest(request, dateTimeProvider);
             
         if (commandResult.IsFailure)
             return commandResult.MapToIResult();

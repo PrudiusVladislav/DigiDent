@@ -5,27 +5,16 @@ namespace DigiDent.Domain.SharedKernel.Errors;
 
 public static class FullNameErrors
 {
-    public static Error FirstNameIsEmpty 
+    public static Error NameIsEmpty(string propertyName)
         => new(
             ErrorType.Validation,
             nameof(FullName),
-            "First name cannot be empty");
+            $"{propertyName} cannot be empty");
     
-    public static Error FirstNameHasInvalidLength(int minLength, int maxLength) 
+    public static Error NameHasInvalidLength(
+        string propertyName, int minLength, int maxLength) 
         => new(
             ErrorType.Validation,
             nameof(FullName),
-            $"First name should be between {minLength} and {maxLength} characters");
-    
-    public static Error LastNameIsEmpty 
-        => new(
-            ErrorType.Validation,
-            nameof(FullName),
-            "Last name cannot be empty");
-    
-    public static Error LastNameHasInvalidLength(int minLength, int maxLength)
-        => new(
-            ErrorType.Validation,
-            nameof(FullName),
-            $"Last name should be between {minLength} and {maxLength} characters");
+            $"{propertyName} should be between {minLength} and {maxLength} characters");
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Visits;
+namespace DigiDent.EFCorePersistence.ClinicCore.Visits.Configurations;
 
 [ClinicCoreEntityConfiguration]
 public class PastVisitConfiguration
@@ -43,10 +43,8 @@ public class PastVisitConfiguration
             });
         
         builder
-            .HasIndex(a => a.DoctorId, "IX_PastVisits_DoctorId");
-        
-        builder
-            .HasIndex(a => a.PatientId, "IX_PastVisits_PatientId");
+            .Property(pv => pv.VisitDateTime)
+            .HasConversion(SharedConverters.VisitDateTimeConverter);
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<PastVisit> builder)

@@ -26,7 +26,7 @@ public class Appointment :
     public PatientId PatientId { get; private set; }
     public Patient Patient { get; private set; } = null!;
     
-    public DateTime VisitDateTime { get; private set; }
+    public VisitDateTime VisitDateTime { get; private set; }
     public TimeDuration Duration { get; private set; }
     
     public TreatmentPlanId? TreatmentPlanId { get; private set; }
@@ -46,7 +46,7 @@ public class Appointment :
         AppointmentId id,
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         TimeDuration duration,
         AppointmentStatus status,
         IEnumerable<ProvidedService> providedServices)
@@ -67,13 +67,12 @@ public class Appointment :
     public static Appointment Create(
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         TimeDuration duration,
         IEnumerable<ProvidedService> providedServices)
     {
-            
         var appointmentId = TypedId.New<AppointmentId>();
-        return new Appointment(
+        Appointment appointment = new(
             appointmentId,
             doctorId,
             patientId,
@@ -81,22 +80,41 @@ public class Appointment :
             duration,
             AppointmentStatus.Scheduled,
             providedServices);
+
+        AppointmentCreatedDomainEvent appointmentCreatedEvent = new(
+            EventId: Guid.NewGuid(), 
+            DateTime.Now,
+            appointment);
+        
+        appointment.Raise(appointmentCreatedEvent);
+        
+        return appointment;
     }
 
-    public Result Close(VisitStatus status, Money pricePaid)
+    public Result Close(
+        VisitStatus closureStatus,
+        Money pricePaid,
+        IDateTimeProvider dateTimeProvider)
     {
-        if (status == VisitStatus.Completed && pricePaid == Money.Zero)
+        if (closureStatus == VisitStatus.Completed && pricePaid == Money.Zero)
             return Result.Fail(AppointmentErrors
                 .PricePaidIsZeroWhenStatusIsComplete);
         
-        if (status != VisitStatus.Completed && pricePaid != Money.Zero)
+        if (closureStatus != VisitStatus.Completed && pricePaid != Money.Zero)
             return Result.Fail(AppointmentErrors
                 .PricePaidIsNotZeroWhenStatusIsNotComplete);
+
+        if (closureStatus != VisitStatus.Canceled &&
+            dateTimeProvider.Now < VisitDateTime.Value)
+        {
+            return Result.Fail(AppointmentErrors
+                .ClosureStatusIsNotCanceledWhenClosingBeforeVisit);
+        }
 
         AppointmentClosedDomainEvent appointmentClosedEvent = new(
             EventId: Guid.NewGuid(),
             DateTime.Now,
-            status,
+            closureStatus,
             pricePaid,
             ClosedAppointment: this);
         

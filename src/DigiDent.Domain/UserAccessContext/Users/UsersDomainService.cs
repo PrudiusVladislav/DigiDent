@@ -11,7 +11,7 @@ public class UsersDomainService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<bool> IsEmailUnique(
+    public async Task<bool> IsEmailUniqueAsync(
         Email value, CancellationToken cancellationToken)
     {
         User? user = await _unitOfWork.UsersRepository.GetByEmailAsync(

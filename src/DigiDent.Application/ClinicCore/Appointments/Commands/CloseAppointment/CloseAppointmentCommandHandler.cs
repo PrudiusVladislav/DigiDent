@@ -2,6 +2,7 @@
 using DigiDent.Application.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
+using DigiDent.Domain.SharedKernel.Abstractions;
 using DigiDent.Domain.SharedKernel.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
@@ -10,10 +11,13 @@ public sealed class CloseAppointmentCommandHandler
     : ICommandHandler<CloseAppointmentCommand, Result>
 {
     private readonly IAppointmentsRepository _appointmentsRepository;
-
-    public CloseAppointmentCommandHandler(IAppointmentsRepository appointmentsRepository)
+    private readonly IDateTimeProvider _dateTimeProvider;
+    public CloseAppointmentCommandHandler(
+        IAppointmentsRepository appointmentsRepository,
+        IDateTimeProvider dateTimeProvider)
     {
         _appointmentsRepository = appointmentsRepository;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<Result> Handle(
@@ -26,7 +30,9 @@ public sealed class CloseAppointmentCommandHandler
             return Result.Fail(RepositoryErrors
                 .EntityNotFound<Appointment>(command.AppointmentId.Value));
         
-        Result closeResult = appointment.Close(command.ClosureStatus, command.Price);
+        Result closeResult = appointment.Close(
+            command.ClosureStatus, command.Price, _dateTimeProvider);
+        
         if (closeResult.IsFailure)
             return closeResult;
         

@@ -1,6 +1,6 @@
 ﻿namespace DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
 
-public static class DateTimeHelper
+public static class DateTimeHelperExtensions
 {
     /// <summary>
     /// Converts given <see cref="DateTime"/> to <see cref="DateOnly"/>

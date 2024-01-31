@@ -4,6 +4,7 @@ using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
+using DigiDent.Domain.ClinicCoreContext.Visits.Events;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
 using DigiDent.Domain.SharedKernel.Abstractions;
@@ -25,7 +26,7 @@ public class PastVisit :
     public TreatmentPlanId? TreatmentPlanId { get; init; }
     public TreatmentPlan? TreatmentPlan { get; init; }
     
-    public DateTime VisitDateTime { get; init; }
+    public VisitDateTime VisitDateTime { get; init; }
     
     public Money PricePaid { get; init; }
     public Feedback? Feedback { get; private set; }
@@ -40,7 +41,7 @@ public class PastVisit :
         PastVisitId id,
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         Money pricePaid,
         VisitStatus status,
         IEnumerable<string> proceduresDone,
@@ -59,14 +60,14 @@ public class PastVisit :
     public static PastVisit Create(
         EmployeeId doctorId,
         PatientId patientId,
-        DateTime visitDateTime,
+        VisitDateTime visitDateTime,
         Money pricePaid,
         VisitStatus status,
         IEnumerable<string> proceduresDone,
         TreatmentPlanId? treatmentPlanId)
     {
         var visitId = TypedId.New<PastVisitId>();
-        return new PastVisit(
+        PastVisit pastVisit = new (
             visitId,
             doctorId,
             patientId,
@@ -75,5 +76,14 @@ public class PastVisit :
             status,
             proceduresDone,
             treatmentPlanId);
+        
+        PastVisitCreatedDomainEvent pastVisitCreatedDomainEvent = new (
+            EventId: Guid.NewGuid(),
+            DateTime.Now,
+            pastVisit);
+        
+        pastVisit.Raise(pastVisitCreatedDomainEvent);
+        
+        return pastVisit;
     }
 }

@@ -48,7 +48,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         
         UserSignedUpDomainEvent userSignedUpEvent = new(
             EventId: Guid.NewGuid(),
-            TimeOfOccurrence: DateTime.UtcNow,
+            TimeOfOccurrence: DateTime.Now,
             SignedUpUser: user);
         
         user.Raise(userSignedUpEvent);

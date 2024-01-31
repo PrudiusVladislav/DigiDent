@@ -15,10 +15,6 @@ public record Password
     private const int KeySize = 32;
     private static readonly HashAlgorithmName HashAlgorithm = HashAlgorithmName.SHA512;
     
-    private const int MinLength = 8;
-    private const int MaxLength = 64;
-    private const int MinSecurityLevel = 3;
-    
     public string PasswordHash { get; }
     
     internal Password(string passwordHash)
@@ -74,7 +70,7 @@ public record Password
         RandomNumberGenerator.GetBytes(KeySize);
 
     private static byte[] GenerateHash(string password, byte[] salt) 
-        => Rfc2898DeriveBytes.Pbkdf2(password, salt,Iterations, HashAlgorithm, KeySize);
+        => Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithm, KeySize);
 
     private static bool CompareByteArrays(byte[] array1, byte[] array2)
     {
@@ -91,14 +87,19 @@ public record Password
     
     private static Result ValidatePasswordSecurity(string plainTextPassword)
     {
-        if (string.IsNullOrWhiteSpace(plainTextPassword) || plainTextPassword.Length < MinLength)
-            return Result.Fail(PasswordErrors.PasswordIsTooShort(MinLength));
+        const int minLength = 8;
+        const int maxLength = 64;
+        const int minSecurityLevel = 3;
         
-        if (plainTextPassword.Length > MaxLength)
-            return Result.Fail(PasswordErrors.PasswordIsTooLong(MaxLength));
+        if (string.IsNullOrWhiteSpace(plainTextPassword) || plainTextPassword.Length < minLength)
+            return Result.Fail(PasswordErrors.PasswordIsTooShort(minLength));
         
-        int securityLevel = Core.EvaluatePassword(plainTextPassword).Score;
-        if (securityLevel < MinSecurityLevel)
+        if (plainTextPassword.Length > maxLength)
+            return Result.Fail(PasswordErrors.PasswordIsTooLong(maxLength));
+        
+        int securityLevel = Zxcvbn.Core.EvaluatePassword(plainTextPassword).Score;
+        
+        if (securityLevel < minSecurityLevel)
             return Result.Fail(PasswordErrors.PasswordIsTooWeak);
         
         return Result.Ok();

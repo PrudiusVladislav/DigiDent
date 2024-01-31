@@ -26,4 +26,9 @@ public static class SharedConverters
         new ValueConverter<TimeDuration, TimeSpan>(
             duration => duration.Duration,
             value => new TimeDuration(value));
+    
+    public static ValueConverter<VisitDateTime, DateTime> VisitDateTimeConverter =>
+        new ValueConverter<VisitDateTime, DateTime>(
+            dateTime => dateTime.Value,
+            value => new VisitDateTime(value));
 }
