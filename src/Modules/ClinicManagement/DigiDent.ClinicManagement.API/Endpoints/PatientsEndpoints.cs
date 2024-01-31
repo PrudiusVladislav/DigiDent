@@ -2,7 +2,7 @@
 using DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
 using DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
 using DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.Abstractions;
+﻿namespace DigiDent.Shared.Domain.Abstractions;
 
 public interface IAggregateRoot: IHasDomainEvents
 {

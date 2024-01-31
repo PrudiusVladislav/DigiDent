@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.Abstractions;
+﻿namespace DigiDent.Shared.Domain.Abstractions;
 
 /// <summary>
 /// Ensures that entities that implement this interface have a collection of domain events.

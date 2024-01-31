@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.Abstractions;
+﻿namespace DigiDent.Shared.Domain.Abstractions;
 
 /// <summary>
 /// Interface that all entities implement. Ensures that all entities have an Id.

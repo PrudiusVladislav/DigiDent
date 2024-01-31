@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.Abstractions;
+﻿namespace DigiDent.Shared.Domain.Abstractions;
 
 /// <summary>
 /// Represents a strongly-typed identifier for entities.

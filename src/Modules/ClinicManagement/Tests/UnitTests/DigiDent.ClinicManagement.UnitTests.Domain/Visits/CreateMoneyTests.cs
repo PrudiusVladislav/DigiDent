@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 using FluentAssertions;
 
 namespace DigiDent.Domain.UnitTests.ClinicCore.Visits;

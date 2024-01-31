@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 

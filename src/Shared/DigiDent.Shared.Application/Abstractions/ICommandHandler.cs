@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿using DigiDent.Shared.Domain.ReturnTypes;
 using MediatR;
 
 namespace DigiDent.Application.Shared.Abstractions;

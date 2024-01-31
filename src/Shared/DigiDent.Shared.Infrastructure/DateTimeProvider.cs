@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.Abstractions;
+﻿using DigiDent.Shared.Domain.Abstractions;
 
 namespace DigiDent.Infrastructure.Shared;
 

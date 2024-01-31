@@ -2,7 +2,7 @@
 using DigiDent.Application.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Commands.Update;
 

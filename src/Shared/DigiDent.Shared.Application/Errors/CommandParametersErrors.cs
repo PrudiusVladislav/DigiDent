@@ -1,5 +1,5 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Application.Shared.Errors;
 

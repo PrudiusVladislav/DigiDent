@@ -1,8 +1,8 @@
 ﻿using DigiDent.API.Extensions;
 using DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
 using DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
-using DigiDent.Domain.SharedKernel.Abstractions;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.Abstractions;
+using DigiDent.Shared.Domain.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

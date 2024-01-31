@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Shared.Domain.ValueObjects;
 
 namespace DigiDent.Application.ClinicCore.Abstractions;
 

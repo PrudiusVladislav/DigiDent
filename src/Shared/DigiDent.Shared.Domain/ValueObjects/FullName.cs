@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.SharedKernel.Errors;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿using DigiDent.Shared.Domain.Errors;
+using DigiDent.Shared.Domain.ReturnTypes;
 
-namespace DigiDent.Domain.SharedKernel.ValueObjects;
+namespace DigiDent.Shared.Domain.ValueObjects;
 
 public record FullName
 {

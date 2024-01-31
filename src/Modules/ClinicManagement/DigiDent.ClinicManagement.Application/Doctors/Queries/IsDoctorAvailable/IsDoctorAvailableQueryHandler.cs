@@ -3,7 +3,7 @@ using DigiDent.Application.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
 

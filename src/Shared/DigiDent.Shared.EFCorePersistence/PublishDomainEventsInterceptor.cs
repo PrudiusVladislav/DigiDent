@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.Abstractions;
+﻿using DigiDent.Shared.Domain.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

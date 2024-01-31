@@ -1,5 +1,5 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Shared.Domain.ValueObjects;
 
 namespace DigiDent.Application.Shared.IntegrationEvents;
 

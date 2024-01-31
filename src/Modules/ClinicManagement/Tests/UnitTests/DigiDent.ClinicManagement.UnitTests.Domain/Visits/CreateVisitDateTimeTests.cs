@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Shared.Domain.Abstractions;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
 using FluentAssertions;
 using NSubstitute;

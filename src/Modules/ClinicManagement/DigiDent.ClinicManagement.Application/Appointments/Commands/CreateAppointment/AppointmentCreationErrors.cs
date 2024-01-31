@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
 

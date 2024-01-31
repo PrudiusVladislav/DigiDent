@@ -1,5 +1,5 @@
-﻿using DigiDent.Domain.SharedKernel.Abstractions;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿using DigiDent.Shared.Domain.Abstractions;
+using DigiDent.Shared.Domain.ReturnTypes;
 using Microsoft.AspNetCore.Http;
 
 namespace DigiDent.API.Extensions;

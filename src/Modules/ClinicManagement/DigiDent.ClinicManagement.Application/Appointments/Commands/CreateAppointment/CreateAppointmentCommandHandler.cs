@@ -4,7 +4,7 @@ using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
 

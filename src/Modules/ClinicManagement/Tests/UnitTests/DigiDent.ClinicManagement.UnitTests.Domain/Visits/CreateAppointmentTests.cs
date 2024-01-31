@@ -4,7 +4,7 @@ using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.Events;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Shared.Domain.Abstractions;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.Extensions;
 using DigiDent.Domain.UnitTests.Shared;
 

@@ -1,9 +1,9 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
-using DigiDent.Domain.SharedKernel.Errors;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Shared.Domain.Errors;
+using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 
 namespace DigiDent.Application.UserAccess.Commands.SignIn;

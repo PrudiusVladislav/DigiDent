@@ -2,8 +2,8 @@
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
 using DigiDent.Domain.ClinicCoreContext.Visits.Events;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.SharedKernel.Abstractions;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.Abstractions;
+using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
 using DigiDent.Domain.UnitTests.Shared;

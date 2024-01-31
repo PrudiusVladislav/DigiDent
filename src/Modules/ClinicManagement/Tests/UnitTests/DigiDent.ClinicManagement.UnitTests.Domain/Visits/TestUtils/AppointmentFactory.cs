@@ -5,7 +5,7 @@ using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
-using DigiDent.Domain.SharedKernel.Abstractions;
+using DigiDent.Shared.Domain.Abstractions;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
 
 namespace DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils;

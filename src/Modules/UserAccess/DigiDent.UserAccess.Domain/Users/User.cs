@@ -1,5 +1,5 @@
-﻿using DigiDent.Domain.SharedKernel.Abstractions;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+﻿using DigiDent.Shared.Domain.Abstractions;
+using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users.Events;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 

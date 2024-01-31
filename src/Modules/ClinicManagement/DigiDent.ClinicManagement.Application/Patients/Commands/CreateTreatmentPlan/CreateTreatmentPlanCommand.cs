@@ -1,7 +1,7 @@
 ﻿using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
 

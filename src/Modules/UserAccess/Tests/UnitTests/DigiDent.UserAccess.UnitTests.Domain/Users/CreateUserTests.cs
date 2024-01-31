@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.ValueObjects;
+﻿using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Domain.UnitTests.Shared;
 using DigiDent.Domain.UnitTests.Shared.TestUtils;
 using DigiDent.Domain.UnitTests.UserAccess.Users.Extensions;

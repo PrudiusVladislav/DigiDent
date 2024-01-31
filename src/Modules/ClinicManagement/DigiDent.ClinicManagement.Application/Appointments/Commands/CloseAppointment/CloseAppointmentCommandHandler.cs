@@ -2,8 +2,8 @@
 using DigiDent.Application.Shared.Errors;
 using DigiDent.Domain.ClinicCoreContext.Visits;
 using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Domain.SharedKernel.Abstractions;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.Abstractions;
+using DigiDent.Shared.Domain.ReturnTypes;
 
 namespace DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
 

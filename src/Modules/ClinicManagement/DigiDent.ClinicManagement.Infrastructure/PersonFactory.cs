@@ -7,7 +7,7 @@ using DigiDent.Domain.ClinicCoreContext.Patients;
 using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
 using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
 using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Shared.Domain.ValueObjects;
 
 namespace DigiDent.Infrastructure.ClinicCore;
 

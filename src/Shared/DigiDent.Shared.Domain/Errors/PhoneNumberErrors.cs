@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+﻿using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.Shared.Domain.ValueObjects;
 
-namespace DigiDent.Domain.SharedKernel.Errors;
+namespace DigiDent.Shared.Domain.Errors;
 
 public static class PhoneNumberErrors
 {

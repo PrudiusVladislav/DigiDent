@@ -4,7 +4,7 @@ using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
 using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
 using DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

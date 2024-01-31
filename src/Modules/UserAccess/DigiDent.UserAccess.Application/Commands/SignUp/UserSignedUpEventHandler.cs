@@ -1,5 +1,5 @@
 ﻿using DigiDent.Application.Shared.IntegrationEvents;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users.Events;
 using MediatR;
 

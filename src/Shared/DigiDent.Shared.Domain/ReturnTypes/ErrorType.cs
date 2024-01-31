@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿namespace DigiDent.Shared.Domain.ReturnTypes;
 
 /// <summary>
 /// Enum that represents the type of an error that can occur in the domain.

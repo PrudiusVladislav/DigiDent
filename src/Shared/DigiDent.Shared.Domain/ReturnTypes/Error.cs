@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿namespace DigiDent.Shared.Domain.ReturnTypes;
 
 /// <summary>
 /// Represents an error. Mainly used in pair with <see cref="Result"/>.

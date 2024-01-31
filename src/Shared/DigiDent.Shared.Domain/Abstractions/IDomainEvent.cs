@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DigiDent.Domain.SharedKernel.Abstractions;
+namespace DigiDent.Shared.Domain.Abstractions;
 
 /// <summary>
 /// Interface that represents a domain event.

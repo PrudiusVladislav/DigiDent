@@ -3,7 +3,7 @@ using DigiDent.Application.ClinicCore.ProvidedServices.Commands.AddService;
 using DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
 using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
 using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

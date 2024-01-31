@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿namespace DigiDent.Shared.Domain.ReturnTypes;
 
 public class Result
 {

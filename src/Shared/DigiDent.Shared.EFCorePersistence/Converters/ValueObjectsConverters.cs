@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.ValueObjects;
+﻿using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 

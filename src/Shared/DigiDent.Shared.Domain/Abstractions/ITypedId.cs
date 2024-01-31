@@ -1,6 +1,6 @@
-﻿namespace DigiDent.Domain.SharedKernel.Abstractions;
+﻿namespace DigiDent.Shared.Domain.Abstractions;
 
-public interface ITypedId<T>
+public interface ITypedId<out T>
 {
     T Value { get; }
 }

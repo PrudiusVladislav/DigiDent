@@ -3,7 +3,7 @@ using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePref
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
-using DigiDent.Domain.SharedKernel.ReturnTypes;
+using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Infrastructure.ClinicCore.EmployeeSchedulePDFDoc;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

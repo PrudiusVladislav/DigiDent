@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.SharedKernel.Abstractions;
+﻿namespace DigiDent.Shared.Domain.Abstractions;
 
 /// <summary>
 /// Base class for all aggregate roots. Implements <see cref="IHasDomainEvents"/>.

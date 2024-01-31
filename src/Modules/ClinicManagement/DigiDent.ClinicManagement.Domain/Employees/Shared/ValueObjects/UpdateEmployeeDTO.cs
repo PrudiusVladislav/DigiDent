@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.SharedKernel.ValueObjects;
+using DigiDent.Shared.Domain.ValueObjects;
 
 namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
 

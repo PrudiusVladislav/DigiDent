@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.Domain.SharedKernel.ValueObjects;
+namespace DigiDent.Shared.Domain.ValueObjects;
 
 public enum Role
 {

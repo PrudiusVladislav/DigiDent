@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.ReturnTypes;
+﻿using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using FluentAssertions;

@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.ValueObjects;
+﻿using DigiDent.Shared.Domain.ValueObjects;
 
 namespace DigiDent.Domain.UnitTests.Shared.TestUtils;
 

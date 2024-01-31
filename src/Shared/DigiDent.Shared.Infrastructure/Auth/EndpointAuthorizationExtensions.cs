@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.SharedKernel.ValueObjects;
+﻿using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Infrastructure.UserAccess.Authentication;
 using Microsoft.AspNetCore.Builder;
 
