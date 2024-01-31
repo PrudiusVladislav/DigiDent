@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Application\DigiDent.Shared.Application.csproj" />
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Infrastructure\DigiDent.Shared.Infrastructure.csproj" />
       <ProjectReference Include="..\DigiDent.ClinicManagement.Application\DigiDent.ClinicManagement.Application.csproj" />
     </ItemGroup>
 

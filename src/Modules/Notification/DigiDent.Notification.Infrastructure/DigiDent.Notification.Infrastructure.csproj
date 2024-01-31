@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Infrastructure\DigiDent.Shared.Infrastructure.csproj" />
       <ProjectReference Include="..\DigiDent.Notification.Application\DigiDent.Notification.Application.csproj" />
     </ItemGroup>
 

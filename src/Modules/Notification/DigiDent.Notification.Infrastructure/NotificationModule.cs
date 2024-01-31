@@ -1,14 +1,14 @@
 ﻿using DigiDent.Shared.Infrastructure.Modules;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DigiDent.UserAccess.API;
+namespace DigiDent.Notification.Infrastructure;
 
 /// <summary>
-/// Marker and loader class for the UserAccess module
+/// Marker and loader class for the Notification module
 /// </summary>
-public sealed class UserAccessModule: IModule
+public sealed class NotificationModule: IModule
 {
-    public string Name => nameof(UserAccessModule);
+    public string Name => nameof(NotificationModule);
     
     public void Register(IServiceCollection services)
     {

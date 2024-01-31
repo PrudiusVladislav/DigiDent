@@ -1,14 +1,14 @@
 ﻿using DigiDent.Shared.Infrastructure.Modules;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DigiDent.UserAccess.API;
+namespace DigiDent.ClinicManagement.API;
 
 /// <summary>
-/// Marker and loader class for the UserAccess module
+/// Marker and loader class for the ClinicManagement module
 /// </summary>
-public sealed class UserAccessModule: IModule
+public sealed class ClinicManagementModule: IModule
 {
-    public string Name => nameof(UserAccessModule);
+    public string Name => nameof(ClinicManagementModule);
     
     public void Register(IServiceCollection services)
     {
