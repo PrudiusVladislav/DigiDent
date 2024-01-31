@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DigiDent.Infrastructure.UserAccess.Authentication;
+namespace DigiDent.UserAccess.Infrastructure.Authentication;
 
 public record JwtOptions(
     string Issuer,

@@ -158,4 +158,9 @@ public class Result<T> : Result
     {
         return IsSuccess ? onSuccess(Value!) : onFailure(Errors);
     }
+    
+    // public static implicit operator Result<T>(T value)
+    // {
+    //     return new Result<T>(true, value, null);
+    // }
 }

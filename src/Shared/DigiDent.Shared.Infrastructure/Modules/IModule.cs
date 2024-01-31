@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DigiDent.Shared.Infrastructure.Modules;
 
 public interface IModule
 {
     string Name { get; }
-    void Register(IServiceCollection services);
+    void RegisterDependencies(IServiceCollection services);
+    void RegisterEndpoints(IEndpointRouteBuilder builder);
 }

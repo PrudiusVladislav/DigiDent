@@ -9,4 +9,4 @@ public record RefreshToken(
     DateTime CreationDate,
     DateTime ExpiryDate,
     UserId UserId,
-    User User);
+    User? User=null);

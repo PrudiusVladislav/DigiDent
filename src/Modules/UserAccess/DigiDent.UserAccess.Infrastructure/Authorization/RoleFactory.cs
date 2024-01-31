@@ -3,7 +3,7 @@ using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.Errors;
 
-namespace DigiDent.Infrastructure.UserAccess.Authorization;
+namespace DigiDent.UserAccess.Infrastructure.Authorization;
 
 public class RoleFactory: IRoleFactory
 {

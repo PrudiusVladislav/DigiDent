@@ -1,14 +1,15 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using DigiDent.UserAccess.Application.Abstractions;
-using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.UserAccess.Application.Tokens;
 using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.Shared.Infrastructure.Auth;
+using DigiDent.UserAccess.Application.Commands.Shared;
 using DigiDent.UserAccess.Domain.Users;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DigiDent.Infrastructure.UserAccess.Authentication;
+namespace DigiDent.UserAccess.Infrastructure.Authentication;
 
 public class JwtService: IJwtService
 {
@@ -54,14 +55,12 @@ public class JwtService: IJwtService
         await _refreshTokensRepository.DeleteRefreshTokenByUserIdAsync(
             user.Id, cancellationToken);
         
-        RefreshToken refreshToken = new()
-        {
-            Token = Guid.NewGuid().ToString(),
-            JwtId = token.Id,
-            UserId = user.Id,
-            CreationDate = DateTime.UtcNow,
-            ExpiryDate = DateTime.UtcNow.Add(_jwtOptions.RefreshTokenLifetime)
-        };
+        RefreshToken refreshToken = new(
+            Token: Guid.NewGuid().ToString(),
+            JwtId: token.Id,
+            CreationDate: DateTime.UtcNow,
+            ExpiryDate: DateTime.UtcNow.Add(_jwtOptions.RefreshTokenLifetime),
+            UserId: user.Id);
         
         await _refreshTokensRepository
             .AddRefreshTokenAsync(refreshToken, cancellationToken);
