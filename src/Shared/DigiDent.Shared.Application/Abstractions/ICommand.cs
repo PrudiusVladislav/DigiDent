@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ReturnTypes;
 using MediatR;
 
-namespace DigiDent.Application.Shared.Abstractions;
+namespace DigiDent.Shared.Application.Abstractions;
 
 /// <summary>
 /// Marker interface to represent a command with a response of type <see cref="Result"/>. 

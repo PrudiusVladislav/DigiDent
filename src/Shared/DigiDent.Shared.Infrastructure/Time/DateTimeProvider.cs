@@ -1,6 +1,6 @@
 ﻿using DigiDent.Shared.Domain.Abstractions;
 
-namespace DigiDent.Infrastructure.Shared;
+namespace DigiDent.Shared.Infrastructure.Time;
 
 public class DateTimeProvider: IDateTimeProvider
 {

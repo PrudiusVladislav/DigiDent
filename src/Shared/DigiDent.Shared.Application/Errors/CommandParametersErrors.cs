@@ -1,7 +1,7 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Application.Abstractions;
 using DigiDent.Shared.Domain.ReturnTypes;
 
-namespace DigiDent.Application.Shared.Errors;
+namespace DigiDent.Shared.Application.Errors;
 
 public static class CommandParametersErrors
 {

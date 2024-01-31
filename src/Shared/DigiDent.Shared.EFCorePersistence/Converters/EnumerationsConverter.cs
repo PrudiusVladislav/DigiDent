@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DigiDent.EFCorePersistence.Shared.Converters;
+namespace DigiDent.Shared.EFCorePersistence.Converters;
 
 /// <summary>
 /// Contains EF Core converters for enumerations.

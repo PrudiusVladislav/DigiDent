@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace DigiDent.Infrastructure.UserAccess.Authentication;
+namespace DigiDent.Shared.Infrastructure.Auth;
 
 public class CustomClaims
 {

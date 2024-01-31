@@ -1,6 +1,6 @@
 ﻿using DigiDent.Shared.Domain.ReturnTypes;
 
-namespace DigiDent.Application.Shared.Errors;
+namespace DigiDent.Shared.Application.Errors;
 
 public static class RepositoryErrors
 {

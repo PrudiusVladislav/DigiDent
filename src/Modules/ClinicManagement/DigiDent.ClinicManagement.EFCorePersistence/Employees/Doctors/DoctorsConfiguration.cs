@@ -1,6 +1,6 @@
 ﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
 using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
-using DigiDent.EFCorePersistence.Shared.Converters;
+using DigiDent.Shared.EFCorePersistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

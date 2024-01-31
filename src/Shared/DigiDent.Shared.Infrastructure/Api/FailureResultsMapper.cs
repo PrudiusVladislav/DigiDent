@@ -1,8 +1,7 @@
-﻿using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.Shared.Domain.ReturnTypes;
 using Microsoft.AspNetCore.Http;
 
-namespace DigiDent.API.Extensions;
+namespace DigiDent.Shared.Infrastructure.Api;
 
 public static class FailureResultsMapper
 {

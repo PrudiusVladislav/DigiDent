@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ReturnTypes;
 using MediatR;
 
-namespace DigiDent.Application.Shared.Abstractions;
+namespace DigiDent.Shared.Application.Abstractions;
 
 /// <summary>
 /// Defines a handler for a command of type <see cref="ICommand{TResult}"/>.

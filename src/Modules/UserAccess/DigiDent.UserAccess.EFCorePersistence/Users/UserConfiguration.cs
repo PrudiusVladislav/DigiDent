@@ -1,8 +1,8 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Domain.UserAccessContext.Users;
 using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
-using DigiDent.EFCorePersistence.Shared.Configurations;
-using DigiDent.EFCorePersistence.Shared.Converters;
+using DigiDent.Shared.EFCorePersistence.Configurations;
+using DigiDent.Shared.EFCorePersistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

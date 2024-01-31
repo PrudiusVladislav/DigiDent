@@ -1,8 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Infrastructure.UserAccess.Authentication;
 using Microsoft.AspNetCore.Builder;
 
-namespace DigiDent.API.Extensions;
+namespace DigiDent.Shared.Infrastructure.Auth;
 
 public static class EndpointAuthorizationExtensions
 {

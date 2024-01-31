@@ -3,24 +3,21 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
-namespace DigiDent.EFCorePersistence.Shared;
+namespace DigiDent.Shared.EFCorePersistence;
 
 public class PublishDomainEventsInterceptor: SaveChangesInterceptor
 {
-    // private readonly IPublisher _publisher;
     private readonly IServiceScopeFactory _serviceScopeFactory;
     
     public PublishDomainEventsInterceptor(
         IServiceScopeFactory serviceScopeFactory)
     {
-        // _publisher = publisher;
         _serviceScopeFactory = serviceScopeFactory;
     }
     
     public override InterceptionResult<int> SavingChanges(
-        DbContextEventData eventData,
+        DbContextEventData eventData, 
         InterceptionResult<int> result)
     {
         PublishDomainEvents(eventData.Context).GetAwaiter().GetResult();
@@ -61,7 +58,7 @@ public class PublishDomainEventsInterceptor: SaveChangesInterceptor
             .ToList();
         
         IEnumerable<Task> eventsPublishingTasks = entitiesWithDomainEvents
-            .Select(domainEvent =>  serviceProvider
+            .Select(domainEvent => serviceProvider
                 .GetRequiredService<IPublisher>()
                 .Publish(domainEvent));
         

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DigiDent.Application.Shared.Abstractions;
+namespace DigiDent.Shared.Application.Abstractions;
 
 /// <summary>
 /// Defines a handler for a query of type <see cref="IQuery{TResponse}"/>.

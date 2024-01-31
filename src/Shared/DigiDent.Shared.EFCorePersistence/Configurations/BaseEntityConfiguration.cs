@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.Shared.Configurations;
+namespace DigiDent.Shared.EFCorePersistence.Configurations;
 
 /// <summary>
 /// Base class for entity configuration.

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DigiDent.Application.Shared.Abstractions;
+namespace DigiDent.Shared.Application.Abstractions;
 
 /// <summary>
 /// Marker interface to represent a query.

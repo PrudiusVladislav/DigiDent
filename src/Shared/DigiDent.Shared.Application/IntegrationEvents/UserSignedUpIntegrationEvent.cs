@@ -1,7 +1,7 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Application.Abstractions;
 using DigiDent.Shared.Domain.ValueObjects;
 
-namespace DigiDent.Application.Shared.IntegrationEvents;
+namespace DigiDent.Shared.Application.IntegrationEvents;
 
 public record UserSignedUpIntegrationEvent(
     Guid Id,

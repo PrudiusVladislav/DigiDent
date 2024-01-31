@@ -1,8 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DigiDent.EFCorePersistence.Shared.Converters;
+namespace DigiDent.Shared.EFCorePersistence.Converters;
 
 /// <summary>
 /// Contains EF Core value objects converters for shared value objects.
@@ -24,8 +23,8 @@ public static class ValueObjectsConverters
             fullName => fullName.ToString(),
             value => new FullName(value));
     
-    public static ValueConverter<Password, string> PasswordConverter =>
-        new ValueConverter<Password, string>(
-            password => password.PasswordHash,
-            value => new Password(value));
+    // public static ValueConverter<Password, string> PasswordConverter =>
+    //     new ValueConverter<Password, string>(
+    //         password => password.PasswordHash,
+    //         value => new Password(value));
 }
