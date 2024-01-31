@@ -1,6 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+﻿using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Shared;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Shared;
 
 public static class CacheKeys
 {

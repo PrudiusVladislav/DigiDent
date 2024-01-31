@@ -1,7 +1,7 @@
 ﻿
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
+namespace DigiDent.UserAccess.UnitTests.Domain.Users.TestUtils;
 
 public static class PasswordFactory
 {

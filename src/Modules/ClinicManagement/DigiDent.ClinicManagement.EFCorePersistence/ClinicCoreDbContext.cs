@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
-using DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
-using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Visits;
+using DigiDent.ClinicManagement.Domain.Employees.Administrators;
+using DigiDent.ClinicManagement.Domain.Employees.Assistants;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Visits;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.ClinicCore;
+namespace DigiDent.ClinicManagement.EFCorePersistence;
 
 public class ClinicCoreDbContext: DbContext
 {
@@ -39,11 +39,7 @@ public class ClinicCoreDbContext: DbContext
         modelBuilder.HasDefaultSchema(ClinicCoreSchema);
         
         modelBuilder.ApplyConfigurationsFromAssembly(
-            Assembly.GetExecutingAssembly(),
-            type => type
-                .GetCustomAttributes(typeof(ClinicCoreEntityConfigurationAttribute), true)
-                .Any()
-        );
+            typeof(ClinicCoreDbContext).Assembly);
         
         //configuring Employee hierarchy
         modelBuilder.Entity<Employee>()

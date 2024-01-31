@@ -1,12 +1,14 @@
-﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
+﻿using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Abstractions;
+using DigiDent.UserAccess.Domain.Users.Services;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
+using UsersFactory = DigiDent.UserAccess.UnitTests.Domain.Users.TestUtils.UsersFactory;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.UsersDomainServiceTests;
+namespace DigiDent.UserAccess.UnitTests.Domain.Users.UsersDomainServiceTests;
 
 public class AddUserTests
 {

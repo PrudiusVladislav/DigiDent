@@ -1,15 +1,15 @@
-﻿using DigiDent.Application.ClinicCore.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
-using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.ClinicManagement.Application.Abstractions;
+using DigiDent.ClinicManagement.Domain.Employees.Administrators;
+using DigiDent.ClinicManagement.Domain.Employees.Assistants;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Shared.Abstractions;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Infrastructure.ClinicCore;
+namespace DigiDent.ClinicManagement.Infrastructure;
 
 public class PersonFactory: IPersonFactory
 { 

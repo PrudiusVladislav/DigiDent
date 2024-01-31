@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
+﻿namespace DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetAllProvidedServices;
 
 public class ProvidedServiceDTO
 {

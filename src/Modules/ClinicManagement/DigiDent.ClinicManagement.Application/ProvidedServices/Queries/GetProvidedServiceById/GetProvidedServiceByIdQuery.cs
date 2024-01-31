@@ -1,6 +1,6 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetProvidedServiceById;
 
 public sealed record GetProvidedServiceByIdQuery(Guid Id)
     : IQuery<SpecificProvidedServiceDTO?>;

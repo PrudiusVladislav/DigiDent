@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
+﻿namespace DigiDent.ClinicManagement.Domain.Employees.Doctors.ValueObjects;
 
 public enum DoctorSpecialization
 {

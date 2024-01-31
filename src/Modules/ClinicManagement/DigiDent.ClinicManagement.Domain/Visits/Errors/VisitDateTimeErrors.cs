@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.Errors;
+namespace DigiDent.ClinicManagement.Domain.Visits.Errors;
 
 public static class VisitDateTimeErrors
 {

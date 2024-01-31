@@ -1,7 +1,9 @@
-﻿using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.Events;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
+using Email = DigiDent.Shared.Kernel.ValueObjects.Email;
+using PhoneNumber = DigiDent.Shared.Kernel.ValueObjects.PhoneNumber;
 
 namespace DigiDent.UserAccess.Domain.Users;
 

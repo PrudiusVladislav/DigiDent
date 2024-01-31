@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
+﻿namespace DigiDent.ClinicManagement.Application.Appointments.Commands.CreateAppointment;
 
 public sealed record CreateAppointmentRequest(
     Guid DoctorId,

@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetProvidedServiceById;
 
 public class SpecificProvidedServiceDTO
 {

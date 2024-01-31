@@ -7,7 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Domain\DigiDent.Shared.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Kernel\DigiDent.Shared.Kernel.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="DigiDent.ClinicManagement.EFCorePersistence"/>
+        <InternalsVisibleTo Include="DigiDent.ClinicManagement.UnitTests.Domain"/>
     </ItemGroup>
 
 </Project>

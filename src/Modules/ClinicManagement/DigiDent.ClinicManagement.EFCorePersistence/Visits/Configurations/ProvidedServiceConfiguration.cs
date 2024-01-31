@@ -1,13 +1,12 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
-using DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
-using DigiDent.Shared.EFCorePersistence.Configurations;
+﻿using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
+using DigiDent.ClinicManagement.EFCorePersistence.Shared.Configurations;
+using DigiDent.Shared.Infrastructure.EfCore.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Visits.Configurations;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Visits.Configurations;
 
-[ClinicCoreEntityConfiguration]
 public class ProvidedServiceConfiguration
     : BaseEntityConfiguration<ProvidedService, ProvidedServiceId, Guid>
 {

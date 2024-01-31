@@ -1,10 +1,10 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Abstractions;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
+namespace DigiDent.ClinicManagement.Application.EmployeesSchedule.Commands.AddWorkingDay;
 
 public sealed class AddWorkingDayCommandHandler
     : ICommandHandler<AddWorkingDayCommand, Result>

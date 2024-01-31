@@ -1,10 +1,10 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.Errors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared;
 
 public class SchedulePreference: IEntity<SchedulePreferenceId, Guid>
 {

@@ -1,7 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
 
 public record UpdateEmployeeDTO(
     Gender? Gender= null,

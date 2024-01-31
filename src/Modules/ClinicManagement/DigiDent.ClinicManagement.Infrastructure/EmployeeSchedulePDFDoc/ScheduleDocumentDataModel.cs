@@ -1,6 +1,6 @@
-﻿using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+﻿using DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 
-namespace DigiDent.Infrastructure.ClinicCore.EmployeeSchedulePDFDoc;
+namespace DigiDent.ClinicManagement.Infrastructure.EmployeeSchedulePDFDoc;
 
 public sealed record ScheduleDocumentDataModel(
     string ClinicName,

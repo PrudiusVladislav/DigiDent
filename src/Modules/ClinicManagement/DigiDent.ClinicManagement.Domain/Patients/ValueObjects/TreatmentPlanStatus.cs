@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+﻿namespace DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
 
 public enum TreatmentPlanStatus
 {

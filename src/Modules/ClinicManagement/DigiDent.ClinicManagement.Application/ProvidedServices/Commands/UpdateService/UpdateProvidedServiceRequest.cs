@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
+﻿namespace DigiDent.ClinicManagement.Application.ProvidedServices.Commands.UpdateService;
 
 public sealed record UpdateProvidedServiceRequest(
     decimal? Price,

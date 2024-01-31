@@ -1,7 +1,7 @@
 ﻿
-using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+using DigiDent.ClinicManagement.Domain.Shared.Abstractions;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Shared.Repositories;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Shared.Repositories;
 
 public class PersonRepository: IPersonRepository
 {

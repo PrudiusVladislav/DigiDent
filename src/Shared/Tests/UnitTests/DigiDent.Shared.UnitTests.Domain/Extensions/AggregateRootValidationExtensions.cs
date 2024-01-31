@@ -1,4 +1,4 @@
-﻿using DigiDent.Shared.Domain.Abstractions;
+﻿using DigiDent.Shared.Kernel.Abstractions;
 using FluentAssertions;
 
 namespace DigiDent.Shared.UnitTests.Domain.Extensions;

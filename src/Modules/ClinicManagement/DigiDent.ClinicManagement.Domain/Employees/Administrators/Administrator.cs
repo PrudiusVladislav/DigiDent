@@ -1,11 +1,11 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
+namespace DigiDent.ClinicManagement.Domain.Employees.Administrators;
 
 public class Administrator: Employee
 {

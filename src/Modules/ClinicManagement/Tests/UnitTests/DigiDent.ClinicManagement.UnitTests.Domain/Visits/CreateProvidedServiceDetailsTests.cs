@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils;
+﻿using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.ClinicCore.Visits;
+namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits;
 
 public class CreateProvidedServiceDetailsTests
 {

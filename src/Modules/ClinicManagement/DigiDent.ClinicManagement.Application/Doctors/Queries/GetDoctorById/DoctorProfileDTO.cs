@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
+namespace DigiDent.ClinicManagement.Application.Doctors.Queries.GetDoctorById;
 
 public class DoctorProfileDTO
 {

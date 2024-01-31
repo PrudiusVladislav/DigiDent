@@ -1,14 +1,14 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Events;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Domain.UnitTests.ClinicCore.Visits.Extensions;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Events;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.UnitTests.Domain.Visits.Extensions;
+using DigiDent.Shared.Kernel.Abstractions;
 using DigiDent.Shared.UnitTests.Domain.Extensions;
 
-namespace DigiDent.Domain.UnitTests.ClinicCore.Visits;
+namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits;
 
 public class CreateAppointmentTests
 {

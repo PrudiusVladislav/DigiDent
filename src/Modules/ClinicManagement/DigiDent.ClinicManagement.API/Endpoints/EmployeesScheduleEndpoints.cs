@@ -1,15 +1,18 @@
-﻿using DigiDent.API.Extensions;
-using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
-using DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
-using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
-using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
-using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Infrastructure.ClinicCore.EmployeeSchedulePDFDoc;
+﻿using DigiDent.ClinicManagement.Application.EmployeesSchedule.Commands.AddSchedulePreference;
+using DigiDent.ClinicManagement.Application.EmployeesSchedule.Commands.AddWorkingDay;
+using DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
+using DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+using DigiDent.ClinicManagement.Infrastructure.EmployeeSchedulePDFDoc;
+using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using QuestPDF.Fluent;
 
-namespace DigiDent.API.Endpoints.ClinicCore;
+namespace DigiDent.ClinicManagement.API.Endpoints;
 
 public static class EmployeesScheduleEndpoints
 {

@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Patients.Errors;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Patients.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
 
 public class TreatmentPlanDetails
 {

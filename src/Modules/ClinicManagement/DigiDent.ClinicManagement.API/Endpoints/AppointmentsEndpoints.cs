@@ -1,12 +1,15 @@
-﻿using DigiDent.API.Extensions;
-using DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
-using DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Application.Appointments.Commands.CloseAppointment;
+using DigiDent.ClinicManagement.Application.Appointments.Commands.CreateAppointment;
+using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
-namespace DigiDent.API.Endpoints.ClinicCore;
+namespace DigiDent.ClinicManagement.API.Endpoints;
 
 public static class AppointmentsEndpoints
 {

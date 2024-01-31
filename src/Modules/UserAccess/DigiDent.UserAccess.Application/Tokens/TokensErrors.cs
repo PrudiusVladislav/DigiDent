@@ -1,4 +1,4 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.Shared.Kernel.ReturnTypes;
 
 namespace DigiDent.UserAccess.Application.Tokens;
 

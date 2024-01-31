@@ -1,11 +1,11 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.EFCorePersistence.Configurations;
-using DigiDent.Shared.EFCorePersistence.Converters;
+﻿using DigiDent.ClinicManagement.Domain.Shared.Abstractions;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Infrastructure.EfCore.Configurations;
+using DigiDent.Shared.Infrastructure.EfCore.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Shared.Configurations;
 
 /// <summary>
 /// Contains the default configuration for entities that implement <see cref="IPerson{TId}"/>.

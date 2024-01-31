@@ -1,6 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
 
-namespace DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
+namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils.Constants;
 
 public class AppointmentConstants
 {

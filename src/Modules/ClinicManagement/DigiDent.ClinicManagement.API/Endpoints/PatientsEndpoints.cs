@@ -1,12 +1,15 @@
-﻿using DigiDent.API.Extensions;
-using DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
-using DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
-using DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Application.Patients.Commands.CreateTreatmentPlan;
+using DigiDent.ClinicManagement.Application.Patients.Queries.GetAllPatients;
+using DigiDent.ClinicManagement.Application.Patients.Queries.GetPatientProfile;
+using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
-namespace DigiDent.API.Endpoints.ClinicCore;
+namespace DigiDent.ClinicManagement.API.Endpoints;
 
 public static class PatientsEndpoints
 {

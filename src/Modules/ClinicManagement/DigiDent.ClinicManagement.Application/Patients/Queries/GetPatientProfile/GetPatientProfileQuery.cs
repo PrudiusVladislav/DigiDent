@@ -1,6 +1,6 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
+namespace DigiDent.ClinicManagement.Application.Patients.Queries.GetPatientProfile;
 
 public sealed record GetPatientProfileQuery(Guid Id)
     : IQuery<PatientProfileDTO?>;

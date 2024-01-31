@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.Errors;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Shared.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 
 public record TimeDuration
 {

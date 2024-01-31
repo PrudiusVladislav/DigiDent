@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
+namespace DigiDent.ClinicManagement.Application.Doctors.Queries.GetDoctorById;
 
 public sealed class GetDoctorByIdQueryHandler
     : IQueryHandler<GetDoctorByIdQuery, DoctorProfileDTO?>

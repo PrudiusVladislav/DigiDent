@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.Errors;
 
 public static class ScheduleErrors
 {

@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+﻿namespace DigiDent.ClinicManagement.Domain.Shared.Abstractions;
 
 public interface IPersonRepository
 {

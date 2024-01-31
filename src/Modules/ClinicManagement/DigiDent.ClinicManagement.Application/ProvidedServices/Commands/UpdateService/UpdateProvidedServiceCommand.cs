@@ -1,10 +1,10 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Commands.UpdateService;
 
 public sealed record UpdateProvidedServiceCommand: ICommand<Result>
 {

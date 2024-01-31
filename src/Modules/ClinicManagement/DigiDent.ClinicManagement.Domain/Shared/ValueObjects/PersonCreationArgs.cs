@@ -1,6 +1,6 @@
-﻿using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 
 public record PersonCreationArgs(
     FullName FullName,

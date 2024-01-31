@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+﻿namespace DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 
 public enum Gender
 {

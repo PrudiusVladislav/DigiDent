@@ -1,6 +1,6 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
+namespace DigiDent.ClinicManagement.Application.Appointments.Commands.CreateAppointment;
 
 public static class AppointmentCreationErrors
 {

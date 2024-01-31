@@ -1,9 +1,9 @@
-﻿using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.Extensions;
+namespace DigiDent.UserAccess.UnitTests.Domain.Users.Extensions;
 
 public static class ValidationUserExtensions
 {

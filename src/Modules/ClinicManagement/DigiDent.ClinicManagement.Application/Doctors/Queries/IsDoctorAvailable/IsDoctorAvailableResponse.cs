@@ -1,3 +1,3 @@
-﻿namespace DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
+﻿namespace DigiDent.ClinicManagement.Application.Doctors.Queries.IsDoctorAvailable;
 
 public sealed record IsDoctorAvailableResponse(bool IsAvailable);

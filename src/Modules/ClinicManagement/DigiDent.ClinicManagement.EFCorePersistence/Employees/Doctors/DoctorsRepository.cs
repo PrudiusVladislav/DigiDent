@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Doctors;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Employees.Doctors;
 
 public class DoctorsRepository : 
     EmployeesRepository<Doctor>,

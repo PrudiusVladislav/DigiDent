@@ -1,10 +1,10 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
+﻿using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils.Constants;
+using DigiDent.Shared.Kernel.Abstractions;
 using FluentAssertions;
 using NSubstitute;
 
-namespace DigiDent.Domain.UnitTests.ClinicCore.Visits;
+namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits;
 
 public class CreateVisitDateTimeTests
 {

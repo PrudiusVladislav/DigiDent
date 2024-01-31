@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.ClinicCore.Visits;
+namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits;
 
 public class CreateMoneyTests
 {

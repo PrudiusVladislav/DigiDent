@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.Errors;
+namespace DigiDent.ClinicManagement.Domain.Shared.Errors;
 
 public static class TimeErrors
 {

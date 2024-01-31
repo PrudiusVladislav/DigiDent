@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.Extensions;
 
 public static class EventTimeNodeExtensions
 {

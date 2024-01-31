@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Shared;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Shared;
 
 public class CacheConstants
 {

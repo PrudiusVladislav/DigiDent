@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Abstractions;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Employees;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Employees;
 
 public class AllEmployeesRepository : 
     EmployeesRepository<Employee>,

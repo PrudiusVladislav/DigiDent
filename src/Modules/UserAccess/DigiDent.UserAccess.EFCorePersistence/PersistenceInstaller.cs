@@ -6,6 +6,6 @@ public static class PersistenceInstaller
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services)
     {
-        
+        return services;
     }
 }

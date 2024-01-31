@@ -1,14 +1,14 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Constants;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.Constants;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Extensions;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Shared.Extensions;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared;
 
 public class WorkingDay: IEntity<WorkingDayId, Guid>
 {

@@ -1,6 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Patients;
+namespace DigiDent.ClinicManagement.Domain.Patients;
 
 public interface IPatientsRepository
 {

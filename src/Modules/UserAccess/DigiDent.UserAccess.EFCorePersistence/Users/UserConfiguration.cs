@@ -1,8 +1,8 @@
-﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.UserAccess.Domain.Users;
+﻿using DigiDent.UserAccess.Domain.Users;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
-using DigiDent.Shared.EFCorePersistence.Configurations;
-using DigiDent.Shared.EFCorePersistence.Converters;
+using DigiDent.Shared.Infrastructure.EfCore.Configurations;
+using DigiDent.Shared.Infrastructure.EfCore.Converters;
+using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.Services;
 using DigiDent.UserAccess.EFCorePersistence.Constants;
 using DigiDent.UserAccess.EFCorePersistence.Converters;

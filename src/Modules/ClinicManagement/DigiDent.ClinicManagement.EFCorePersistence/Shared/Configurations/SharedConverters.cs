@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Shared.Configurations;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Shared.Configurations;
 
 /// <summary>
 /// Contains ValueConverters that are used in multiple configurations in the ClinicCoreContext.

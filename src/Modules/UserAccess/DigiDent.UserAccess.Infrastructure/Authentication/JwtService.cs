@@ -2,8 +2,8 @@
 using System.Security.Claims;
 using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.UserAccess.Application.Tokens;
-using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Infrastructure.Auth;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.UserAccess.Application.Commands.Shared;
 using DigiDent.UserAccess.Domain.Users;
 using Microsoft.Extensions.Options;

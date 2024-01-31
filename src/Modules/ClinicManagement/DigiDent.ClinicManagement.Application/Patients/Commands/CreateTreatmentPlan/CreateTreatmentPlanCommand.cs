@@ -1,9 +1,8 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
+namespace DigiDent.ClinicManagement.Application.Patients.Commands.CreateTreatmentPlan;
 
 public sealed record CreateTreatmentPlanCommand : 
     ICommand<Result<Guid>>

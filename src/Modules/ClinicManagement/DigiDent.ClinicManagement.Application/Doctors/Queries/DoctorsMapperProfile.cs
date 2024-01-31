@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
-using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
+using DigiDent.ClinicManagement.Application.Doctors.Queries.GetAllDoctors;
+using DigiDent.ClinicManagement.Application.Doctors.Queries.GetDoctorById;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors;
 
-namespace DigiDent.Application.ClinicCore.Doctors.Queries;
+namespace DigiDent.ClinicManagement.Application.Doctors.Queries;
 
 public class DoctorsMapperProfile: Profile
 {

@@ -1,12 +1,12 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.Appointments.Commands.CreateAppointment;
+namespace DigiDent.ClinicManagement.Application.Appointments.Commands.CreateAppointment;
 
 public sealed class CreateAppointmentCommandHandler
     : ICommandHandler<CreateAppointmentCommand, Result<Guid>>

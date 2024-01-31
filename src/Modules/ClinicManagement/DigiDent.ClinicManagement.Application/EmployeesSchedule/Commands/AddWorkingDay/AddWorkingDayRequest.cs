@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddWorkingDay;
+﻿namespace DigiDent.ClinicManagement.Application.EmployeesSchedule.Commands.AddWorkingDay;
 
 public sealed record AddWorkingDayRequest(
     DateOnly Date,

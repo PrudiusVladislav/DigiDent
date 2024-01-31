@@ -1,10 +1,10 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Abstractions.Queries;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
+namespace DigiDent.ClinicManagement.Application.Doctors.Queries.GetAvailableTimeSlots;
 
 public sealed class GetAvailableTimeSlotsQueryHandler
     : IQueryHandler<GetAvailableTimeSlotsQuery, IReadOnlyCollection<DateTime>>

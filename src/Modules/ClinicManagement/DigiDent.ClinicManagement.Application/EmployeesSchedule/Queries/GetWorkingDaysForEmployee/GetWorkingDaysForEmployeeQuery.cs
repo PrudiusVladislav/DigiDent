@@ -1,6 +1,6 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+namespace DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 
 public sealed record GetWorkingDaysForEmployeeQuery(
     Guid EmployeeId,

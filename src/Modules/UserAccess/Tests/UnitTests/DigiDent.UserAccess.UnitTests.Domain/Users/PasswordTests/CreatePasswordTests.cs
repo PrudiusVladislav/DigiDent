@@ -1,9 +1,9 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
+﻿using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
+using DigiDent.UserAccess.UnitTests.Domain.Users.TestUtils;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
+namespace DigiDent.UserAccess.UnitTests.Domain.Users.PasswordTests;
 
 public class CreatePasswordTests
 {

@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.Extensions;
 
 public static class WorkingDayExtensions
 {

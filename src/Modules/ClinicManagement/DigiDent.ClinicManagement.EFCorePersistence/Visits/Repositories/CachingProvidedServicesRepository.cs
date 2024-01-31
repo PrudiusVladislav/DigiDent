@@ -1,10 +1,10 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
-using DigiDent.EFCorePersistence.ClinicCore.Shared;
+﻿using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
+using DigiDent.ClinicManagement.EFCorePersistence.Shared;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Visits.Repositories;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Visits.Repositories;
 
 public class CachingProvidedServicesRepository: IProvidedServicesRepository
 {

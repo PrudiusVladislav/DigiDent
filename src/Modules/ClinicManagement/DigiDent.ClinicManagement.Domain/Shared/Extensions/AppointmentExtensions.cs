@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
+namespace DigiDent.ClinicManagement.Domain.Shared.Extensions;
 
 public static class AppointmentExtensions
 {

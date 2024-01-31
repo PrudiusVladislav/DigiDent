@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
+using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
+using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetAllProvidedServices;
 
 public sealed class GetAllProvidedServicesQueryHandler
     : IQueryHandler<GetAllProvidedServicesQuery, IReadOnlyCollection<ProvidedServiceDTO>>

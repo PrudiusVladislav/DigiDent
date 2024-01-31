@@ -1,6 +1,6 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Shared.Infrastructure.Api;
+﻿using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.UserAccess.Application.Commands.SignUp;
 using MediatR;

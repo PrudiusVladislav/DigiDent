@@ -1,5 +1,5 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 
 namespace DigiDent.UserAccess.Application.Abstractions;
 

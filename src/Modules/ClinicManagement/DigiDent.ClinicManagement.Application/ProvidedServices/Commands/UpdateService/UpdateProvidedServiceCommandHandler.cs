@@ -1,10 +1,10 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Commands.UpdateService;
 
 public sealed class UpdateProvidedServiceCommandHandler
     : ICommandHandler<UpdateProvidedServiceCommand, Result>

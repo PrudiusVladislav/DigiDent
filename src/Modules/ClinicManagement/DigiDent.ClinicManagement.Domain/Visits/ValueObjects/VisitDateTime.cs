@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.Errors;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Visits.Errors;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
 
 public record VisitDateTime
 {

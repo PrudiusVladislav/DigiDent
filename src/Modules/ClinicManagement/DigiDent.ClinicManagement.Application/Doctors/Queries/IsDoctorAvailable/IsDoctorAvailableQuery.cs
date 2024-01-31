@@ -1,7 +1,7 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.Shared.Abstractions.Queries;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
+namespace DigiDent.ClinicManagement.Application.Doctors.Queries.IsDoctorAvailable;
 
 public sealed record IsDoctorAvailableQuery(
     Guid DoctorId,

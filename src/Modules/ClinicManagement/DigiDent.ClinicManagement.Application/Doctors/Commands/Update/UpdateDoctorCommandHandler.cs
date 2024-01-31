@@ -1,10 +1,10 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors.ValueObjects;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.Doctors.Commands.Update;
+namespace DigiDent.ClinicManagement.Application.Doctors.Commands.Update;
 
 public sealed class UpdateDoctorCommandHandler
     : ICommandHandler<UpdateDoctorCommand, Result>

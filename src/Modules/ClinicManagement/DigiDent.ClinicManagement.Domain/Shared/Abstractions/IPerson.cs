@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+namespace DigiDent.ClinicManagement.Domain.Shared.Abstractions;
 
 public interface IPerson<TId> :
     IAggregateRoot,

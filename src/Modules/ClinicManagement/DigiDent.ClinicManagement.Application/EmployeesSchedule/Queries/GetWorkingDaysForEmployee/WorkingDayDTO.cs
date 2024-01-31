@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+﻿namespace DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
 
 public class WorkingDayDTO
 {

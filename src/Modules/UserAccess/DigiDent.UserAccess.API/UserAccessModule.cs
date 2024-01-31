@@ -1,4 +1,4 @@
-﻿using DigiDent.Shared.Infrastructure.Modules;
+﻿using DigiDent.Shared.Abstractions.Modules;
 using DigiDent.UserAccess.API.Endpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;

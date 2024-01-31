@@ -1,5 +1,5 @@
-﻿using DigiDent.Shared.Domain.Abstractions;
+﻿using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 
 public record SchedulePreferenceId(Guid Value): TypedId<Guid>(Value);

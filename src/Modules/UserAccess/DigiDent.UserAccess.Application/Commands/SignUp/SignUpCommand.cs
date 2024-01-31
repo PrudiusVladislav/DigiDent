@@ -1,7 +1,7 @@
 ﻿using DigiDent.UserAccess.Application.Abstractions;
-using DigiDent.Shared.Application.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.UserAccess.Application.Commands.SignUp;

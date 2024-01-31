@@ -1,10 +1,9 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Assistants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Assistants;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Employees.Assistants;
 
-[ClinicCoreEntityConfiguration]
 public class AssistantConfiguration
     : IEntityTypeConfiguration<Assistant>
 {

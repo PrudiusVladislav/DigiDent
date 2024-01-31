@@ -1,6 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Assistants;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Assistants;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Employees.Assistants;
 
 public class AssistantsRepository :
     EmployeesRepository<Assistant>,

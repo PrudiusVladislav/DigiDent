@@ -1,14 +1,14 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Enumerations;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
+using DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils.Constants;
+using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils;
+namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils;
 
 public class AppointmentFactory
 {

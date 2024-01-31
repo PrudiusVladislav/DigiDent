@@ -1,10 +1,10 @@
-﻿using DigiDent.Application.ClinicCore.Abstractions;
-using DigiDent.Application.Shared.IntegrationEvents;
-using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
+﻿using DigiDent.ClinicManagement.Application.Abstractions;
+using DigiDent.ClinicManagement.Domain.Shared.Abstractions;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.UserAccess.IntegrationEvents;
 using MediatR;
 
-namespace DigiDent.Application.ClinicCore.IntegrationEventHandlers;
+namespace DigiDent.ClinicManagement.Application.IntegrationEventHandlers;
 
 public sealed class UserSignedUpEventHandler 
     : INotificationHandler<UserSignedUpIntegrationEvent>

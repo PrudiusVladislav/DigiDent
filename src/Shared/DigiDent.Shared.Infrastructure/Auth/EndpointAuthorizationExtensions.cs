@@ -1,4 +1,4 @@
-﻿using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Kernel.ValueObjects;
 using Microsoft.AspNetCore.Builder;
 
 namespace DigiDent.Shared.Infrastructure.Auth;

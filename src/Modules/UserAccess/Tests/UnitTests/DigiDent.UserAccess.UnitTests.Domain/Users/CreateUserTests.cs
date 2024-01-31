@@ -1,12 +1,12 @@
-﻿using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.Shared.UnitTests.Domain.Extensions;
 using DigiDent.Shared.UnitTests.Domain.TestUtils;
-using DigiDent.Domain.UnitTests.UserAccess.Users.Extensions;
-using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
 using DigiDent.UserAccess.Domain.Users;
 using DigiDent.UserAccess.Domain.Users.Events;
+using DigiDent.UserAccess.UnitTests.Domain.Users.Extensions;
+using DigiDent.UserAccess.UnitTests.Domain.Users.TestUtils;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users;
+namespace DigiDent.UserAccess.UnitTests.Domain.Users;
 
 public class CreateUserTests
 {
@@ -21,7 +21,7 @@ public class CreateUserTests
         var role = Role.Administrator;
         
         // Act
-        var user = User.Create(fullName, email, phoneNumber, password, role);
+        User user = new(fullName, email, phoneNumber, password, role);
         
         // Assert
         user.ShouldBeCreatedFrom(fullName, email, phoneNumber, password, role);

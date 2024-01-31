@@ -1,6 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+﻿using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
+namespace DigiDent.ClinicManagement.Domain.Visits.Abstractions;
 
 public interface IPastVisitsRepository
     : IVisitsRepository<PastVisit, PastVisitId, Guid>

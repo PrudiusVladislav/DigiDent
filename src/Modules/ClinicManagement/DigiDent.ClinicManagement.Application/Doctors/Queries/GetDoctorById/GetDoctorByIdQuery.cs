@@ -1,6 +1,6 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
+namespace DigiDent.ClinicManagement.Application.Doctors.Queries.GetDoctorById;
 
 public sealed record GetDoctorByIdQuery(Guid Id) :
     IQuery<DoctorProfileDTO?>;

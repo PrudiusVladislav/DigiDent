@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.ProvidedServices.Commands.AddService;
+﻿namespace DigiDent.ClinicManagement.Application.ProvidedServices.Commands.AddService;
 
 public sealed record AddProvidedServiceRequest(
     string Name,

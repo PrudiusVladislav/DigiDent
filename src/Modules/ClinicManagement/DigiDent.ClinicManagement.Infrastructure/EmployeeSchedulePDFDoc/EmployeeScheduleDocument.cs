@@ -2,7 +2,7 @@
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace DigiDent.Infrastructure.ClinicCore.EmployeeSchedulePDFDoc;
+namespace DigiDent.ClinicManagement.Infrastructure.EmployeeSchedulePDFDoc;
 
 public class EmployeeScheduleDocument: IDocument
 {

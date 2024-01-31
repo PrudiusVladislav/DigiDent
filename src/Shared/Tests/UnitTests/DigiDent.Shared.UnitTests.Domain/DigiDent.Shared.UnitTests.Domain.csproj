@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\DigiDent.Shared.Domain\DigiDent.Shared.Domain.csproj" />
+      <ProjectReference Include="..\..\..\DigiDent.Shared.Abstractions\DigiDent.Shared.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>

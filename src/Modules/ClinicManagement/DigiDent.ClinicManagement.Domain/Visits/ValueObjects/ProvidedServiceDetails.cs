@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.Errors;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Visits.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
 
 /// <summary>
 /// Contains details about provided service, such as name and description.

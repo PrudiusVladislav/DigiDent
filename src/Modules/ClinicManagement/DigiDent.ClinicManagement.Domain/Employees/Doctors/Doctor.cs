@@ -1,17 +1,17 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.Errors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Extensions;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors.Errors;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Extensions;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Shared.Extensions;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
+namespace DigiDent.ClinicManagement.Domain.Employees.Doctors;
 
 public class Doctor : Employee
 {

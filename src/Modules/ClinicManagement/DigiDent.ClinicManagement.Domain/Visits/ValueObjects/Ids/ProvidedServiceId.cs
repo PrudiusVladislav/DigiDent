@@ -1,5 +1,5 @@
-﻿using DigiDent.Shared.Domain.Abstractions;
+﻿using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+namespace DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
 
 public record ProvidedServiceId(Guid Value): ITypedId<Guid>;

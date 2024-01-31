@@ -1,5 +1,5 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
+﻿using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+namespace DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
 
 public record AppointmentId(Guid Value): IVisitId<Guid>;

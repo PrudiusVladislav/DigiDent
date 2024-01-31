@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
+﻿namespace DigiDent.ClinicManagement.Domain.Visits.Enumerations;
 
 public enum AppointmentStatus
 {

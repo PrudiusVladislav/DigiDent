@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
-using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
 
 public record StartEndTime
 {

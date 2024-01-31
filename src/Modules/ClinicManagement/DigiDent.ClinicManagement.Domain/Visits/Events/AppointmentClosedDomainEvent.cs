@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
+﻿using DigiDent.ClinicManagement.Domain.Visits.Enumerations;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.Events;
+namespace DigiDent.ClinicManagement.Domain.Visits.Events;
 
 public record AppointmentClosedDomainEvent(
     Guid EventId,

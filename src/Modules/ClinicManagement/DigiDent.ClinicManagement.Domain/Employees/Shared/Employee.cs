@@ -1,13 +1,13 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.Abstractions;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Errors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared;
 
 public abstract class Employee: 
     AggregateRoot,

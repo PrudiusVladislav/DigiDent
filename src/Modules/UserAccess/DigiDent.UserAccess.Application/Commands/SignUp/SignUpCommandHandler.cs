@@ -1,6 +1,6 @@
-﻿using DigiDent.Shared.Application.Abstractions;
-using DigiDent.Shared.Domain.Errors;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Kernel.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.UserAccess.Domain.Users;
 using DigiDent.UserAccess.Domain.Users.Services;
 

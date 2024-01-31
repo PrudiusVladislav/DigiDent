@@ -1,15 +1,15 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
-using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.Events;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
-using DigiDent.Shared.Domain.Abstractions;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
+using DigiDent.ClinicManagement.Domain.Visits.Enumerations;
+using DigiDent.ClinicManagement.Domain.Visits.Events;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
+using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits;
+namespace DigiDent.ClinicManagement.Domain.Visits;
 
 public class PastVisit : 
     AggregateRoot,

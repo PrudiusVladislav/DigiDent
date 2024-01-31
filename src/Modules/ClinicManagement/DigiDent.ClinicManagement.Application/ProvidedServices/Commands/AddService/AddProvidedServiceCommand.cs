@@ -1,9 +1,9 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Commands.AddService;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Commands.AddService;
 
 public sealed record AddProvidedServiceCommand : 
     ICommand<Result<Guid>>

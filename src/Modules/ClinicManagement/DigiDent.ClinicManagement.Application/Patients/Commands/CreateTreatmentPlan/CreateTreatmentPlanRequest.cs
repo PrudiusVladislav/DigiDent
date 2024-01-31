@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
+﻿namespace DigiDent.ClinicManagement.Application.Patients.Commands.CreateTreatmentPlan;
 
 public sealed record CreateTreatmentPlanRequest(
     string DiagnosisDescription,

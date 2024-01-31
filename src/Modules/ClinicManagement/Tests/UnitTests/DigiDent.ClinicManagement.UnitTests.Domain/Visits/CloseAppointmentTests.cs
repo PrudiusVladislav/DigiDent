@@ -1,16 +1,16 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Enumerations;
-using DigiDent.Domain.ClinicCoreContext.Visits.Events;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils;
-using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
+﻿using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Enumerations;
+using DigiDent.ClinicManagement.Domain.Visits.Events;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils;
+using DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils.Constants;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.Shared.UnitTests.Domain.Extensions;
 using FluentAssertions;
 using NSubstitute;
 
-namespace DigiDent.Domain.UnitTests.ClinicCore.Visits;
+namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits;
 
 public class CloseAppointmentTests
 {

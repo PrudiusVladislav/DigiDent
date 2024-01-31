@@ -1,6 +1,6 @@
-﻿using DigiDent.Shared.Domain.Abstractions;
+﻿using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Visits.Events;
+namespace DigiDent.ClinicManagement.Domain.Visits.Events;
 
 public record AppointmentCreatedDomainEvent(
     Guid EventId,

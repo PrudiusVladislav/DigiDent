@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Shared.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.Abstractions;
 
 public interface IEmployee<TId>: 
     IPerson<TId>

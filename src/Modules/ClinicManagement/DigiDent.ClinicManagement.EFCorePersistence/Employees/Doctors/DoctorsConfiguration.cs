@@ -1,12 +1,11 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors.ValueObjects;
-using DigiDent.Shared.EFCorePersistence.Converters;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors.ValueObjects;
+using DigiDent.Shared.Infrastructure.EfCore.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Doctors;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Employees.Doctors;
 
-[ClinicCoreEntityConfiguration]
 public class DoctorsConfiguration : IEntityTypeConfiguration<Doctor>
 {
     public void Configure(EntityTypeBuilder<Doctor> builder)

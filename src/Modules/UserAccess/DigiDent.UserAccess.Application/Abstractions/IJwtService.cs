@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.UserAccess.Application.Commands.Shared;
 using DigiDent.UserAccess.Domain.Users;
 

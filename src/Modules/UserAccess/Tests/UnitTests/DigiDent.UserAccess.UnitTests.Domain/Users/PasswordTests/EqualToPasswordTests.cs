@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
-using DigiDent.UserAccess.Domain.Users.ValueObjects;
+﻿using DigiDent.UserAccess.Domain.Users.ValueObjects;
+using DigiDent.UserAccess.UnitTests.Domain.Users.TestUtils;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;
+namespace DigiDent.UserAccess.UnitTests.Domain.Users.PasswordTests;
 
 public class EqualToPasswordTests
 {

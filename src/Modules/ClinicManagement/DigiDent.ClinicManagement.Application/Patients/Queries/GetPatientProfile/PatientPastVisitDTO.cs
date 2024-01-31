@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
+﻿namespace DigiDent.ClinicManagement.Application.Patients.Queries.GetPatientProfile;
 
 public class PatientPastVisitDTO
 {

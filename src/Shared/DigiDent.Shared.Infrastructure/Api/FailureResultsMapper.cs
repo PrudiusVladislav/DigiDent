@@ -1,4 +1,4 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.Shared.Kernel.ReturnTypes;
 using Microsoft.AspNetCore.Http;
 
 namespace DigiDent.Shared.Infrastructure.Api;

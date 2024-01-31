@@ -1,6 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
 
-namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
+namespace DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
 
 public class SchedulePreferenceDTO
 {

@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
+﻿namespace DigiDent.ClinicManagement.Application.Patients.Queries.GetAllPatients;
 
 public class PatientDTO
 {

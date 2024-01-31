@@ -1,10 +1,9 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.Shared.Errors;
-using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.ReturnTypes;
 
-namespace DigiDent.Application.ClinicCore.Patients.Commands.CreateTreatmentPlan;
+namespace DigiDent.ClinicManagement.Application.Patients.Commands.CreateTreatmentPlan;
 
 public sealed class CreateTreatmentPlanCommandHandler
     : ICommandHandler<CreateTreatmentPlanCommand, Result<Guid>>

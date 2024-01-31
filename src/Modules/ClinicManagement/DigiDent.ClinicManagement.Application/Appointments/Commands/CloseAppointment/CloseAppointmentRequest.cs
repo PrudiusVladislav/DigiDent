@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
+namespace DigiDent.ClinicManagement.Application.Appointments.Commands.CloseAppointment;
 
 public sealed record CloseAppointmentRequest(
     string Status,

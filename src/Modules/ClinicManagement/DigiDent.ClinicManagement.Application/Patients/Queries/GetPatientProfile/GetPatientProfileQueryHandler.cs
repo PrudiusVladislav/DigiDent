@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
+using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
+namespace DigiDent.ClinicManagement.Application.Patients.Queries.GetPatientProfile;
 
 public sealed class GetPatientProfileQueryHandler
     : IQueryHandler<GetPatientProfileQuery, PatientProfileDTO?>

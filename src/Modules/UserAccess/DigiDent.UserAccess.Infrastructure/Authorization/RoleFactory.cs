@@ -1,6 +1,6 @@
 ﻿using DigiDent.UserAccess.Application.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.Errors;
 
 namespace DigiDent.UserAccess.Infrastructure.Authorization;

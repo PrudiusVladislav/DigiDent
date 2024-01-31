@@ -1,7 +1,7 @@
 ﻿
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Assistants;
+namespace DigiDent.ClinicManagement.Domain.Employees.Assistants;
 
 public interface IAssistantsRepository: IEmployeesRepository<Assistant>
 {

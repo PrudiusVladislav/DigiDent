@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.Application.ClinicCore.Doctors.Commands.Update;
+namespace DigiDent.ClinicManagement.Application.Doctors.Commands.Update;
 
 public sealed record UpdateDoctorRequest(
     string? Gender,

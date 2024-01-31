@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Application\DigiDent.Shared.Application.csproj" />
       <ProjectReference Include="..\DigiDent.UserAccess.Domain\DigiDent.UserAccess.Domain.csproj" />
+      <ProjectReference Include="..\DigiDent.UserAccess.IntegrationEvents\DigiDent.UserAccess.IntegrationEvents.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.ClinicCoreContext.Shared.Extensions;
+﻿namespace DigiDent.ClinicManagement.Domain.Shared.Extensions;
 
 public static class DateTimeHelperExtensions
 {

@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Patients;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Patients;
 
 public class PatientsRepository: IPatientsRepository
 {

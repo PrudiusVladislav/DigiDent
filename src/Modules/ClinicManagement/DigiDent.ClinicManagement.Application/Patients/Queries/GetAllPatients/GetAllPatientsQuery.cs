@@ -1,6 +1,6 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
+namespace DigiDent.ClinicManagement.Application.Patients.Queries.GetAllPatients;
 
 public sealed record GetAllPatientsQuery
     : IQuery<IReadOnlyCollection<PatientDTO>>;

@@ -1,13 +1,12 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
-using DigiDent.Shared.EFCorePersistence.Configurations;
-using DigiDent.Shared.EFCorePersistence.Converters;
+﻿using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
+using DigiDent.Shared.Infrastructure.EfCore.Configurations;
+using DigiDent.Shared.Infrastructure.EfCore.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Patients;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Patients;
 
-[ClinicCoreEntityConfiguration]
 public class TreatmentPlanConfiguration
     : BaseEntityConfiguration<TreatmentPlan, TreatmentPlanId, Guid>
 {

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects.Ids;
+using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
+using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetProvidedServiceById;
 
 public sealed class GetProvidedServiceByIdQueryHandler
     : IQueryHandler<GetProvidedServiceByIdQuery, SpecificProvidedServiceDTO?>

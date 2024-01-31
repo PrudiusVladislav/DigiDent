@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using DigiDent.UserAccess.Application.Abstractions;
-using DigiDent.Shared.Application.Abstractions;
-using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.UserAccess.Application.Commands.Shared;
 using DigiDent.UserAccess.Domain.Users;
 using DigiDent.UserAccess.Domain.Users.Abstractions;

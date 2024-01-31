@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using DigiDent.Application.ClinicCore.Patients.Queries.GetAllPatients;
-using DigiDent.Application.ClinicCore.Patients.Queries.GetPatientProfile;
-using DigiDent.Domain.ClinicCoreContext.Patients;
-using DigiDent.Domain.ClinicCoreContext.Visits;
+using DigiDent.ClinicManagement.Application.Patients.Queries.GetAllPatients;
+using DigiDent.ClinicManagement.Application.Patients.Queries.GetPatientProfile;
+using DigiDent.ClinicManagement.Domain.Patients;
+using DigiDent.ClinicManagement.Domain.Visits;
 
-namespace DigiDent.Application.ClinicCore.Patients;
+namespace DigiDent.ClinicManagement.Application.Patients;
 
 public class PatientsMapperProfile: Profile
 {

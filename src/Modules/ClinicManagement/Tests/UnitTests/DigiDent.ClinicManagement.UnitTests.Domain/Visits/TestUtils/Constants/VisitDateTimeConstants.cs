@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
+﻿namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils.Constants;
 
 public class VisitDateTimeConstants
 {

@@ -1,9 +1,9 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.Shared.UnitTests.Domain.TestUtils;
 using FluentAssertions;
 
-namespace DigiDent.Shared.UnitTests.Domain.Extensions;
+namespace DigiDent.Shared.UnitTests.Domain.ValueObjectsTests;
 
 public class FullNameTests
 {

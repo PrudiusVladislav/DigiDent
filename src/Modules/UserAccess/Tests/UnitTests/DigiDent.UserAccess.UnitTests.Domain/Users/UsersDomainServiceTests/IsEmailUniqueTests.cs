@@ -1,10 +1,12 @@
 ﻿using DigiDent.Shared.UnitTests.Domain.TestUtils;
-using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
 using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Abstractions;
+using DigiDent.UserAccess.Domain.Users.Services;
 using FluentAssertions;
 using NSubstitute;
+using UsersFactory = DigiDent.UserAccess.UnitTests.Domain.Users.TestUtils.UsersFactory;
 
-namespace DigiDent.Domain.UnitTests.UserAccess.Users.UsersDomainServiceTests;
+namespace DigiDent.UserAccess.UnitTests.Domain.Users.UsersDomainServiceTests;
 
 public class IsEmailUniqueTests
 {

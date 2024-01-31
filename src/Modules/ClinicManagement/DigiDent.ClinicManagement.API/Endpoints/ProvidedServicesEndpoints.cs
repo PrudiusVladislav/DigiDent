@@ -1,13 +1,16 @@
-﻿using DigiDent.API.Extensions;
-using DigiDent.Application.ClinicCore.ProvidedServices.Commands.AddService;
-using DigiDent.Application.ClinicCore.ProvidedServices.Commands.UpdateService;
-using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
-using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Application.ProvidedServices.Commands.AddService;
+using DigiDent.ClinicManagement.Application.ProvidedServices.Commands.UpdateService;
+using DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetAllProvidedServices;
+using DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetProvidedServiceById;
+using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
-namespace DigiDent.API.Endpoints.ClinicCore;
+namespace DigiDent.ClinicManagement.API.Endpoints;
 
 public static class ProvidedServicesEndpoints
 {

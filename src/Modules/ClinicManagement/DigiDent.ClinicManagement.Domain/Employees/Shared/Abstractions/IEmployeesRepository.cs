@@ -1,7 +1,6 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.ValueObjects.Ids;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+namespace DigiDent.ClinicManagement.Domain.Employees.Shared.Abstractions;
 
 public interface IEmployeesRepository<TEmployee>
     where TEmployee: Employee 

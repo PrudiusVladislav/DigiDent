@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Commands.AddSchedulePreference;
+namespace DigiDent.ClinicManagement.Application.EmployeesSchedule.Commands.AddSchedulePreference;
 
 public sealed record AddSchedulePreferenceRequest(
     DateOnly Date,

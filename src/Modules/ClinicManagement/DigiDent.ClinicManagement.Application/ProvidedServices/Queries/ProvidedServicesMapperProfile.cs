@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
-using DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetProvidedServiceById;
-using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Visits;
+using DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetAllProvidedServices;
+using DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetProvidedServiceById;
+using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Visits;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Queries;
 
 public class ProvidedServicesMapperProfile: Profile
 {

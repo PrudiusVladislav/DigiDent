@@ -1,14 +1,17 @@
-﻿using DigiDent.API.Extensions;
-using DigiDent.Application.ClinicCore.Doctors.Commands.Update;
-using DigiDent.Application.ClinicCore.Doctors.Queries.GetAllDoctors;
-using DigiDent.Application.ClinicCore.Doctors.Queries.GetAvailableTimeSlots;
-using DigiDent.Application.ClinicCore.Doctors.Queries.GetDoctorById;
-using DigiDent.Application.ClinicCore.Doctors.Queries.IsDoctorAvailable;
-using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.ClinicManagement.Application.Doctors.Commands.Update;
+using DigiDent.ClinicManagement.Application.Doctors.Queries.GetAllDoctors;
+using DigiDent.ClinicManagement.Application.Doctors.Queries.GetAvailableTimeSlots;
+using DigiDent.ClinicManagement.Application.Doctors.Queries.GetDoctorById;
+using DigiDent.ClinicManagement.Application.Doctors.Queries.IsDoctorAvailable;
+using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
-namespace DigiDent.API.Endpoints.ClinicCore;
+namespace DigiDent.ClinicManagement.API.Endpoints;
 
 public static class DoctorsEndpoints
 {

@@ -1,8 +1,8 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Shared.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.ClinicManagement.Domain.Shared.Abstractions;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Application.ClinicCore.Abstractions;
+namespace DigiDent.ClinicManagement.Application.Abstractions;
 
 /// <summary>
 /// Defines a factory for creating <see cref="IPerson{TPersonId}"/> objects.

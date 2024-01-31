@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
-using DigiDent.Application.ClinicCore.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared;
+using DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetSchedulePreferencesForEmployee;
+using DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries.GetWorkingDaysForEmployee;
+using DigiDent.ClinicManagement.Domain.Employees.Shared;
 
-namespace DigiDent.Application.ClinicCore.EmployeesSchedule.Queries;
+namespace DigiDent.ClinicManagement.Application.EmployeesSchedule.Queries;
 
 public class ScheduleMappingProfiles: Profile
 {

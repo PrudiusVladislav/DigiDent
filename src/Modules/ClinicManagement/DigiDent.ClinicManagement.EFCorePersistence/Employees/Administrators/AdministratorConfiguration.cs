@@ -1,10 +1,9 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Administrators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.ClinicCore.Employees.Administrators;
+namespace DigiDent.ClinicManagement.EFCorePersistence.Employees.Administrators;
 
-[ClinicCoreEntityConfiguration]
 public class AdministratorConfiguration
     : IEntityTypeConfiguration<Administrator>
 {

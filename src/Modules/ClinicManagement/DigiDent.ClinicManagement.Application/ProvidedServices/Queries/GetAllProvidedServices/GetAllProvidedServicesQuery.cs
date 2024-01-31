@@ -1,6 +1,6 @@
-﻿using DigiDent.Application.Shared.Abstractions;
+﻿using DigiDent.Shared.Abstractions.Queries;
 
-namespace DigiDent.Application.ClinicCore.ProvidedServices.Queries.GetAllProvidedServices;
+namespace DigiDent.ClinicManagement.Application.ProvidedServices.Queries.GetAllProvidedServices;
 
 public sealed record GetAllProvidedServicesQuery
     : IQuery<IReadOnlyCollection<ProvidedServiceDTO>>;

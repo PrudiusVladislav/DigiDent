@@ -1,5 +1,5 @@
-﻿using DigiDent.Shared.Domain.Abstractions;
+﻿using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Patients.ValueObjects;
+namespace DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
 
 public record TreatmentPlanId(Guid Value): ITypedId<Guid>;

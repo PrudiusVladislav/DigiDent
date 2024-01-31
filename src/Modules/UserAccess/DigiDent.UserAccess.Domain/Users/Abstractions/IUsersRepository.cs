@@ -1,5 +1,5 @@
-﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.UserAccess.Domain.Users.ValueObjects;
+﻿using DigiDent.UserAccess.Domain.Users.ValueObjects;
+using Email = DigiDent.Shared.Kernel.ValueObjects.Email;
 
 namespace DigiDent.UserAccess.Domain.Users.Abstractions;
 

@@ -1,4 +1,4 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
+﻿using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.UserAccess.Domain.Users.Errors;

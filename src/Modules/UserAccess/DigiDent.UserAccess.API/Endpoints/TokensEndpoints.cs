@@ -1,5 +1,5 @@
-﻿using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Infrastructure.Api;
+﻿using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.UserAccess.Application.Commands.Refresh;
 using DigiDent.UserAccess.Application.Commands.Shared;

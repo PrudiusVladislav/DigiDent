@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using DigiDent.Domain.ClinicCoreContext.Shared.ValueObjects;
-using DigiDent.Domain.ClinicCoreContext.Visits.ValueObjects;
-using DigiDent.Shared.Domain.Abstractions;
-using DigiDent.Shared.Domain.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.Application.ClinicCore;
+namespace DigiDent.ClinicManagement.Application;
 
 /// <summary>
 /// Contains common AutoMapper profiles that are shared among multiple aggregates.

@@ -1,7 +1,7 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Employees.Doctors;
-using DigiDent.Domain.ClinicCoreContext.Employees.Shared.Abstractions;
+﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Abstractions;
 
-namespace DigiDent.Domain.ClinicCoreContext.Employees.Administrators;
+namespace DigiDent.ClinicManagement.Domain.Employees.Administrators;
 
 public interface IAdministratorRepository: IEmployeesRepository<Doctor>
 {

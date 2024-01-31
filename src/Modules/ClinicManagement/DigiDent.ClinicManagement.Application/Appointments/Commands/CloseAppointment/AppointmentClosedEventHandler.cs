@@ -1,9 +1,9 @@
-﻿using DigiDent.Domain.ClinicCoreContext.Visits;
-using DigiDent.Domain.ClinicCoreContext.Visits.Abstractions;
-using DigiDent.Domain.ClinicCoreContext.Visits.Events;
+﻿using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
+using DigiDent.ClinicManagement.Domain.Visits.Events;
 using MediatR;
 
-namespace DigiDent.Application.ClinicCore.Appointments.Commands.CloseAppointment;
+namespace DigiDent.ClinicManagement.Application.Appointments.Commands.CloseAppointment;
 
 public sealed class AppointmentClosedEventHandler
     : INotificationHandler<AppointmentClosedDomainEvent>

@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils;
+﻿namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits.TestUtils;
 
 public class ProvidedServiceDetailsFactory
 {
