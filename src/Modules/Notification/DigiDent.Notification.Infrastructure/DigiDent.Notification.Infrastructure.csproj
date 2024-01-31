@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DigiDent.Notification.Application\DigiDent.Notification.Application.csproj" />
+    </ItemGroup>
+
 </Project>

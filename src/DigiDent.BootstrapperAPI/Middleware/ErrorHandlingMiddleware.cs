@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 
-namespace DigiDent.API.Middleware;
+namespace DigiDent.BootstrapperAPI.Middleware;
 
 public class ErrorHandlingMiddleware: IMiddleware
 {

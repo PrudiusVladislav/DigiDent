@@ -1,5 +1,0 @@
-@DigiDent.API_HostAddress = https://localhost:7289
-
-POST {{DigiDent.API_HostAddress}}/users/sign-up
-Accept: application/json
-###

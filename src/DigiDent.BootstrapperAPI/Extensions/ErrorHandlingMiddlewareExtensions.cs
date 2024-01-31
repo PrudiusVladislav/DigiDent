@@ -1,6 +1,6 @@
-﻿using DigiDent.API.Middleware;
+﻿using DigiDent.BootstrapperAPI.Middleware;
 
-namespace DigiDent.API.Extensions;
+namespace DigiDent.BootstrapperAPI.Extensions;
 
 public static class ErrorHandlingMiddlewareExtensions
 {
