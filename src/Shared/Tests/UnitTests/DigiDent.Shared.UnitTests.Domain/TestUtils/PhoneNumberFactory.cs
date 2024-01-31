@@ -1,6 +1,6 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
 
-namespace DigiDent.Domain.UnitTests.Shared.TestUtils;
+namespace DigiDent.Shared.UnitTests.Domain.TestUtils;
 
 public class PhoneNumberFactory
 {

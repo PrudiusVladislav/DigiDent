@@ -1,4 +1,4 @@
-﻿using DigiDent.Domain.UnitTests.Shared.TestUtils;
+﻿using DigiDent.Shared.UnitTests.Domain.TestUtils;
 using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
 using DigiDent.Domain.UserAccessContext.Users;
 using FluentAssertions;

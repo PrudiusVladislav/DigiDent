@@ -6,7 +6,7 @@ using DigiDent.Shared.Domain.Abstractions;
 using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils;
 using DigiDent.Domain.UnitTests.ClinicCore.Visits.TestUtils.Constants;
-using DigiDent.Domain.UnitTests.Shared;
+using DigiDent.Shared.UnitTests.Domain.Extensions;
 using FluentAssertions;
 using NSubstitute;
 

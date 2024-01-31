@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.Abstractions;
 using FluentAssertions;
 
-namespace DigiDent.Domain.UnitTests.Shared;
+namespace DigiDent.Shared.UnitTests.Domain.Extensions;
 
 public static class AggregateRootValidationExtensions
 {
