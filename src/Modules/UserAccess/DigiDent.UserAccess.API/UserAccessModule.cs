@@ -1,7 +1,12 @@
 ﻿using DigiDent.Shared.Abstractions.Modules;
 using DigiDent.UserAccess.API.Endpoints;
+using DigiDent.UserAccess.Application;
+using DigiDent.UserAccess.Domain;
+using DigiDent.UserAccess.EFCorePersistence;
+using DigiDent.UserAccess.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DigiDent.UserAccess.API;
@@ -12,9 +17,17 @@ namespace DigiDent.UserAccess.API;
 public sealed class UserAccessModule: IModule
 {
     public string Name => nameof(UserAccessModule);
-    public void RegisterDependencies(IServiceCollection services)
+    
+    public void RegisterDependencies(
+        IServiceCollection services,
+        IConfiguration configuration,
+        MediatRServiceConfiguration mediatrConfiguration)
     {
-        throw new NotImplementedException();
+        services
+            .AddDomain()
+            .AddApplication(mediatrConfiguration)
+            .AddPersistence(configuration)
+            .AddInfrastructure(configuration.GetSection("Authentication:Jwt"));
     }
 
     public void RegisterEndpoints(IEndpointRouteBuilder builder)

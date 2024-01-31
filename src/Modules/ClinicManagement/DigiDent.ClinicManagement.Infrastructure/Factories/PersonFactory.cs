@@ -9,7 +9,7 @@ using DigiDent.ClinicManagement.Domain.Shared.Abstractions;
 using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.Shared.Kernel.ValueObjects;
 
-namespace DigiDent.ClinicManagement.Infrastructure;
+namespace DigiDent.ClinicManagement.Infrastructure.Factories;
 
 public class PersonFactory: IPersonFactory
 { 

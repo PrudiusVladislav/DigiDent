@@ -1,5 +1,7 @@
-﻿using DigiDent.Shared.Abstractions.Modules;
+﻿using DigiDent.ClinicManagement.Application;
+using DigiDent.Shared.Abstractions.Modules;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DigiDent.ClinicManagement.API;
@@ -10,7 +12,9 @@ namespace DigiDent.ClinicManagement.API;
 public sealed class ClinicManagementModule: IModule
 {
     public string Name => nameof(ClinicManagementModule);
-    public void RegisterDependencies(IServiceCollection services)
+
+    public void RegisterDependencies(IServiceCollection services, IConfiguration configuration,
+        MediatRServiceConfiguration mediatrConfiguration)
     {
         throw new NotImplementedException();
     }

@@ -1,5 +1,6 @@
 ﻿using DigiDent.Shared.Abstractions.Modules;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DigiDent.Notification.Infrastructure;
@@ -10,7 +11,9 @@ namespace DigiDent.Notification.Infrastructure;
 public sealed class NotificationModule: IModule
 {
     public string Name => nameof(NotificationModule);
-    public void RegisterDependencies(IServiceCollection services)
+
+    public void RegisterDependencies(IServiceCollection services, IConfiguration configuration,
+        MediatRServiceConfiguration mediatrConfiguration)
     {
         throw new NotImplementedException();
     }

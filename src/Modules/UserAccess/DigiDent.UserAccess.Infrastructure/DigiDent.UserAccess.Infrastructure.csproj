@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Infrastructure\DigiDent.Shared.Infrastructure.csproj" />
       <ProjectReference Include="..\DigiDent.UserAccess.Application\DigiDent.UserAccess.Application.csproj" />
+      <ProjectReference Include="..\DigiDent.UserAccess.EFCorePersistence\DigiDent.UserAccess.EFCorePersistence.csproj" />
     </ItemGroup>
 
 </Project>

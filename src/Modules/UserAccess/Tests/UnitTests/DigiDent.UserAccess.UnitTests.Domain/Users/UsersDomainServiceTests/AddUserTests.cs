@@ -7,6 +7,7 @@ using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using UsersFactory = DigiDent.UserAccess.UnitTests.Domain.Users.TestUtils.UsersFactory;
+using DomainUsersFactory = DigiDent.UserAccess.Domain.Users.Services.UsersFactory;
 
 namespace DigiDent.UserAccess.UnitTests.Domain.Users.UsersDomainServiceTests;
 
@@ -50,12 +51,12 @@ public class AddUserTests
         // Arrange
         var userToAdd = UsersFactory.GetValidUser(role: Role.Administrator);
         var tempAdmin = UsersFactory.GetValidUser(
-            email: Email.TempAdminEmail,
+            email: DomainUsersFactory.TempAdminEmail,
             role: Role.Administrator);
         
         _mockUsersRepository
             .GetByEmailAsync(
-                Email.TempAdminEmail, Arg.Any<CancellationToken>())
+                DomainUsersFactory.TempAdminEmail, Arg.Any<CancellationToken>())
             .Returns(Task.FromResult<User?>(tempAdmin));
 
         // Act
@@ -83,7 +84,7 @@ public class AddUserTests
         
         _mockUsersRepository
             .GetByEmailAsync(
-                Email.TempAdminEmail, Arg.Any<CancellationToken>())
+                DomainUsersFactory.TempAdminEmail, Arg.Any<CancellationToken>())
             .Returns(Task.FromResult<User?>(null));
 
         // Act

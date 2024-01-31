@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace DigiDent.UserAccess.Application;
+namespace DigiDent.ClinicManagement.Application;
 
 public static class ApplicationInstaller
 {
@@ -10,6 +10,8 @@ public static class ApplicationInstaller
     {
         mediatrConfiguration.RegisterServicesFromAssembly(
             typeof(ApplicationInstaller).Assembly);
+        
+        services.AddAutoMapper(typeof(ApplicationInstaller).Assembly);
         
         return services;
     }
