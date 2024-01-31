@@ -21,4 +21,9 @@
       <ProjectReference Include="..\DigiDent.Infrastructure\DigiDent.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Endpoints\ClinicCore\" />
+      <Folder Include="Endpoints\UserAccess\" />
+    </ItemGroup>
+
 </Project>

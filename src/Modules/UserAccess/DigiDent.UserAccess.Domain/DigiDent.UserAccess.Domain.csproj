@@ -10,15 +10,9 @@
       <PackageReference Include="MediatR" Version="12.2.0" />
       <PackageReference Include="zxcvbn-core" Version="8.0.0-beta0002" />
     </ItemGroup>
-    
+
     <ItemGroup>
-        <InternalsVisibleTo Include="DigiDent.EFCorePersistence"/>
-        <InternalsVisibleTo Include="DigiDent.Domain.UnitTests"/>
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Domain\DigiDent.Shared.Domain.csproj" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="ClinicCoreContext\" />
-      <Folder Include="SharedKernel\" />
-      <Folder Include="UserAccessContext\" />
-    </ItemGroup>
+
 </Project>

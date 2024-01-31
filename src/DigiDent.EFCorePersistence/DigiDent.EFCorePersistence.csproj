@@ -19,6 +19,7 @@
     <ItemGroup>
       <Folder Include="Migrations\ClinicCoreDb\" />
       <Folder Include="Migrations\UserAccessDb\" />
+      <Folder Include="Shared\" />
     </ItemGroup>
 
 </Project>

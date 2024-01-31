@@ -7,18 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DigiDent.Domain\DigiDent.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="AutoMapper" Version="12.0.1" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClinicCore\" />
-      <Folder Include="Shared\" />
-      <Folder Include="UserAccess\" />
+      <ProjectReference Include="..\DigiDent.ClinicManagement.Domain\DigiDent.ClinicManagement.Domain.csproj" />
     </ItemGroup>
 
 </Project>
