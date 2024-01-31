@@ -5,9 +5,9 @@ using DigiDent.Shared.Domain.Abstractions;
 using DigiDent.Shared.Domain.Errors;
 using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Errors;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;
 

@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Shared.UnitTests.Domain.TestUtils;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
 

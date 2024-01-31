@@ -22,9 +22,4 @@ public static class ValueObjectsConverters
         new ValueConverter<FullName, string>(
             fullName => fullName.ToString(),
             value => new FullName(value));
-    
-    // public static ValueConverter<Password, string> PasswordConverter =>
-    //     new ValueConverter<Password, string>(
-    //         password => password.PasswordHash,
-    //         value => new Password(value));
 }

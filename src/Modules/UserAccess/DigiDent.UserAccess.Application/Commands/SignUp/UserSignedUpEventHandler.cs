@@ -1,6 +1,6 @@
 ﻿using DigiDent.Application.Shared.IntegrationEvents;
 using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users.Events;
+using DigiDent.UserAccess.Domain.Users.Events;
 using MediatR;
 
 namespace DigiDent.Application.UserAccess.Commands.SignUp;

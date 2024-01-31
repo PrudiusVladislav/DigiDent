@@ -3,8 +3,8 @@ using DigiDent.Application.Shared.Abstractions;
 using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.Application.UserAccess.Commands.Refresh;
 

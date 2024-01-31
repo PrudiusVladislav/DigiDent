@@ -1,5 +1,5 @@
 ﻿using DigiDent.Application.UserAccess.Tokens;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.Application.UserAccess.Abstractions;
 

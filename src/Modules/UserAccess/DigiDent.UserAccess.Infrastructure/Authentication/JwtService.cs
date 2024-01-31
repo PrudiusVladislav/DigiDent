@@ -4,7 +4,7 @@ using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Application.UserAccess.Tokens;
 using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Domain.UserAccessContext.Users;
+using DigiDent.UserAccess.Domain.Users;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

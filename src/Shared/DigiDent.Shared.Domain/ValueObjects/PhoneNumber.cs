@@ -26,9 +26,6 @@ public partial record PhoneNumber
         
         return Result.Ok(new PhoneNumber(value));
     }
-    
-    internal static PhoneNumber TempAdminPhoneNumber 
-        => new("+380000000000");
 
     [GeneratedRegex(@"^(?:\+38)?(0\d{9})$")]
     private static partial Regex PhoneNumberRegex();

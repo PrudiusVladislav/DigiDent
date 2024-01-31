@@ -17,8 +17,6 @@ public partial record Email
         
         return Result.Ok(new Email(value));
     }
-    
-    internal static Email TempAdminEmail => new ("temp@admin.tmp");
 
     [GeneratedRegex(@"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")]
     private static partial Regex EmailRegex();

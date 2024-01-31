@@ -1,6 +1,7 @@
-﻿using DigiDent.Domain.UserAccessContext.Users;
+﻿using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Abstractions;
 
-namespace DigiDent.EFCorePersistence.UserAccess.Users;
+namespace DigiDent.UserAccess.EFCorePersistence.Users;
 
 public class UsersUnitOfWork: IUsersUnitOfWork
 {

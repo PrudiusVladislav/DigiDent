@@ -3,8 +3,8 @@ using DigiDent.Shared.UnitTests.Domain.Extensions;
 using DigiDent.Shared.UnitTests.Domain.TestUtils;
 using DigiDent.Domain.UnitTests.UserAccess.Users.Extensions;
 using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.Events;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Events;
 
 namespace DigiDent.Domain.UnitTests.UserAccess.Users;
 

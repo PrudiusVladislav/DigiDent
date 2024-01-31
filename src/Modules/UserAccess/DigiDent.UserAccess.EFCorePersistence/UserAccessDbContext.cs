@@ -1,13 +1,12 @@
-﻿using System.Reflection;
-using DigiDent.Application.UserAccess.Tokens;
-using DigiDent.Domain.UserAccessContext.Users;
+﻿using DigiDent.Application.UserAccess.Tokens;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.EFCorePersistence.Constants;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.UserAccess;
+namespace DigiDent.UserAccess.EFCorePersistence;
 
 public class UserAccessDbContext: DbContext
 {
-    internal const string UserAccessSchema = "User_Access";
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
@@ -18,12 +17,11 @@ public class UserAccessDbContext: DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema(UserAccessSchema);
+        modelBuilder.HasDefaultSchema(
+            ConfigurationConstants.UserAccessSchemaName);
+        
         modelBuilder.ApplyConfigurationsFromAssembly(
-            Assembly.GetExecutingAssembly(),
-            type => type
-                .GetCustomAttributes(typeof(UserAccessEntityConfigurationAttribute), true)
-                .Any());
+            typeof(UserAccessDbContext).Assembly);
     }
     
 }

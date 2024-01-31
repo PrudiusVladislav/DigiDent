@@ -12,7 +12,9 @@
     
     <ItemGroup>
         <InternalsVisibleTo Include="DigiDent.Shared.EFCorePersistence"/>
-        <InternalsVisibleTo Include="./Tests/UnitTests/DigiDent.Shared.UnitTests.Domain"/>
+        <InternalsVisibleTo Include="DigiDent.Shared.UnitTests.Domain"/>
+        <InternalsVisibleTo Include="DigiDent.UserAccess.Domain"/>
+        <InternalsVisibleTo Include="DigiDent.ClinicManagement.Domain"/>
     </ItemGroup>
 
 </Project>

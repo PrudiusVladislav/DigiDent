@@ -1,14 +1,16 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using DigiDent.Shared.EFCorePersistence.Configurations;
 using DigiDent.Shared.EFCorePersistence.Converters;
+using DigiDent.UserAccess.Domain.Users.Services;
+using DigiDent.UserAccess.EFCorePersistence.Constants;
+using DigiDent.UserAccess.EFCorePersistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DigiDent.EFCorePersistence.UserAccess.Users;
+namespace DigiDent.UserAccess.EFCorePersistence.Users;
 
-[UserAccessEntityConfiguration]
 public class UserConfiguration: AggregateRootConfiguration<User, UserId, Guid>
 {
     protected override void ConfigureEntity(EntityTypeBuilder<User> builder)
@@ -16,7 +18,7 @@ public class UserConfiguration: AggregateRootConfiguration<User, UserId, Guid>
         builder
             .Property(u => u.FullName)
             .HasConversion(ValueObjectsConverters.FullNameConverter)
-            .HasColumnName("Full Name");
+            .HasColumnName(ConfigurationConstants.FullNameColumnName);
         
         builder
             .Property(u => u.Email)
@@ -32,14 +34,14 @@ public class UserConfiguration: AggregateRootConfiguration<User, UserId, Guid>
 
         builder
             .Property(u => u.Password)
-            .HasConversion(ValueObjectsConverters.PasswordConverter);
+            .HasConversion(CommonConverters.PasswordConverter);
         
         builder
             .Property(u => u.Role)
             .HasConversion(EnumerationsConverter
                 .EnumToStringConverter<Role>());
 
-        builder.HasData(new List<User>{ User.TempAdmin });
+        builder.HasData(new List<User>{ UsersFactory.CreateTempUserAdmin() });
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<User> builder)

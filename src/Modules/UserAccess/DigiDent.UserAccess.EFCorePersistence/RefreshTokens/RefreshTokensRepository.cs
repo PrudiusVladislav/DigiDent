@@ -1,9 +1,9 @@
 ﻿using DigiDent.Application.UserAccess.Abstractions;
 using DigiDent.Application.UserAccess.Tokens;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.UserAccess.RefreshTokens;
+namespace DigiDent.UserAccess.EFCorePersistence.RefreshTokens;
 
 public class RefreshTokensRepository: IRefreshTokensRepository
 {

@@ -14,5 +14,10 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Domain\DigiDent.Shared.Domain.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="DigiDent.UserAccess.EFCorePersistence"/>
+        <InternalsVisibleTo Include="DigiDent.UserAccess.UnitTests.Domain"/>
+    </ItemGroup>
 
 </Project>

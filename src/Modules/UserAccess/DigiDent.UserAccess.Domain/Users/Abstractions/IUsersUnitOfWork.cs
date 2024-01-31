@@ -1,6 +1,6 @@
 ﻿using DigiDent.Shared.Domain.Abstractions;
 
-namespace DigiDent.Domain.UserAccessContext.Users;
+namespace DigiDent.UserAccess.Domain.Users.Abstractions;
 
 public interface IUsersUnitOfWork: IUnitOfWork
 {

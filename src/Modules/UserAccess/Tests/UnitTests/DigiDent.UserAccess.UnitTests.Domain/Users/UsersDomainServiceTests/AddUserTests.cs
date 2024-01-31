@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;

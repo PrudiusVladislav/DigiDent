@@ -1,5 +1,5 @@
 ﻿using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using FluentAssertions;
 
 namespace DigiDent.Domain.UnitTests.UserAccess.Users.PasswordTests;

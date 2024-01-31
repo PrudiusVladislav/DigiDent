@@ -1,9 +1,10 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Abstractions;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigiDent.EFCorePersistence.UserAccess.Users;
+namespace DigiDent.UserAccess.EFCorePersistence.Users;
 
 public class UsersRepository: IUsersRepository
 {

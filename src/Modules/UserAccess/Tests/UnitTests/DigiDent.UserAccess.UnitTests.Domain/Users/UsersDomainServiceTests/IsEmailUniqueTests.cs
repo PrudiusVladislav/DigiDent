@@ -1,6 +1,6 @@
 ﻿using DigiDent.Shared.UnitTests.Domain.TestUtils;
 using DigiDent.Domain.UnitTests.UserAccess.Users.TestUtils;
-using DigiDent.Domain.UserAccessContext.Users;
+using DigiDent.UserAccess.Domain.Users;
 using FluentAssertions;
 using NSubstitute;
 

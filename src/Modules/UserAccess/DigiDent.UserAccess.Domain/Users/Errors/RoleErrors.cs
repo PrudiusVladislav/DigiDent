@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
 
-namespace DigiDent.Domain.UserAccessContext.Users.Errors;
+namespace DigiDent.UserAccess.Domain.Users.Errors;
 
 public static class RoleErrors
 {

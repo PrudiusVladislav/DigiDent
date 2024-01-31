@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
-namespace DigiDent.Domain.UserAccessContext.Users;
+namespace DigiDent.UserAccess.Domain.Users.Abstractions;
 
 public interface IUsersRepository
 {

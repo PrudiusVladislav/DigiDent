@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.EFCorePersistence\DigiDent.Shared.EFCorePersistence.csproj" />
+      <ProjectReference Include="..\DigiDent.UserAccess.Application\DigiDent.UserAccess.Application.csproj" />
       <ProjectReference Include="..\DigiDent.UserAccess.Domain\DigiDent.UserAccess.Domain.csproj" />
     </ItemGroup>
 

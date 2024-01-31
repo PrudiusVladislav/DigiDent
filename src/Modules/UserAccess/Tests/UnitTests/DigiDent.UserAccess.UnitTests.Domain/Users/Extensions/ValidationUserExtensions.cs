@@ -1,6 +1,6 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using FluentAssertions;
 
 namespace DigiDent.Domain.UnitTests.UserAccess.Users.Extensions;

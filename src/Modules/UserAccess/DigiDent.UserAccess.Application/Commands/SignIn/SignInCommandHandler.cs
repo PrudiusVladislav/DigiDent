@@ -4,8 +4,8 @@ using DigiDent.Application.UserAccess.Commands.Shared;
 using DigiDent.Shared.Domain.Errors;
 using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
+using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Errors;
 
 namespace DigiDent.Application.UserAccess.Commands.SignIn;
 

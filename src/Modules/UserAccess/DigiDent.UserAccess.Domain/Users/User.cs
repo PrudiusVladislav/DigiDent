@@ -1,67 +1,44 @@
 ﻿using DigiDent.Shared.Domain.Abstractions;
 using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.Domain.UserAccessContext.Users.Events;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.Events;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
-namespace DigiDent.Domain.UserAccessContext.Users;
+namespace DigiDent.UserAccess.Domain.Users;
 
 /// <summary>
 /// Represents a User entity - aggregate root within Users aggregate in UserAccess bounded context.
 /// </summary>
 public class User: AggregateRoot, IEntity<UserId, Guid>
 {
-    public UserId Id { get; init; }
-    public FullName FullName { get; private set; }
-    public Email Email { get; private set; }
-    public PhoneNumber PhoneNumber { get; private set; }
-    public Password Password { get; private set; }
+    public UserId Id { get; init; } = null!;
+    public FullName FullName { get; private set; } = null!;
+    public Email Email { get; private set; } = null!;
+    public PhoneNumber PhoneNumber { get; private set; } = null!;
+    public Password Password { get; private set; } = null!;
     public Role Role { get; private set; }
     
     // only for EF Core
     private User() { }
     
-    internal User(
-        UserId id,
+    public User(
         FullName fullName,
         Email email,
         PhoneNumber phoneNumber,
         Password password,
         Role role)
     {
-        Id = id;
+        Id = TypedId.New<UserId>();
         FullName = fullName;
         Email = email;
         PhoneNumber = phoneNumber;
         Password = password;
         Role = role;
-    }
-    
-    public static User Create(
-        FullName fullName,
-        Email email,
-        PhoneNumber phoneNumber,
-        Password password,
-        Role role)
-    {
-        UserId id = new(Guid.NewGuid());
-        User user = new(id, fullName, email, phoneNumber, password, role);
         
         UserSignedUpDomainEvent userSignedUpEvent = new(
             EventId: Guid.NewGuid(),
             TimeOfOccurrence: DateTime.Now,
-            SignedUpUser: user);
+            SignedUpUser: this);
         
-        user.Raise(userSignedUpEvent);
-        
-        return user;
+        Raise(userSignedUpEvent);
     }
-    
-    internal static User TempAdmin 
-        => new (
-            new UserId(Guid.NewGuid()), 
-            new FullName("Temporary", "Administrator"),
-            Email.TempAdminEmail, 
-            PhoneNumber.TempAdminPhoneNumber, 
-            Password.TempAdminPassword, 
-            Role.Administrator);
 }

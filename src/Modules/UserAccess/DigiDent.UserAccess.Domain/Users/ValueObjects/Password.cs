@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
 using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Domain.UserAccessContext.Users.Errors;
+using DigiDent.UserAccess.Domain.Users.Errors;
 using Zxcvbn;
 using Result = DigiDent.Shared.Domain.ReturnTypes.Result;
 
-namespace DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+namespace DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 /// <summary>
 /// Represents a password value object.
@@ -54,9 +54,6 @@ public record Password
         
         return CompareByteArrays(storedHash, inputHash);
     }
-    
-    internal static Password TempAdminPassword 
-        => Create("*tempAdminPass!").Value!;
     
     private static string GetHashedAndSaltedPassword(string plainTextPassword)
     {

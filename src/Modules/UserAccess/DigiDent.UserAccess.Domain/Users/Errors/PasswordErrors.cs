@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Domain.UserAccessContext.Users.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
-namespace DigiDent.Domain.UserAccessContext.Users.Errors;
+namespace DigiDent.UserAccess.Domain.Users.Errors;
 
 public static class PasswordErrors
 {

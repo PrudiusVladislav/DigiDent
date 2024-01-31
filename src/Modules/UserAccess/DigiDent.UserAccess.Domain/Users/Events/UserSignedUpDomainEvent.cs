@@ -1,6 +1,6 @@
 ﻿using DigiDent.Shared.Domain.Abstractions;
 
-namespace DigiDent.Domain.UserAccessContext.Users.Events;
+namespace DigiDent.UserAccess.Domain.Users.Events;
 
 public record UserSignedUpDomainEvent(
     Guid EventId,

@@ -1,6 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.Abstractions;
 
-namespace DigiDent.Domain.UserAccessContext.Users;
+namespace DigiDent.UserAccess.Domain.Users.Services;
 
 public class UsersDomainService
 {
@@ -32,7 +33,7 @@ public class UsersDomainService
             else
             {
                 User? tempAdmin = await _unitOfWork.UsersRepository
-                    .GetByEmailAsync(Email.TempAdminEmail, cancellationToken);
+                    .GetByEmailAsync(UsersFactory.TempAdminEmail, cancellationToken);
 
                 if (tempAdmin is not null)
                 {
