@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.UserAccess.Commands.SignUp;
+﻿namespace DigiDent.UserAccess.Application.Commands.SignUp;
 
 public sealed record SignUpRequest(
     string FirstName,

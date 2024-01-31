@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Application.UserAccess.Commands.Shared;
+﻿namespace DigiDent.UserAccess.Application.Commands.Shared;
 
 public record AuthenticationResponse(
     string AccessToken,

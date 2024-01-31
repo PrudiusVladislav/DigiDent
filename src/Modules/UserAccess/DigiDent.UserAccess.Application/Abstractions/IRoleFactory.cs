@@ -1,7 +1,7 @@
 ﻿using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
 
-namespace DigiDent.Application.UserAccess.Abstractions;
+namespace DigiDent.UserAccess.Application.Abstractions;
 
 /// <summary>
 /// Factory that contains methods for creating and managing <see cref="Role"/> objects.

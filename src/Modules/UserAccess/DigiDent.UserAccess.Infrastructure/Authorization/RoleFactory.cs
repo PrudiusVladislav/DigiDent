@@ -1,4 +1,4 @@
-﻿using DigiDent.Application.UserAccess.Abstractions;
+﻿using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.Errors;

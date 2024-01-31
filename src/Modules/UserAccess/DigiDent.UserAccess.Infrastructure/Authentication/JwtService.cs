@@ -1,8 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using DigiDent.Application.UserAccess.Abstractions;
+using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.Application.UserAccess.Commands.Shared;
-using DigiDent.Application.UserAccess.Tokens;
+using DigiDent.UserAccess.Application.Tokens;
 using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.UserAccess.Domain.Users;
 using Microsoft.Extensions.Options;

@@ -1,9 +1,8 @@
-﻿using DigiDent.Application.Shared.IntegrationEvents;
-using DigiDent.Shared.Domain.ValueObjects;
+﻿using DigiDent.Shared.Application.IntegrationEvents;
 using DigiDent.UserAccess.Domain.Users.Events;
 using MediatR;
 
-namespace DigiDent.Application.UserAccess.Commands.SignUp;
+namespace DigiDent.UserAccess.Application.Commands.SignUp;
 
 public sealed class UserSignedUpEventHandler 
     : INotificationHandler<UserSignedUpDomainEvent>

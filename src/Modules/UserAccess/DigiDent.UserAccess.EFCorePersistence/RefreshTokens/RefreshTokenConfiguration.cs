@@ -1,4 +1,4 @@
-﻿using DigiDent.Application.UserAccess.Tokens;
+﻿using DigiDent.UserAccess.Application.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

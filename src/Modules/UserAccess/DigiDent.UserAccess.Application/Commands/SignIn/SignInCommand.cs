@@ -1,12 +1,11 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.UserAccess.Abstractions;
-using DigiDent.Application.UserAccess.Commands.Shared;
+﻿using DigiDent.UserAccess.Application.Abstractions;
+using DigiDent.Shared.Application.Abstractions;
 using DigiDent.Shared.Domain.Errors;
 using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
-using DigiDent.UserAccess.Domain.Users.ValueObjects;
+using DigiDent.UserAccess.Application.Commands.Shared;
 
-namespace DigiDent.Application.UserAccess.Commands.SignIn;
+namespace DigiDent.UserAccess.Application.Commands.SignIn;
 
 public sealed record SignInCommand
     : ICommand<Result<AuthenticationResponse>>

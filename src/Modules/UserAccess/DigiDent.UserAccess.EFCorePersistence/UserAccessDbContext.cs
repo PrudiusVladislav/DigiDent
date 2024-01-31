@@ -1,4 +1,4 @@
-﻿using DigiDent.Application.UserAccess.Tokens;
+﻿using DigiDent.UserAccess.Application.Tokens;
 using DigiDent.UserAccess.Domain.Users;
 using DigiDent.UserAccess.EFCorePersistence.Constants;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,5 @@
-﻿using DigiDent.Application.UserAccess.Abstractions;
-using DigiDent.Application.UserAccess.Tokens;
+﻿using DigiDent.UserAccess.Application.Abstractions;
+using DigiDent.UserAccess.Application.Tokens;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 

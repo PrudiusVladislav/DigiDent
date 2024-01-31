@@ -1,7 +1,7 @@
-﻿using DigiDent.Application.UserAccess.Tokens;
+﻿using DigiDent.UserAccess.Application.Tokens;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
-namespace DigiDent.Application.UserAccess.Abstractions;
+namespace DigiDent.UserAccess.Application.Abstractions;
 
 public interface IRefreshTokensRepository
 {

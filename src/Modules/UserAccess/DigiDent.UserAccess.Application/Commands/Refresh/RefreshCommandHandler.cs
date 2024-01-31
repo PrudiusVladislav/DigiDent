@@ -1,12 +1,13 @@
 ﻿using System.Security.Claims;
-using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.UserAccess.Abstractions;
-using DigiDent.Application.UserAccess.Commands.Shared;
+using DigiDent.UserAccess.Application.Abstractions;
+using DigiDent.Shared.Application.Abstractions;
 using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.UserAccess.Application.Commands.Shared;
 using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Abstractions;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
-namespace DigiDent.Application.UserAccess.Commands.Refresh;
+namespace DigiDent.UserAccess.Application.Commands.Refresh;
 
 public class RefreshCommandHandler
     : ICommandHandler<RefreshCommand, Result<AuthenticationResponse>>

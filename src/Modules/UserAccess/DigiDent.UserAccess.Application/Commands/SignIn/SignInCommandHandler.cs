@@ -1,13 +1,14 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.UserAccess.Abstractions;
-using DigiDent.Application.UserAccess.Commands.Shared;
+﻿using DigiDent.UserAccess.Application.Abstractions;
+using DigiDent.Shared.Application.Abstractions;
 using DigiDent.Shared.Domain.Errors;
 using DigiDent.Shared.Domain.ReturnTypes;
-using DigiDent.Shared.Domain.ValueObjects;
+using DigiDent.UserAccess.Application.Commands.Shared;
 using DigiDent.UserAccess.Domain.Users;
+using DigiDent.UserAccess.Domain.Users.Abstractions;
 using DigiDent.UserAccess.Domain.Users.Errors;
+using DigiDent.UserAccess.Domain.Users.Services;
 
-namespace DigiDent.Application.UserAccess.Commands.SignIn;
+namespace DigiDent.UserAccess.Application.Commands.SignIn;
 
 public sealed class SignInCommandHandler
     : ICommandHandler<SignInCommand, Result<AuthenticationResponse>>

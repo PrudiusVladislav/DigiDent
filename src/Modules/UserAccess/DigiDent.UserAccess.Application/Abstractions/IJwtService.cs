@@ -1,12 +1,9 @@
 ﻿using System.Security.Claims;
-using DigiDent.Application.UserAccess.Commands.Refresh;
-using DigiDent.Application.UserAccess.Commands.Shared;
-using DigiDent.Application.UserAccess.Tokens;
-using DigiDent.Shared.Domain.Abstractions;
 using DigiDent.Shared.Domain.ReturnTypes;
+using DigiDent.UserAccess.Application.Commands.Shared;
 using DigiDent.UserAccess.Domain.Users;
 
-namespace DigiDent.Application.UserAccess.Abstractions;
+namespace DigiDent.UserAccess.Application.Abstractions;
 
 public interface IJwtService
 {

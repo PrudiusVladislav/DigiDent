@@ -1,12 +1,10 @@
-﻿using DigiDent.Application.Shared.Abstractions;
-using DigiDent.Application.UserAccess.Abstractions;
-using DigiDent.Application.UserAccess.Commands.Shared;
+﻿using DigiDent.UserAccess.Application.Abstractions;
+using DigiDent.Shared.Application.Abstractions;
 using DigiDent.Shared.Domain.ReturnTypes;
 using DigiDent.Shared.Domain.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
-using MediatR;
 
-namespace DigiDent.Application.UserAccess.Commands.SignUp;
+namespace DigiDent.UserAccess.Application.Commands.SignUp;
 
 public sealed record SignUpCommand: ICommand<Result>
 {
