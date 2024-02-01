@@ -25,8 +25,8 @@ public sealed class UserAccessModule: IModule
     {
         services
             .AddDomain()
-            .AddApplication(mediatrConfiguration)
             .AddPersistence(configuration)
+            .AddApplication(mediatrConfiguration)
             .AddInfrastructure(configuration.GetSection("Authentication:Jwt"));
     }
 

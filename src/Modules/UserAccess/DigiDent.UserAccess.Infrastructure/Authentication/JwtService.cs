@@ -55,12 +55,14 @@ public class JwtService: IJwtService
         await _refreshTokensRepository.DeleteRefreshTokenByUserIdAsync(
             user.Id, cancellationToken);
         
-        RefreshToken refreshToken = new(
-            Token: Guid.NewGuid().ToString(),
-            JwtId: token.Id,
-            CreationDate: DateTime.UtcNow,
-            ExpiryDate: DateTime.UtcNow.Add(_jwtOptions.RefreshTokenLifetime),
-            UserId: user.Id);
+        RefreshToken refreshToken = new()
+        {
+            Token = Guid.NewGuid().ToString(),
+            JwtId = token.Id,
+            CreationDate = DateTime.UtcNow,
+            ExpiryDate = DateTime.UtcNow.Add(_jwtOptions.RefreshTokenLifetime),
+            UserId = user.Id
+        };
         
         await _refreshTokensRepository
             .AddRefreshTokenAsync(refreshToken, cancellationToken);

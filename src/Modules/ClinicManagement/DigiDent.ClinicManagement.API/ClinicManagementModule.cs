@@ -22,8 +22,8 @@ public sealed class ClinicManagementModule: IModule
         MediatRServiceConfiguration mediatrConfiguration)
     {
         services
-            .AddApplication(mediatrConfiguration)
             .AddPersistence(configuration)
+            .AddApplication(mediatrConfiguration)
             .AddInfrastructure();
     }
 

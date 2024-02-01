@@ -1,4 +1,5 @@
 ﻿using DigiDent.ClinicManagement.Application.Abstractions;
+using DigiDent.ClinicManagement.Infrastructure.Factories;
 using DigiDent.Shared.Infrastructure.Time;
 using DigiDent.Shared.Kernel.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,7 @@ public static class InfrastructureInstaller
     
     private static IServiceCollection AddFactories(this IServiceCollection services)
     {
-        services.AddSingleton<IPersonFactory, IPersonFactory>();
+        services.AddSingleton<IPersonFactory, PersonFactory>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
