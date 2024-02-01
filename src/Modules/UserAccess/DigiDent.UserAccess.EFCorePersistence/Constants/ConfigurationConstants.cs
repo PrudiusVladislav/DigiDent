@@ -2,6 +2,6 @@
 
 public class ConfigurationConstants
 {
-    internal const string UserAccessSchemaName = "User_Access";
+    internal const string UserAccessSchema = "user_access";
     internal const string FullNameColumnName = "Full Name";
 }

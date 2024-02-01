@@ -18,7 +18,7 @@ public class UserAccessDbContext: DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema(
-            ConfigurationConstants.UserAccessSchemaName);
+            ConfigurationConstants.UserAccessSchema);
         
         modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(UserAccessDbContext).Assembly);

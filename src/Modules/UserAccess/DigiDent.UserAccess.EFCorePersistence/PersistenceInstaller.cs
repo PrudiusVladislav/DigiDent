@@ -19,8 +19,8 @@ public static class PersistenceInstaller
             .AddRepositories()
             .AddUnitOfWork()
             .AddSqlServerDbContext<UserAccessDbContext>(
-                configuration.GetConnectionString("SqlServer")!,
-                ConfigurationConstants.UserAccessSchemaName);
+                connectionString: configuration.GetConnectionString("SqlServer")!,
+                schema: ConfigurationConstants.UserAccessSchema);
         
         return services;
     }
