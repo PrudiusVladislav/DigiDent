@@ -12,6 +12,9 @@ var app = builder.Build();
 {
     app.UseHttpsRedirection();
     app.UseErrorHandlingMiddleware();
+    
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     app.MapGroup("/api")
         .MapModulesEndpoints();

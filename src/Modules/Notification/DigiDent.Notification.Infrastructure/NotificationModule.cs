@@ -15,11 +15,10 @@ public sealed class NotificationModule: IModule
     public void RegisterDependencies(IServiceCollection services, IConfiguration configuration,
         MediatRServiceConfiguration mediatrConfiguration)
     {
-        throw new NotImplementedException();
+        
     }
 
     public void RegisterEndpoints(IEndpointRouteBuilder builder)
     {
-        throw new NotImplementedException();
     }
 }
