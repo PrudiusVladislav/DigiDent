@@ -33,7 +33,7 @@ internal static class EmployeesScheduleEndpoints
         [FromRoute]Guid id,
         [FromQuery]DateOnly from,
         [FromQuery]DateOnly until,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken,
         [FromQuery]bool pdf = false)
     {
@@ -60,7 +60,7 @@ internal static class EmployeesScheduleEndpoints
     
     private static async Task<IResult> GetEmployeeSchedulePreferences(
         [FromRoute]Guid id,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         GetSchedulePreferencesQuery query = new(id);
@@ -74,7 +74,7 @@ internal static class EmployeesScheduleEndpoints
     private static async Task<IResult> AddEmployeeWorkingDay(
         [FromRoute]Guid id,
         [FromBody]AddWorkingDayRequest request,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<AddWorkingDayCommand> commandResult = AddWorkingDayCommand
@@ -94,7 +94,7 @@ internal static class EmployeesScheduleEndpoints
     private static async Task<IResult> AddEmployeeSchedulePreference(
         [FromRoute]Guid id,
         [FromBody]AddSchedulePreferenceRequest request,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<AddSchedulePreferenceCommand> commandResult = AddSchedulePreferenceCommand

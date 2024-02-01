@@ -25,8 +25,8 @@ internal static class TokensEndpoints
     
     private static async Task<IResult> SignIn(
         [FromBody]SignInRequest request,
-        ISender sender,
-        IRoleFactory roleFactory,
+        [FromServices]ISender sender,
+        [FromServices]IRoleFactory roleFactory,
         CancellationToken cancellationToken)
     {
         Result<SignInCommand> signInCommandResult = SignInCommand
@@ -45,7 +45,7 @@ internal static class TokensEndpoints
     
     private static async Task<IResult> Refresh(
         [FromBody]RefreshCommand refreshCommand,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<AuthenticationResponse> refreshResult = await sender.Send(

@@ -26,7 +26,7 @@ internal static class PatientsEndpoints
     }
     
     private static async Task<IResult> GetAllPatientsInfo(
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         var patients = await sender.Send(
@@ -37,7 +37,7 @@ internal static class PatientsEndpoints
     
     private static async Task<IResult> GetPatientProfileInfo(
         [FromRoute]Guid id,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         GetPatientProfileQuery query = new(id);
@@ -53,7 +53,7 @@ internal static class PatientsEndpoints
     private static async Task<IResult> CreateTreatmentPlan(
         [FromRoute]Guid id,
         [FromBody]CreateTreatmentPlanRequest request,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<CreateTreatmentPlanCommand> commandResult = CreateTreatmentPlanCommand

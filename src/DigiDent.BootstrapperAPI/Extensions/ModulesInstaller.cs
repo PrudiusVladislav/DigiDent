@@ -26,6 +26,8 @@ public static class ModulesInstaller
             module.RegisterDependencies(
                 services, configuration, mediatrConfiguration);
         }
+
+        services.AddMediatR(mediatrConfiguration);
         
         return services;
     }

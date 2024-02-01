@@ -24,8 +24,8 @@ internal static class SignUpEndpoints
     
     private static async Task<IResult> EmployeesSignUp(
         [FromBody]SignUpRequest request,
-        ISender sender,
-        IRoleFactory roleFactory,
+        [FromServices]ISender sender,
+        [FromServices]IRoleFactory roleFactory,
         CancellationToken cancellationToken)
     {
         return await SignUp(request, sender, roleFactory, cancellationToken,
@@ -34,8 +34,8 @@ internal static class SignUpEndpoints
     
     private static async Task<IResult> PatientsSignUp(
         [FromBody]SignUpRequest request,
-        ISender sender,
-        IRoleFactory roleFactory,
+        [FromServices]ISender sender,
+        [FromServices]IRoleFactory roleFactory,
         CancellationToken cancellationToken)
     {
         return await SignUp(request, sender, roleFactory, cancellationToken,
@@ -44,8 +44,8 @@ internal static class SignUpEndpoints
     
     private static async Task<IResult> SignUp(
         SignUpRequest request,
-        ISender sender,
-        IRoleFactory roleFactory,
+        [FromServices]ISender sender,
+        [FromServices]IRoleFactory roleFactory,
         CancellationToken cancellationToken,
         params Role[] allowedRoles)                
     {

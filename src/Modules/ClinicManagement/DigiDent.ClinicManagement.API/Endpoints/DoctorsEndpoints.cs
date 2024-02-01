@@ -30,7 +30,7 @@ internal static class DoctorsEndpoints
     }
     
     private static async Task<IResult> GetAllDoctorsInfo(
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         var doctors = await sender.Send(
@@ -40,7 +40,7 @@ internal static class DoctorsEndpoints
     
     private static async Task<IResult> GetDoctorProfile(
         [FromRoute]Guid id,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         DoctorProfileDTO? doctor = await sender.Send(
@@ -55,7 +55,7 @@ internal static class DoctorsEndpoints
         [FromRoute]Guid id,
         [FromQuery]DateTime dateTime,
         [FromQuery]int duration,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         IsDoctorAvailableQuery query = new(id, dateTime, duration);
@@ -73,7 +73,7 @@ internal static class DoctorsEndpoints
         [FromQuery]DateTime from,
         [FromQuery]DateOnly until,
         [FromQuery]int duration,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         GetAvailableTimeSlotsQuery query = new(id, from, until, duration);
@@ -87,7 +87,7 @@ internal static class DoctorsEndpoints
     private static async Task<IResult> UpdateDoctor(
         [FromRoute]Guid id,
         [FromBody]UpdateDoctorRequest request,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<UpdateDoctorCommand> commandResult = UpdateDoctorCommand
