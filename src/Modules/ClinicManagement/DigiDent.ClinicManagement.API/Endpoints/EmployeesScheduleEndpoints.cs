@@ -14,19 +14,19 @@ using QuestPDF.Fluent;
 
 namespace DigiDent.ClinicManagement.API.Endpoints;
 
-public static class EmployeesScheduleEndpoints
+internal static class EmployeesScheduleEndpoints
 {
-    public static RouteGroupBuilder MapEmployeesScheduleEndpoints(
-        this RouteGroupBuilder groupBuilder)
+    internal static IEndpointRouteBuilder MapEmployeesScheduleEndpoints(
+        this IEndpointRouteBuilder builder)
     {
-        var employeesGroup = groupBuilder.MapGroup("/employees");
+        var employeesGroup = builder.MapGroup("/employees");
         
         employeesGroup.MapGet("/{id}/schedule", GetEmployeeWorkingSchedule);
         employeesGroup.MapGet("/{id}/preferences", GetEmployeeSchedulePreferences);
         employeesGroup.MapPost("/{id}/schedule", AddEmployeeWorkingDay);
         employeesGroup.MapPost("/{id}/preferences", AddEmployeeSchedulePreference);
         
-        return groupBuilder;
+        return builder;
     }
     
     private static async Task<IResult> GetEmployeeWorkingSchedule(

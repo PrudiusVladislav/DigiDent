@@ -1,4 +1,7 @@
-﻿using DigiDent.ClinicManagement.Application;
+﻿using DigiDent.ClinicManagement.API.Endpoints;
+using DigiDent.ClinicManagement.Application;
+using DigiDent.ClinicManagement.EFCorePersistence;
+using DigiDent.ClinicManagement.Infrastructure;
 using DigiDent.Shared.Abstractions.Modules;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -13,14 +16,24 @@ public sealed class ClinicManagementModule: IModule
 {
     public string Name => nameof(ClinicManagementModule);
 
-    public void RegisterDependencies(IServiceCollection services, IConfiguration configuration,
+    public void RegisterDependencies(
+        IServiceCollection services,
+        IConfiguration configuration,
         MediatRServiceConfiguration mediatrConfiguration)
     {
-        throw new NotImplementedException();
+        services
+            .AddApplication(mediatrConfiguration)
+            .AddPersistence(configuration)
+            .AddInfrastructure();
     }
 
     public void RegisterEndpoints(IEndpointRouteBuilder builder)
     {
-        throw new NotImplementedException();
+        builder
+            .MapAppointmentsEndpoints()
+            .MapDoctorsEndpoints()
+            .MapEmployeesScheduleEndpoints()
+            .MapPatientsEndpoints()
+            .MapProvidedServicesEndpoints();
     }
 }

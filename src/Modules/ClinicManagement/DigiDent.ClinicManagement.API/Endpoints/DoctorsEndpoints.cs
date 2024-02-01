@@ -13,12 +13,12 @@ using Microsoft.AspNetCore.Routing;
 
 namespace DigiDent.ClinicManagement.API.Endpoints;
 
-public static class DoctorsEndpoints
+internal static class DoctorsEndpoints
 {
-    public static RouteGroupBuilder MapDoctorsEndpoints(
-        this RouteGroupBuilder groupBuilder)
+    internal static IEndpointRouteBuilder MapDoctorsEndpoints(
+        this IEndpointRouteBuilder builder)
     {
-        var doctorsGroup = groupBuilder.MapGroup("/doctors");
+        var doctorsGroup = builder.MapGroup("/doctors");
         
         doctorsGroup.MapGet("/", GetAllDoctorsInfo);
         doctorsGroup.MapGet("/{id}", GetDoctorProfile);
@@ -26,7 +26,7 @@ public static class DoctorsEndpoints
         doctorsGroup.MapGet("/{id}/availability/slots", GetAvailableTimeSlots);
         doctorsGroup.MapPut("/{id}", UpdateDoctor);
         
-        return groupBuilder;
+        return builder;
     }
     
     private static async Task<IResult> GetAllDoctorsInfo(

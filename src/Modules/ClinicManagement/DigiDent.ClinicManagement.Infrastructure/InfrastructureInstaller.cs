@@ -1,7 +1,6 @@
 ﻿using DigiDent.ClinicManagement.Application.Abstractions;
 using DigiDent.Shared.Infrastructure.Time;
 using DigiDent.Shared.Kernel.Abstractions;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QuestPDF.Infrastructure;
 
@@ -9,9 +8,7 @@ namespace DigiDent.ClinicManagement.Infrastructure;
 
 public static class InfrastructureInstaller
 {
-    public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services,
-        IConfigurationSection configurationSection)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
         return services
             .AddFactories()
