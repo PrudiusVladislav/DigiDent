@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Abstractions\DigiDent.Shared.Abstractions.csproj" />
+      <ProjectReference Include="..\..\UserAccess\DigiDent.UserAccess.IntegrationEvents\DigiDent.UserAccess.IntegrationEvents.csproj" />
+      <ProjectReference Include="..\DigiDent.ClinicManagement.Domain\DigiDent.ClinicManagement.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

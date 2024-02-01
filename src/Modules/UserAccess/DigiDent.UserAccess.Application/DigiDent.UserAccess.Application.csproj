@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DigiDent.UserAccess.Domain\DigiDent.UserAccess.Domain.csproj" />
+      <ProjectReference Include="..\DigiDent.UserAccess.IntegrationEvents\DigiDent.UserAccess.IntegrationEvents.csproj" />
+    </ItemGroup>
+
+</Project>

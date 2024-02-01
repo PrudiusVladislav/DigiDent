@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.2.0" />
+      <PackageReference Include="zxcvbn-core" Version="8.0.0-beta0002" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="DigiDent.UserAccess.EFCorePersistence"/>
+        <InternalsVisibleTo Include="DigiDent.UserAccess.UnitTests.Domain"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Abstractions\DigiDent.Shared.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>
