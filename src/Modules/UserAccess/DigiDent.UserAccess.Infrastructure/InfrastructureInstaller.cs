@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using DigiDent.Shared.Infrastructure.Time;
+using DigiDent.Shared.Kernel.Abstractions;
 using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.UserAccess.Infrastructure.Authentication;
 using DigiDent.UserAccess.Infrastructure.Authorization;
@@ -46,8 +48,8 @@ public static class InfrastructureInstaller
             ValidAudience = configurationSection[AuthenticationConstants.AudienceSectionName],
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(
-                    configurationSection[AuthenticationConstants.SecretSectionName]!)),
+                Encoding.UTF8.GetBytes(configurationSection[
+                    AuthenticationConstants.SecretSectionName]!)),
             ValidateLifetime = true,
             LifetimeValidator = (
                 notBefore, expires, securityToken, validationParameters) =>
@@ -75,6 +77,7 @@ public static class InfrastructureInstaller
         this IServiceCollection services)
     {
         services.AddSingleton<IRoleFactory, RoleFactory>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
 }

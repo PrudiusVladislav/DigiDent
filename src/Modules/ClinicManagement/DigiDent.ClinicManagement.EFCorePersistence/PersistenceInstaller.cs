@@ -3,6 +3,7 @@ using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
 using DigiDent.ClinicManagement.EFCorePersistence.Constants;
 using DigiDent.ClinicManagement.EFCorePersistence.Visits.Repositories;
 using DigiDent.Shared.Infrastructure.EfCore.Extensions;
+using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
@@ -16,6 +17,7 @@ public static class PersistenceInstaller
         IConfiguration configuration)
     {
         services
+            .AddSingleton<PublishDomainEventsInterceptor>()
             .AddSqlServerDbContext<ClinicManagementDbContext>(
                 connectionString: configuration.GetConnectionString("SqlServer")!,
                 schema: ConfigurationConstants.ClinicManagementSchema)

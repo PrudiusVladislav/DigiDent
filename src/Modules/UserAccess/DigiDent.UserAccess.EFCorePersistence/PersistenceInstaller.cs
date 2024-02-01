@@ -1,4 +1,5 @@
 ﻿using DigiDent.Shared.Infrastructure.EfCore.Extensions;
+using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
 using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.UserAccess.Domain.Users.Abstractions;
 using DigiDent.UserAccess.EFCorePersistence.Constants;
@@ -16,11 +17,12 @@ public static class PersistenceInstaller
         IConfiguration configuration)
     {
         services
-            .AddRepositories()
-            .AddUnitOfWork()
+            .AddSingleton<PublishDomainEventsInterceptor>()
             .AddSqlServerDbContext<UserAccessDbContext>(
                 connectionString: configuration.GetConnectionString("SqlServer")!,
-                schema: ConfigurationConstants.UserAccessSchema);
+                schema: ConfigurationConstants.UserAccessSchema)
+            .AddRepositories()
+            .AddUnitOfWork();
         
         return services;
     }
