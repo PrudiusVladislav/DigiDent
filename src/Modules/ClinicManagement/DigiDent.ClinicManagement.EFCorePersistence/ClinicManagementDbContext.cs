@@ -5,14 +5,13 @@ using DigiDent.ClinicManagement.Domain.Employees.Doctors;
 using DigiDent.ClinicManagement.Domain.Employees.Shared;
 using DigiDent.ClinicManagement.Domain.Patients;
 using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.ClinicManagement.EFCorePersistence.Constants;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigiDent.ClinicManagement.EFCorePersistence;
 
-public class ClinicCoreDbContext: DbContext
+public class ClinicManagementDbContext: DbContext
 {
-    internal const string ClinicCoreSchema = "Clinic_Core";
-    
     public DbSet<Employee> Employees { get; set; } = null!;
     public DbSet<Doctor> Doctors { get; set; } = null!;
     public DbSet<Assistant> Assistants { get; set; } = null!;
@@ -29,17 +28,18 @@ public class ClinicCoreDbContext: DbContext
     public DbSet<ProvidedService> ProvidedServices { get; set; } = null!;
     public DbSet<TreatmentPlan> TreatmentPlans { get; set; } = null!;
     
-    public ClinicCoreDbContext(DbContextOptions<ClinicCoreDbContext> options)
+    public ClinicManagementDbContext(DbContextOptions<ClinicManagementDbContext> options)
         : base(options)
     {
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema(ClinicCoreSchema);
+        modelBuilder.HasDefaultSchema(
+            ConfigurationConstants.ClinicManagementSchema);
         
         modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(ClinicCoreDbContext).Assembly);
+            typeof(ClinicManagementDbContext).Assembly);
         
         //configuring Employee hierarchy
         modelBuilder.Entity<Employee>()

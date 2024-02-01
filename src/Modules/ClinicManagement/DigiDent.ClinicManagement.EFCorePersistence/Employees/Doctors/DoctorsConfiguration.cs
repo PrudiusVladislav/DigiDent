@@ -1,5 +1,6 @@
 ﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors;
 using DigiDent.ClinicManagement.Domain.Employees.Doctors.ValueObjects;
+using DigiDent.ClinicManagement.EFCorePersistence.Constants;
 using DigiDent.Shared.Infrastructure.EfCore.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -18,7 +19,8 @@ public class DoctorsConfiguration : IEntityTypeConfiguration<Doctor>
         builder
             .HasMany(d => d.ProvidedServices)
             .WithMany(dp => dp.Doctors)
-            .UsingEntity(je => je.ToTable("DoctorsProvidedServices"));
+            .UsingEntity(je => je.ToTable(ConfigurationConstants
+                .DoctorsServicesJoinTableName));
         
         builder
             .HasMany(d => d.Appointments)

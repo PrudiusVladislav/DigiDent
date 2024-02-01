@@ -8,9 +8,9 @@ public class DoctorsRepository :
     EmployeesRepository<Doctor>,
     IDoctorsRepository
 {
-    private readonly ClinicCoreDbContext _context;
+    private readonly ClinicManagementDbContext _context;
     
-    public DoctorsRepository(ClinicCoreDbContext context)
+    public DoctorsRepository(ClinicManagementDbContext context)
         : base(context)
     {
         _context = context;

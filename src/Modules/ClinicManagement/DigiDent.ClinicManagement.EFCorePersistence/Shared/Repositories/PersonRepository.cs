@@ -5,9 +5,9 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Shared.Repositories;
 
 public class PersonRepository: IPersonRepository
 {
-    private readonly ClinicCoreDbContext _context;
+    private readonly ClinicManagementDbContext _context;
 
-    public PersonRepository(ClinicCoreDbContext context)
+    public PersonRepository(ClinicManagementDbContext context)
     {
         _context = context;
     }

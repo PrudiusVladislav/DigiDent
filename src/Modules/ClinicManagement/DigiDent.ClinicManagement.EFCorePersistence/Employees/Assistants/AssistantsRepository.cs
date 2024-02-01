@@ -6,7 +6,7 @@ public class AssistantsRepository :
     EmployeesRepository<Assistant>,
     IAssistantsRepository
 {
-    public AssistantsRepository(ClinicCoreDbContext context)
+    public AssistantsRepository(ClinicManagementDbContext context)
         : base(context)
     {
     }

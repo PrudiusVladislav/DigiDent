@@ -8,8 +8,8 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Visits.Repositories;
 public class PastVisitsRepository :
     VisitsRepository<PastVisit, PastVisitId, Guid>, IPastVisitsRepository
 {
-    private readonly ClinicCoreDbContext _context;
-    public PastVisitsRepository(ClinicCoreDbContext context)
+    private readonly ClinicManagementDbContext _context;
+    public PastVisitsRepository(ClinicManagementDbContext context)
         : base(context)
     {
         _context = context;

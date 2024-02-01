@@ -9,9 +9,9 @@ public abstract class EmployeesRepository<TEmployee>
     : IEmployeesRepository<TEmployee>
     where TEmployee : Employee
 {
-    private readonly ClinicCoreDbContext _context;
+    private readonly ClinicManagementDbContext _context;
     
-    protected EmployeesRepository(ClinicCoreDbContext context)
+    protected EmployeesRepository(ClinicManagementDbContext context)
     {
         _context = context;
     }

@@ -1,6 +1,7 @@
 ﻿using DigiDent.ClinicManagement.Domain.Visits;
 using DigiDent.ClinicManagement.Domain.Visits.Enumerations;
 using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
+using DigiDent.ClinicManagement.EFCorePersistence.Constants;
 using DigiDent.ClinicManagement.EFCorePersistence.Shared.Configurations;
 using DigiDent.Shared.Infrastructure.EfCore.Configurations;
 using DigiDent.Shared.Infrastructure.EfCore.Converters;
@@ -26,7 +27,8 @@ public class AppointmentConfiguration
         builder
             .HasMany(a => a.ProvidedServices)
             .WithMany()
-            .UsingEntity(j => j.ToTable("AppointmentsProvidedServices"));
+            .UsingEntity(j => j.ToTable(ConfigurationConstants
+                .AppointmentsServicesJoinTableName));
         
         builder
             .Property(a => a.VisitDateTime)

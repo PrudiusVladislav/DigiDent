@@ -9,9 +9,9 @@ public abstract class VisitsRepository<TVisit, TId, TIdValue> :
     where TId: class, IVisitId<TIdValue>
     where TIdValue: notnull
 {
-    private readonly ClinicCoreDbContext _context;
+    private readonly ClinicManagementDbContext _context;
     
-    protected VisitsRepository(ClinicCoreDbContext context)
+    protected VisitsRepository(ClinicManagementDbContext context)
     {
         _context = context;
     }

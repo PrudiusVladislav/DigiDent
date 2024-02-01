@@ -4,7 +4,7 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Employees.Administrators;
 
 public class AdministratorsRepository : EmployeesRepository<Administrator>
 {
-    public AdministratorsRepository(ClinicCoreDbContext context)
+    public AdministratorsRepository(ClinicManagementDbContext context)
         : base(context)
     {
     }

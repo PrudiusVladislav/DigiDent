@@ -9,8 +9,8 @@ public class AppointmentsRepository :
     VisitsRepository<Appointment, AppointmentId, Guid>,
     IAppointmentsRepository
 {
-    private readonly ClinicCoreDbContext _context;
-    public AppointmentsRepository(ClinicCoreDbContext context) 
+    private readonly ClinicManagementDbContext _context;
+    public AppointmentsRepository(ClinicManagementDbContext context) 
         : base(context)
     {
         _context = context;

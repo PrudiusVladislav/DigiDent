@@ -7,7 +7,7 @@ public class AllEmployeesRepository :
     EmployeesRepository<Employee>,
     IAllEmployeesRepository
 {
-    public AllEmployeesRepository(ClinicCoreDbContext context)
+    public AllEmployeesRepository(ClinicManagementDbContext context)
         : base(context)
     {
     }

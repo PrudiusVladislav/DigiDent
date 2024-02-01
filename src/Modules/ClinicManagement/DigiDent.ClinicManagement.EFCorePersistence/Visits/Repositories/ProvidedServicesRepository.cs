@@ -7,9 +7,9 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Visits.Repositories;
 
 public class ProvidedServicesRepository: IProvidedServicesRepository
 {
-    private readonly ClinicCoreDbContext _dbContext;
+    private readonly ClinicManagementDbContext _dbContext;
     
-    public ProvidedServicesRepository(ClinicCoreDbContext dbContext)
+    public ProvidedServicesRepository(ClinicManagementDbContext dbContext)
     {
         _dbContext = dbContext;
     }
