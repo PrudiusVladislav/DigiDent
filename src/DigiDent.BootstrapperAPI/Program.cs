@@ -2,6 +2,8 @@ using DigiDent.BootstrapperAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Services.AddMessageBroker(builder.Configuration);
+    
     builder.Services.AddModulesDependencies(
         builder.Configuration);
 

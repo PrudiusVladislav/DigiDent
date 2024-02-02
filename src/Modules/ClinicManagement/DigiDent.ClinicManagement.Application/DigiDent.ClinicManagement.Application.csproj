@@ -15,6 +15,7 @@
       <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Abstractions\DigiDent.Shared.Abstractions.csproj" />
       <ProjectReference Include="..\..\UserAccess\DigiDent.UserAccess.IntegrationEvents\DigiDent.UserAccess.IntegrationEvents.csproj" />
       <ProjectReference Include="..\DigiDent.ClinicManagement.Domain\DigiDent.ClinicManagement.Domain.csproj" />
+      <ProjectReference Include="..\DigiDent.ClinicManagement.IntegrationEvents\DigiDent.ClinicManagement.IntegrationEvents.csproj" />
     </ItemGroup>
 
 </Project>
