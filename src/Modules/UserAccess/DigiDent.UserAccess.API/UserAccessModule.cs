@@ -34,7 +34,7 @@ public sealed class UserAccessModule: IModule
     public void RegisterEndpoints(
         IEndpointRouteBuilder builder, Uri baseApiUri)
     {
-        BaseApiUrl = new Uri(baseApiUri, "user-access/");   
+        BaseApiUrl = new Uri(baseApiUri, "/user-access");   
         
         builder.MapGroup("/user-access")
             .MapSignUpEndpoints()

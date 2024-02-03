@@ -38,7 +38,7 @@ public static class ModulesInstaller
         {
             module.RegisterEndpoints(
                 builder: endpointsBuilder, 
-                baseApiUri: new Uri("https://localhost:7102/"));
+                baseApiUri: new Uri("https://localhost:7102/api"));
         }
 
         return endpointsBuilder;
