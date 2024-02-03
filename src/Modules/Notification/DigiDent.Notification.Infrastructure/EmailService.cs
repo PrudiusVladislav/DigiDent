@@ -1,5 +1,5 @@
-﻿using DigiDent.Notification.Application;
-using DigiDent.Notification.Application.Abstractions;
+﻿using DigiDent.Notification.Application.Abstractions;
+using DigiDent.Notification.Application.ValueObjects;
 using Mailjet.Client;
 using Mailjet.Client.TransactionalEmails;
 
@@ -18,12 +18,12 @@ public class EmailService: IEmailService
     }
     
     public async Task SendTransactionalEmailAsync(
-        string toEmail, string subject, string htmlPart)
+        string toEmail, EmailContent emailContent)
     {
         var email = new TransactionalEmailBuilder()
             .WithFrom(CompanyEmail)
-            .WithSubject(subject)
-            .WithHtmlPart(htmlPart)
+            .WithSubject(emailContent.Subject)
+            .WithHtmlPart(emailContent.HtmlBody)
             .WithTo(new SendContact(toEmail))
             .Build();
         

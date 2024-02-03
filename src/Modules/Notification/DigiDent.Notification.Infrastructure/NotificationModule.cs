@@ -23,7 +23,8 @@ public sealed class NotificationModule: IModule
             .AddInfrastructure(configuration);
     }
 
-    public void RegisterEndpoints(IEndpointRouteBuilder builder)
+    public void RegisterEndpoints(
+        IEndpointRouteBuilder builder, Uri baseApiUri)
     {
     }
 }

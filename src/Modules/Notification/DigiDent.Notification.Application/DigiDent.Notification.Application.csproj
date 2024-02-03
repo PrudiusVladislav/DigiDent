@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Abstractions\DigiDent.Shared.Abstractions.csproj" />
       <ProjectReference Include="..\..\ClinicManagement\DigiDent.ClinicManagement.IntegrationEvents\DigiDent.ClinicManagement.IntegrationEvents.csproj" />
+      <ProjectReference Include="..\..\UserAccess\DigiDent.UserAccess.API\DigiDent.UserAccess.API.csproj" />
       <ProjectReference Include="..\..\UserAccess\DigiDent.UserAccess.IntegrationEvents\DigiDent.UserAccess.IntegrationEvents.csproj" />
     </ItemGroup>
 

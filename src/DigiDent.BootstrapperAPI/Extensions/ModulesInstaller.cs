@@ -1,5 +1,4 @@
-﻿
-using DigiDent.ClinicManagement.API;
+﻿using DigiDent.ClinicManagement.API;
 using DigiDent.Notification.Infrastructure;
 using DigiDent.Shared.Abstractions.Modules;
 using DigiDent.UserAccess.API;
@@ -37,7 +36,9 @@ public static class ModulesInstaller
     {
         foreach (var module in _modulesToInstall)
         {
-            module.RegisterEndpoints(endpointsBuilder);
+            module.RegisterEndpoints(
+                builder: endpointsBuilder, 
+                baseApiUri: new Uri("https://localhost:7102/"));
         }
 
         return endpointsBuilder;

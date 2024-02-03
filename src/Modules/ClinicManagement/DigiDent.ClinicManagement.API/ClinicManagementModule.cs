@@ -15,7 +15,8 @@ namespace DigiDent.ClinicManagement.API;
 public sealed class ClinicManagementModule: IModule
 {
     public string Name => nameof(ClinicManagementModule);
-
+    public static Uri BaseApiUrl { get; private set; } = null!;
+    
     public void RegisterDependencies(
         IServiceCollection services,
         IConfiguration configuration,
@@ -27,8 +28,11 @@ public sealed class ClinicManagementModule: IModule
             .AddInfrastructure();
     }
 
-    public void RegisterEndpoints(IEndpointRouteBuilder builder)
+    public void RegisterEndpoints(
+        IEndpointRouteBuilder builder, Uri baseApiUri)
     {
+        BaseApiUrl = baseApiUri;
+        
         builder
             .MapAppointmentsEndpoints()
             .MapDoctorsEndpoints()

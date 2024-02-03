@@ -21,7 +21,7 @@ public static class InfrastructureInstaller
         });
         
         services.AddScoped<IEmailService, EmailService>();
-        services.AddSingleton<IEmailTemplateFactory, EmailTemplateFactory>();
+        services.AddSingleton<IEmailContentFactory, EmailContentFactory>();
         return services;
     }
 }

@@ -25,7 +25,7 @@ public static class MessageBrokerInstaller
                         tableName: "Timeouts")),
             onCreated: async bus =>
             {
-                await bus.Subscribe<UserSignedUpIntegrationEvent>();
+                await bus.Subscribe<UserActivatedIntegrationEvent>();
                 await bus.Subscribe<AppointmentCreatedIntegrationEvent>();
             });
     }
