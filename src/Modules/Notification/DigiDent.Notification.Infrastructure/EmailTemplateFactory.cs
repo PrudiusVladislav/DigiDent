@@ -1,4 +1,4 @@
-﻿using DigiDent.Notification.Application;
+﻿using DigiDent.Notification.Application.Abstractions;
 
 namespace DigiDent.Notification.Infrastructure;
 

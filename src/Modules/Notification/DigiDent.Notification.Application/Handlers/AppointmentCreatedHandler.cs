@@ -1,4 +1,5 @@
 ﻿using DigiDent.ClinicManagement.IntegrationEvents;
+using DigiDent.Notification.Application.Abstractions;
 using Rebus.Handlers;
 
 namespace DigiDent.Notification.Application.Handlers;
@@ -27,7 +28,6 @@ public class AppointmentCreatedHandler
             "DigiDent team.");
         
         await _emailService.SendTransactionalEmailAsync(
-            fromEmail: _emailService.CompanyEmail,
             toEmail: message.PatientEmail,
             subject: "New arranged appointment",
             htmlPart: emailHtml);

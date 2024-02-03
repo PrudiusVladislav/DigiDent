@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Notification.Application;
+﻿namespace DigiDent.Notification.Application.Abstractions;
 
 public interface IEmailTemplateFactory
 {
