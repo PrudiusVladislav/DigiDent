@@ -7,8 +7,7 @@ public record UserSignedUpIntegrationEvent: IIntegrationEvent
 {
     public Guid EventId { get; init; }
     public DateTime TimeOfOccurrence { get; init; }
-    public FullName FullName { get; init; } = null!;
-    public Email Email { get; init; } = null!;
-    public PhoneNumber PhoneNumber { get; init; } = null!;
-    public Role Role { get; init; }
+    public string UserFullName { get; init; } = null!;
+    public string UserEmail { get; init; } = null!;
+    public Guid UserId { get; init; }
 }

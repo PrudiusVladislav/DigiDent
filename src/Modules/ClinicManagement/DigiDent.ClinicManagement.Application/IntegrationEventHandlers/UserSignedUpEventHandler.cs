@@ -7,7 +7,7 @@ using MediatR;
 namespace DigiDent.ClinicManagement.Application.IntegrationEventHandlers;
 
 public sealed class UserSignedUpEventHandler 
-    : INotificationHandler<UserSignedUpIntegrationEvent>
+    : INotificationHandler<UserActivatedIntegrationEvent>
 {
     private readonly IPersonRepository _personRepository;
     private readonly IPersonFactory _personFactory;
@@ -21,7 +21,7 @@ public sealed class UserSignedUpEventHandler
     }
 
     public async Task Handle(
-        UserSignedUpIntegrationEvent notification, 
+        UserActivatedIntegrationEvent notification, 
         CancellationToken cancellationToken)
     {
         PersonCreationArgs personCreationArgs = new(

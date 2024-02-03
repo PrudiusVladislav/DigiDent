@@ -16,4 +16,10 @@ public static class UserErrors
             ErrorType.Validation,
             nameof(User),
             "Cannot delete last administrator.");
+    
+    public static Error UserAlreadyActivated(UserId userId)
+        => new(
+            ErrorType.Validation,
+            nameof(User),
+            $"User with id '{userId.Value}' is already activated.");
 }

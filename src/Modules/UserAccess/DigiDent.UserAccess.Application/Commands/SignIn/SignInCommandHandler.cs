@@ -7,6 +7,7 @@ using DigiDent.UserAccess.Domain.Users.Abstractions;
 using DigiDent.UserAccess.Domain.Users.Errors;
 using DigiDent.UserAccess.Domain.Users.Services;
 using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.UserAccess.Application.Commands.SignIn;
 
@@ -44,6 +45,12 @@ public sealed class SignInCommandHandler
         {
             return Result.Fail<AuthenticationResponse>(PasswordErrors
                 .PasswordDoesNotMatch);
+        }
+        
+        if (userToSignIn.Status != Status.Activated)
+        {
+            return Result.Fail<AuthenticationResponse>(SignInErrors
+                .UserAccountIsNotActivated(userToSignIn.Id.Value));
         }
         
         AuthenticationResponse tokensResponse = await _jwtService
