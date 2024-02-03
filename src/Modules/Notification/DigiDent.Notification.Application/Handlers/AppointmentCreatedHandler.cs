@@ -20,15 +20,15 @@ public class AppointmentCreatedHandler
     public async Task Handle(AppointmentCreatedIntegrationEvent message)
     {
         string emailHtml = _emailTemplateFactory.CreateInformationEmail(
-            $"Dear {message.PatientFullName.ToString()},<br>" +
-            $"We are glad to inform you that your appointment with Dr. {message.DoctorFullName.ToString()} " +
+            $"Dear {message.PatientFullName},<br>" +
+            $"We are glad to inform you that your appointment with Dr. {message.DoctorFullName} " +
             $"has been arranged for {message.ArrangedDateTime}.<br>" +
             "Best regards,<br>" +
             "DigiDent team.");
         
         await _emailService.SendTransactionalEmailAsync(
             fromEmail: _emailService.CompanyEmail,
-            toEmail: message.PatientEmail.Value,
+            toEmail: message.PatientEmail,
             subject: "New arranged appointment",
             htmlPart: emailHtml);
     }

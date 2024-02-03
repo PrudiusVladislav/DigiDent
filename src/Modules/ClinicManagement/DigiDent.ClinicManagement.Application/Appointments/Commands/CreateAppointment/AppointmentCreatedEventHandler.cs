@@ -19,13 +19,15 @@ public class AppointmentCreatedEventHandler
         AppointmentCreatedDomainEvent notification,
         CancellationToken cancellationToken)
     {
-        AppointmentCreatedIntegrationEvent integrationEvent = new(
-            notification.EventId,
-            notification.TimeOfOccurrence,
-            PatientEmail: notification.Appointment.Patient.Email,
-            PatientFullName: notification.Appointment.Patient.FullName,
-            ArrangedDateTime: notification.Appointment.VisitDateTime.Value,
-            DoctorFullName: notification.Appointment.Doctor.FullName);
+        AppointmentCreatedIntegrationEvent integrationEvent = new()
+        {
+            EventId = notification.EventId,
+            TimeOfOccurrence = notification.TimeOfOccurrence,
+            PatientEmail = notification.Appointment.Patient.Email.Value,
+            PatientFullName = notification.Appointment.Patient.FullName.ToString(),
+            ArrangedDateTime = notification.Appointment.VisitDateTime.Value,
+            DoctorFullName = notification.Appointment.Doctor.FullName.ToString()
+        };
         
        await _bus.Publish(integrationEvent);
     }

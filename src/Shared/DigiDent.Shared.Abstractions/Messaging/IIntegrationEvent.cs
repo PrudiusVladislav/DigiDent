@@ -7,6 +7,6 @@ namespace DigiDent.Shared.Abstractions.Messaging;
 /// </summary>
 public interface IIntegrationEvent: INotification
 {
-    Guid Id { get; }
+    Guid EventId { get; }
     DateTime TimeOfOccurrence { get; }
 }

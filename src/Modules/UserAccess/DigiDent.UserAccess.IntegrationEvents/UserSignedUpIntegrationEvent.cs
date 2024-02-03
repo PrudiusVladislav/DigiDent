@@ -3,10 +3,12 @@ using DigiDent.Shared.Kernel.ValueObjects;
 
 namespace DigiDent.UserAccess.IntegrationEvents;
 
-public record UserSignedUpIntegrationEvent(
-    Guid Id,
-    DateTime TimeOfOccurrence,
-    FullName FullName,
-    Email Email,
-    PhoneNumber PhoneNumber,
-    Role Role) : IIntegrationEvent;
+public record UserSignedUpIntegrationEvent: IIntegrationEvent
+{
+    public Guid EventId { get; init; }
+    public DateTime TimeOfOccurrence { get; init; }
+    public FullName FullName { get; init; } = null!;
+    public Email Email { get; init; } = null!;
+    public PhoneNumber PhoneNumber { get; init; } = null!;
+    public Role Role { get; init; }
+}

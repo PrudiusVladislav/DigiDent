@@ -18,13 +18,15 @@ public sealed class UserSignedUpEventHandler
         UserSignedUpDomainEvent notification,
         CancellationToken cancellationToken)
     {
-        UserSignedUpIntegrationEvent userSignedUpEvent = new(
-            notification.EventId,
-            notification.TimeOfOccurrence,
-            notification.SignedUpUser.FullName,
-            notification.SignedUpUser.Email,
-            notification.SignedUpUser.PhoneNumber,
-            notification.SignedUpUser.Role);
+        UserSignedUpIntegrationEvent userSignedUpEvent = new()
+        {
+            EventId =notification.EventId,
+            TimeOfOccurrence = notification.TimeOfOccurrence,
+            FullName = notification.SignedUpUser.FullName,
+            Email = notification.SignedUpUser.Email,
+            PhoneNumber = notification.SignedUpUser.PhoneNumber,
+            Role = notification.SignedUpUser.Role
+        };
         
         await _publisher.Publish(userSignedUpEvent, cancellationToken);
     }
