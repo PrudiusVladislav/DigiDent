@@ -7,6 +7,7 @@ using DigiDent.UserAccess.Domain.Users.Abstractions;
 using DigiDent.UserAccess.Domain.Users.Errors;
 using DigiDent.UserAccess.Domain.Users.Services;
 using DigiDent.Shared.Abstractions.Commands;
+using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 
 namespace DigiDent.UserAccess.Application.Commands.SignIn;
@@ -47,7 +48,8 @@ public sealed class SignInCommandHandler
                 .PasswordDoesNotMatch);
         }
         
-        if (userToSignIn.Status != Status.Activated)
+        if (userToSignIn.Status != Status.Activated &&
+            userToSignIn.Role != Role.Administrator)
         {
             return Result.Fail<AuthenticationResponse>(SignInErrors
                 .UserAccountIsNotActivated(userToSignIn.Id.Value));

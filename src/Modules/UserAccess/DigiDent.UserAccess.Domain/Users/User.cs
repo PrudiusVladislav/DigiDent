@@ -20,7 +20,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
     public PhoneNumber PhoneNumber { get; private set; } = null!;
     public Password Password { get; private set; } = null!;
     public Role Role { get; private set; }
-    public Status Status { get; private set; }
+    public Status Status { get; internal set; }
     
     // only for EF Core
     private User() { }

@@ -2,6 +2,6 @@
 
 public enum Status
 {
-    SignedUp,
-    Activated,
+     SignedUp,
+     Activated,
 }
