@@ -7,9 +7,14 @@ public static class DateTimeHelperExtensions
     /// </summary>
     /// <param name="dateTime">The date time.</param>
     /// <returns></returns>
-    public static DateOnly ToDateOnly(this DateTime dateTime)
+    internal static DateOnly ToDateOnly(this DateTime dateTime)
     {
         return DateOnly.FromDateTime(dateTime);
+    }
+    
+    internal static TimeOnly ToTimeOnly(this DateTime dateTime)
+    {
+        return TimeOnly.FromDateTime(dateTime);
     }
     
     /// <summary>

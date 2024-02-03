@@ -40,6 +40,11 @@ public class UserConfiguration: AggregateRootConfiguration<User, UserId, Guid>
             .Property(u => u.Role)
             .HasConversion(EnumerationsConverter
                 .EnumToStringConverter<Role>());
+        
+        builder
+            .Property(u => u.Status)
+            .HasConversion(EnumerationsConverter
+                .EnumToStringConverter<Status>());
 
         builder.HasData(new List<User>{ UsersFactory.CreateTempUserAdmin() });
     }

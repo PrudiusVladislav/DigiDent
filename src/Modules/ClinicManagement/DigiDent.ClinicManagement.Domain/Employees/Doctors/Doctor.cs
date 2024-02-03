@@ -81,25 +81,35 @@ public class Doctor : Employee
     /// Checks if the doctor is available at the given date time.
     /// </summary>
     /// <param name="dateTimeToCheck">The date time to check.</param>
-    /// <param name="currentDateTime">The current date time.</param>
+    /// <param name="dateTimeProvider">The date time provider.</param>
     /// <param name="duration">The duration of the considered appointment.</param>
     /// <returns></returns>
     public bool IsAvailableAt(
         DateTime dateTimeToCheck,
-        DateTime currentDateTime,
+        IDateTimeProvider dateTimeProvider,
         TimeDuration duration)
     {
         var workingDay = WorkingDays.FirstOrDefault(wd => 
             wd.Date == dateTimeToCheck.ToDateOnly());
         if (workingDay is null) return false;
         
-        var availableDateTimes = workingDay
-            .GetAvailableTimeSlots(
-                Appointments, currentDateTime, duration);
+        DateTime currentDateTime = dateTimeProvider.Now;
         
-        return availableDateTimes.Any(slot => 
-            slot.Hour == dateTimeToCheck.Hour && 
-            slot.Minute == dateTimeToCheck.Minute);
+        var workingDayEvents = workingDay
+            .GetWorkingDayEventsNodes(
+                Appointments,
+                currentDateTime.ToDateOnly(), 
+                currentDateTime.ToTimeOnly());
+        
+        var (previousEvent, nextEvent) = workingDayEvents
+            .GetClosestNodesToTime(dateTimeToCheck.ToTimeOnly());
+        
+        if (previousEvent is null || nextEvent is null) return false;
+        
+        EventTimeNode appointmentNode = new(
+            dateTimeToCheck.ToTimeOnly(), duration.Duration);
+        
+        return appointmentNode.EventCanFitBetween(previousEvent, nextEvent);
     }
     
     public Result Update(UpdateDoctorDTO dto)

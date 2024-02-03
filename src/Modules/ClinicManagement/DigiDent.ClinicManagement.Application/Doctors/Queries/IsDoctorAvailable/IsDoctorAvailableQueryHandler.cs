@@ -3,6 +3,7 @@ using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.Shared.Abstractions.Errors;
 using DigiDent.Shared.Abstractions.Queries;
+using DigiDent.Shared.Kernel.Abstractions;
 using DigiDent.Shared.Kernel.ReturnTypes;
 
 namespace DigiDent.ClinicManagement.Application.Doctors.Queries.IsDoctorAvailable;
@@ -11,10 +12,14 @@ public sealed class IsDoctorAvailableQueryHandler
     : IQueryHandler<IsDoctorAvailableQuery, Result<IsDoctorAvailableResponse>>
 {
     private readonly IDoctorsRepository _doctorsRepository;
-
-    public IsDoctorAvailableQueryHandler(IDoctorsRepository doctorsRepository)
+    private readonly IDateTimeProvider _dateTimeProvider;
+    
+    public IsDoctorAvailableQueryHandler(
+        IDoctorsRepository doctorsRepository,
+        IDateTimeProvider dateTimeProvider)
     {
         _doctorsRepository = doctorsRepository;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<Result<IsDoctorAvailableResponse>> Handle(
@@ -38,9 +43,7 @@ public sealed class IsDoctorAvailableQueryHandler
                 .EntityNotFound<Doctor>(doctorId.Value));
         
         bool isAvailable = doctor.IsAvailableAt(
-            query.DateTime,
-            currentDateTime: DateTime.Now, 
-            timeResult.Value!);
+            query.DateTime, _dateTimeProvider, timeResult.Value!);
         
         return Result.Ok(new IsDoctorAvailableResponse(isAvailable));
     }
