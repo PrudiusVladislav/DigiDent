@@ -36,7 +36,7 @@ public class AppointmentCreatedEventHandler
         };
         
         await _bus.Publish(integrationEvent);
-
+        
         await ScheduleSendingPatientReminderForAppointment(
             patientEmail, patientFullName, arrangedDateTime, doctorFullName);
     }
@@ -47,11 +47,13 @@ public class AppointmentCreatedEventHandler
         DateTime arrangedDateTime,
         string doctorFullName)
     {
-        //reminder for patient
         DateTime deferUntil = arrangedDateTime.Subtract(
             AppointmentConstants.PatientAppointmentReminderTime);
         
-        TimeSpan reminderDelay = deferUntil.Subtract(DateTime.UtcNow);
+        TimeSpan reminderDelay = deferUntil.Subtract(DateTime.Now);
+        
+        if (reminderDelay < TimeSpan.Zero)
+            return;
         
         SendPatientReminderForAppointment reminder = new()
         {

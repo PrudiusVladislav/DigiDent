@@ -22,6 +22,13 @@ public static class MessageBrokerInstaller
                 .Timeouts(t => t
                     .StoreInSqlServer(
                         configuration.GetConnectionString("SqlServer"),
-                        tableName: "Timeouts")));
+                        tableName: "Timeouts")),
+            onCreated: async bus =>
+            {
+                await bus.Subscribe<UserSignedUpIntegrationEvent>();
+                await bus.Subscribe<AppointmentCreatedIntegrationEvent>();
+                await bus.Subscribe<UserActivatedMessage>();
+                await bus.Subscribe<SendPatientReminderForAppointment>();
+            });
     }
 }

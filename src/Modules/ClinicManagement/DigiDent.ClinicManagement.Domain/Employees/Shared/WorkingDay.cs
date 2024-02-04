@@ -76,9 +76,8 @@ public class WorkingDay: IEntity<WorkingDayId, Guid>
         DateOnly currentDate, //TODO: consider refactoring the DateOnly + TimeOnly to DateTime
         TimeOnly fromTime)
     {
-        List<EventTimeNode> workingDayAppointmentsEvents = appointmentsOnWorkingDay
-            .ConvertToEventTimeNodes()
-            .ToList();
+        IEnumerable<EventTimeNode> workingDayAppointmentsEvents = appointmentsOnWorkingDay
+            .ConvertToEventTimeNodes();
         
         List<EventTimeNode> workingDayEvents = [];
         

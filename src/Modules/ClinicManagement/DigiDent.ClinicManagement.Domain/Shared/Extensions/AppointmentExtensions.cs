@@ -31,8 +31,9 @@ public static class AppointmentExtensions
         this IEnumerable<Appointment> appointments)
     {
         return appointments
-            .Select(a => new EventTimeNode(
-                TimeOnly.FromDateTime(a.VisitDateTime.Value),
-                a.Duration.Duration));
+            .Select(a =>
+                new EventTimeNode(
+                    startTime: TimeOnly.FromDateTime(a.VisitDateTime.Value),
+                    duration: a.Duration.Duration));
     }
 }
