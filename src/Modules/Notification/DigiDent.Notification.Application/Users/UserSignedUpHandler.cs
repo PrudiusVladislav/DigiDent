@@ -23,11 +23,10 @@ public class UserSignedUpHandler: IHandleMessages<UserSignedUpIntegrationEvent>
     {
         var activationLink = $"{UserAccessModule.BaseApiUrl}/activate/{message.UserId}";
         
-        EmailContent emailContent = _emailContentFactory.CreateActivationEmail(
-            message.UserFullName, activationLink);
+        EmailContent activationEmailContent = _emailContentFactory
+            .CreateActivationEmail(message.UserFullName, activationLink);
         
-        await _emailService.SendTransactionalEmailAsync(
-            toEmail: message.UserEmail,
-            emailContent: emailContent);
+        await _emailService.SendEmailAsync(
+            message.UserEmail, activationEmailContent);
     }
 }

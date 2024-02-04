@@ -21,4 +21,11 @@ public class EmailContentFactory: IEmailContentFactory
             Subject: "Activate your account",
             HtmlBody: ActivationEmailTemplate.Create(message, activationLink));
     }
+    
+    public EmailContent CreatePatientReminder(string patientName, string doctorName , DateTime appointmentDateTime)
+    {
+        return new EmailContent(
+            Subject: "Appointment reminder",
+            HtmlBody: PatientReminderEmailTemplate.Create(patientName, doctorName, appointmentDateTime));
+    }
 }

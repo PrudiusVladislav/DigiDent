@@ -17,7 +17,7 @@ public class EmailService: IEmailService
         _client = client;
     }
     
-    public async Task SendTransactionalEmailAsync(
+    public async Task SendEmailAsync(
         string toEmail, EmailContent emailContent)
     {
         var email = new TransactionalEmailBuilder()

@@ -21,11 +21,13 @@ public class AppointmentCreatedHandler
 
     public async Task Handle(AppointmentCreatedIntegrationEvent message)
     {
-        EmailContent emailContent = _emailContentFactory.CreateAppointmentArrangedEmail(
-            message.PatientFullName, message.DoctorFullName, message.ArrangedDateTime);
+        EmailContent appointmentArrangedContent = _emailContentFactory
+            .CreateAppointmentArrangedEmail(
+                message.PatientFullName,
+                message.DoctorFullName,
+                message.ArrangedDateTime);
         
-        await _emailService.SendTransactionalEmailAsync(
-            toEmail: message.PatientEmail,
-            emailContent: emailContent);
+        await _emailService.SendEmailAsync(
+            message.PatientEmail, appointmentArrangedContent);
     }
 }

@@ -6,5 +6,9 @@ public interface IEmailContentFactory
 {
     EmailContent CreateAppointmentArrangedEmail(
         string patientName, string doctorName, DateTime arrangedDateTime);
+    
     EmailContent CreateActivationEmail(string message, string activationLink);
+    
+    EmailContent CreatePatientReminder(
+        string patientName, string doctorName, DateTime appointmentDateTime);
 }

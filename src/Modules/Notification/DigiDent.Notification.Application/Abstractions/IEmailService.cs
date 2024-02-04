@@ -4,6 +4,6 @@ namespace DigiDent.Notification.Application.Abstractions;
 
 public interface IEmailService
 {
-    Task SendTransactionalEmailAsync(
+    Task SendEmailAsync(
         string toEmail, EmailContent emailContent);
 }

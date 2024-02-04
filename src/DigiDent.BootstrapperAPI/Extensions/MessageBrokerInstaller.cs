@@ -22,11 +22,6 @@ public static class MessageBrokerInstaller
                 .Timeouts(t => t
                     .StoreInSqlServer(
                         configuration.GetConnectionString("SqlServer"),
-                        tableName: "Timeouts")),
-            onCreated: async bus =>
-            {
-                await bus.Subscribe<UserActivatedIntegrationEvent>();
-                await bus.Subscribe<AppointmentCreatedIntegrationEvent>();
-            });
+                        tableName: "Timeouts")));
     }
 }
