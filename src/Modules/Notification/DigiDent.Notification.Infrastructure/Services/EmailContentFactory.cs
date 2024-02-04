@@ -2,7 +2,7 @@
 using DigiDent.Notification.Application.ValueObjects;
 using DigiDent.Notification.Infrastructure.EmailTemplates;
 
-namespace DigiDent.Notification.Infrastructure;
+namespace DigiDent.Notification.Infrastructure.Services;
 
 public class EmailContentFactory: IEmailContentFactory
 {
@@ -27,5 +27,12 @@ public class EmailContentFactory: IEmailContentFactory
         return new EmailContent(
             Subject: "Appointment reminder",
             HtmlBody: PatientReminderEmailTemplate.Create(patientName, doctorName, appointmentDateTime));
+    }
+    
+    public EmailContent CreateUserActivatedEmail(string fullName, string email)
+    {
+        return new EmailContent(
+            Subject: "Account activated",
+            HtmlBody: UserActivatedEmailTemplate.Create(fullName, email));
     }
 }

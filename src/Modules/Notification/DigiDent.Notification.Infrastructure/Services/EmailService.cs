@@ -3,7 +3,7 @@ using DigiDent.Notification.Application.ValueObjects;
 using Mailjet.Client;
 using Mailjet.Client.TransactionalEmails;
 
-namespace DigiDent.Notification.Infrastructure;
+namespace DigiDent.Notification.Infrastructure.Services;
 
 public class EmailService: IEmailService
 {

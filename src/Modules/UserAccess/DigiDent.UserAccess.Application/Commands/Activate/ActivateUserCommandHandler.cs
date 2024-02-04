@@ -9,17 +9,17 @@ namespace DigiDent.UserAccess.Application.Commands.Activate;
 public class ActivateUserCommandHandler
     : ICommandHandler<ActivateUserCommand, Result>
 {
-    private readonly IUsersRepository _userRepository;
+    private readonly IUsersUnitOfWork _usersUnitOfWork;
 
-    public ActivateUserCommandHandler(IUsersRepository userRepository)
+    public ActivateUserCommandHandler(IUsersUnitOfWork usersUnitOfWork)
     {
-        _userRepository = userRepository;
+        _usersUnitOfWork = usersUnitOfWork;
     }
 
     public async Task<Result> Handle(
         ActivateUserCommand command, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(
+        var user = await _usersUnitOfWork.UsersRepository.GetByIdAsync(
             command.UserId, cancellationToken);
         
         if (user is null)
@@ -32,9 +32,9 @@ public class ActivateUserCommandHandler
         
         if (activationResult.IsFailure)
             return activationResult;
-        
-        
-        await _userRepository.UpdateAsync(user, cancellationToken);
+
+        await _usersUnitOfWork.UsersRepository.UpdateAsync(user, cancellationToken);
+        await _usersUnitOfWork.SaveChangesAsync(cancellationToken);
         return Result.Ok();
     }
 }

@@ -11,4 +11,6 @@ public interface IEmailContentFactory
     
     EmailContent CreatePatientReminder(
         string patientName, string doctorName, DateTime appointmentDateTime);
+    
+    EmailContent CreateUserActivatedEmail(string fullName, string email);
 }

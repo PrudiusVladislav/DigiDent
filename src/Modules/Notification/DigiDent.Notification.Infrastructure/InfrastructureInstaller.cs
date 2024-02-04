@@ -1,4 +1,5 @@
 ﻿using DigiDent.Notification.Application.Abstractions;
+using DigiDent.Notification.Infrastructure.Services;
 using Mailjet.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

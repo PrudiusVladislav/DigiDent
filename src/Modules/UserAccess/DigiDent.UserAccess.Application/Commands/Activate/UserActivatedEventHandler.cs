@@ -1,6 +1,7 @@
 ﻿using DigiDent.UserAccess.Domain.Users.Events;
 using DigiDent.UserAccess.IntegrationEvents;
 using MediatR;
+using Rebus.Bus;
 
 namespace DigiDent.UserAccess.Application.Commands.Activate;
 
@@ -8,10 +9,12 @@ public sealed class UserActivatedEventHandler
     : INotificationHandler<UserActivatedDomainEvent>
 {
     private readonly IPublisher _publisher;
+    private readonly IBus _bus;
 
-    public UserActivatedEventHandler(IPublisher publisher)
+    public UserActivatedEventHandler(IPublisher publisher, IBus bus)
     {
         _publisher = publisher;
+        _bus = bus;
     }
 
     public async Task Handle(
@@ -28,5 +31,13 @@ public sealed class UserActivatedEventHandler
         };
         
         await _publisher.Publish(userActivatedIntegrationEvent, cancellationToken);
+        
+        UserActivatedMessage userActivatedMessage = new()
+        {
+            FullName = notification.ActivatedUser.FullName.ToString(),
+            Email = notification.ActivatedUser.Email.Value
+        };
+        
+        await _bus.Publish(userActivatedMessage);
     }
 }
