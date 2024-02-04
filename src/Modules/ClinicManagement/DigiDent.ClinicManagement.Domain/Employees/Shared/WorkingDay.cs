@@ -71,14 +71,13 @@ public class WorkingDay: IEntity<WorkingDayId, Guid>
     /// <param name="currentDate">The current date.</param>
     /// <param name="fromTime">The time from which the events are returned.</param>
     /// <returns></returns>
-    private IReadOnlyList<EventTimeNode> GetWorkingDayEventsNodes(
+    internal IReadOnlyList<EventTimeNode> GetWorkingDayEventsNodes(
         IEnumerable<Appointment> appointmentsOnWorkingDay,
         DateOnly currentDate, //TODO: consider refactoring the DateOnly + TimeOnly to DateTime
         TimeOnly fromTime)
     {
-        List<EventTimeNode> workingDayAppointmentsEvents = appointmentsOnWorkingDay
-            .ConvertToEventTimeNodes()
-            .ToList();
+        IEnumerable<EventTimeNode> workingDayAppointmentsEvents = appointmentsOnWorkingDay
+            .ConvertToEventTimeNodes();
         
         List<EventTimeNode> workingDayEvents = [];
         

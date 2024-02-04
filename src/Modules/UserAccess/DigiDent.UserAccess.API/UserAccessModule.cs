@@ -16,11 +16,12 @@ namespace DigiDent.UserAccess.API;
 /// </summary>
 public sealed class UserAccessModule: IModule
 {
+    public static Uri BaseApiUrl { get; private set; } = null!;
     public string Name => nameof(UserAccessModule);
     
     public void RegisterDependencies(
         IServiceCollection services,
-        IConfiguration configuration,
+        IConfiguration configuration, 
         MediatRServiceConfiguration mediatrConfiguration)
     {
         services
@@ -30,8 +31,11 @@ public sealed class UserAccessModule: IModule
             .AddInfrastructure(configuration.GetSection("Authentication:Jwt"));
     }
 
-    public void RegisterEndpoints(IEndpointRouteBuilder builder)
+    public void RegisterEndpoints(
+        IEndpointRouteBuilder builder, Uri baseApiUri)
     {
+        BaseApiUrl = new Uri(baseApiUri, "/user-access");   
+        
         builder.MapGroup("/user-access")
             .MapSignUpEndpoints()
             .MapTokensEndpoints();

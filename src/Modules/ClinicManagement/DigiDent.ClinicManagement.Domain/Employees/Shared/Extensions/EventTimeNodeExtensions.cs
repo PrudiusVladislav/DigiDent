@@ -10,35 +10,30 @@ public static class EventTimeNodeExtensions
     /// </summary>
     /// <param name="nodes">The collection of <see cref="EventTimeNode"/>s.</param>
     /// <param name="time">The time point.</param>
-    /// <param name="isNextNode">If true, returns the next node, otherwise returns the previous node.</param>
     /// <returns></returns>
-    internal static EventTimeNode? GetClosestNodeToTime(
+    internal static (EventTimeNode?, EventTimeNode?) GetClosestNodesToTime(
         this IEnumerable<EventTimeNode> nodes,
-        TimeOnly time,
-        bool isNextNode=true)
+        TimeOnly time)
     {
-        var nodesList = nodes.ToList();
-        if (nodesList.Count == 0) return null;
+        List<EventTimeNode> sourceNodes = nodes
+            .OrderBy(node => node.StartTime)
+            .ToList();
         
-        var closestNode = nodesList.First();
-        TimeSpan closestDifference = isNextNode
-            ? (closestNode.StartTime - time)
-            : (time - closestNode.EndTime);
+        if (sourceNodes.Count == 0) 
+            return (null, null);
 
-        foreach (var node in nodesList.Skip(1))
-        {
-            TimeSpan currentDifference = isNextNode
-                ? (node.StartTime - time)
-                : (time - node.EndTime);
-
-            if (Math.Abs(currentDifference.Ticks) < Math.Abs(closestDifference.Ticks))
-            {
-                closestNode = node;
-                closestDifference = currentDifference;
-            }
-        }
-
-        return closestNode;
+        int indexOfFirstNextEvent = sourceNodes.FindIndex(
+            node => node.StartTime > time);
+        
+        if (indexOfFirstNextEvent == -1) 
+            return (sourceNodes.Last(), null);
+        if (indexOfFirstNextEvent == 0) 
+            return (null, sourceNodes.First());
+        
+        int indexOfPreviousEvent = indexOfFirstNextEvent - 1;
+        return (
+            sourceNodes[indexOfPreviousEvent],
+            sourceNodes[indexOfFirstNextEvent]);
     }
     
     /// <summary>
@@ -51,7 +46,7 @@ public static class EventTimeNodeExtensions
     internal static List<EventTimeNode> GetNodesStartingFromTime(
         this IEnumerable<EventTimeNode> nodes,
         TimeOnly fromTime,
-        bool isNextNode = true)
+        bool isNextNode = false)
     {
         List<EventTimeNode> sourceNodes = nodes.OrderBy(node => node.StartTime).ToList();
         List<EventTimeNode> resultNodes = [];

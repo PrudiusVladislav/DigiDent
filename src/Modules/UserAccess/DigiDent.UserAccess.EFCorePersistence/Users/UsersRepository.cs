@@ -32,6 +32,11 @@ public class UsersRepository: IUsersRepository
             x => x.Email == email, cancellationToken);
     }
     
+    public async Task UpdateAsync(User user, CancellationToken cancellationToken)
+    {
+        _dbContext.Users.Update(user);
+    }
+    
     public async Task DeleteAsync(UserId userId, CancellationToken cancellationToken)
     {
         var userToDelete = await _dbContext.Users.FirstOrDefaultAsync(

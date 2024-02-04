@@ -26,8 +26,8 @@ internal static class AppointmentsEndpoints
 
     private static async Task<IResult> CreateAppointment(
         [FromBody]CreateAppointmentRequest request,
-        ISender sender,
-        IDateTimeProvider dateTimeProvider,
+        [FromServices]ISender sender,
+        [FromServices]IDateTimeProvider dateTimeProvider,
         CancellationToken cancellationToken)
     {
         Result<CreateAppointmentCommand> commandResult = CreateAppointmentCommand
@@ -48,7 +48,7 @@ internal static class AppointmentsEndpoints
     private static async Task<IResult> CloseAppointment(
         [FromRoute]Guid id,
         [FromBody]CloseAppointmentRequest request,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<CloseAppointmentCommand> commandResult = CloseAppointmentCommand

@@ -1,5 +1,7 @@
 ﻿using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.Shared.Kernel.ValueObjects;
+using DigiDent.UserAccess.Domain.Users.Errors;
 using DigiDent.UserAccess.Domain.Users.Events;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
 using Email = DigiDent.Shared.Kernel.ValueObjects.Email;
@@ -18,6 +20,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
     public PhoneNumber PhoneNumber { get; private set; } = null!;
     public Password Password { get; private set; } = null!;
     public Role Role { get; private set; }
+    public Status Status { get; internal set; }
     
     // only for EF Core
     private User() { }
@@ -35,6 +38,7 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         PhoneNumber = phoneNumber;
         Password = password;
         Role = role;
+        Status = Status.SignedUp;
         
         UserSignedUpDomainEvent userSignedUpEvent = new(
             EventId: Guid.NewGuid(),
@@ -43,4 +47,23 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         
         Raise(userSignedUpEvent);
     }
-}
+    
+    public Result Activate()
+    {
+        if (Status == Status.Activated)
+        {
+            return Result.Fail(UserErrors.UserAlreadyActivated(Id));
+        }
+        
+        Status = Status.Activated;
+        
+        UserActivatedDomainEvent userActivatedEvent = new(
+            EventId: Guid.NewGuid(),
+            TimeOfOccurrence: DateTime.Now,
+            ActivatedUser: this);
+        
+        Raise(userActivatedEvent);
+        
+        return Result.Ok();
+    }
+ }

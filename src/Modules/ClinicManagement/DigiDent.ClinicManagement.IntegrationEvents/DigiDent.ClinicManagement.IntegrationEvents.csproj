@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Abstractions\DigiDent.Shared.Abstractions.csproj" />
+    </ItemGroup>
+
 </Project>

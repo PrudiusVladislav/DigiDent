@@ -4,6 +4,7 @@ using DigiDent.ClinicManagement.Domain.Visits;
 using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
 using DigiDent.Shared.Abstractions.Commands;
 using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.Abstractions;
 using DigiDent.Shared.Kernel.ReturnTypes;
 
 namespace DigiDent.ClinicManagement.Application.Appointments.Commands.CreateAppointment;
@@ -15,17 +16,20 @@ public sealed class CreateAppointmentCommandHandler
     private readonly IProvidedServicesRepository _providedServicesRepository;
     private readonly IDoctorsRepository _doctorsRepository;
     private readonly IPatientsRepository _patientsRepository;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
     public CreateAppointmentCommandHandler(
         IAppointmentsRepository appointmentsRepository,
         IProvidedServicesRepository providedServicesRepository,
         IDoctorsRepository doctorsRepository,
-        IPatientsRepository patientsRepository)
+        IPatientsRepository patientsRepository,
+        IDateTimeProvider dateTimeProvider)
     {
         _appointmentsRepository = appointmentsRepository;
         _providedServicesRepository = providedServicesRepository;
         _doctorsRepository = doctorsRepository;
         _patientsRepository = patientsRepository;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<Result<Guid>> Handle(
@@ -47,8 +51,8 @@ public sealed class CreateAppointmentCommandHandler
             return Result.Fail<Guid>(RepositoryErrors
                 .EntityNotFound<Doctor>(command.DoctorId.Value));
         
-        if (!doctor.IsAvailableAt(command.DateTime.Value,
-                currentDateTime: DateTime.Now, command.Duration))
+        if (!doctor.IsAvailableAt(
+                command.DateTime.Value, _dateTimeProvider, command.Duration))
         {
             return Result.Fail<Guid>(AppointmentCreationErrors
                 .DoctorIsNotAvailable);

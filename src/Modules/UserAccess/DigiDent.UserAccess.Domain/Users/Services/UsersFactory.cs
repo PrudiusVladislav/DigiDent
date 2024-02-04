@@ -14,7 +14,10 @@ public static class UsersFactory
             TempAdminEmail, 
             TempAdminPhoneNumber, 
             TempAdminPassword, 
-            Role.Administrator);
+            Role.Administrator)
+        {
+            Status = Status.Activated
+        };
     }
     
     internal static Email TempAdminEmail

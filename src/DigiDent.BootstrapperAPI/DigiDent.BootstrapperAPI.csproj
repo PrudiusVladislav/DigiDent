@@ -14,6 +14,8 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Rebus.RabbitMq" Version="9.1.0-alpha01" />
+        <PackageReference Include="Rebus.SqlServer" Version="8.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
@@ -25,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Modules\ClinicManagement\DigiDent.ClinicManagement.API\DigiDent.ClinicManagement.API.csproj" />
+      <ProjectReference Include="..\Modules\ClinicManagement\DigiDent.ClinicManagement.IntegrationEvents\DigiDent.ClinicManagement.IntegrationEvents.csproj" />
       <ProjectReference Include="..\Modules\Notification\DigiDent.Notification.Infrastructure\DigiDent.Notification.Infrastructure.csproj" />
       <ProjectReference Include="..\Modules\UserAccess\DigiDent.UserAccess.API\DigiDent.UserAccess.API.csproj" />
     </ItemGroup>

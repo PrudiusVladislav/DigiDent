@@ -1,7 +1,7 @@
 ﻿
 namespace DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
 
-internal class EventTimeNode
+internal record EventTimeNode
 {
     public TimeOnly StartTime { get; set; }
     public TimeSpan Duration { get; set; }

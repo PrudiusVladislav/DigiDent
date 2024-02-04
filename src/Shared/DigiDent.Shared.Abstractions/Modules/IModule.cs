@@ -13,5 +13,6 @@ public interface IModule
         IConfiguration configuration,
         MediatRServiceConfiguration mediatrConfiguration);
     
-    void RegisterEndpoints(IEndpointRouteBuilder builder);
+    void RegisterEndpoints(
+        IEndpointRouteBuilder builder, Uri baseApiUri);
 }

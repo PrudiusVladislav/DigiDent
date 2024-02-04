@@ -28,7 +28,7 @@ internal static class ProvidedServicesEndpoints
     }
     
     private static async Task<IResult> GetAllProvidedServices(
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         GetAllProvidedServicesQuery query = new();
@@ -41,7 +41,7 @@ internal static class ProvidedServicesEndpoints
     
     private static async Task<IResult> GetSpecificProvidedServiceInfo(
         [FromRoute]Guid id,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         GetProvidedServiceByIdQuery query = new(id);
@@ -56,7 +56,7 @@ internal static class ProvidedServicesEndpoints
     
     private static async Task<IResult> AddProvidedService(
         [FromBody]AddProvidedServiceRequest request,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<AddProvidedServiceCommand> commandResult = AddProvidedServiceCommand
@@ -77,7 +77,7 @@ internal static class ProvidedServicesEndpoints
     private static async Task<IResult> UpdateProvidedService(
         [FromRoute]Guid id,
         [FromBody]UpdateProvidedServiceRequest request,
-        ISender sender,
+        [FromServices]ISender sender,
         CancellationToken cancellationToken)
     {
         Result<UpdateProvidedServiceCommand> commandResult = UpdateProvidedServiceCommand

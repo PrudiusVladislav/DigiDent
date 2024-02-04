@@ -33,6 +33,11 @@ public class UsersUnitOfWork: IUsersUnitOfWork
         await _dbContext.Database.RollbackTransactionAsync(cancellationToken);
     }
 
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+    
     public void Dispose()
     {
         _dbContext.Dispose();
