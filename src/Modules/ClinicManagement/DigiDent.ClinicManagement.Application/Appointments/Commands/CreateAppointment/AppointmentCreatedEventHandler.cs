@@ -49,7 +49,7 @@ public class AppointmentCreatedEventHandler
     {
         //reminder for patient
         DateTime deferUntil = arrangedDateTime.Subtract(
-            TimeConstants.PatientAppointmentReminderTime);
+            AppointmentConstants.PatientAppointmentReminderTime);
         
         TimeSpan reminderDelay = deferUntil.Subtract(DateTime.UtcNow);
         
