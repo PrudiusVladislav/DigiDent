@@ -1,0 +1,39 @@
+﻿services:
+  bootstrapper_api:
+    image: bootstrapper_api
+    build:
+      context: .
+      dockerfile: src/DigiDent.BootstrapperAPI/Dockerfile
+    restart: on-failure
+    depends_on:
+      sqlserver_db:
+        condition: service_started
+      rabbitmq-broker:
+        condition: service_started
+    ports:
+        - "8080:8080"
+        - "8081:8081"
+    
+  sqlserver_db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "StrongPW!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./.containers/sqlserver_db:/var/opt/mssql/data
+  
+  rabbitmq-broker:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    volumes:
+      - ./.containers/rabbitmq-broker:/var/lib/rabbitmq
+      
