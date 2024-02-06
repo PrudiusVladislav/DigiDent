@@ -18,11 +18,6 @@ public class AppointmentConfiguration
         builder
             .Property(a => a.Duration)
             .HasConversion(SharedConverters.TimeDurationConverter);
-
-        builder
-            .Property(a => a.Status)
-            .HasConversion(EnumerationsConverter
-                .EnumToStringConverter<AppointmentStatus>());
         
         builder
             .HasMany(a => a.ProvidedServices)

@@ -17,11 +17,6 @@ public class TreatmentPlanConfiguration
             .HasConversion(
                 details => details.DiagnosisDescription,
                 value => new TreatmentPlanDetails(value));
-        
-        builder
-            .Property(plan => plan.Status)
-            .HasConversion(EnumerationsConverter
-                .EnumToStringConverter<TreatmentPlanStatus>());
 
         builder
             .HasMany(plan => plan.Appointments)

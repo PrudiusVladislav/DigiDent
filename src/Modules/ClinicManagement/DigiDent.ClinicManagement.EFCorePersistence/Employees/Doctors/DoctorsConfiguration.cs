@@ -12,11 +12,6 @@ public class DoctorsConfiguration : IEntityTypeConfiguration<Doctor>
     public void Configure(EntityTypeBuilder<Doctor> builder)
     {
         builder
-            .Property(d => d.Specialization)
-            .HasConversion(EnumerationsConverter
-                .EnumToStringConverter<DoctorSpecialization>());
-
-        builder
             .HasMany(d => d.ProvidedServices)
             .WithMany(dp => dp.Doctors)
             .UsingEntity(je => je.ToTable(ConfigurationConstants

@@ -32,8 +32,6 @@ public class PastVisitConfiguration
             {
                 feedback
                     .Property(f => f.Rating)
-                    .HasConversion(EnumerationsConverter
-                        .EnumToStringConverter<FeedbackRating>())
                     .HasColumnName("Feedback_Rating");
                 
                 feedback

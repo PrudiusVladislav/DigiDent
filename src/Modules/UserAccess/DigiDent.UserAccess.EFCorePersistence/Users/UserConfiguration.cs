@@ -35,16 +35,6 @@ public class UserConfiguration: AggregateRootConfiguration<User, UserId, Guid>
         builder
             .Property(u => u.Password)
             .HasConversion(CommonConverters.PasswordConverter);
-        
-        builder
-            .Property(u => u.Role)
-            .HasConversion(EnumerationsConverter
-                .EnumToStringConverter<Role>());
-        
-        builder
-            .Property(u => u.Status)
-            .HasConversion(EnumerationsConverter
-                .EnumToStringConverter<Status>());
 
         builder.HasData(new List<User>{ UsersFactory.CreateTempUserAdmin() });
     }
