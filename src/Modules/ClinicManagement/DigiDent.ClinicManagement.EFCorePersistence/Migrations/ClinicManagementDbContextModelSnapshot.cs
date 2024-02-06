@@ -60,17 +60,15 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Full Name");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -144,9 +142,8 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Full Name");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -175,9 +172,8 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -200,9 +196,8 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("TreatmentPlanId")
                         .HasColumnType("uniqueidentifier");
@@ -311,9 +306,8 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     b.Property<string>("Biography")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Specialization")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Specialization")
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Doctor");
                 });
@@ -420,9 +414,8 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Feedback_Comment");
 
-                            b1.Property<string>("Rating")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                            b1.Property<int>("Rating")
+                                .HasColumnType("int")
                                 .HasColumnName("Feedback_Rating");
 
                             b1.HasKey("PastVisitId");

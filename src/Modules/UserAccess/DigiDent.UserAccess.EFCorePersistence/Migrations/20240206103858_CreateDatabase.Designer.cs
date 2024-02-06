@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigiDent.UserAccess.EFCorePersistence.Migrations
 {
     [DbContext(typeof(UserAccessDbContext))]
-    [Migration("20240203151837_CreateDatabase")]
+    [Migration("20240206103858_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -74,13 +74,11 @@ namespace DigiDent.UserAccess.EFCorePersistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -92,13 +90,13 @@ namespace DigiDent.UserAccess.EFCorePersistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cdf9e828-6ab1-4827-a4dd-2ef3f6c1f0ca"),
+                            Id = new Guid("c26e0c68-e04b-4a7c-81d3-e41e07595c37"),
                             Email = "temp@admin.tmp",
                             FullName = "Temporary Administrator",
-                            Password = "Px5nZJhHoFggs/JuyTfMcxUsx4R3jXeNvBnLANwDF94=:fJNA9zvhySeFTosoQ/aNJvriiAQTgXC7RpQUEHvLVzg=",
+                            Password = "fx15yXcTW/9KcgQiDR2D2Kmv5VZqpSZBv5kdV9wDbOs=:FSLcUcC5FqK+OttAAJdy/mffJAxlD0Vy72ubQ7IHrBY=",
                             PhoneNumber = "+380000000000",
-                            Role = "Administrator",
-                            Status = "Activated"
+                            Role = 0,
+                            Status = 1
                         });
                 });
 
