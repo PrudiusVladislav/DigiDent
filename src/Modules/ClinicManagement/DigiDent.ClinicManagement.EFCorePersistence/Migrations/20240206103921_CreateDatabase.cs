@@ -23,11 +23,11 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FullName = table.Column<string>(name: "Full Name", type: "nvarchar(max)", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     EmployeeType = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    Specialization = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Specialization = table.Column<int>(type: "int", nullable: true),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -44,7 +44,7 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     FullName = table.Column<string>(name: "Full Name", type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true)
                 },
                 constraints: table =>
@@ -123,7 +123,7 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DateOfStart = table.Column<DateOnly>(type: "date", nullable: false),
                     DateOfFinish = table.Column<DateOnly>(type: "date", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -175,7 +175,7 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     VisitDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
                     TreatmentPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,7 +214,7 @@ namespace DigiDent.ClinicManagement.EFCorePersistence.Migrations
                     TreatmentPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     VisitDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PricePaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Feedback_Rating = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Feedback_Rating = table.Column<int>(type: "int", nullable: true),
                     Feedback_Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     ProceduresDone = table.Column<string>(type: "nvarchar(max)", nullable: false)

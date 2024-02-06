@@ -31,11 +31,6 @@ public class PersonConfiguration<TPersonEntity, TId>
         builder
             .Property(p => p.PhoneNumber)
             .HasConversion(ValueObjectsConverters.PhoneNumberConverter);
-
-        builder
-            .Property(p => p.Gender)
-            .HasConversion(EnumerationsConverter
-                .EnumToStringConverter<Gender>());
     }
 
     protected override void ConfigureAggregateRoot(EntityTypeBuilder<TPersonEntity> builder)

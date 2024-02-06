@@ -16,11 +16,6 @@ public class EmployeeConfiguration
     protected override void ConfigureEntity(EntityTypeBuilder<Employee> builder)
     {
         base.ConfigureEntity(builder);
-        
-        builder
-            .Property(e => e.Status)
-            .HasConversion(EnumerationsConverter
-                .EnumToStringConverter<EmployeeStatus>());
 
         builder
             .HasMany(e => e.WorkingDays)
