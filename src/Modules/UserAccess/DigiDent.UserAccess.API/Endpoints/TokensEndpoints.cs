@@ -33,13 +33,13 @@ internal static class TokensEndpoints
             .CreateFromRequest(request, roleFactory);
         
         if (signInCommandResult.IsFailure)
-            return signInCommandResult.MapToIResult();
+            return signInCommandResult.ProcessFailureResponse();
         
         Result<AuthenticationResponse> signInResult = await sender.Send(
             signInCommandResult.Value!, cancellationToken);
         
         return signInResult.Match(
-            onFailure: _ => signInResult.MapToIResult(),
+            onFailure: _ => signInResult.ProcessFailureResponse(),
             onSuccess: tokens => Results.Ok(tokens));
     }
     
@@ -52,7 +52,7 @@ internal static class TokensEndpoints
             refreshCommand, cancellationToken);
         
         return refreshResult.Match(
-            onFailure: _ => refreshResult.MapToIResult(),
+            onFailure: _ => refreshResult.ProcessFailureResponse(),
             onSuccess: tokens => Results.Ok(tokens));
     }
 }

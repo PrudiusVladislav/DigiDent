@@ -1,4 +1,5 @@
-﻿using DigiDent.ClinicManagement.Application.Appointments.Commands.CloseAppointment;
+﻿using DigiDent.ClinicManagement.Application.Appointments.Commands.AddAppointmentMediaFiles;
+using DigiDent.ClinicManagement.Application.Appointments.Commands.CloseAppointment;
 using DigiDent.ClinicManagement.Application.Appointments.Commands.CreateAppointment;
 using DigiDent.Shared.Infrastructure.Api;
 using DigiDent.Shared.Kernel.Abstractions;
@@ -34,15 +35,13 @@ internal static class AppointmentsEndpoints
             .CreateFromRequest(request, dateTimeProvider);
             
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
             
         Result<Guid> creationResult = await sender.Send(
             commandResult.Value!, cancellationToken);
 
-        return creationResult.Match(
-            onFailure: _ => creationResult.MapToIResult(),
-            onSuccess: id => Results.Created(
-                $"/appointments/{id}", id));
+        return creationResult.Match(onSuccess: id => 
+            Results.Created($"/appointments/{id}", id));
     }
     
     private static async Task<IResult> CloseAppointment(
@@ -55,7 +54,7 @@ internal static class AppointmentsEndpoints
             .CreateFromRequest(id, request);
         
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
             
         Result result = await sender.Send(
             commandResult.Value!, cancellationToken);
