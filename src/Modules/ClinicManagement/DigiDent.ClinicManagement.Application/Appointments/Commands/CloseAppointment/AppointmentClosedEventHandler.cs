@@ -1,6 +1,7 @@
 ﻿using DigiDent.ClinicManagement.Domain.Visits;
 using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
 using DigiDent.ClinicManagement.Domain.Visits.Events;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
 using MediatR;
 
 namespace DigiDent.ClinicManagement.Application.Appointments.Commands.CloseAppointment;
@@ -18,7 +19,8 @@ public sealed class AppointmentClosedEventHandler
     public async Task Handle(
         AppointmentClosedDomainEvent notification, CancellationToken cancellationToken)
     {
-        PastVisit pastVisit = PastVisit.Create(
+        PastVisit pastVisit = new(
+            new PastVisitId(notification.ClosedAppointment.Id.Value),
             notification.ClosedAppointment.DoctorId,
             notification.ClosedAppointment.PatientId,
             notification.ClosedAppointment.VisitDateTime,

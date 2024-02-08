@@ -37,7 +37,7 @@ public class PastVisit :
     /// </summary>
     public IEnumerable<string> ProceduresDone { get; init; }
     
-    internal PastVisit(
+    public PastVisit(
         PastVisitId id,
         EmployeeId doctorId,
         PatientId patientId,
@@ -55,35 +55,13 @@ public class PastVisit :
         Status = status;
         ProceduresDone = proceduresDone;
         TreatmentPlanId = treatmentPlanId;
-    }
-    
-    public static PastVisit Create(
-        EmployeeId doctorId,
-        PatientId patientId,
-        VisitDateTime visitDateTime,
-        Money pricePaid,
-        VisitStatus status,
-        IEnumerable<string> proceduresDone,
-        TreatmentPlanId? treatmentPlanId)
-    {
-        var visitId = TypedId.New<PastVisitId>();
-        PastVisit pastVisit = new (
-            visitId,
-            doctorId,
-            patientId,
-            visitDateTime,
-            pricePaid,
-            status,
-            proceduresDone,
-            treatmentPlanId);
         
         PastVisitCreatedDomainEvent pastVisitCreatedDomainEvent = new (
             EventId: Guid.NewGuid(),
             DateTime.Now,
-            pastVisit);
+            this);
         
-        pastVisit.Raise(pastVisitCreatedDomainEvent);
+        Raise(pastVisitCreatedDomainEvent);
         
-        return pastVisit;
     }
 }
