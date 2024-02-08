@@ -21,7 +21,8 @@ internal static class AppointmentsEndpoints
 
         appointmentsGroup.MapPost("/", CreateAppointment);
         appointmentsGroup.MapPut("/{id}", CloseAppointment);
-           
+
+        appointmentsGroup.MapPut("/{id}/media", AddAppointmentMediaFiles);
         return builder;
     }
 
@@ -59,8 +60,19 @@ internal static class AppointmentsEndpoints
         Result result = await sender.Send(
             commandResult.Value!, cancellationToken);
 
-        return result.Match(
-            onFailure: _ => result.MapToIResult(),
-            onSuccess: () => Results.Ok());
+        return result.Match(onSuccess: () => Results.Ok());
+    }
+    
+    private static async Task<IResult> AddAppointmentMediaFiles(
+        [FromRoute]Guid id,
+        [FromForm(Name = "Media")]List<IFormFile> files,
+        [FromServices]ISender sender,
+        CancellationToken cancellationToken)
+    {
+        AddAppointmentMediaFilesCommand command = new(id, files);
+        
+        Result result = await sender.Send(command, cancellationToken);
+
+        return result.Match(onSuccess: () => Results.Ok());
     }
 }
