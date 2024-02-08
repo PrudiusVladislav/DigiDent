@@ -1,5 +1,7 @@
-﻿using DigiDent.ClinicManagement.Application.Abstractions;
-using DigiDent.ClinicManagement.Infrastructure.Factories;
+﻿using Amazon;
+using Amazon.S3;
+using DigiDent.ClinicManagement.Application.Abstractions;
+using DigiDent.ClinicManagement.Infrastructure.Services;
 using DigiDent.Shared.Infrastructure.Time;
 using DigiDent.Shared.Kernel.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +15,8 @@ public static class InfrastructureInstaller
     {
         return services
             .AddFactories()
-            .ConfigurePDFLicense();
+            .ConfigurePDFLicense()
+            .AddServices();
     }
     
     private static IServiceCollection AddFactories(this IServiceCollection services)
@@ -27,6 +30,15 @@ public static class InfrastructureInstaller
         this IServiceCollection services)
     {
         QuestPDF.Settings.License = LicenseType.Community;
+        return services;
+    }
+    
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        services.AddSingleton<IAmazonS3, AmazonS3Client>(options => 
+            new AmazonS3Client(RegionEndpoint.EUNorth1));
+        
+        services.AddSingleton<IMediaFilesS3Service, MediaFilesS3Service>();
         return services;
     }
 }
