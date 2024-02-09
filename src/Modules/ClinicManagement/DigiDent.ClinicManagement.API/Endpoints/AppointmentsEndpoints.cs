@@ -1,6 +1,8 @@
-﻿using DigiDent.ClinicManagement.Application.Appointments.Commands.AddAppointmentMediaFiles;
+﻿using Amazon.S3.Model;
+using DigiDent.ClinicManagement.Application.Appointments.Commands.AddAppointmentMediaFiles;
 using DigiDent.ClinicManagement.Application.Appointments.Commands.CloseAppointment;
 using DigiDent.ClinicManagement.Application.Appointments.Commands.CreateAppointment;
+using DigiDent.ClinicManagement.Application.Appointments.Queries.GetVisitMediaFiles;
 using DigiDent.Shared.Infrastructure.Api;
 using DigiDent.Shared.Kernel.Abstractions;
 using DigiDent.Shared.Kernel.ReturnTypes;
@@ -20,9 +22,12 @@ internal static class AppointmentsEndpoints
         var appointmentsGroup = builder.MapGroup("/appointments");
 
         appointmentsGroup.MapPost("/", CreateAppointment);
-        appointmentsGroup.MapPut("/{id}", CloseAppointment);
+        appointmentsGroup.MapPut("/{id:guid}", CloseAppointment);
 
-        appointmentsGroup.MapPut("/{id}/media", AddAppointmentMediaFiles);
+        appointmentsGroup.MapPut("/{id:guid}/media", AddAppointmentMediaFiles)
+            .DisableAntiforgery();
+        
+        appointmentsGroup.MapGet("/{id:guid}/media", GetVisitMediaFiles);
         return builder;
     }
 
@@ -65,14 +70,31 @@ internal static class AppointmentsEndpoints
     
     private static async Task<IResult> AddAppointmentMediaFiles(
         [FromRoute]Guid id,
-        [FromForm(Name = "Media")]List<IFormFile> files,
         [FromServices]ISender sender,
+        [FromServices]IHttpContextAccessor contextAccessor,
         CancellationToken cancellationToken)
     {
+        var files = contextAccessor.HttpContext!.Request
+            .Form.Files.ToList();
+        
         AddAppointmentMediaFilesCommand command = new(id, files);
         
         Result result = await sender.Send(command, cancellationToken);
 
         return result.Match(onSuccess: () => Results.Ok());
+    }
+    
+    private static async Task<IResult> GetVisitMediaFiles(
+        [FromRoute]Guid id,
+        [FromServices]ISender sender,
+        CancellationToken cancellationToken)
+    {
+        GetVisitMediaFilesQuery query = new(id);
+        
+        GetObjectResponse? response = await sender.Send(query, cancellationToken);
+        
+        return response is null
+            ? Results.NotFound()
+            : Results.File(response.ResponseStream, response.Headers.ContentType);
     }
 }

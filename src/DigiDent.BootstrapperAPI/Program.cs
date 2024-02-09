@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
         builder.Configuration);
 
     builder.Services.AddErrorHandlingMiddleware();
+    builder.Services.AddHttpContextAccessor();
 }
 
 var app = builder.Build();
