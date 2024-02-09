@@ -1,6 +1,6 @@
-@DigiDent.BootstrapperAPI_HostAddress = http://localhost:5166
+@DigiDent.BootstrapperAPI_HostAddress = http://localhost:8080
 
-GET {{DigiDent.BootstrapperAPI_HostAddress}}/weatherforecast/
+GET {{DigiDent.BootstrapperAPI_HostAddress}}/api/services
 Accept: application/json
 
 ###

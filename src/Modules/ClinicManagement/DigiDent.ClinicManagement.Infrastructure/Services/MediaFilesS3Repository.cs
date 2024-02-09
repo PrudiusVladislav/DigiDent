@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace DigiDent.ClinicManagement.Infrastructure.Services;
 
-public class MediaFilesS3Service: IMediaFilesS3Service
+public class MediaFilesS3Repository: IMediaFilesS3Repository
 {
     private readonly IAmazonS3 _s3Client;
 
-    public MediaFilesS3Service(IAmazonS3 s3Client)
+    public MediaFilesS3Repository(IAmazonS3 s3Client)
     {
         _s3Client = s3Client;
     }
@@ -63,5 +63,28 @@ public class MediaFilesS3Service: IMediaFilesS3Service
         };
 
         await _s3Client.PutObjectAsync(putObjectRequest, cancellationToken);
+    }
+    
+    public async Task<GetObjectResponse?> GetMediaFilesAsync(
+        string bucketName,
+        string objectKey,
+        CancellationToken cancellationToken)
+    {
+        try 
+        {
+            GetObjectRequest getObjectRequest = new()
+            {
+                BucketName = bucketName,
+                Key = objectKey
+            };
+            
+            return await _s3Client.GetObjectAsync(
+                getObjectRequest, cancellationToken);
+        }
+        catch (AmazonS3Exception ex) 
+            when (ex.StatusCode == HttpStatusCode.NotFound)
+        {
+            return null;
+        }
     }
 }

@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AWSSDK.S3" Version="3.7.305.23" />
       <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0.1" />
       <PackageReference Include="QuestPDF" Version="2023.12.4" />
       <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.7" />

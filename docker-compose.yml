@@ -11,8 +11,13 @@
       rabbitmq-broker:
         condition: service_started
     ports:
-        - "8080:8080"
-        - "8081:8081"
+        - "5000:8080"
+        - "5001:8081"
+    volumes:
+      - type: bind
+        source: ~/.aws
+        target: /home/app/.aws
+        read_only: true
     
   sqlserver_db:
     image: mcr.microsoft.com/mssql/server:2022-latest

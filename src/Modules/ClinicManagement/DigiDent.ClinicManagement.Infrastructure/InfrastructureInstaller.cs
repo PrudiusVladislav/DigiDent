@@ -38,7 +38,7 @@ public static class InfrastructureInstaller
         services.AddSingleton<IAmazonS3, AmazonS3Client>(options => 
             new AmazonS3Client(RegionEndpoint.EUNorth1));
         
-        services.AddSingleton<IMediaFilesS3Service, MediaFilesS3Service>();
+        services.AddSingleton<IMediaFilesS3Repository, MediaFilesS3Repository>();
         return services;
     }
 }

@@ -13,14 +13,14 @@ public sealed class AddAppointmentMediaFilesCommandHandler
     : ICommandHandler<AddAppointmentMediaFilesCommand, Result>
 {
     private readonly IAppointmentsRepository _appointmentsRepository;
-    private readonly IMediaFilesS3Service _mediaFilesS3Service;
+    private readonly IMediaFilesS3Repository _mediaFilesS3Repository;
 
     public AddAppointmentMediaFilesCommandHandler(
         IAppointmentsRepository appointmentsRepository,
-        IMediaFilesS3Service mediaFilesS3Service)
+        IMediaFilesS3Repository mediaFilesS3Repository)
     {
         _appointmentsRepository = appointmentsRepository;
-        _mediaFilesS3Service = mediaFilesS3Service;
+        _mediaFilesS3Repository = mediaFilesS3Repository;
     }
 
     public async Task<Result> Handle(
@@ -34,7 +34,7 @@ public sealed class AddAppointmentMediaFilesCommandHandler
             return Result.Fail(RepositoryErrors
                 .EntityNotFound<Appointment>(appointmentId.Value));
         
-        await _mediaFilesS3Service.UploadMediaFilesAsync(
+        await _mediaFilesS3Repository.UploadMediaFilesAsync(
             S3Keys.BucketName,
             S3Keys.VisitAttachedMediaKey(appointment.Id),
             command.MediaFiles,
