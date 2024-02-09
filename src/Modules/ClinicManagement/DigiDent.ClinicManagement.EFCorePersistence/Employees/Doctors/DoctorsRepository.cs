@@ -23,7 +23,7 @@ public class DoctorsRepository :
     {
         if (!includeScheduling)
             return await _context.Doctors
-                .SingleOrDefaultAsync(e => e.Id == id, cancellationToken);
+                .FindAsync(id, cancellationToken);
         
         return await _context.Doctors
             .Include(d => d.Appointments)

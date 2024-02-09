@@ -22,13 +22,13 @@ public class UsersRepository: IUsersRepository
 
     public async Task<User?> GetByIdAsync(UserId userId, CancellationToken cancellationToken)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(
-            x => x.Id == userId, cancellationToken);
+        return await _dbContext.Users
+            .FindAsync(userId, cancellationToken);
     }
 
     public async Task<User?> GetByEmailAsync(Email email, CancellationToken cancellationToken)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(
+        return await _dbContext.Users.SingleOrDefaultAsync(
             x => x.Email == email, cancellationToken);
     }
     
