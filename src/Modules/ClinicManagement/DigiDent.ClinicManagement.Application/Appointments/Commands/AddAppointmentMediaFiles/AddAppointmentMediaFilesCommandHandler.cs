@@ -26,6 +26,18 @@ public sealed class AddAppointmentMediaFilesCommandHandler
     public async Task<Result> Handle(
         AddAppointmentMediaFilesCommand command, CancellationToken cancellationToken)
     {
+        if (command.MediaFiles.Count == 0)
+        {
+            return Result.Fail(MediaAttachmentsErrors.NoFilesToUpload);
+        }
+        
+        if (command.MediaFiles.Any(file =>
+                !MediaAttachmentValidator.FileIsAllowed(file)))
+        {
+            return Result.Fail(MediaAttachmentsErrors
+                .FilesOfInvalidType(MediaAttachmentValidator.AllowedExtensions));
+        }
+        
         AppointmentId appointmentId = new(command.AppointmentId);
         Appointment? appointment = await _appointmentsRepository.GetByIdAsync(
             appointmentId, cancellationToken);
