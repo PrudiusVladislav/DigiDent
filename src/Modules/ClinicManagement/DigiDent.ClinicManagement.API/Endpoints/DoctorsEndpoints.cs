@@ -64,7 +64,7 @@ internal static class DoctorsEndpoints
             query, cancellationToken);
         
         return result.Match(
-            onFailure: _ => result.MapToIResult(),
+            onFailure: _ => result.ProcessFailureResponse(),
             onSuccess: response => Results.Ok(response));
     }
     
@@ -94,13 +94,13 @@ internal static class DoctorsEndpoints
             .CreateFromRequest(request, doctorToUpdateId: id);
 
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
         
         Result result = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return result.Match(
-            onFailure: _ => result.MapToIResult(),
+            onFailure: _ => result.ProcessFailureResponse(),
             onSuccess: () => Results.NoContent());
     }
 }

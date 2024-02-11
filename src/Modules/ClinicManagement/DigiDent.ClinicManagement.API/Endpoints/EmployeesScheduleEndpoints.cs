@@ -81,13 +81,13 @@ internal static class EmployeesScheduleEndpoints
             .CreateFromRequest(id, request);
             
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
             
         Result additionResult = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return additionResult.Match(
-            onFailure: _ => additionResult.MapToIResult(),
+            onFailure: _ => additionResult.ProcessFailureResponse(),
             onSuccess: () => Results.NoContent());
     }
     
@@ -101,13 +101,13 @@ internal static class EmployeesScheduleEndpoints
             .CreateFromRequest(request, employeeId: id);
             
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
             
         Result additionResult = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return additionResult.Match(
-            onFailure: _ => additionResult.MapToIResult(),
+            onFailure: _ => additionResult.ProcessFailureResponse(),
             onSuccess: () => Results.NoContent());
     }
 }

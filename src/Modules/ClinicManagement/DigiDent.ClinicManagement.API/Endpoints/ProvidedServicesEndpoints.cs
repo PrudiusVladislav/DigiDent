@@ -63,13 +63,13 @@ internal static class ProvidedServicesEndpoints
             .CreateFromRequest(request);
             
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
             
         Result<Guid> additionResult = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return additionResult.Match(
-            onFailure: _ => additionResult.MapToIResult(),
+            onFailure: _ => additionResult.ProcessFailureResponse(),
             onSuccess: id => Results.Created(
                 $"/services/{id}", id));
     }
@@ -84,13 +84,13 @@ internal static class ProvidedServicesEndpoints
             .CreateFromRequest(request, serviceToUpdateId: id);
 
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
         
         Result updateResult = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return updateResult.Match(
-            onFailure: _ => updateResult.MapToIResult(),
+            onFailure: _ => updateResult.ProcessFailureResponse(),
             onSuccess: () => Results.NoContent());
     }
 }

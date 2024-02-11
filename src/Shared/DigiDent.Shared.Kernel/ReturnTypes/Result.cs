@@ -4,7 +4,7 @@ public class Result
 {
     public bool IsSuccess { get; protected set; }
     public bool IsFailure => !IsSuccess;
-    public IList<Error> Errors { get; }
+    public List<Error> Errors { get; }
 
     public Result()
     {
@@ -12,9 +12,9 @@ public class Result
         Errors = new List<Error>();
     }
     
-    protected Result(bool isSuccess, IList<Error>? errors)
+    protected Result(bool isSuccess, List<Error>? errors)
     {
-        var hasErrors = errors is not null && errors.Any();
+        var hasErrors = errors is not null && errors.Count != 0;
         if (isSuccess && hasErrors ||
             !isSuccess && !hasErrors)
         {
@@ -101,13 +101,13 @@ public class Result
     /// </param>
     /// <typeparam name="T">The type of the result.</typeparam>
     /// <returns></returns>
-    public T Match<T>(Func<T> onSuccess, Func<IList<Error>, T> onFailure)
+    public T Match<T>(Func<T> onSuccess, Func<Result, T> onFailure)
     {
-        return IsSuccess ? onSuccess() : onFailure(Errors);
+        return IsSuccess ? onSuccess() : onFailure(this);
     }
     
     /// <summary>
-    /// Asynchronous version of <see cref="Match{T}(System.Func{T},System.Func{System.Collections.Generic.IList{Error},T})"/>.
+    /// Asynchronous version of <see cref="Match{T}"/>.
     /// </summary>
     /// <returns></returns>
     public async Task<T> MatchAsync<T>(Func<Task<T>> onSuccess, Func<IList<Error>, T> onFailure)
@@ -130,7 +130,7 @@ public class Result<T> : Result
 {
     public T? Value { get; protected set;}
     
-    protected internal Result(bool isSuccess, T? value, IList<Error>? errors)
+    protected internal Result(bool isSuccess, T? value, List<Error>? errors)
         : base(isSuccess, errors)
     {
         Value = value;
@@ -154,9 +154,9 @@ public class Result<T> : Result
         return this;
     }
     
-    public R Match<R>(Func<T, R> onSuccess, Func<IList<Error>, R> onFailure)
+    public R Match<R>(Func<T, R> onSuccess, Func<Result, R> onFailure)
     {
-        return IsSuccess ? onSuccess(Value!) : onFailure(Errors);
+        return IsSuccess ? onSuccess(Value!) : onFailure(this);
     }
     
     // public static implicit operator Result<T>(T value)

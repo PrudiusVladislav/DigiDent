@@ -4,6 +4,7 @@ using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.ClinicManagement.Domain.Visits;
 using DigiDent.ClinicManagement.Domain.Visits.Enumerations;
 using DigiDent.ClinicManagement.Domain.Visits.ValueObjects;
+using DigiDent.ClinicManagement.Domain.Visits.ValueObjects.Ids;
 using FluentAssertions;
 
 namespace DigiDent.ClinicManagement.UnitTests.Domain.Visits.Extensions;
@@ -28,6 +29,7 @@ public static class VisitValidationExtensions
 
     public static void ShouldBeCreatedFrom(
         this PastVisit pastVisit,
+        PastVisitId id,
         EmployeeId doctorId,
         PatientId patientId,
         VisitDateTime dateTime,
@@ -37,6 +39,7 @@ public static class VisitValidationExtensions
         TreatmentPlanId? treatmentPlanId)
     {
         pastVisit.Should().NotBeNull();
+        pastVisit.Id.Should().Be(id);
         pastVisit.DoctorId.Should().Be(doctorId);
         pastVisit.PatientId.Should().Be(patientId);
         pastVisit.VisitDateTime.Should().Be(dateTime);

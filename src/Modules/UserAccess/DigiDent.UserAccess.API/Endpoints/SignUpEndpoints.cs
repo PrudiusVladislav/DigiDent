@@ -55,13 +55,13 @@ internal static class SignUpEndpoints
             .CreateFromRequest(request, roleFactory, allowedRoles);
             
         if (signUpCommandResult.IsFailure)
-            return signUpCommandResult.MapToIResult();
+            return signUpCommandResult.ProcessFailureResponse();
             
         Result signUpResult = await sender.Send(
             signUpCommandResult.Value!, cancellationToken);
 
         return signUpResult.Match(
-            onFailure: _ => signUpResult.MapToIResult(),
+            onFailure: _ => signUpResult.ProcessFailureResponse(),
             onSuccess: () => Results.Ok());
     }
     
@@ -76,7 +76,7 @@ internal static class SignUpEndpoints
             command, cancellationToken);
         
         return activationResult.Match(
-            onFailure: _ => activationResult.MapToIResult(),
+            onFailure: _ => activationResult.ProcessFailureResponse(),
             onSuccess: () => Results.Ok());
     }
 }

@@ -31,7 +31,7 @@ public abstract class EmployeesRepository<TEmployee>
     {
         if (!includeScheduling)
             return await _context.Set<TEmployee>()
-                .SingleOrDefaultAsync(e => e.Id == id, cancellationToken);
+                .FindAsync(id, cancellationToken);
         
         return await _context.Set<TEmployee>()
             .Include(e => e.WorkingDays)

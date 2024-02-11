@@ -60,13 +60,13 @@ internal static class PatientsEndpoints
             .CreateFromRequest(request, patientId: id);
         
         if (commandResult.IsFailure)
-            return commandResult.MapToIResult();
+            return commandResult.ProcessFailureResponse();
         
         Result<Guid> creationResult = await sender.Send(
             commandResult.Value!, cancellationToken);
 
         return creationResult.Match(
-            onFailure: _ => creationResult.MapToIResult(),
+            onFailure: _ => creationResult.ProcessFailureResponse(),
             onSuccess: planId => Results.Created(
                 $"/patients/treatment-plans/{planId}", planId));
     }

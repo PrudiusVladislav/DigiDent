@@ -30,7 +30,7 @@ public class AppointmentsRepository :
     public async Task DeleteAsync(AppointmentId id, CancellationToken cancellationToken)
     {
         var appointment = await _context.Appointments
-            .SingleOrDefaultAsync(a => a.Id == id, cancellationToken);
+            .FindAsync(id, cancellationToken);
         if (appointment is null) return;
         
         _context.Appointments.Remove(appointment);

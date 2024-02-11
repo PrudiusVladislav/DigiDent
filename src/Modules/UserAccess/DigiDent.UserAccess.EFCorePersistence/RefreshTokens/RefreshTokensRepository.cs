@@ -27,8 +27,7 @@ public class RefreshTokensRepository: IRefreshTokensRepository
         CancellationToken cancellationToken)
     {
         return await _dbContext.RefreshTokens
-            .SingleOrDefaultAsync(x => x.Token == refreshToken,
-                cancellationToken);
+            .FindAsync(refreshToken, cancellationToken);
     }
     
     public async Task DeleteRefreshTokenAsync(
