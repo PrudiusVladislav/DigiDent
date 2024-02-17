@@ -6,6 +6,7 @@ using DigiDent.ClinicManagement.Domain.Shared.Extensions;
 using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.ClinicManagement.Domain.Visits;
 using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.Extensions;
 using DigiDent.Shared.Kernel.ReturnTypes;
 
 namespace DigiDent.ClinicManagement.Domain.Employees.Shared;

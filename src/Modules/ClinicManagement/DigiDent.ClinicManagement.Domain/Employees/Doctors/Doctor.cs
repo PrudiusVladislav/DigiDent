@@ -8,6 +8,7 @@ using DigiDent.ClinicManagement.Domain.Shared.Extensions;
 using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.ClinicManagement.Domain.Visits;
 using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.Extensions;
 using DigiDent.Shared.Kernel.ReturnTypes;
 using DigiDent.Shared.Kernel.ValueObjects;
 
@@ -18,9 +19,12 @@ public class Doctor : Employee
     public DoctorSpecialization Specialization { get; private set; }
     public string? Biography { get; set; }
     
-    public ICollection<ProvidedService> ProvidedServices { get; set; } = new List<ProvidedService>();
-    public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-    public ICollection<PastVisit> PastVisits { get; set; } = new List<PastVisit>();
+    public ICollection<ProvidedService> ProvidedServices { get; set; }
+        = new List<ProvidedService>();
+    public ICollection<Appointment> Appointments { get; set; }
+        = new List<Appointment>();
+    public ICollection<PastVisit> PastVisits { get; set; }
+        = new List<PastVisit>();
 
     internal Doctor(
         EmployeeId id,
