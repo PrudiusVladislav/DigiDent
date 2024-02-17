@@ -2,4 +2,4 @@
 
 namespace DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 
-public record SchedulePreferenceId(Guid Value): TypedId<Guid>(Value);
+public record SchedulePreferenceId(Guid Value): ITypedId<Guid>;
