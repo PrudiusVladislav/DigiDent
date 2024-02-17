@@ -27,7 +27,6 @@ public class AppointmentCreatedEventHandler
         
         AppointmentCreatedIntegrationEvent integrationEvent = new()
         {
-            EventId = notification.EventId,
             TimeOfOccurrence = notification.TimeOfOccurrence,
             PatientEmail = patientEmail,
             PatientFullName = patientFullName,

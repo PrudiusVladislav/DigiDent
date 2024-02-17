@@ -82,7 +82,6 @@ public class Appointment :
             providedServices);
 
         AppointmentCreatedDomainEvent appointmentCreatedEvent = new(
-            EventId: Guid.NewGuid(), 
             DateTime.Now,
             appointment);
         
@@ -112,8 +111,7 @@ public class Appointment :
         }
 
         AppointmentClosedDomainEvent appointmentClosedEvent = new(
-            EventId: Guid.NewGuid(),
-            DateTime.Now,
+            TimeOfOccurrence: DateTime.Now,
             closureStatus,
             pricePaid,
             ClosedAppointment: this);

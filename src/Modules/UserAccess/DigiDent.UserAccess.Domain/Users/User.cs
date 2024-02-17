@@ -41,7 +41,6 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         Status = Status.SignedUp;
         
         UserSignedUpDomainEvent userSignedUpEvent = new(
-            EventId: Guid.NewGuid(),
             TimeOfOccurrence: DateTime.Now,
             SignedUpUser: this);
         
@@ -58,7 +57,6 @@ public class User: AggregateRoot, IEntity<UserId, Guid>
         Status = Status.Activated;
         
         UserActivatedDomainEvent userActivatedEvent = new(
-            EventId: Guid.NewGuid(),
             TimeOfOccurrence: DateTime.Now,
             ActivatedUser: this);
         
