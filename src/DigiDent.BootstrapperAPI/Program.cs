@@ -1,19 +1,14 @@
 using DigiDent.BootstrapperAPI.Extensions;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddMessageBroker(builder.Configuration);
-    
-    builder.Services.AddModulesDependencies(
-        builder.Configuration);
+    builder.Services.AddModulesDependencies(builder.Configuration);
 
     builder.Services.AddErrorHandlingMiddleware();
     builder.Services.AddHttpContextAccessor();
     
-    builder.Services.AddHealthChecks()
-        .AddSqlServer(builder.Configuration.GetConnectionString("SqlServer")!);
+    builder.Services.AddAppHealthChecks(builder.Configuration);
 }
 
 var app = builder.Build();
@@ -25,10 +20,7 @@ var app = builder.Build();
     
     app.UseHttpsRedirection();
     
-    app.UseHealthChecks("/_health", new HealthCheckOptions
-    {
-        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    });
+    app.UseAppHealthChecks();
     
     app.UseErrorHandlingMiddleware();
     
