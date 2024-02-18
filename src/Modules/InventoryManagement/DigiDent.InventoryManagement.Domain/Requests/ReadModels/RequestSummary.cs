@@ -1,14 +1,27 @@
-﻿using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
-using DigiDent.InventoryManagement.Domain.Items;
-using DigiDent.InventoryManagement.Domain.Items.ReadModels;
+﻿
+using DigiDent.Shared.Kernel.Abstractions;
 
 namespace DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 
 public record RequestSummary(
     Guid Id,
-    InventoryItemSummary Item,
-    int Quantity,
+    int RequestedItemId,
+    string RequestedItemName,
+    string ItemCategory,
+    int RequestedQuantity,
     string Status,
-    EmployeeSummary Requester,
+    Guid RequesterId,
+    string RequesterName,
     DateOnly Date,
-    string Remarks);
+    string Remarks) : IFilterable
+{
+    public bool Contains(string searchText)
+    {
+        return RequestedItemName.Contains(searchText) ||
+               ItemCategory.Contains(searchText) ||
+               RequestedQuantity.ToString().Contains(searchText) ||
+               Status.Contains(searchText) ||
+               RequesterName.Contains(searchText) ||
+               Remarks.Contains(searchText);
+    }
+};
