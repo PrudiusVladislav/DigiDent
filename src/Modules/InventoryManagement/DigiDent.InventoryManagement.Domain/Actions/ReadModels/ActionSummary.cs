@@ -1,4 +1,6 @@
 ﻿
+using DigiDent.Shared.Kernel.Abstractions;
+
 namespace DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 
 public record ActionSummary(
@@ -10,5 +12,14 @@ public record ActionSummary(
     string EmployeeName,
     int ItemId,
     string ItemName,
-    string ItemCategory
-);
+    string ItemCategory) : IFilterable
+{
+    public bool Contains(string value)
+    {
+        return Type.Contains(value) ||
+               Quantity.ToString().Contains(value) ||
+               EmployeeName.Contains(value) ||
+               ItemName.Contains(value) ||
+               ItemCategory.Contains(value);
+    }
+}

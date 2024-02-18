@@ -40,9 +40,10 @@ public class InventoryItemsRepository: IInventoryItemsRepository
     public async Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
         PaginationDTO pagination, CancellationToken cancellationToken)
     {
+        const string schema = ConfigurationConstants.InventoryManagementSchema;
         const string sql = $@"
             SELECT [Id], [Name], [Quantity], [Category]
-            FROM {ConfigurationConstants.InventoryManagementSchema}.[Items]
+            FROM {schema}.[Items]
             ORDER BY @OrderByColumn @SortDirection
             WHERE [Id] > @Cursor
             LIMIT @PageSize";
@@ -50,18 +51,24 @@ public class InventoryItemsRepository: IInventoryItemsRepository
         await using var connection = _connectionFactory.CreateOpenConnection();
         
         IReadOnlyCollection<InventoryItemSummary> items = (await connection
-            .QueryAsync<InventoryItemSummary>(
-                sql, new 
-                {
-                    OrderByColumn = pagination.SortByColumn,
-                    SortDirection = pagination.SortOrder,
-                    Cursor = pagination.PageSize * (pagination.PageNumber - 1),
-                    PageSize = pagination.PageSize
-                }))
+                .QueryAsync<InventoryItemSummary>(
+                    sql, new 
+                    {
+                        OrderByColumn = pagination.SortByColumn,
+                        SortDirection = pagination.SortOrder,
+                        Cursor = pagination.PageSize * (pagination.PageNumber - 1),
+                        PageSize = pagination.PageSize 
+                    }))
+            .Select(item => item with
+            {
+                Category = Enum
+                    .Parse<ItemCategory>(item.Category)
+                    .ToString()
+            })
+            .Where(item => item.Contains(pagination.SearchTerm))
             .ToList()
             .AsReadOnly();
-        //TODO: add conversion of db int category to string enum name
-        //TODO: add filtering of items by pagination dto
+        
         return new PaginatedResponse<InventoryItemSummary>(
             DataCollection: items,
             TotalCount: items.Count);

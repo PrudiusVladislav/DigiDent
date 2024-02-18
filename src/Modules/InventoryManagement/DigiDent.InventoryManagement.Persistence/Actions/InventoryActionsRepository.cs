@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using DigiDent.InventoryManagement.Domain.Actions;
 using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
+using DigiDent.InventoryManagement.Domain.Actions.ValueObjects;
+using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
 using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 
@@ -43,9 +45,20 @@ public class InventoryActionsRepository: IInventoryActionsRepository
                         Cursor = pagination.PageSize * (pagination.PageNumber - 1),
                         PageSize = pagination.PageSize
                     }))
-                .ToList()
-                .AsReadOnly();
-        //TODO: add the same as in the InventoryItemsRepository
+            .Select(action => action with
+            {
+                Type = Enum
+                    .Parse<ActionType>(action.Type)
+                    .ToString(),
+                
+                ItemCategory = Enum
+                    .Parse<ItemCategory>(action.ItemCategory)
+                    .ToString()
+            })
+            .Where(action => action.Contains(pagination.SearchTerm))
+            .AsList()
+            .AsReadOnly();
+        
         return new PaginatedResponse<ActionSummary>(
             DataCollection: actions,
             TotalCount: actions.Count);

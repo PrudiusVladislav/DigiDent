@@ -1,7 +1,17 @@
-﻿namespace DigiDent.InventoryManagement.Domain.Items.ReadModels;
+﻿using DigiDent.Shared.Kernel.Abstractions;
+
+namespace DigiDent.InventoryManagement.Domain.Items.ReadModels;
 
 public record InventoryItemSummary(
-    Guid Id,
+    int Id,
     string Name,
     int Quantity,
-    string Category);
+    string Category) : IFilterable
+{
+    public bool Contains(string value)
+    {
+        return Name.Contains(value) ||
+               Quantity.ToString().Contains(value) ||
+               Category.Contains(value);
+    }
+}
