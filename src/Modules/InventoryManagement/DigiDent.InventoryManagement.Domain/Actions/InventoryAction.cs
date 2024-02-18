@@ -10,29 +10,28 @@ namespace DigiDent.InventoryManagement.Domain.Actions;
 
 public class InventoryAction :
     AggregateRoot,
-    IEntity<InventoryActionId, Guid>
+    IEntity<InventoryActionId, int>
 {
-    public InventoryActionId Id { get; init; }
+    public InventoryActionId Id { get; init; } = null!;
     public ActionType Type { get; init; }
     public DateOnly Date { get; init; }
     
-    public EmployeeId ActionPerformerId { get; init; } = null!;
-    public Employee ActionPerformer { get; init; }
+    public EmployeeId ActionPerformerId { get; init; }
+    public Employee ActionPerformer { get; init; } = null!;
     
-    public InventoryItemId? InventoryItemId { get; init; }
-    public InventoryItem? InventoryItem { get; init; }
-    
+    public InventoryItemId InventoryItemId { get; init; }
+    public InventoryItem InventoryItem { get; init; } = null!;
+
     public Quantity Quantity { get; init; }
     
     public InventoryAction(
         ActionType type,
-        Employee actionPerformer,
+        EmployeeId actionPerformerId,
         InventoryItemId inventoryItemId,
         Quantity quantity)
     {
-        Id = TypedId.New<InventoryActionId>();
         Type = type;
-        ActionPerformer = actionPerformer;
+        ActionPerformerId = actionPerformerId;
         Date = DateTime.Now.ToDateOnly();
         InventoryItemId = inventoryItemId;
         Quantity = quantity;

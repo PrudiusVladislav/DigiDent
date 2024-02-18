@@ -22,7 +22,7 @@ public class Request :
     public Quantity RequestedQuantity { get; private set; }
     
     public EmployeeId RequesterId { get; init; }
-    public Employee Requester { get; init; }
+    public Employee Requester { get; init; } = null!;
     
     public DateOnly DateOfRequest { get; init; }
     public string Remarks { get; set; }
@@ -30,14 +30,14 @@ public class Request :
     public Request(
         InventoryItemId requestedItemId,
         Quantity requestedQuantity,
-        Employee requester,
+        EmployeeId requesterId,
         string remarks = "")
     {
         Id = TypedId.New<RequestId>();
         Status = RequestStatus.DecisionPending;
         RequestedItemId = requestedItemId;
         RequestedQuantity = requestedQuantity;
-        Requester = requester;
+        RequesterId = requesterId;
         Remarks = remarks;
         DateOfRequest = DateTime.Now.ToDateOnly();
         

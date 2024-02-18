@@ -22,10 +22,20 @@ public abstract class BaseEntityConfiguration<TEntity, TId, TIdValue>
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id)
-            .ValueGeneratedNever()
             .HasConversion(
             id => id.Value,
             value => TypedId.Create<TId, TIdValue>(value));
+        
+        if (typeof(TIdValue) == typeof(int))
+        {
+            builder.Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+        }
+        else
+        {
+            builder.Property(e => e.Id)
+                .ValueGeneratedNever();
+        }
 
         ConfigureEntity(builder);
     }

@@ -7,9 +7,9 @@ namespace DigiDent.InventoryManagement.Domain.Items;
 
 public class InventoryItem : 
     AggregateRoot, 
-    IEntity<InventoryItemId, Guid>
+    IEntity<InventoryItemId, int>
 {
-    public InventoryItemId Id { get; init; }
+    public InventoryItemId Id { get; init; } = null!;
     public ItemName Name { get; private set; }
     public ItemCategory Category { get; set; }
     public string Remarks { get; set; }
@@ -26,7 +26,6 @@ public class InventoryItem :
         Quantity quantity,
         string remarks = "")
     {
-        Id = TypedId.New<InventoryItemId>();
         Name = name;
         Category = category;
         Remarks = remarks;

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DigiDent.InventoryManagement.Persistence.Actions;
 
 public class InventoryActionsConfiguration
-    : AggregateRootConfiguration<InventoryAction, InventoryActionId, Guid>
+    : AggregateRootConfiguration<InventoryAction, InventoryActionId, int>
 {
     protected override void ConfigureEntity(
         EntityTypeBuilder<InventoryAction> builder)

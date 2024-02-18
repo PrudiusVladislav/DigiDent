@@ -2,12 +2,13 @@
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Shared;
 using DigiDent.Shared.Infrastructure.EfCore.Configurations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.InventoryManagement.Persistence.Items;
 
 public class InventoryItemsConfiguration
-    : AggregateRootConfiguration<InventoryItem, InventoryItemId, Guid>
+    : AggregateRootConfiguration<InventoryItem, InventoryItemId, int>
 {
     protected override void ConfigureEntity(
         EntityTypeBuilder<InventoryItem> builder)
@@ -29,7 +30,8 @@ public class InventoryItemsConfiguration
         builder
             .HasMany(item => item.InventoryActions)
             .WithOne(action => action.InventoryItem)
-            .HasForeignKey(action => action.InventoryItemId);
+            .HasForeignKey(action => action.InventoryItemId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
     protected override void ConfigureAggregateRoot(

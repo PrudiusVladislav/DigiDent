@@ -2,4 +2,4 @@
 
 namespace DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 
-public record InventoryItemId(Guid Value): ITypedId<Guid>;
+public record InventoryItemId(int Value): ITypedId<int>;
