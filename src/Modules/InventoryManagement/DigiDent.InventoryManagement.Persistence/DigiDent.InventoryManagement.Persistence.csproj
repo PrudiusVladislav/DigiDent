@@ -11,4 +11,8 @@
       <ProjectReference Include="..\DigiDent.InventoryManagement.Domain\DigiDent.InventoryManagement.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.28" />
+    </ItemGroup>
+
 </Project>
