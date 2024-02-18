@@ -7,11 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Kernel\DigiDent.Shared.Kernel.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <InternalsVisibleTo Include="DigiDent.InventoryManagement.Persistence"/>
+      <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Infrastructure\DigiDent.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\DigiDent.InventoryManagement.Domain\DigiDent.InventoryManagement.Domain.csproj" />
     </ItemGroup>
 
 </Project>
