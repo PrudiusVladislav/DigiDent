@@ -1,5 +1,5 @@
 ﻿using DigiDent.Shared.Kernel.Abstractions;
 
-namespace DigiDent.InventoryManagement.Domain.Shared;
+namespace DigiDent.InventoryManagement.Domain.Employees;
 
 public record EmployeeId(Guid Value): ITypedId<Guid>;

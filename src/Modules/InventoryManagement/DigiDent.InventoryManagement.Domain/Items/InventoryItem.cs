@@ -12,7 +12,7 @@ public class InventoryItem :
     public InventoryItemId Id { get; init; }
     public ItemName Name { get; private set; }
     public ItemCategory Category { get; set; }
-    public string Remarks { get; private set; }
+    public string Remarks { get; set; }
     public Quantity Quantity { get; init; }
     
     public ICollection<Request> Requests { get; set; }

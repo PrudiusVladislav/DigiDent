@@ -28,7 +28,8 @@ public class ClinicManagementDbContext: DbContext
     public DbSet<ProvidedService> ProvidedServices { get; set; } = null!;
     public DbSet<TreatmentPlan> TreatmentPlans { get; set; } = null!;
     
-    public ClinicManagementDbContext(DbContextOptions<ClinicManagementDbContext> options)
+    public ClinicManagementDbContext(
+        DbContextOptions<ClinicManagementDbContext> options) 
         : base(options)
     {
     }

@@ -1,9 +1,9 @@
-﻿using DigiDent.InventoryManagement.Domain.Items;
+﻿using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Requests.Errors;
 using DigiDent.InventoryManagement.Domain.Requests.Events;
 using DigiDent.InventoryManagement.Domain.Requests.ValueObjects;
-using DigiDent.InventoryManagement.Domain.Shared;
 using DigiDent.Shared.Kernel.Abstractions;
 using DigiDent.Shared.Kernel.Extensions;
 using DigiDent.Shared.Kernel.ReturnTypes;
@@ -19,11 +19,13 @@ public class Request :
     
     public InventoryItemId RequestedItemId { get; private set; }
     public InventoryItem RequestedItem { get; private set; } = null!;
-    
     public Quantity RequestedQuantity { get; private set; }
-    public Employee Requester { get; private set; }
-    public DateOnly DateOfRequest { get; private set; }
-    public string Remarks { get; private set; }
+    
+    public EmployeeId RequesterId { get; init; }
+    public Employee Requester { get; init; }
+    
+    public DateOnly DateOfRequest { get; init; }
+    public string Remarks { get; set; }
     
     public Request(
         InventoryItemId requestedItemId,
