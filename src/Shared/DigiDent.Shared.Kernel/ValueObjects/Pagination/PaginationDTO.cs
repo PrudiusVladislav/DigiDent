@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Shared.Abstractions.Queries.Pagination;
+﻿namespace DigiDent.Shared.Kernel.ValueObjects.Pagination;
 
 public record PaginationDTO(
     int PageNumber,

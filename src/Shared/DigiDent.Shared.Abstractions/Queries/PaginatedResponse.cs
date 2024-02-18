@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Shared.Abstractions.Queries.Pagination;
+﻿namespace DigiDent.Shared.Abstractions.Queries;
 
 public record PaginatedResponse<T>(
     IReadOnlyCollection<T> DataCollection,
