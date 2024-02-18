@@ -60,7 +60,8 @@ public class InventoryItemsRepository: IInventoryItemsRepository
                 }))
             .ToList()
             .AsReadOnly();
-
+        //TODO: add conversion of db int category to string enum name
+        //TODO: add filtering of items by pagination dto
         return new PaginatedResponse<InventoryItemSummary>(
             DataCollection: items,
             TotalCount: items.Count);
