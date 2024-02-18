@@ -1,6 +1,8 @@
-﻿using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
+﻿using System.Reflection;
+using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Scrutor;
 
 namespace DigiDent.Shared.Infrastructure.EfCore.Extensions;
 
@@ -32,6 +34,30 @@ public static class InstallerExtensions
             options.AddInterceptors(sp
                 .GetRequiredService<PublishDomainEventsInterceptor>());
         });
+        
+        return services;
+    }
+    
+    /// <summary>
+    /// Scans the specified assemblies for classes that end with "Repository" and registers them as their matching interface with scoped lifetime.
+    /// </summary>
+    /// <param name="services"> Service collection. </param>
+    /// <param name="fromAssemblies"> Assemblies to scan. </param>
+    /// <returns></returns>
+    public static IServiceCollection AddMatchingRepositories(
+        this IServiceCollection services,
+        params Assembly[] fromAssemblies)
+    {
+        const string repositorySuffix = "Repository";
+        
+        services.Scan(scan => scan
+            .FromAssemblies(fromAssemblies)
+            .AddClasses(filter => filter
+                .Where(c => c.
+                    Name.EndsWith(repositorySuffix)))
+            .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+            .AsMatchingInterface()
+            .WithScopedLifetime());
         
         return services;
     }

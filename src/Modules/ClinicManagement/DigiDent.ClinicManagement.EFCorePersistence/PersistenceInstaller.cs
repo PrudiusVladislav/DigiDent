@@ -29,21 +29,14 @@ public static class PersistenceInstaller
     private static IServiceCollection AddRepositories(
         this IServiceCollection services)
     {
-        const string repositorySuffix = "Repository";
-        
-        services.Scan(scan => scan
-            .FromAssemblies(
+        services.AddMatchingRepositories(
+            fromAssemblies: 
+            [
                 typeof(DomainInstaller).Assembly,
-                typeof(PersistenceInstaller).Assembly)
-            .AddClasses(filter => filter
-                .Where(c => c.
-                    Name.EndsWith(repositorySuffix)))
-            .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-            .AsMatchingInterface()
-            .WithScopedLifetime());
+                typeof(PersistenceInstaller).Assembly
+            ]);
         
         services.Decorate<IProvidedServicesRepository, CachingProvidedServicesRepository>();
-
         services.AddMemoryCache();
         
         return services;
