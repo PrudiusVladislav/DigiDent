@@ -14,7 +14,8 @@ public sealed class InventoryItemsDomainService
         _inventoryItemsRepository = inventoryItemsRepository;
     }
     
-    public async Task<Result<ItemName>> CreateItemName(string value)
+    public async Task<Result<ItemName>> CreateUniqueItemNameAsync(
+        string value, CancellationToken cancellationToken)
     {
         Result<ItemName> nameValidationResult = ItemName.Create(value);
         
@@ -22,7 +23,7 @@ public sealed class InventoryItemsDomainService
             return nameValidationResult;
         
         InventoryItem? item = await _inventoryItemsRepository.GetByNameAsync(
-            nameValidationResult.Value!);
+            nameValidationResult.Value!, cancellationToken);
         
         if (item is not null)
             return Result.Fail<ItemName>(InventoryItemErrors
