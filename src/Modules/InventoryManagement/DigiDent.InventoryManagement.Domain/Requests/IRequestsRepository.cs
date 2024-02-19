@@ -9,7 +9,7 @@ public interface IRequestsRepository
     Task<Request?> GetByIdAsync(RequestId id, CancellationToken cancellationToken);
     
     Task<PaginatedResponse<RequestSummary>> GetAllAsync(
-        PaginationDTO paginationOptions, CancellationToken cancellationToken);
+        IPaginationOptions paginationOptions, CancellationToken cancellationToken);
     
     Task AddAsync(Request request, CancellationToken cancellationToken);
     Task UpdateAsync(Request request, CancellationToken cancellationToken);

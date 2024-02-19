@@ -4,6 +4,7 @@ using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 using DigiDent.InventoryManagement.Domain.Actions.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
+using DigiDent.InventoryManagement.Persistence.Shared;
 using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 
 namespace DigiDent.InventoryManagement.Persistence.Actions;
@@ -22,7 +23,7 @@ public class InventoryActionsRepository: IInventoryActionsRepository
     }
 
     public async Task<PaginatedResponse<ActionSummary>> GetAllAsync(
-        PaginationDTO pagination, CancellationToken cancellationToken)
+        IPaginationOptions pagination, CancellationToken cancellationToken)
     {
         const string schema = ConfigurationConstants.InventoryManagementSchema;
         const string sql = $@"

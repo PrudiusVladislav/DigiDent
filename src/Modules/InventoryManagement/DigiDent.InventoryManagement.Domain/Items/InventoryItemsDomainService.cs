@@ -1,6 +1,4 @@
-﻿using DigiDent.InventoryManagement.Domain.Items.Errors;
-using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
-using DigiDent.Shared.Kernel.ReturnTypes;
+﻿using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 
 namespace DigiDent.InventoryManagement.Domain.Items;
 
@@ -14,21 +12,12 @@ public sealed class InventoryItemsDomainService
         _inventoryItemsRepository = inventoryItemsRepository;
     }
     
-    public async Task<Result<ItemName>> CreateUniqueItemNameAsync(
-        string value, CancellationToken cancellationToken)
+    public async Task<bool> IsItemNameUnique(
+        ItemName name, CancellationToken cancellationToken)
     {
-        Result<ItemName> nameValidationResult = ItemName.Create(value);
-        
-        if (nameValidationResult.IsFailure) 
-            return nameValidationResult;
-        
         InventoryItem? item = await _inventoryItemsRepository.GetByNameAsync(
-            nameValidationResult.Value!, cancellationToken);
-        
-        if (item is not null)
-            return Result.Fail<ItemName>(InventoryItemErrors
-                .ItemNameIsAlreadyTaken(value));
-        
-        return nameValidationResult;
+            name, cancellationToken);
+
+        return item is null;
     }
 }

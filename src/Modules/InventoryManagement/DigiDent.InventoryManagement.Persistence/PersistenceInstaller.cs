@@ -1,7 +1,10 @@
 ﻿using DigiDent.InventoryManagement.Domain;
 using DigiDent.InventoryManagement.Persistence.Constants;
+using DigiDent.InventoryManagement.Persistence.Shared;
+using DigiDent.Shared.Abstractions.Factories;
 using DigiDent.Shared.Infrastructure.EfCore.Extensions;
 using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,9 +18,13 @@ public static class PersistenceInstaller
     {
         services
             .AddSingleton<PublishDomainEventsInterceptor>()
+            
             .AddSqlServerDbContext<InventoryManagementDbContext>(
                 connectionString: configuration.GetConnectionString("SqlServer")!,
                 schema: ConfigurationConstants.InventoryManagementSchema)
+            
+            .AddSingleton<IDbConnectionFactory<SqlConnection>, SqlConnectionFactory>()
+            
             .AddMatchingRepositories(
                 fromAssemblies: 
                 [

@@ -13,7 +13,7 @@ public interface IInventoryItemsRepository
         ItemName name, CancellationToken cancellationToken);
     
     Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
-        PaginationDTO pagination, CancellationToken cancellationToken);
+        IPaginationOptions pagination, CancellationToken cancellationToken);
     
     Task AddAsync(InventoryItem item, CancellationToken cancellationToken);
     Task UpdateAsync(InventoryItem item, CancellationToken cancellationToken);

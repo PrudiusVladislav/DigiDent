@@ -31,7 +31,7 @@ public class RequestsRepository: IRequestsRepository
     }
 
     public async Task<PaginatedResponse<RequestSummary>> GetAllAsync(
-        PaginationDTO pagination, CancellationToken cancellationToken)
+        IPaginationOptions pagination, CancellationToken cancellationToken)
     {
         const string schema = ConfigurationConstants.InventoryManagementSchema;
         const string sql = $@"

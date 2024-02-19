@@ -38,7 +38,7 @@ public class InventoryItemsRepository: IInventoryItemsRepository
     }
 
     public async Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
-        PaginationDTO pagination, CancellationToken cancellationToken)
+        IPaginationOptions pagination, CancellationToken cancellationToken)
     {
         const string schema = ConfigurationConstants.InventoryManagementSchema;
         const string sql = $@"
