@@ -12,7 +12,7 @@ public record ItemName
         Value = value;
     }
 
-    internal static Result<ItemName> Create(string value)
+    public static Result<ItemName> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
         {

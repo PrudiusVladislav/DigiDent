@@ -105,9 +105,27 @@ public class Result
     {
         return IsSuccess ? onSuccess() : onFailure(this);
     }
+
+    /// <summary>
+    /// The same as <see cref="Match{T}(System.Func{T},System.Func{DigiDent.Shared.Kernel.ReturnTypes.Result,T})"/> but onFailure is optional
+    /// </summary>
+    /// <param name="onSuccess"> The function to be executed if <see cref="Result.IsSuccess"/> is set to true.</param>
+    /// <param name="onFailure"> The function to be executed if <see cref="Result.IsSuccess"/> is set to false.</param>
+    /// <typeparam name="T">The type of the value of the result.</typeparam>
+    /// <returns></returns>
+    public Result<T> Match<T>(
+        Func<Result<T>> onSuccess,
+        Func<Result, Result<T>>? onFailure = null)
+    {
+        return IsSuccess 
+            ? onSuccess() 
+            : onFailure is null 
+                ? MapToType<T>() 
+                : onFailure(this);
+    }
     
     /// <summary>
-    /// Asynchronous version of <see cref="Match{T}"/>.
+    /// Asynchronous version of <see cref="Match{T}(System.Func{T},System.Func{DigiDent.Shared.Kernel.ReturnTypes.Result,T})"/>.
     /// </summary>
     /// <returns></returns>
     public async Task<T> MatchAsync<T>(Func<Task<T>> onSuccess, Func<IList<Error>, T> onFailure)
