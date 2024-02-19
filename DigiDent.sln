@@ -77,6 +77,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.InventoryManagemen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.InventoryManagement.Persistence", "src\Modules\InventoryManagement\DigiDent.InventoryManagement.Persistence\DigiDent.InventoryManagement.Persistence.csproj", "{F07798E7-C1FC-453D-A1C8-85E0F77D5C84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.InventoryManagement.Application", "src\Modules\InventoryManagement\DigiDent.InventoryManagement.Application\DigiDent.InventoryManagement.Application.csproj", "{3397E778-8A7F-4AA1-8F2D-EC9EE90BC045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiDent.InventoryManagement.API", "src\Modules\InventoryManagement\DigiDent.InventoryManagement.API\DigiDent.InventoryManagement.API.csproj", "{3488E6CC-B305-411C-B2A3-29CDFD766E34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +179,14 @@ Global
 		{F07798E7-C1FC-453D-A1C8-85E0F77D5C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F07798E7-C1FC-453D-A1C8-85E0F77D5C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F07798E7-C1FC-453D-A1C8-85E0F77D5C84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3397E778-8A7F-4AA1-8F2D-EC9EE90BC045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3397E778-8A7F-4AA1-8F2D-EC9EE90BC045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3397E778-8A7F-4AA1-8F2D-EC9EE90BC045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3397E778-8A7F-4AA1-8F2D-EC9EE90BC045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3488E6CC-B305-411C-B2A3-29CDFD766E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3488E6CC-B305-411C-B2A3-29CDFD766E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3488E6CC-B305-411C-B2A3-29CDFD766E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3488E6CC-B305-411C-B2A3-29CDFD766E34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D5B03DDA-32F6-4D8B-9F12-F680C2C4101C} = {43DDE790-80D7-47C5-873E-1BCF314FC413}
@@ -212,5 +224,7 @@ Global
 		{6F3B325C-0329-4347-8E50-EE8301C8EA1C} = {D5B03DDA-32F6-4D8B-9F12-F680C2C4101C}
 		{416EA827-A2E6-4C36-A3BC-CE4CCB50661B} = {6F3B325C-0329-4347-8E50-EE8301C8EA1C}
 		{F07798E7-C1FC-453D-A1C8-85E0F77D5C84} = {6F3B325C-0329-4347-8E50-EE8301C8EA1C}
+		{3397E778-8A7F-4AA1-8F2D-EC9EE90BC045} = {6F3B325C-0329-4347-8E50-EE8301C8EA1C}
+		{3488E6CC-B305-411C-B2A3-29CDFD766E34} = {6F3B325C-0329-4347-8E50-EE8301C8EA1C}
 	EndGlobalSection
 EndGlobal
