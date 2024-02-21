@@ -1,7 +1,7 @@
-﻿using System.Windows.Input;
-using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
+﻿using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.Shared.Abstractions.Commands;
 using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.Extensions;
 using DigiDent.Shared.Kernel.ReturnTypes;
 
 namespace DigiDent.InventoryManagement.Application.Items.Commands.AddNewItem;
@@ -29,17 +29,13 @@ public sealed record AddNewItemCommand: ICommand<Result<int>>
         AddNewItemRequest request)
     {
         Result<ItemName> itemName = ItemName.Create(request.Name);
-        Result<ItemCategory> itemCategory = Enum
-            .TryParse<ItemCategory>(request.Category, out var category)
-            ? Result.Ok(category)
-            : Result.Fail<ItemCategory>(CommandParametersErrors
-                .IncorrectParameter<AddNewItemCommand>(nameof(Category)));
-        
-        var quantity = Quantity.Create(request.Quantity);
+        Result<ItemCategory> itemCategory = request.Category.ToEnum<ItemCategory>();
+        Result<Quantity> quantity = Quantity.Create(request.Quantity);
         
         return Result
             .Merge(itemName, itemCategory, quantity)
-            .Match(onSuccess: () => Result.Ok(new AddNewItemCommand(
+            .Match(onSuccess: () => Result.Ok(
+                new AddNewItemCommand(
                     itemName.Value!,
                     itemCategory.Value,
                     quantity.Value!, 

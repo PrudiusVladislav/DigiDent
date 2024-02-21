@@ -11,12 +11,6 @@ public static class InventoryItemErrors
             nameof(Quantity),
             "Quantity can not be less than 0.");
     
-    public static Error ArgumentValueIsNegative => 
-        new (
-            ErrorType.Validation,
-            nameof(Quantity),
-            "Argument value can not be less than 0.");
-    
     public static Error ItemNameIsEmpty => 
         new (
             ErrorType.Validation,

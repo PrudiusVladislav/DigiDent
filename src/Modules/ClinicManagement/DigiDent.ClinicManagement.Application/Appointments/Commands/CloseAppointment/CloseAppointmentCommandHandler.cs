@@ -28,7 +28,7 @@ public sealed class CloseAppointmentCommandHandler
         
         if (appointment is null) 
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Appointment>(command.AppointmentId.Value));
+                .EntityNotFound<Appointment, Guid>(command.AppointmentId));
         
         Result closeResult = appointment.Close(
             command.ClosureStatus, command.Price, _dateTimeProvider);

@@ -27,7 +27,7 @@ public sealed class AddWorkingDayCommandHandler
         
         if (employee is null)
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Employee>(request.EmployeeId.Value));
+                .EntityNotFound<Employee, Guid>(request.EmployeeId));
         
         Result<WorkingDay> workingDayResult = WorkingDay.Create(
             request.Date,

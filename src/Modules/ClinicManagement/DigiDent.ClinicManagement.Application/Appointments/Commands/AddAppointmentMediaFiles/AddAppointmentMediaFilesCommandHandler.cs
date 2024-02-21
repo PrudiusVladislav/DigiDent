@@ -44,7 +44,7 @@ public sealed class AddAppointmentMediaFilesCommandHandler
         
         if (appointment is null)
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Appointment>(appointmentId.Value));
+                .EntityNotFound<Appointment, Guid>(appointmentId));
         
         await _mediaFilesS3Repository.UploadMediaFilesAsync(
             S3Keys.BucketName,

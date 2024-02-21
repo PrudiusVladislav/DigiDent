@@ -2,6 +2,6 @@
 
 namespace DigiDent.InventoryManagement.Domain.Actions.Events;
 
-public record InventoryActionOccurred(
+public record InventoryActionOccurredDomainEvent(
     DateTime TimeOfOccurrence,
     InventoryAction Action): IDomainEvent;

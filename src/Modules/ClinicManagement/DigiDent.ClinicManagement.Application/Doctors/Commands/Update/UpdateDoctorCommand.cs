@@ -4,6 +4,7 @@ using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.Shared.Abstractions.Commands;
 using DigiDent.Shared.Abstractions.Errors;
+using DigiDent.Shared.Kernel.Extensions;
 using DigiDent.Shared.Kernel.ReturnTypes;
 
 namespace DigiDent.ClinicManagement.Application.Doctors.Commands.Update;
@@ -50,12 +51,6 @@ public sealed record UpdateDoctorCommand : ICommand<Result>
         if (string.IsNullOrWhiteSpace(value))
             return Result.Ok().MapToType<TEnum>();
 
-        if (!Enum.TryParse<TEnum>(value, out var parsedValue))
-        {
-            return Result.Fail<TEnum>(CommandParametersErrors
-                .IncorrectParameter<UpdateDoctorCommand>(typeof(TEnum).Name));
-        }
-        
-        return Result.Ok(parsedValue);
+        return value.ToEnum<TEnum>();
     }
 };

@@ -40,7 +40,7 @@ public sealed class IsDoctorAvailableQueryHandler
         
         if (doctor is null) 
             return Result.Fail<IsDoctorAvailableResponse>(RepositoryErrors
-                .EntityNotFound<Doctor>(doctorId.Value));
+                .EntityNotFound<Doctor, Guid>(doctorId));
         
         bool isAvailable = doctor.IsAvailableAt(
             query.DateTime, _dateTimeProvider, timeResult.Value!);

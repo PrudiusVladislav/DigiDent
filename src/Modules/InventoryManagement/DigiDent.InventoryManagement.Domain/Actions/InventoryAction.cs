@@ -36,7 +36,7 @@ public class InventoryAction :
         InventoryItemId = inventoryItemId;
         Quantity = quantity;
         
-        Raise(new InventoryActionOccurred(
+        Raise(new InventoryActionOccurredDomainEvent(
             TimeOfOccurrence: DateTime.Now, 
             Action: this));
     }
