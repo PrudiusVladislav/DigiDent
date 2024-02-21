@@ -23,33 +23,21 @@ public record Quantity
         return Result.Ok(new Quantity(value));
     }
     
-    public Result Add(int value)
+    public Result Add(Quantity quantity)
     {
-        if (IsNegative(value))
-        {
-            return Result.Fail(InventoryItemErrors
-                .ArgumentValueIsNegative);
-        }
-        
-        Value += value;
+        Value += quantity.Value;
         return Result.Ok();
     }
     
-    public Result Subtract(int value)
+    public Result Subtract(Quantity quantity)
     {
-        if (IsNegative(value))
-        {
-            return Result.Fail(InventoryItemErrors
-                .ArgumentValueIsNegative);
-        }
-        
-        if (IsNegative(Value - value))
+        if (IsNegative(Value - quantity.Value))
         {
             return Result.Fail(InventoryItemErrors
                 .QuantityIsNegative);
         }
         
-        Value -= value;
+        Value -= quantity.Value;
         return Result.Ok();
     }
     
