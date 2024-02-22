@@ -2,7 +2,7 @@
 
 namespace DigiDent.InventoryManagement.Domain.Items.ReadModels;
 
-public record InventoryItemSummary(
+public readonly record struct InventoryItemSummary(
     int Id,
     string Name,
     int Quantity,

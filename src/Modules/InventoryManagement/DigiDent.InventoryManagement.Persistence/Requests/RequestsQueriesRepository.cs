@@ -10,24 +10,14 @@ using Microsoft.Data.SqlClient;
 
 namespace DigiDent.InventoryManagement.Persistence.Requests;
 
-public class RequestsRepository: IRequestsRepository
+public class RequestsQueriesRepository: IRequestsQueriesRepository
 {
-    private readonly InventoryManagementDbContext _dbContext;
     private readonly IDbConnectionFactory<SqlConnection> _connectionFactory;
 
-    public RequestsRepository(
-        InventoryManagementDbContext dbContext,
+    public RequestsQueriesRepository(
         IDbConnectionFactory<SqlConnection> connectionFactory)
     {
-        _dbContext = dbContext;
         _connectionFactory = connectionFactory;
-    }
-
-    public async Task<Request?> GetByIdAsync(
-        RequestId id, CancellationToken cancellationToken)
-    {
-        return await _dbContext.Requests
-            .FindAsync([id], cancellationToken);
     }
 
     public async Task<PaginatedResponse<RequestSummary>> GetAllAsync(
@@ -48,13 +38,13 @@ public class RequestsRepository: IRequestsRepository
         await using var connection = _connectionFactory.CreateOpenConnection();
         
         IReadOnlyCollection<RequestSummary> requests = (await connection
-            .QueryAsync<RequestSummary>(
-                sql, new
-                {
-                    SortDirection = pagination.SortOrder,
-                    Offset = pagination.PageSize * (pagination.PageNumber - 1),
-                    PageSize = pagination.PageSize
-                }))
+                .QueryAsync<RequestSummary>(
+                    sql, new
+                    {
+                        SortDirection = pagination.SortOrder,
+                        Offset = pagination.PageSize * (pagination.PageNumber - 1),
+                        PageSize = pagination.PageSize
+                    }))
             .Select(request => request with
             {
                 ItemCategory = Enum
@@ -72,27 +62,5 @@ public class RequestsRepository: IRequestsRepository
         return new PaginatedResponse<RequestSummary>(
             DataCollection: requests,
             TotalCount: requests.Count);
-    }
-
-    public async Task AddAsync(Request request, CancellationToken cancellationToken)
-    {
-        await _dbContext.Requests.AddAsync(request, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task UpdateAsync(Request request, CancellationToken cancellationToken)
-    {
-        _dbContext.Requests.Update(request);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task DeleteAsync(RequestId id, CancellationToken cancellationToken)
-    {
-        var request = await GetByIdAsync(id, cancellationToken);
-        if (request is not null)
-        {
-            _dbContext.Requests.Remove(request);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
     }
 }

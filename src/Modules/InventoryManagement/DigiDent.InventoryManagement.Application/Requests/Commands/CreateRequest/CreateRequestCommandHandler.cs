@@ -10,16 +10,16 @@ namespace DigiDent.InventoryManagement.Application.Requests.Commands.CreateReque
 public sealed class CreateRequestCommandHandler
     : ICommandHandler<CreateRequestCommand, Result<Guid>>
 {
-    private readonly IRequestsRepository _requestsRepository;
+    private readonly IRequestsCommandsRepository _requestsCommandsRepository;
     private readonly IInventoryItemsCommandsRepository _itemsCommandsRepository;
     private readonly IEmployeesRepository _employeesRepository;
     
     public CreateRequestCommandHandler(
-        IRequestsRepository requestsRepository, 
+        IRequestsCommandsRepository requestsCommandsRepository, 
         IInventoryItemsCommandsRepository itemsCommandsRepository, 
         IEmployeesRepository employeesRepository)
     {
-        _requestsRepository = requestsRepository;
+        _requestsCommandsRepository = requestsCommandsRepository;
         _itemsCommandsRepository = itemsCommandsRepository;
         _employeesRepository = employeesRepository;
     }
@@ -50,7 +50,7 @@ public sealed class CreateRequestCommandHandler
             command.RequesterId,
             command.Remarks);
         
-        await _requestsRepository.AddAsync(request, cancellationToken);
+        await _requestsCommandsRepository.AddAsync(request, cancellationToken);
         return Result.Ok(request.Id.Value);
     }
 }

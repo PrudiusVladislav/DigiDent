@@ -3,7 +3,7 @@ using DigiDent.Shared.Kernel.Abstractions;
 
 namespace DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 
-public record RequestSummary(
+public readonly record struct RequestSummary(
     Guid Id,
     int RequestedItemId,
     string RequestedItemName,
