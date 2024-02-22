@@ -1,6 +1,9 @@
 ﻿using DigiDent.InventoryManagement.Application.Requests.Commands.CreateRequest;
+using DigiDent.InventoryManagement.Domain.Requests;
+using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 using DigiDent.Shared.Infrastructure.Api;
 using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +19,7 @@ public static class RequestsEndpoints
     {
         var requestsGroup = endpoints.MapGroup("/requests");
         requestsGroup.MapPost("", CreateRequest);
+        requestsGroup.MapGet("", GetAllRequests);
         return endpoints;
     }
     
@@ -35,5 +39,16 @@ public static class RequestsEndpoints
         
         return result.Match(onSuccess: id => 
             Results.Created($"/requests/{id}", id));
+    }
+    
+    private static async Task<IResult> GetAllRequests(
+        [AsParameters] IPaginationOptions paginationOptions,
+        [FromServices] IRequestsQueriesRepository repository,
+        CancellationToken cancellationToken)
+    {
+        PaginatedResponse<RequestSummary> requests = await repository
+            .GetAllAsync(paginationOptions, cancellationToken);
+        
+        return Results.Ok(requests);
     }
 }
