@@ -4,18 +4,18 @@ namespace DigiDent.InventoryManagement.Domain.Items;
 
 public sealed class InventoryItemsDomainService
 {
-    private readonly IInventoryItemsRepository _inventoryItemsRepository;
+    private readonly IInventoryItemsCommandsRepository _inventoryItemsCommandsRepository;
 
     public InventoryItemsDomainService(
-        IInventoryItemsRepository inventoryItemsRepository)
+        IInventoryItemsCommandsRepository inventoryItemsCommandsRepository)
     {
-        _inventoryItemsRepository = inventoryItemsRepository;
+        _inventoryItemsCommandsRepository = inventoryItemsCommandsRepository;
     }
     
     public async Task<bool> IsItemNameUnique(
         ItemName name, CancellationToken cancellationToken)
     {
-        InventoryItem? item = await _inventoryItemsRepository.GetByNameAsync(
+        InventoryItem? item = await _inventoryItemsCommandsRepository.GetByNameAsync(
             name, cancellationToken);
 
         return item is null;

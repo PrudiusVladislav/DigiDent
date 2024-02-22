@@ -11,23 +11,23 @@ public sealed class CreateRequestCommandHandler
     : ICommandHandler<CreateRequestCommand, Result<Guid>>
 {
     private readonly IRequestsRepository _requestsRepository;
-    private readonly IInventoryItemsRepository _itemsRepository;
+    private readonly IInventoryItemsCommandsRepository _itemsCommandsRepository;
     private readonly IEmployeesRepository _employeesRepository;
     
     public CreateRequestCommandHandler(
         IRequestsRepository requestsRepository, 
-        IInventoryItemsRepository itemsRepository, 
+        IInventoryItemsCommandsRepository itemsCommandsRepository, 
         IEmployeesRepository employeesRepository)
     {
         _requestsRepository = requestsRepository;
-        _itemsRepository = itemsRepository;
+        _itemsCommandsRepository = itemsCommandsRepository;
         _employeesRepository = employeesRepository;
     }
 
     public async Task<Result<Guid>> Handle(
         CreateRequestCommand command, CancellationToken cancellationToken)
     {
-        InventoryItem? item = await _itemsRepository.GetByIdAsync(
+        InventoryItem? item = await _itemsCommandsRepository.GetByIdAsync(
             command.RequestedItemId, cancellationToken);
         if (item is null)
         {

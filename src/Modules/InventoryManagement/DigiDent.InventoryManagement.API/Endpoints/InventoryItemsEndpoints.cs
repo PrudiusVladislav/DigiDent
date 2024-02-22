@@ -27,10 +27,10 @@ public static class InventoryItemsEndpoints
 
     private static async Task<IResult> GetAllItems(
         [AsParameters] PaginationDTO pagination,
-        [FromServices] IInventoryItemsRepository repository,
+        [FromServices] IInventoryItemsQueriesRepository commandsRepository,
         CancellationToken cancellationToken)
     {
-        PaginatedResponse<InventoryItemSummary> response = await repository
+        PaginatedResponse<InventoryItemSummary> response = await commandsRepository
             .GetAllAsync(pagination, cancellationToken);
         
         return Results.Ok(response);

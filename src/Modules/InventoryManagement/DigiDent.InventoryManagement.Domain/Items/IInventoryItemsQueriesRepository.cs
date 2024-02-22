@@ -4,17 +4,11 @@ using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 
 namespace DigiDent.InventoryManagement.Domain.Items;
 
-public interface IInventoryItemsRepository
+public interface IInventoryItemsQueriesRepository
 {
-    Task<InventoryItem?> GetByIdAsync(
+    Task<InventoryItemDetails?> GetByIdAsync(
         InventoryItemId id, CancellationToken cancellationToken);
-    
-    Task<InventoryItem?> GetByNameAsync(
-        ItemName name, CancellationToken cancellationToken);
     
     Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
         IPaginationOptions pagination, CancellationToken cancellationToken);
-    
-    Task AddAsync(InventoryItem item, CancellationToken cancellationToken);
-    Task UpdateAsync(InventoryItem item, CancellationToken cancellationToken);
 }

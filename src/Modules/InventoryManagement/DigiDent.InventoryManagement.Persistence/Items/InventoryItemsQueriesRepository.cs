@@ -6,35 +6,23 @@ using DigiDent.InventoryManagement.Persistence.Constants;
 using DigiDent.Shared.Abstractions.Factories;
 using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 
 namespace DigiDent.InventoryManagement.Persistence.Items;
 
-public class InventoryItemsRepository: IInventoryItemsRepository
+public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
 {
-    private readonly InventoryManagementDbContext _dbContext;
     private readonly IDbConnectionFactory<SqlConnection> _connectionFactory;
 
-    public InventoryItemsRepository(
-        InventoryManagementDbContext dbContext,
+    public InventoryItemsQueriesRepository(
         IDbConnectionFactory<SqlConnection> connectionFactory)
     {
-        _dbContext = dbContext;
         _connectionFactory = connectionFactory;
     }
 
-    public async Task<InventoryItem?> GetByIdAsync(
+    public async Task<InventoryItemDetails?> GetByIdAsync(
         InventoryItemId id, CancellationToken cancellationToken)
     {
-        return await _dbContext.Items
-            .FindAsync([id], cancellationToken: cancellationToken);
-    }
-
-    public async Task<InventoryItem?> GetByNameAsync(
-        ItemName name, CancellationToken cancellationToken)
-    {
-        return await _dbContext.Items
-            .FirstOrDefaultAsync(i => i.Name == name, cancellationToken);
+        throw new NotImplementedException();
     }
 
     public async Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
@@ -72,19 +60,5 @@ public class InventoryItemsRepository: IInventoryItemsRepository
         return new PaginatedResponse<InventoryItemSummary>(
             DataCollection: items,
             TotalCount: items.Count);
-    }
-
-    public async Task AddAsync(
-        InventoryItem item, CancellationToken cancellationToken)
-    {
-        await _dbContext.Items.AddAsync(item, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task UpdateAsync(
-        InventoryItem item, CancellationToken cancellationToken)
-    {
-        _dbContext.Items.Update(item);
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

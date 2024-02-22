@@ -9,14 +9,14 @@ public sealed class AddNewItemCommandHandler
     : ICommandHandler<AddNewItemCommand, Result<int>>
 {
     private readonly InventoryItemsDomainService _domainService;
-    private readonly IInventoryItemsRepository _repository;
+    private readonly IInventoryItemsCommandsRepository _commandsRepository;
 
     public AddNewItemCommandHandler(
         InventoryItemsDomainService domainService,
-        IInventoryItemsRepository repository)
+        IInventoryItemsCommandsRepository commandsRepository)
     {
         _domainService = domainService;
-        _repository = repository;
+        _commandsRepository = commandsRepository;
     }
 
     public async Task<Result<int>> Handle(
@@ -34,7 +34,7 @@ public sealed class AddNewItemCommandHandler
             command.Quantity,
             command.Remarks);
         
-        await _repository.AddAsync(item, cancellationToken);
+        await _commandsRepository.AddAsync(item, cancellationToken);
         return Result.Ok(item.Id.Value);
     }
 }

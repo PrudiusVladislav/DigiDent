@@ -12,20 +12,20 @@ public class MakeInventoryActionCommandHandler
     : ICommandHandler<MakeInventoryActionCommand, Result<int>>
 {
     private readonly IInventoryActionsCommandsRepository _inventoryActionsCommandsRepository;
-    private readonly IInventoryItemsRepository _inventoryItemsRepository;
+    private readonly IInventoryItemsCommandsRepository _inventoryItemsCommandsRepository;
 
     public MakeInventoryActionCommandHandler(
         IInventoryActionsCommandsRepository inventoryActionsCommandsRepository,
-        IInventoryItemsRepository inventoryItemsRepository)
+        IInventoryItemsCommandsRepository inventoryItemsCommandsRepository)
     {
         _inventoryActionsCommandsRepository = inventoryActionsCommandsRepository;
-        _inventoryItemsRepository = inventoryItemsRepository;
+        _inventoryItemsCommandsRepository = inventoryItemsCommandsRepository;
     }
 
     public async Task<Result<int>> Handle(
         MakeInventoryActionCommand command, CancellationToken cancellationToken)
     {
-        InventoryItem? item = await _inventoryItemsRepository
+        InventoryItem? item = await _inventoryItemsCommandsRepository
             .GetByIdAsync(command.ItemId, cancellationToken);
 
         if (item is null)
