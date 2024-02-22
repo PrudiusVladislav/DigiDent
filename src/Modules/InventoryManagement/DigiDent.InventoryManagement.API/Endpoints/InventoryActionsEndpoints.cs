@@ -15,7 +15,9 @@ public static class InventoryActionsEndpoints
         this IEndpointRouteBuilder endpoints)
     {
         var actionsGroup = endpoints.MapGroup("/actions");
+        
         actionsGroup.MapPost("", MakeInventoryAction);
+        
         return endpoints;
     }
 

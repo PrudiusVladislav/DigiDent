@@ -21,6 +21,7 @@ public static class InventoryItemsEndpoints
         var itemsGroup = endpoints.MapGroup("/items");
         
         itemsGroup.MapGet("", GetAllItems);
+        itemsGroup.MapPost("", AddNewItem);
         return endpoints;
     }
 
