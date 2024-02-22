@@ -27,6 +27,8 @@ public class InventoryManagementModule: IModule
     public void RegisterEndpoints(IEndpointRouteBuilder builder, Uri baseApiUri)
     {
         builder
-            .MapInventoryItemsEndpoints();
+            .MapInventoryItemsEndpoints()
+            .MapInventoryActionsEndpoints()
+            .MapRequestsEndpoints();
     }
 }

@@ -30,6 +30,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Modules\ClinicManagement\DigiDent.ClinicManagement.API\DigiDent.ClinicManagement.API.csproj" />
       <ProjectReference Include="..\Modules\ClinicManagement\DigiDent.ClinicManagement.IntegrationEvents\DigiDent.ClinicManagement.IntegrationEvents.csproj" />
+      <ProjectReference Include="..\Modules\InventoryManagement\DigiDent.InventoryManagement.API\DigiDent.InventoryManagement.API.csproj" />
       <ProjectReference Include="..\Modules\Notification\DigiDent.Notification.Infrastructure\DigiDent.Notification.Infrastructure.csproj" />
       <ProjectReference Include="..\Modules\UserAccess\DigiDent.UserAccess.API\DigiDent.UserAccess.API.csproj" />
     </ItemGroup>

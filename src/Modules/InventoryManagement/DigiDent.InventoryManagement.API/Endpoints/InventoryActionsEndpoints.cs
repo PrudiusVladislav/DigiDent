@@ -1,6 +1,10 @@
 ﻿using DigiDent.InventoryManagement.Application.Actions.Commands.MakeInventoryAction;
+using DigiDent.InventoryManagement.Domain.Actions;
+using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Infrastructure.Pagination;
 using DigiDent.Shared.Kernel.ReturnTypes;
+using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +21,7 @@ public static class InventoryActionsEndpoints
         var actionsGroup = endpoints.MapGroup("/actions");
         
         actionsGroup.MapPost("", MakeInventoryAction);
+        actionsGroup.MapGet("", GetAllActions);
         
         return endpoints;
     }
@@ -36,5 +41,16 @@ public static class InventoryActionsEndpoints
         
         return response.Match(
             onSuccess: id => Results.Created($"/actions/{id}", id));
+    }
+    
+    private static async Task<IResult> GetAllActions(
+        [AsParameters] PaginationDTO pagination,
+        [FromServices] IInventoryActionsRepository repository,
+        CancellationToken cancellationToken)
+    {
+        PaginatedResponse<ActionSummary> response = await repository
+            .GetAllAsync(pagination, cancellationToken);
+        
+        return Results.Ok(response);
     }
 }

@@ -4,7 +4,7 @@ using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.UserAccess.IntegrationEvents;
 using MediatR;
 
-namespace DigiDent.ClinicManagement.Application.IntegrationEventHandlers;
+namespace DigiDent.ClinicManagement.Application.EventHandlers;
 
 public sealed class UserActivatedIntegrationEventHandler 
     : INotificationHandler<UserActivatedIntegrationEvent>
