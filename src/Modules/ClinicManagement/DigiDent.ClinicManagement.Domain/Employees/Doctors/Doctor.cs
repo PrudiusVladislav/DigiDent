@@ -1,6 +1,7 @@
 ﻿using DigiDent.ClinicManagement.Domain.Employees.Doctors.Errors;
 using DigiDent.ClinicManagement.Domain.Employees.Doctors.ValueObjects;
 using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Events;
 using DigiDent.ClinicManagement.Domain.Employees.Shared.Extensions;
 using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
 using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
@@ -36,6 +37,9 @@ public class Doctor : Employee
         FullName = fullName;
         Email = email;
         PhoneNumber = phoneNumber;
+        
+        Raise(new EmployeeAddedDomainEvent(
+            DateTime.Now, AddedEmployee: this));
     }
 
     public static Doctor Create(PersonCreationArgs args)

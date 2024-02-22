@@ -1,4 +1,5 @@
 ﻿using DigiDent.ClinicManagement.Domain.Employees.Shared;
+using DigiDent.ClinicManagement.Domain.Employees.Shared.Events;
 using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 using DigiDent.ClinicManagement.Domain.Shared.ValueObjects;
 using DigiDent.Shared.Kernel.Abstractions;
@@ -19,6 +20,9 @@ public class Administrator: Employee
         Email = email;
         PhoneNumber = phoneNumber;
         FullName = fullName;
+        
+        Raise(new EmployeeAddedDomainEvent(
+            DateTime.Now, AddedEmployee: this));
     }
     
     public static Administrator Create(PersonCreationArgs args)
