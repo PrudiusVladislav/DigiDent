@@ -45,10 +45,10 @@ public static class InventoryActionsEndpoints
     
     private static async Task<IResult> GetAllActions(
         [AsParameters] PaginationDTO pagination,
-        [FromServices] IInventoryActionsRepository repository,
+        [FromServices] IInventoryActionsQueriesRepository commandsRepository,
         CancellationToken cancellationToken)
     {
-        PaginatedResponse<ActionSummary> response = await repository
+        PaginatedResponse<ActionSummary> response = await commandsRepository
             .GetAllAsync(pagination, cancellationToken);
         
         return Results.Ok(response);

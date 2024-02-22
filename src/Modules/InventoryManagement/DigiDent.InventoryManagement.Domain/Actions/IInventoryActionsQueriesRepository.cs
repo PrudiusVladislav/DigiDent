@@ -3,10 +3,8 @@ using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 
 namespace DigiDent.InventoryManagement.Domain.Actions;
 
-public interface IInventoryActionsRepository
+public interface IInventoryActionsQueriesRepository
 {
     Task<PaginatedResponse<ActionSummary>> GetAllAsync(
         IPaginationOptions pagination, CancellationToken cancellationToken);
-    
-    Task AddAsync(InventoryAction action, CancellationToken cancellationToken);
 }

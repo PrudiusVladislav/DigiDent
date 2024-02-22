@@ -3,7 +3,7 @@ using DigiDent.Shared.Kernel.Abstractions;
 
 namespace DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 
-public record ActionSummary(
+public readonly record struct ActionSummary(
     int Id,
     string Type,
     int Quantity,

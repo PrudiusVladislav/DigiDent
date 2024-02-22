@@ -9,16 +9,13 @@ using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 
 namespace DigiDent.InventoryManagement.Persistence.Actions;
 
-public class InventoryActionsRepository: IInventoryActionsRepository
+public class InventoryActionsQueriesRepository: IInventoryActionsQueriesRepository
 {
-    private readonly InventoryManagementDbContext _dbContext;
     private readonly SqlConnectionFactory _connectionFactory;
 
-    public InventoryActionsRepository(
-        InventoryManagementDbContext dbContext,
+    public InventoryActionsQueriesRepository(
         SqlConnectionFactory connectionFactory)
     {
-        _dbContext = dbContext;
         _connectionFactory = connectionFactory;
     }
 
@@ -63,12 +60,5 @@ public class InventoryActionsRepository: IInventoryActionsRepository
         return new PaginatedResponse<ActionSummary>(
             DataCollection: actions,
             TotalCount: actions.Count);
-    }
-
-    public async Task AddAsync(
-        InventoryAction action, CancellationToken cancellationToken)
-    {
-        await _dbContext.AddAsync(action, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

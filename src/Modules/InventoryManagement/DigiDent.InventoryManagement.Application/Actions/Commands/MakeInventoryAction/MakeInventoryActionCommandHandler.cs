@@ -11,14 +11,14 @@ namespace DigiDent.InventoryManagement.Application.Actions.Commands.MakeInventor
 public class MakeInventoryActionCommandHandler
     : ICommandHandler<MakeInventoryActionCommand, Result<int>>
 {
-    private readonly IInventoryActionsRepository _inventoryActionsRepository;
+    private readonly IInventoryActionsCommandsRepository _inventoryActionsCommandsRepository;
     private readonly IInventoryItemsRepository _inventoryItemsRepository;
 
     public MakeInventoryActionCommandHandler(
-        IInventoryActionsRepository inventoryActionsRepository,
+        IInventoryActionsCommandsRepository inventoryActionsCommandsRepository,
         IInventoryItemsRepository inventoryItemsRepository)
     {
-        _inventoryActionsRepository = inventoryActionsRepository;
+        _inventoryActionsCommandsRepository = inventoryActionsCommandsRepository;
         _inventoryItemsRepository = inventoryItemsRepository;
     }
 
@@ -46,7 +46,7 @@ public class MakeInventoryActionCommandHandler
             command.ItemId,
             command.Quantity);
         
-        await _inventoryActionsRepository.AddAsync(action, cancellationToken);
+        await _inventoryActionsCommandsRepository.AddAsync(action, cancellationToken);
         return Result.Ok(action.Id.Value);
     }
     
