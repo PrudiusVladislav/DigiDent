@@ -3,18 +3,17 @@ using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
-using DigiDent.Shared.Abstractions.Factories;
-using DigiDent.Shared.Kernel.ValueObjects.Pagination;
-using Microsoft.Data.SqlClient;
+using DigiDent.Shared.Infrastructure.Persistence.Factories;
+using DigiDent.Shared.Kernel.Pagination;
 
 namespace DigiDent.InventoryManagement.Persistence.Items;
 
 public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
 {
-    private readonly IDbConnectionFactory<SqlConnection> _connectionFactory;
+    private readonly SqlConnectionFactory _connectionFactory;
 
     public InventoryItemsQueriesRepository(
-        IDbConnectionFactory<SqlConnection> connectionFactory)
+        SqlConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
@@ -29,23 +28,23 @@ public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
         IPaginationOptions pagination, CancellationToken cancellationToken)
     {
         const string schema = ConfigurationConstants.InventoryManagementSchema;
-        const string sql = $@"
+        const string query = $@"
             SELECT [Id], [Name], [Quantity], [Category]
-            FROM {schema}.[Items]
-            ORDER BY @OrderByColumn @SortDirection
+            FROM {schema}.[Items] 
             WHERE [Id] > @Cursor
             LIMIT @PageSize";
 
         await using var connection = _connectionFactory.CreateOpenConnection();
-        
+
         IReadOnlyCollection<InventoryItemSummary> items = (await connection
                 .QueryAsync<InventoryItemSummary>(
-                    sql, new 
+                    sql: query,
+                    param: new
                     {
                         OrderByColumn = pagination.SortByColumn,
                         SortDirection = pagination.SortOrder,
                         Cursor = pagination.PageSize * (pagination.PageNumber - 1),
-                        PageSize = pagination.PageSize 
+                        PageSize = pagination.PageSize
                     }))
             .Select(item => item with
             {
@@ -53,10 +52,11 @@ public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
                     .Parse<ItemCategory>(item.Category)
                     .ToString()
             })
-            .Where(item => item.Contains(pagination.SearchTerm))
-            .ToList()
+            .Filter(pagination.SearchTerm)
+            .SortBy(pagination.SortByColumn, pagination.SortOrder)
+            .AsList()
             .AsReadOnly();
-        
+
         return new PaginatedResponse<InventoryItemSummary>(
             DataCollection: items,
             TotalCount: items.Count);
