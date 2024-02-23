@@ -1,10 +1,12 @@
 ﻿using System.Reflection;
-using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Interceptors;
+using DigiDent.Shared.Infrastructure.Persistence.Factories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
 
-namespace DigiDent.Shared.Infrastructure.EfCore.Extensions;
+namespace DigiDent.Shared.Infrastructure.Persistence.Extensions;
 
 public static class InstallerExtensions
 {
@@ -59,6 +61,25 @@ public static class InstallerExtensions
             .AsMatchingInterface()
             .WithScopedLifetime());
         
+        return services;
+    }
+
+    public static IServiceCollection AddEfCoreInterceptor<TInterceptor>(
+        this IServiceCollection services)
+        where TInterceptor: class, IInterceptor
+    {
+        services.AddSingleton<TInterceptor>();
+        
+        return services;
+    }
+
+    public static IServiceCollection AddSqlConnectionFactory(
+        this IServiceCollection services,
+        string connectionString)
+    {
+        services.AddSingleton<SqlConnectionFactory>(provider => 
+            new SqlConnectionFactory(connectionString));
+
         return services;
     }
 }

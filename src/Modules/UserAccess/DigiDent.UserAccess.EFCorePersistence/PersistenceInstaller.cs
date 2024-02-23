@@ -1,5 +1,5 @@
-﻿using DigiDent.Shared.Infrastructure.EfCore.Extensions;
-using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
+﻿using DigiDent.Shared.Infrastructure.Persistence.EfCore.Interceptors;
+using DigiDent.Shared.Infrastructure.Persistence.Extensions;
 using DigiDent.UserAccess.Application.Abstractions;
 using DigiDent.UserAccess.Domain.Users.Abstractions;
 using DigiDent.UserAccess.EFCorePersistence.Constants;

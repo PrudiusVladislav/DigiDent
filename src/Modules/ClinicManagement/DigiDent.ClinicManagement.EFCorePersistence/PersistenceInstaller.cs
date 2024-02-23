@@ -2,8 +2,8 @@
 using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
 using DigiDent.ClinicManagement.EFCorePersistence.Constants;
 using DigiDent.ClinicManagement.EFCorePersistence.Visits.Repositories;
-using DigiDent.Shared.Infrastructure.EfCore.Extensions;
-using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Interceptors;
+using DigiDent.Shared.Infrastructure.Persistence.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;

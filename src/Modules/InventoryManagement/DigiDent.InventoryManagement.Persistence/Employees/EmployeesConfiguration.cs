@@ -1,6 +1,6 @@
 ﻿using DigiDent.InventoryManagement.Domain.Employees;
-using DigiDent.Shared.Infrastructure.EfCore.Configurations;
-using DigiDent.Shared.Infrastructure.EfCore.Converters;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Configurations;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Converters;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.InventoryManagement.Persistence.Employees;

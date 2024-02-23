@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DigiDent.Shared.Infrastructure.EfCore.Interceptors;
+namespace DigiDent.Shared.Infrastructure.Persistence.EfCore.Interceptors;
 
 public class PublishDomainEventsInterceptor: SaveChangesInterceptor
 {

@@ -1,7 +1,7 @@
 ﻿using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Shared;
-using DigiDent.Shared.Infrastructure.EfCore.Configurations;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

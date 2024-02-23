@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Email = DigiDent.Shared.Kernel.ValueObjects.Email;
 using PhoneNumber = DigiDent.Shared.Kernel.ValueObjects.PhoneNumber;
 
-namespace DigiDent.Shared.Infrastructure.EfCore.Converters;
+namespace DigiDent.Shared.Infrastructure.Persistence.EfCore.Converters;
 
 /// <summary>
 /// Contains EF Core value objects converters for shared value objects.

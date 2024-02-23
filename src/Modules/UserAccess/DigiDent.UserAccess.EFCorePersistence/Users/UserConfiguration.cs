@@ -1,7 +1,7 @@
-﻿using DigiDent.UserAccess.Domain.Users;
+﻿using DigiDent.Shared.Infrastructure.Persistence.EfCore.Configurations;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Converters;
+using DigiDent.UserAccess.Domain.Users;
 using DigiDent.UserAccess.Domain.Users.ValueObjects;
-using DigiDent.Shared.Infrastructure.EfCore.Configurations;
-using DigiDent.Shared.Infrastructure.EfCore.Converters;
 using DigiDent.Shared.Kernel.ValueObjects;
 using DigiDent.UserAccess.Domain.Users.Services;
 using DigiDent.UserAccess.EFCorePersistence.Constants;

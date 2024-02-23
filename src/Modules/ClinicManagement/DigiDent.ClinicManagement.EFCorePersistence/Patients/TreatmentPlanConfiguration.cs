@@ -1,7 +1,6 @@
 ﻿using DigiDent.ClinicManagement.Domain.Patients;
 using DigiDent.ClinicManagement.Domain.Patients.ValueObjects;
-using DigiDent.Shared.Infrastructure.EfCore.Configurations;
-using DigiDent.Shared.Infrastructure.EfCore.Converters;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

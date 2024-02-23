@@ -1,10 +1,9 @@
-﻿using DigiDent.Shared.Abstractions.Factories;
+﻿
 using Microsoft.Data.SqlClient;
 
-namespace DigiDent.InventoryManagement.Persistence.Shared;
+namespace DigiDent.Shared.Infrastructure.Persistence.Factories;
 
 public class SqlConnectionFactory
-    : IDbConnectionFactory<SqlConnection>
 {
     private readonly string _connectionString;
     
