@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Shared.Kernel.Abstractions;
+﻿namespace DigiDent.Shared.Kernel.Pagination;
 
 public interface IFilterable
 {

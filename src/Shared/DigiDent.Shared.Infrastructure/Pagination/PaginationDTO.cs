@@ -1,4 +1,4 @@
-﻿using DigiDent.Shared.Kernel.ValueObjects.Pagination;
+﻿using DigiDent.Shared.Kernel.Pagination;
 
 namespace DigiDent.Shared.Infrastructure.Pagination;
 

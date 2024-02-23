@@ -1,4 +1,4 @@
-﻿namespace DigiDent.Shared.Kernel.ValueObjects.Pagination;
+﻿namespace DigiDent.Shared.Kernel.Pagination;
 
 public record PaginatedResponse<T>(
     IReadOnlyCollection<T> DataCollection,
