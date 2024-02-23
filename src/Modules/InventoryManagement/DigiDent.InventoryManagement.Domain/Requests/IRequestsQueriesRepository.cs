@@ -1,5 +1,5 @@
 ﻿using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
-using DigiDent.Shared.Kernel.ValueObjects.Pagination;
+using DigiDent.Shared.Kernel.Pagination;
 
 namespace DigiDent.InventoryManagement.Domain.Requests;
 

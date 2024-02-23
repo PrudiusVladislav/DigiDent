@@ -2,8 +2,8 @@
 using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Kernel.Pagination;
 using DigiDent.Shared.Kernel.ReturnTypes;
-using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

@@ -4,8 +4,6 @@ using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 using DigiDent.InventoryManagement.Domain.Requests.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
-using DigiDent.Shared.Abstractions.Factories;
-using DigiDent.Shared.Kernel.ValueObjects.Pagination;
 using Microsoft.Data.SqlClient;
 
 namespace DigiDent.InventoryManagement.Persistence.Requests;
