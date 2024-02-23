@@ -1,25 +1,25 @@
-﻿
+﻿using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.Shared.Kernel.Abstractions;
+using DigiDent.Shared.Kernel.Pagination;
 
 namespace DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 
-public readonly record struct ActionSummary(
-    int Id,
-    string Type,
-    int Quantity,
-    DateOnly Date,
-    Guid EmployeeId,
-    string EmployeeName,
-    int ItemId,
-    string ItemName,
-    string ItemCategory) : IFilterable
+public record ActionSummary : IFilterable
 {
+    public int Id { get; init; }
+    public string Type { get; init; } = string.Empty;
+    public int Quantity { get; init; }
+    public DateOnly Date { get; init; }
+    public EmployeeSummary ActionPerformer { get; init; } = null!;
+    public InventoryItemSummary InventoryItem { get; init; } = null!;
+    
     public bool Contains(string value)
     {
         return Type.Contains(value) ||
-               Quantity.ToString().Contains(value) ||
-               EmployeeName.Contains(value) ||
-               ItemName.Contains(value) ||
-               ItemCategory.Contains(value);
+               Quantity.ToString().Contains(value) || 
+               Date.ToString().Contains(value) ||
+               ActionPerformer.Contains(value) ||
+               InventoryItem.Contains(value);
     }
 }

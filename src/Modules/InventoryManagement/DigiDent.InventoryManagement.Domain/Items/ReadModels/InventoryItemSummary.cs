@@ -1,17 +1,20 @@
-﻿using DigiDent.Shared.Kernel.Abstractions;
+﻿using DigiDent.Shared.Kernel.Pagination;
 
 namespace DigiDent.InventoryManagement.Domain.Items.ReadModels;
 
-public readonly record struct InventoryItemSummary(
-    int Id,
-    string Name,
-    int Quantity,
-    string Category) : IFilterable
+public record InventoryItemSummary : IFilterable, ISortable
 {
+    public int Id { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public int Quantity { get; init; }
+    public string Category { get; init; } = string.Empty;
+    
     public bool Contains(string value)
     {
         return Name.Contains(value) ||
                Quantity.ToString().Contains(value) ||
                Category.Contains(value);
     }
+
+    public IComparable DefaultSortProperty => Id;
 }
