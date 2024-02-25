@@ -1,9 +1,7 @@
 ﻿using Dapper;
-using DigiDent.InventoryManagement.Domain.Actions;
 using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 using DigiDent.InventoryManagement.Domain.Actions.Repositories;
 using DigiDent.InventoryManagement.Domain.Actions.ValueObjects;
-using DigiDent.InventoryManagement.Domain.Employees;
 using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
@@ -15,6 +13,7 @@ namespace DigiDent.InventoryManagement.Persistence.Actions;
 
 public class InventoryActionsQueriesRepository: IInventoryActionsQueriesRepository
 {
+    private const string Schema = ConfigurationConstants.InventoryManagementSchema;
     private readonly SqlConnectionFactory _connectionFactory;
 
     public InventoryActionsQueriesRepository(
@@ -26,7 +25,6 @@ public class InventoryActionsQueriesRepository: IInventoryActionsQueriesReposito
     public async Task<PaginatedResponse<ActionSummary>> GetAllAsync(
         IPaginationOptions pagination, CancellationToken cancellationToken)
     {
-        const string schema = ConfigurationConstants.InventoryManagementSchema;
         const string query = $@"
             SELECT
                 a.[Id] AS ActionId,
@@ -40,9 +38,9 @@ public class InventoryActionsQueriesRepository: IInventoryActionsQueriesReposito
                 i.[Quantity] AS InventoryItemQuantity,
                 i.[Category] AS InventoryItemCategory
             FROM 
-                {schema}.[Actions] a
-                INNER JOIN {schema}.Employees e ON a.EmployeeId = e.Id
-                INNER JOIN {schema}.InventoryItems i ON a.InventoryItemId = i.Id
+                {Schema}.[Actions] a
+                INNER JOIN {Schema}.Employees e ON a.EmployeeId = e.Id
+                INNER JOIN {Schema}.InventoryItems i ON a.InventoryItemId = i.Id
             ORDER BY a.[Date] @SortDirection
             WHERE a.[Id] > @Cursor
             LIMIT @PageSize";

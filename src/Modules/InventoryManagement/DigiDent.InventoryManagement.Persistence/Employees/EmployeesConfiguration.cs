@@ -1,4 +1,5 @@
 ﻿using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Employees.ValueObjects;
 using DigiDent.Shared.Infrastructure.Persistence.EfCore.Configurations;
 using DigiDent.Shared.Infrastructure.Persistence.EfCore.Converters;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

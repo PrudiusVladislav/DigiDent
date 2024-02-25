@@ -1,5 +1,6 @@
 ﻿using DigiDent.InventoryManagement.Domain.Employees;
 using DigiDent.InventoryManagement.Domain.Employees.Repositories;
+using DigiDent.InventoryManagement.Domain.Employees.ValueObjects;
 
 namespace DigiDent.InventoryManagement.Persistence.Employees;
 

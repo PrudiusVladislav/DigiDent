@@ -1,4 +1,5 @@
 ﻿using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Employees.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Requests.Errors;

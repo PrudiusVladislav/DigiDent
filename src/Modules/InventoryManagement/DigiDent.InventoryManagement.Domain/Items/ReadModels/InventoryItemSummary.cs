@@ -17,4 +17,6 @@ public record InventoryItemSummary : IFilterable, ISortable
     }
 
     public IComparable DefaultSortProperty => Id;
+    //TODO: refactor the sql queries to use string literals (" " ") instead of @
+    //TODO: test how dapper maps the properties, possibly use nameof like this $"[MeetingComment].[LikesCount] AS [{nameof(MeetingCommentDto.LikesCount)}]"
 }

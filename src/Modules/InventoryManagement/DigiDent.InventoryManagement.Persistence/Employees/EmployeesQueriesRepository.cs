@@ -1,8 +1,8 @@
 ﻿using Dapper;
 using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
-using DigiDent.InventoryManagement.Domain.Employees;
 using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
 using DigiDent.InventoryManagement.Domain.Employees.Repositories;
+using DigiDent.InventoryManagement.Domain.Employees.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
@@ -90,7 +90,7 @@ public class EmployeesQueriesRepository: IEmployeesQueriesRepository
 
                        return employee with
                        {
-                           Role = employee.Role.ToEnumName<Role>()
+                           Position = employee.Position.ToEnumName<Position>()
                        };
                    },
                    splitOn: "RequestId, RequestItemId, ActionId, ActionItemId",
@@ -132,7 +132,7 @@ public class EmployeesQueriesRepository: IEmployeesQueriesRepository
             sql: query))
             .Select(employee => employee with
             {
-                Role = Enum.Parse<Role>(employee.Role).ToString()
+                Position = Enum.Parse<Position>(employee.Position).ToString()
             })
             .Filter(pagination.SearchTerm)
             .SortBy(pagination.SortByColumn, pagination.SortOrder)

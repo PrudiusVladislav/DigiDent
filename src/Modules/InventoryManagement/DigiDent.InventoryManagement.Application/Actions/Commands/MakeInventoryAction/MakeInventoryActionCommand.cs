@@ -1,5 +1,6 @@
 ﻿using DigiDent.InventoryManagement.Domain.Actions.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Employees.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.Shared.Abstractions.Commands;
 using DigiDent.Shared.Kernel.Extensions;

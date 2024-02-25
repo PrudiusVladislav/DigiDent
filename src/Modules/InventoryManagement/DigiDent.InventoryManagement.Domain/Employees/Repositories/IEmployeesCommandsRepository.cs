@@ -1,4 +1,6 @@
-﻿namespace DigiDent.InventoryManagement.Domain.Employees.Repositories;
+﻿using DigiDent.InventoryManagement.Domain.Employees.ValueObjects;
+
+namespace DigiDent.InventoryManagement.Domain.Employees.Repositories;
 
 public interface IEmployeesCommandsRepository
 {

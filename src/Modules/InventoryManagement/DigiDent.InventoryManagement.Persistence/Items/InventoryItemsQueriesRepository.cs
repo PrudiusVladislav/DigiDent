@@ -1,13 +1,19 @@
 ﻿using Dapper;
+using DigiDent.InventoryManagement.Domain.Actions;
 using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
+using DigiDent.InventoryManagement.Domain.Actions.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Employees;
 using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
+using DigiDent.InventoryManagement.Domain.Employees.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.Repositories;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
+using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
+using DigiDent.InventoryManagement.Domain.Requests.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
+using DigiDent.InventoryManagement.Persistence.Shared;
 using DigiDent.Shared.Infrastructure.Persistence.Factories;
 using DigiDent.Shared.Kernel.Pagination;
 
@@ -15,6 +21,7 @@ namespace DigiDent.InventoryManagement.Persistence.Items;
 
 public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
 {
+    private const string Schema = ConfigurationConstants.InventoryManagementSchema;
     private readonly SqlConnectionFactory _connectionFactory;
 
     public InventoryItemsQueriesRepository(
@@ -31,60 +38,71 @@ public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
             return null;
         }
         
-        const string schema = ConfigurationConstants.InventoryManagementSchema;
         const string query = $@"
             SELECT 
-                i.[Id] AS InventoryItemId,
-                i.[Name] AS InventoryItemName,
-                i.[Quantity] AS InventoryItemQuantity,
-                i.[Category] AS InventoryItemCategory,
-                i.[Remarks] AS InventoryItemRemarks,
-                r.[Id] AS RequestId,
-                r.[Status] AS RequestStatus,
-                r.[RequestedQuantity] AS RequestedQuantity,
-                r.[DateOfRequest] AS RequestDateOfRequest,
-                r.[Remarks] AS RequestRemarks,
-                a.[Id] AS ActionId,
-                a.[Type] AS ActionType,
-                a.[Quantity] AS ActionQuantity,
-                a.[Date] AS ActionDate,
-                e.[Id] AS EmployeeId,
-                e.[FullName] AS EmployeeFullName
-            FROM {schema}.[Items] i
-                LEFT JOIN {schema}.[Requests] r ON i.[Id] = r.[ItemId]
-                LEFT JOIN {schema}.[Actions] a ON i.[Id] = a.[ItemId]
-                LEFT JOIN {schema}.[Employees] e ON a.[EmployeeId] = e.[Id]
+                i.[{nameof(InventoryItem.Id)}] AS [{nameof(InventoryItemSummary.Id)}],
+                i.[{nameof(InventoryItem.Name)}] AS [{nameof(InventoryItemSummary.Name)}],
+                i.[{nameof(InventoryItem.Quantity)}] AS [{nameof(InventoryItemSummary.Quantity)}],
+                i.[{nameof(InventoryItem.Category)}] AS [{nameof(InventoryItemSummary.Category)}],
+                r.[{nameof(Request.Id)}] AS [{nameof(RequestSummary.Id)}],
+                r.[{nameof(Request.Status)}] AS [{nameof(RequestSummary.Status)}],
+                r.[{nameof(Request.RequestedQuantity)}] AS [{nameof(RequestSummary.RequestedQuantity)}],
+                r.[{nameof(Request.DateOfRequest)}] AS [{nameof(RequestSummary.DateOfRequest)}],
+                r.[{nameof(Request.Remarks)}] AS [{nameof(RequestSummary.Remarks)}],
+                a.[{nameof(InventoryAction.Id)}] AS [{nameof(ActionSummary.Id)}],
+                a.[{nameof(InventoryAction.Type)}] AS [{nameof(ActionSummary.Type)}],
+                a.[{nameof(InventoryAction.Quantity)}] AS [{nameof(ActionSummary.Quantity)}],
+                a.[{nameof(InventoryAction.Date)}] AS [{nameof(ActionSummary.Date)}],
+                e.[{nameof(Employee.Id)}] AS [{nameof(EmployeeSummary.Id)}],
+                e.[{nameof(Employee.Name)}] AS [{nameof(EmployeeSummary.FullName)}],
+                e.[{nameof(Employee.Email)}] AS [{nameof(EmployeeSummary.Email)}],
+                e.[{nameof(Employee.PhoneNumber)}] AS [{nameof(EmployeeSummary.PhoneNumber)}],
+                e.[{nameof(Employee.Position)}] AS [{nameof(EmployeeSummary.Position)}]
+            FROM {Schema}.[Items] i
+                LEFT JOIN {Schema}.[Requests] r ON i.[Id] = r.[ItemId]
+                LEFT JOIN {Schema}.[Employees] e ON r.[RequesterId] = e.[Id]
+                LEFT JOIN {Schema}.[Actions] a ON i.[Id] = a.[ItemId]
+                LEFT JOIN {Schema}.[Employees] e ON a.[ActionPerformerId] = e.[Id]
             WHERE i.[Id] = @Id";
         
         await using var connection = _connectionFactory.CreateOpenConnection();
         
-        InventoryItemDetails item = (await connection.QueryAsync<
-            InventoryItemDetails, RequestSummary, ActionSummary, EmployeeSummary, InventoryItemDetails>(
+        InventoryItemDetails item = (await connection.QueryAsync
+            <InventoryItemDetails, RequestSummary?, EmployeeSummary?, ActionSummary?, EmployeeSummary?, InventoryItemDetails>(
                 sql: query, 
-                map: (item, request, action, employee) =>
+                map: (item, request, requesterEmployee, action, performerEmployee) =>
                 {
-                    InventoryItemSummary itemSummary = new()
+                    if (request is not null && requesterEmployee is not null)
                     {
-                        Id = item.Id,
-                        Name = item.Name,
-                        Quantity = item.Quantity,
-                        Category = Enum
-                            .Parse<ItemCategory>(item.Category)
-                            .ToString()
-                    };
+                        request.Requester = requesterEmployee with
+                        {
+                            Position = requesterEmployee.Position.ToEnumName<Position>()
+                        };
+                        item.Requests.Add(request with
+                        {
+                            Status = request.Status.ToEnumName<RequestStatus>()
+                        });
+                    }
                     
-                    item.InventoryActions.Add(action);
-                    action.ActionPerformer = employee;
-                    action.InventoryItem = itemSummary;
+                    if (action is not null && performerEmployee is not null)
+                    {
+                        action.ActionPerformer = performerEmployee with
+                        {
+                            Position = performerEmployee.Position.ToEnumName<Position>()
+                        };
+                        item.InventoryActions.Add(action with 
+                        {
+                            Type = action.Type.ToEnumName<ActionType>()
+                        });
+                    }
                     
-                    item.Requests.Add(request);
-                    request.RequestedItem = itemSummary;
-                    request.Requester = employee;
-                    
-                    return item;
+                    return item with { Category = item.Category.ToEnumName<ItemCategory>() };
                 },
                 param: new { Id = id.Value },
-                splitOn: "RequestId, ActionId, EmployeeId"))
+                splitOn: $"{nameof(RequestSummary.Id)}" + 
+                         $", {nameof(EmployeeSummary.Id)}" + 
+                         $", {nameof(ActionSummary.Id)}" + 
+                         $", {nameof(EmployeeSummary.Id)}"))
             .First();
         
         return item;
@@ -110,10 +128,9 @@ public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
     public async Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
         IPaginationOptions pagination, CancellationToken cancellationToken)
     {
-        const string schema = ConfigurationConstants.InventoryManagementSchema;
         const string query = $@"
             SELECT [Id], [Name], [Quantity], [Category]
-            FROM {schema}.[Items] 
+            FROM {Schema}.[Items] 
             WHERE [Id] > @Cursor
             LIMIT @PageSize";
 
@@ -131,9 +148,7 @@ public class InventoryItemsQueriesRepository: IInventoryItemsQueriesRepository
                     }))
             .Select(item => item with
             {
-                Category = Enum
-                    .Parse<ItemCategory>(item.Category)
-                    .ToString()
+                Category = item.Category.ToEnumName<ItemCategory>()
             })
             .Filter(pagination.SearchTerm)
             .SortBy(pagination.SortByColumn, pagination.SortOrder)
