@@ -7,7 +7,6 @@ using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
 using DigiDent.Shared.Infrastructure.Persistence.Factories;
-using DigiDent.Shared.Kernel.Extensions;
 using DigiDent.Shared.Kernel.Pagination;
 
 namespace DigiDent.InventoryManagement.Persistence.Actions;

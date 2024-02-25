@@ -7,12 +7,12 @@ namespace DigiDent.InventoryManagement.Application.Employees.EventHandlers;
 public sealed class UserActivatedIntegrationEventHandler
     : INotificationHandler<EmployeeAddedIntegrationEvent>
 {
-    private readonly IEmployeesRepository _employeesRepository;
+    private readonly IEmployeesCommandsRepository _employeesCommandsRepository;
 
     public UserActivatedIntegrationEventHandler(
-        IEmployeesRepository employeesRepository)
+        IEmployeesCommandsRepository employeesCommandsRepository)
     {
-        _employeesRepository = employeesRepository;
+        _employeesCommandsRepository = employeesCommandsRepository;
     }
 
     public async Task Handle(
@@ -20,8 +20,13 @@ public sealed class UserActivatedIntegrationEventHandler
         CancellationToken cancellationToken)
     {
         EmployeeId employeeId = new(notification.Id);
-        Employee employee = new(employeeId, notification.FullName);
+        Employee employee = new(
+            employeeId, 
+            notification.FullName,
+            notification.Email,
+            notification.PhoneNumber,
+            notification.Role);
         
-        await _employeesRepository.AddAsync(employee, cancellationToken);
+        await _employeesCommandsRepository.AddAsync(employee, cancellationToken);
     }
 }

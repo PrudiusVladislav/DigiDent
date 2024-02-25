@@ -12,16 +12,16 @@ public sealed class CreateRequestCommandHandler
 {
     private readonly IRequestsCommandsRepository _requestsCommandsRepository;
     private readonly IInventoryItemsCommandsRepository _itemsCommandsRepository;
-    private readonly IEmployeesRepository _employeesRepository;
+    private readonly IEmployeesCommandsRepository _employeesCommandsRepository;
     
     public CreateRequestCommandHandler(
         IRequestsCommandsRepository requestsCommandsRepository, 
         IInventoryItemsCommandsRepository itemsCommandsRepository, 
-        IEmployeesRepository employeesRepository)
+        IEmployeesCommandsRepository employeesCommandsRepository)
     {
         _requestsCommandsRepository = requestsCommandsRepository;
         _itemsCommandsRepository = itemsCommandsRepository;
-        _employeesRepository = employeesRepository;
+        _employeesCommandsRepository = employeesCommandsRepository;
     }
 
     public async Task<Result<Guid>> Handle(
@@ -35,7 +35,7 @@ public sealed class CreateRequestCommandHandler
                 EntityNotFound<InventoryItem, int>(command.RequestedItemId));
         }
         
-        Employee? employee = await _employeesRepository.GetByIdAsync(
+        Employee? employee = await _employeesCommandsRepository.GetByIdAsync(
             command.RequesterId, cancellationToken);
         
         if (employee is null)

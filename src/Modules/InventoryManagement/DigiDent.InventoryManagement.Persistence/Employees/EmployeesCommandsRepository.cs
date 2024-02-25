@@ -2,11 +2,11 @@
 
 namespace DigiDent.InventoryManagement.Persistence.Employees;
 
-public class EmployeesRepository: IEmployeesRepository
+public class EmployeesCommandsRepository: IEmployeesCommandsRepository
 {
     private readonly InventoryManagementDbContext _dbContext;
 
-    public EmployeesRepository(InventoryManagementDbContext dbContext)
+    public EmployeesCommandsRepository(InventoryManagementDbContext dbContext)
     {
         _dbContext = dbContext;
     }

@@ -1,6 +1,6 @@
 ﻿namespace DigiDent.InventoryManagement.Domain.Employees;
 
-public interface IEmployeesRepository
+public interface IEmployeesCommandsRepository
 {
     Task<Employee?> GetByIdAsync(EmployeeId id, CancellationToken cancellationToken);
     Task AddAsync(Employee employee, CancellationToken cancellationToken);

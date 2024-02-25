@@ -9,7 +9,7 @@ public record InventoryItemSummary : IFilterable, ISortable
     public int Quantity { get; init; }
     public string Category { get; init; } = string.Empty;
     
-    public bool Contains(string value)
+    public virtual bool Contains(string value)
     {
         return Name.Contains(value) ||
                Quantity.ToString().Contains(value) ||

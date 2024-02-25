@@ -14,5 +14,13 @@ public class EmployeesConfiguration
         builder
             .Property(employee => employee.Name)
             .HasConversion(ValueObjectsConverters.FullNameConverter);
+
+        builder
+            .Property(employee => employee.Email)
+            .HasConversion(ValueObjectsConverters.EmailConverter);
+        
+        builder
+            .Property(employee => employee.PhoneNumber)
+            .HasConversion(ValueObjectsConverters.PhoneNumberConverter);
     }
 }
