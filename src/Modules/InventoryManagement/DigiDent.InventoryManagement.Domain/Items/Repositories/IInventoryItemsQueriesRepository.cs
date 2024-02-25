@@ -7,7 +7,7 @@ namespace DigiDent.InventoryManagement.Domain.Items.Repositories;
 public interface IInventoryItemsQueriesRepository
 {
     Task<InventoryItemDetails?> GetByIdAsync(
-        InventoryItemId id, CancellationToken cancellationToken);
+        int id, CancellationToken cancellationToken);
     
     Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
         IPaginationOptions pagination, CancellationToken cancellationToken);

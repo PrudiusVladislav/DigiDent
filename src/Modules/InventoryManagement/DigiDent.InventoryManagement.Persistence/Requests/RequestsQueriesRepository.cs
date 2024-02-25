@@ -1,13 +1,9 @@
 ﻿using Dapper;
-using DigiDent.InventoryManagement.Domain.Employees;
 using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
-using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
-using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 using DigiDent.InventoryManagement.Domain.Requests.Repositories;
-using DigiDent.InventoryManagement.Domain.Requests.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
 using DigiDent.Shared.Infrastructure.Persistence.Factories;
 using DigiDent.Shared.Kernel.Pagination;
@@ -31,17 +27,17 @@ public class RequestsQueriesRepository: IRequestsQueriesRepository
         const string query = 
             $"""
              SELECT
-                r.[{nameof(Request.Id)}] AS [{nameof(RequestSummary.Id)}],
-                r.[{nameof(Request.Status)}] AS [{nameof(RequestSummary.Status)}],
-                r.[{nameof(Request.RequestedQuantity)}] AS [{nameof(RequestSummary.RequestedQuantity)}],
-                r.[{nameof(Request.DateOfRequest)}] AS [{nameof(RequestSummary.DateOfRequest)}],
-                r.[{nameof(Request.Remarks)}] AS [{nameof(RequestSummary.Remarks)}],
-                i.[{nameof(InventoryItem.Id)}] AS [{nameof(InventoryItemSummary.Id)}],
-                i.[{nameof(InventoryItem.Name)}] AS [{nameof(InventoryItemSummary.Name)}],
-                i.[{nameof(InventoryItem.Quantity)}] AS [{nameof(InventoryItemSummary.Quantity)}],
-                i.[{nameof(InventoryItem.Category)}] AS [{nameof(InventoryItemSummary.Category)}],
-                e.[{nameof(Employee.Id)}] AS [{nameof(EmployeeSummary.Id)}],
-                e.[{nameof(Employee.Name)}] AS [{nameof(EmployeeSummary.FullName)}]
+                r.[Id] AS [{nameof(RequestSummary.Id)}],
+                r.[Status AS [{nameof(RequestSummary.Status)}],
+                r.[RequestedQuantity] AS [{nameof(RequestSummary.RequestedQuantity)}],
+                r.[DateOfRequest] AS [{nameof(RequestSummary.DateOfRequest)}],
+                r.[Remarks] AS [{nameof(RequestSummary.Remarks)}],
+                i.[Id] AS [{nameof(InventoryItemSummary.Id)}],
+                i.[Name] AS [{nameof(InventoryItemSummary.Name)}],
+                i.[Quantity] AS [{nameof(InventoryItemSummary.Quantity)}],
+                i.[Category] AS [{nameof(InventoryItemSummary.Category)}],
+                e.[Id] AS [{nameof(EmployeeSummary.Id)}],
+                e.[Name] AS [{nameof(EmployeeSummary.FullName)}]
              FROM {Schema}.[Requests] r
                   LEFT JOIN {Schema}.[Items] i ON r.[RequestedItemId] = i.[Id]
                   LEFT JOIN {Schema}.[Employees] e ON r.[RequesterId] = e.[Id]
@@ -56,13 +52,7 @@ public class RequestsQueriesRepository: IRequestsQueriesRepository
                     sql: query, 
                     map: (request, inventoryItem, requester) => request with
                     {
-                        Status = Enum.Parse<RequestStatus>(request.Status).ToString(),
-                        RequestedItem = inventoryItem with
-                        {
-                            Category = Enum
-                                .Parse<ItemCategory>(inventoryItem.Category)
-                                .ToString()
-                        },
+                        RequestedItem = inventoryItem,
                         Requester = requester
                     },
                     param: new
@@ -71,7 +61,8 @@ public class RequestsQueriesRepository: IRequestsQueriesRepository
                         Offset = pagination.PageSize * (pagination.PageNumber - 1),
                         PageSize = pagination.PageSize
                     },
-                    splitOn: $"{nameof(InventoryItemSummary.Id)}, {nameof(EmployeeSummary.Id)}"))
+                    splitOn: $"{nameof(InventoryItemSummary.Id)}" + 
+                             $", {nameof(EmployeeSummary.Id)}"))
             .Filter(pagination.SearchTerm)
             .AsList()
             .AsReadOnly();
