@@ -1,6 +1,5 @@
 ﻿using DigiDent.InventoryManagement.Domain.Employees;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
-using DigiDent.Shared.Kernel.Abstractions;
 using DigiDent.Shared.Kernel.Pagination;
 
 namespace DigiDent.InventoryManagement.Domain.Actions.ReadModels;
@@ -11,8 +10,8 @@ public record ActionSummary : IFilterable
     public string Type { get; init; } = string.Empty;
     public int Quantity { get; init; }
     public DateOnly Date { get; init; }
-    public EmployeeSummary ActionPerformer { get; init; } = null!;
-    public InventoryItemSummary InventoryItem { get; init; } = null!;
+    public EmployeeSummary ActionPerformer { get; set; } = null!;
+    public InventoryItemSummary InventoryItem { get; set; } = null!;
     
     public bool Contains(string value)
     {
