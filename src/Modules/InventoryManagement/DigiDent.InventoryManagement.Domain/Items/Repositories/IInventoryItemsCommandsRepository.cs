@@ -1,7 +1,6 @@
-﻿using DigiDent.InventoryManagement.Domain.Items.ReadModels;
-using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
+﻿using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 
-namespace DigiDent.InventoryManagement.Domain.Items;
+namespace DigiDent.InventoryManagement.Domain.Items.Repositories;
 
 public interface IInventoryItemsCommandsRepository
 {

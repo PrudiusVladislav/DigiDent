@@ -1,5 +1,6 @@
 ﻿using DigiDent.ClinicManagement.IntegrationEvents;
 using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Employees.Repositories;
 using MediatR;
 
 namespace DigiDent.InventoryManagement.Application.Employees.EventHandlers;

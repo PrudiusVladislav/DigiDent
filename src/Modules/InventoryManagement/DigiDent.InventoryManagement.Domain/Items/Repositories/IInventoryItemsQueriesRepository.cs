@@ -2,7 +2,7 @@
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.Shared.Kernel.Pagination;
 
-namespace DigiDent.InventoryManagement.Domain.Items;
+namespace DigiDent.InventoryManagement.Domain.Items.Repositories;
 
 public interface IInventoryItemsQueriesRepository
 {

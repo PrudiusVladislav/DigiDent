@@ -2,6 +2,7 @@
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
+using DigiDent.InventoryManagement.Domain.Requests.Repositories;
 using DigiDent.InventoryManagement.Domain.Requests.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
 using Microsoft.Data.SqlClient;

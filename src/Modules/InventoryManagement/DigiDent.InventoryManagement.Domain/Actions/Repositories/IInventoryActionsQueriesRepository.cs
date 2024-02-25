@@ -1,7 +1,7 @@
 ﻿using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 using DigiDent.Shared.Kernel.Pagination;
 
-namespace DigiDent.InventoryManagement.Domain.Actions;
+namespace DigiDent.InventoryManagement.Domain.Actions.Repositories;
 
 public interface IInventoryActionsQueriesRepository
 {

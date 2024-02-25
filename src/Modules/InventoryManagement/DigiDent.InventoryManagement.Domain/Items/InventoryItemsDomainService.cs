@@ -1,4 +1,5 @@
-﻿using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
+﻿using DigiDent.InventoryManagement.Domain.Items.Repositories;
+using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 
 namespace DigiDent.InventoryManagement.Domain.Items;
 

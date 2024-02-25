@@ -1,6 +1,7 @@
 ﻿using DigiDent.InventoryManagement.Application.Items.Commands.AddNewItem;
 using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
+using DigiDent.InventoryManagement.Domain.Items.Repositories;
 using DigiDent.Shared.Infrastructure.Api;
 using DigiDent.Shared.Infrastructure.Pagination;
 using DigiDent.Shared.Kernel.Pagination;

@@ -1,6 +1,7 @@
-﻿using DigiDent.Shared.Kernel.Pagination;
+﻿using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
+using DigiDent.Shared.Kernel.Pagination;
 
-namespace DigiDent.InventoryManagement.Domain.Employees;
+namespace DigiDent.InventoryManagement.Domain.Employees.Repositories;
 
 public interface IEmployeesQueriesRepository
 {

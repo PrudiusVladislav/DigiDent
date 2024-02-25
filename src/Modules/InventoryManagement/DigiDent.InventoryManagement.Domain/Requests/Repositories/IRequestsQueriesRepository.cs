@@ -1,7 +1,7 @@
 ﻿using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 using DigiDent.Shared.Kernel.Pagination;
 
-namespace DigiDent.InventoryManagement.Domain.Requests;
+namespace DigiDent.InventoryManagement.Domain.Requests.Repositories;
 
 public interface IRequestsQueriesRepository
 {

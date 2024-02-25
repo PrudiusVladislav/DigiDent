@@ -1,6 +1,7 @@
 ﻿using DigiDent.InventoryManagement.Application.Requests.Commands.CreateRequest;
 using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
+using DigiDent.InventoryManagement.Domain.Requests.Repositories;
 using DigiDent.Shared.Infrastructure.Api;
 using DigiDent.Shared.Kernel.Pagination;
 using DigiDent.Shared.Kernel.ReturnTypes;

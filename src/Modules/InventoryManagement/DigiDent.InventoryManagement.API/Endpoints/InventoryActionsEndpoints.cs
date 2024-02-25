@@ -1,6 +1,7 @@
 ﻿using DigiDent.InventoryManagement.Application.Actions.Commands.MakeInventoryAction;
 using DigiDent.InventoryManagement.Domain.Actions;
 using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
+using DigiDent.InventoryManagement.Domain.Actions.Repositories;
 using DigiDent.Shared.Infrastructure.Api;
 using DigiDent.Shared.Infrastructure.Pagination;
 using DigiDent.Shared.Kernel.Pagination;

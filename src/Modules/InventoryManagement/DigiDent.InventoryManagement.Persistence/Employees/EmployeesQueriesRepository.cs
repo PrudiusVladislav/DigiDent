@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using DigiDent.InventoryManagement.Domain.Actions.ReadModels;
 using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
+using DigiDent.InventoryManagement.Domain.Employees.Repositories;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;

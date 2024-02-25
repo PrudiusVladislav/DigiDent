@@ -1,4 +1,5 @@
 ﻿using DigiDent.InventoryManagement.Domain.Items;
+using DigiDent.InventoryManagement.Domain.Items.Repositories;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 

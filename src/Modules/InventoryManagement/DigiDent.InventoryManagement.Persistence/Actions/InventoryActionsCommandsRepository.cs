@@ -1,4 +1,5 @@
 ﻿using DigiDent.InventoryManagement.Domain.Actions;
+using DigiDent.InventoryManagement.Domain.Actions.Repositories;
 
 namespace DigiDent.InventoryManagement.Persistence.Actions;
 

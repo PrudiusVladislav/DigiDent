@@ -1,5 +1,6 @@
 ﻿using DigiDent.InventoryManagement.Domain.Items;
 using DigiDent.InventoryManagement.Domain.Items.Errors;
+using DigiDent.InventoryManagement.Domain.Items.Repositories;
 using DigiDent.Shared.Abstractions.Commands;
 using DigiDent.Shared.Kernel.ReturnTypes;
 

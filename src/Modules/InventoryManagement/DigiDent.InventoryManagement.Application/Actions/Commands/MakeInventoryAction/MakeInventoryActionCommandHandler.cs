@@ -1,6 +1,8 @@
 ﻿using DigiDent.InventoryManagement.Domain.Actions;
+using DigiDent.InventoryManagement.Domain.Actions.Repositories;
 using DigiDent.InventoryManagement.Domain.Actions.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Items;
+using DigiDent.InventoryManagement.Domain.Items.Repositories;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.Shared.Abstractions.Commands;
 using DigiDent.Shared.Abstractions.Errors;

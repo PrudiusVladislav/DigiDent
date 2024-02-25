@@ -1,9 +1,11 @@
 ﻿using Dapper;
 using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ValueObjects;
 using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
+using DigiDent.InventoryManagement.Domain.Requests.Repositories;
 using DigiDent.InventoryManagement.Domain.Requests.ValueObjects;
 using DigiDent.InventoryManagement.Persistence.Constants;
 using DigiDent.Shared.Infrastructure.Persistence.Factories;

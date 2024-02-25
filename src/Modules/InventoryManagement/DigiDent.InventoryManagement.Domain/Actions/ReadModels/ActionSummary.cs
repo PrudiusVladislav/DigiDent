@@ -1,4 +1,5 @@
 ﻿using DigiDent.InventoryManagement.Domain.Employees;
+using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
 using DigiDent.Shared.Kernel.Pagination;
 

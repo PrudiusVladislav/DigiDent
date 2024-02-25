@@ -1,5 +1,5 @@
 ﻿
-namespace DigiDent.InventoryManagement.Domain.Actions;
+namespace DigiDent.InventoryManagement.Domain.Actions.Repositories;
 
 public interface IInventoryActionsCommandsRepository
 {
