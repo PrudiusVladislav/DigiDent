@@ -27,6 +27,7 @@ public static class EmployeesEndpoints
     {
         var employees = await employeesQueriesRepository.GetAllAsync(
             paginationDTO, cancellationToken);
+        
         return Results.Ok(employees);
     }
     
@@ -37,6 +38,7 @@ public static class EmployeesEndpoints
     {
         var employee = await employeesQueriesRepository.GetByIdAsync(
             employeeId, cancellationToken);
+        
         return employee is not null
             ? Results.Ok(employee)
             : Results.NotFound();

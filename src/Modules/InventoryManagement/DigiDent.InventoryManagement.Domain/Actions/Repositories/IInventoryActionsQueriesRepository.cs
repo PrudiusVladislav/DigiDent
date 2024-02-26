@@ -6,5 +6,5 @@ namespace DigiDent.InventoryManagement.Domain.Actions.Repositories;
 public interface IInventoryActionsQueriesRepository
 {
     Task<PaginatedResponse<ActionSummary>> GetAllAsync(
-        IPaginationOptions pagination, CancellationToken cancellationToken);
+        IPaginationData pagination, CancellationToken cancellationToken);
 }

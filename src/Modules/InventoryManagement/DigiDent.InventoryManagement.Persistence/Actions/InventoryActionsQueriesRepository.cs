@@ -21,15 +21,15 @@ public class InventoryActionsQueriesRepository: IInventoryActionsQueriesReposito
     }
 
     public async Task<PaginatedResponse<ActionSummary>> GetAllAsync(
-        IPaginationOptions pagination, CancellationToken cancellationToken)
-    {
-        const string query = 
+        IPaginationData pagination, CancellationToken cancellationToken)
+    { 
+        string query = 
             $"""
-             SELECT
+             SELECT TOP (@PageSize)
                 a.[Id] AS [{nameof(ActionSummary.Id)}],
                 a.[Type] AS [{nameof(ActionSummary.Type)}],
                 a.[Quantity] AS [{nameof(ActionSummary.Quantity)}],
-                a.[Date] AS [{nameof(ActionSummary.Date)},
+                a.[Date] AS [{nameof(ActionSummary.Date)}],
                 e.[Id] AS [{nameof(EmployeeSummary.Id)}],
                 e.[Name] AS [{nameof(EmployeeSummary.FullName)}],
                 e.[Email] AS [{nameof(EmployeeSummary.Email)}],
@@ -40,11 +40,10 @@ public class InventoryActionsQueriesRepository: IInventoryActionsQueriesReposito
                 i.[Quantity] AS [{nameof(InventoryItemSummary.Quantity)}],
                 i.[Category] AS [{nameof(InventoryItemSummary.Category)}]
              FROM {Schema}.[Actions] a 
-                 LEFT JOIN {Schema}.Employees e ON a.EmployeeId = e.Id
-                 LEFT JOIN {Schema}.InventoryItems i ON a.InventoryItemId = i.Id
-             ORDER BY a.[Date] @SortDirection
+                 LEFT JOIN {Schema}.[Employees] e ON a.[ActionPerformerId] = e.[Id]
+                 LEFT JOIN {Schema}.[Items] i ON a.[InventoryItemId] = i.[Id]
              WHERE a.[Id] > @Cursor
-             LIMIT @PageSize
+             ORDER BY a.[Date] {pagination.SortOrder.ToString()}
              """;
         
         
@@ -59,7 +58,6 @@ public class InventoryActionsQueriesRepository: IInventoryActionsQueriesReposito
                     }, 
                     param: new
                     {
-                        SortDirection = pagination.SortOrder,
                         Cursor = pagination.PageSize * (pagination.PageNumber - 1),
                         PageSize = pagination.PageSize
                     },

@@ -42,11 +42,11 @@ public class EmployeesQueriesRepository: IEmployeesQueriesRepository
                 r.[Status] AS [{nameof(RequestSummary.Status)}],
                 r.[RequestedQuantity] AS [{nameof(RequestSummary.RequestedQuantity)}],
                 r.[DateOfRequest] AS [{nameof(RequestSummary.DateOfRequest)}],
-                r.[Remarks] AS [{nameof(RequestSummary.Remarks)},
+                r.[Remarks] AS [{nameof(RequestSummary.Remarks)}],
                 ri.[Id] AS [{nameof(InventoryItemSummary.Id)}],
                 ri.[Name] AS [{nameof(InventoryItemSummary.Name)}],
                 ri.[Quantity] AS [{nameof(InventoryItemSummary.Quantity)}],
-                ri.[Category] AS [{nameof(InventoryItemSummary.Category)},
+                ri.[Category] AS [{nameof(InventoryItemSummary.Category)}],
                 a.[Id] AS [{nameof(ActionSummary.Id)}],
                 a.[Type] AS [{nameof(ActionSummary.Type)}],
                 a.[Quantity] AS [{nameof(ActionSummary.Quantity)}],
@@ -57,9 +57,9 @@ public class EmployeesQueriesRepository: IEmployeesQueriesRepository
                 ai.[Category] AS [{nameof(InventoryItemSummary.Category)}]
              FROM {Schema}.[Employees] e
                  LEFT JOIN {Schema}.[Requests] r ON e.[Id] = r.[RequesterId]
-                 LEFT JOIN {Schema}.[Items] ri ON r.[ItemId] = ri.[Id]
-                 LEFT JOIN {Schema}.[Actions] a ON e.[Id] = a.[PerformerId]
-                 LEFT JOIN {Schema}.[Items] ai ON a.[ItemId] = ai.[Id]
+                 LEFT JOIN {Schema}.[Items] ri ON r.[RequestedItemId] = ri.[Id]
+                 LEFT JOIN {Schema}.[Actions] a ON e.[Id] = a.[ActionPerformerId]
+                 LEFT JOIN {Schema}.[Items] ai ON a.[InventoryItemId] = ai.[Id]
              WHERE e.[Id] = @Id
              """;
         
@@ -91,13 +91,13 @@ public class EmployeesQueriesRepository: IEmployeesQueriesRepository
     }
 
     public async Task<IReadOnlyCollection<EmployeeSummary>> GetAllAsync(
-        IPaginationOptions pagination, CancellationToken cancellationToken)
+        IPaginationData pagination, CancellationToken cancellationToken)
     {
         const string query = 
             $"""
              SELECT
                 [Id] AS [{nameof(EmployeeSummary.Id)}],
-                [FullName] AS [{nameof(EmployeeSummary.FullName)}],
+                [Name] AS [{nameof(EmployeeSummary.FullName)}],
                 [Email] AS [{nameof(EmployeeSummary.Email)}],
                 [PhoneNumber] AS [{nameof(EmployeeSummary.PhoneNumber)}],
                 [Position] AS [{nameof(EmployeeSummary.Position)}]

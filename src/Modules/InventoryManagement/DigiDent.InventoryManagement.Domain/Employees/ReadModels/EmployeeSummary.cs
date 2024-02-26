@@ -20,5 +20,5 @@ public record EmployeeSummary: IFilterable, ISortable
                Position.ToString().Contains(value);
     }
 
-    public IComparable DefaultSortProperty => Position;
+    public IComparable GetDefaultSortProperty() => Position;
 }

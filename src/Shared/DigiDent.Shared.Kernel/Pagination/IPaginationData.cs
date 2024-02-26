@@ -1,6 +1,6 @@
 ﻿namespace DigiDent.Shared.Kernel.Pagination;
 
-public interface IPaginationOptions
+public interface IPaginationData
 {
     int PageNumber { get; }
     int PageSize { get; }

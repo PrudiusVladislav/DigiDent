@@ -10,5 +10,5 @@ public interface IInventoryItemsQueriesRepository
         int id, CancellationToken cancellationToken);
     
     Task<PaginatedResponse<InventoryItemSummary>> GetAllAsync(
-        IPaginationOptions pagination, CancellationToken cancellationToken);
+        IPaginationData pagination, CancellationToken cancellationToken);
 }

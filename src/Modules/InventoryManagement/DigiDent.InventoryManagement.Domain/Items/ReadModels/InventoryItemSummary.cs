@@ -17,5 +17,5 @@ public record InventoryItemSummary : IFilterable, ISortable
                Category.ToString().Contains(value);
     }
 
-    public IComparable DefaultSortProperty => Id;
+    public IComparable GetDefaultSortProperty() => Id;
 }

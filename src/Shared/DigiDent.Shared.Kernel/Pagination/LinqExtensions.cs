@@ -51,7 +51,7 @@ public static class LinqExtensions
             return items.SortBy(orderByProperty!, sortOrder);
         }
         
-        return items.SortBy(t => t.DefaultSortProperty, sortOrder);
+        return items.SortBy(t => t.GetDefaultSortProperty(), sortOrder);
     }
     
     private static IOrderedEnumerable<T> SortBy<T>(

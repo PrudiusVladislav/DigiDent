@@ -28,8 +28,8 @@ public static class InventoryActionsEndpoints
     }
 
     private static async Task<IResult> MakeInventoryAction(
-        [FromBody]MakeInventoryActionRequest request,
-        [FromServices]ISender sender,
+        [FromBody] MakeInventoryActionRequest request,
+        [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {
         Result<MakeInventoryActionCommand> command = MakeInventoryActionCommand

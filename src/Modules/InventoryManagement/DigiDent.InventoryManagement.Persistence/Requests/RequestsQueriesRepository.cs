@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using DigiDent.InventoryManagement.Domain.Employees.ReadModels;
 using DigiDent.InventoryManagement.Domain.Items.ReadModels;
-using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 using DigiDent.InventoryManagement.Domain.Requests.Repositories;
 using DigiDent.InventoryManagement.Persistence.Constants;
@@ -22,13 +21,13 @@ public class RequestsQueriesRepository: IRequestsQueriesRepository
     }
 
     public async Task<PaginatedResponse<RequestSummary>> GetAllAsync(
-        IPaginationOptions pagination, CancellationToken cancellationToken)
-    {
-        const string query = 
+        IPaginationData pagination, CancellationToken cancellationToken)
+    { 
+        string query = 
             $"""
              SELECT
                 r.[Id] AS [{nameof(RequestSummary.Id)}],
-                r.[Status AS [{nameof(RequestSummary.Status)}],
+                r.[Status] AS [{nameof(RequestSummary.Status)}],
                 r.[RequestedQuantity] AS [{nameof(RequestSummary.RequestedQuantity)}],
                 r.[DateOfRequest] AS [{nameof(RequestSummary.DateOfRequest)}],
                 r.[Remarks] AS [{nameof(RequestSummary.Remarks)}],
@@ -37,11 +36,14 @@ public class RequestsQueriesRepository: IRequestsQueriesRepository
                 i.[Quantity] AS [{nameof(InventoryItemSummary.Quantity)}],
                 i.[Category] AS [{nameof(InventoryItemSummary.Category)}],
                 e.[Id] AS [{nameof(EmployeeSummary.Id)}],
-                e.[Name] AS [{nameof(EmployeeSummary.FullName)}]
+                e.[Name] AS [{nameof(EmployeeSummary.FullName)}],
+                e.[Email] AS [{nameof(EmployeeSummary.Email)}],
+                e.[PhoneNumber] AS [{nameof(EmployeeSummary.PhoneNumber)}],
+                e.[Position] AS [{nameof(EmployeeSummary.Position)}]
              FROM {Schema}.[Requests] r
                   LEFT JOIN {Schema}.[Items] i ON r.[RequestedItemId] = i.[Id]
                   LEFT JOIN {Schema}.[Employees] e ON r.[RequesterId] = e.[Id]
-             ORDER BY r.[{nameof(Request.DateOfRequest)}] @SortDirection
+             ORDER BY r.[DateOfRequest] {pagination.SortOrder.ToString()}
              OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY
              """;
         
@@ -57,7 +59,6 @@ public class RequestsQueriesRepository: IRequestsQueriesRepository
                     },
                     param: new
                     {
-                        SortDirection = pagination.SortOrder,
                         Offset = pagination.PageSize * (pagination.PageNumber - 1),
                         PageSize = pagination.PageSize
                     },

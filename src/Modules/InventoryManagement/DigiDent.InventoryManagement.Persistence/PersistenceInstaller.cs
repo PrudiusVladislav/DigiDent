@@ -34,6 +34,8 @@ public static class PersistenceInstaller
                     typeof(PersistenceInstaller).Assembly
                 ]);
         
+        DapperTypeHandlersExtensions.RegisterDapperTypeHandlers();
+        
         return services;
     }
 }

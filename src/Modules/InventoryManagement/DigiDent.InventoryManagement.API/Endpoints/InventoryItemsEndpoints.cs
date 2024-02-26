@@ -22,6 +22,7 @@ public static class InventoryItemsEndpoints
         var itemsGroup = endpoints.MapGroup("/items");
         
         itemsGroup.MapGet("", GetAllItems);
+        itemsGroup.MapGet("/{id}", GetItemById);
         itemsGroup.MapPost("", AddNewItem);
         return endpoints;
     }
@@ -37,9 +38,22 @@ public static class InventoryItemsEndpoints
         return Results.Ok(response);
     }
     
+    private static async Task<IResult> GetItemById(
+        [FromRoute] int id,
+        [FromServices] IInventoryItemsQueriesRepository repository,
+        CancellationToken cancellationToken)
+    {
+        InventoryItemDetails? item = await repository
+            .GetByIdAsync(id, cancellationToken);
+        
+        return item is not null
+            ? Results.Ok(item)
+            : Results.NotFound();
+    }
+    
     private static async Task<IResult> AddNewItem(
         [FromBody] AddNewItemRequest request,
-        [FromServices]ISender sender,
+        [FromServices] ISender sender,
         CancellationToken cancellationToken)
     {
         Result<AddNewItemCommand> command = AddNewItemCommand

@@ -31,8 +31,9 @@ public static class InstallerExtensions
                     .MigrationsAssembly(typeof(TDbContext).Assembly.FullName)
                     .MigrationsHistoryTable(
                         tableName: "__EFMigrationsHistory",
-                        schema: schema));
-
+                        schema: schema)
+                    .EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null));
+            
             options.AddInterceptors(sp
                 .GetRequiredService<PublishDomainEventsInterceptor>());
         });

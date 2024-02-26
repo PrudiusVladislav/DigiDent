@@ -3,6 +3,7 @@ using DigiDent.InventoryManagement.Domain.Requests;
 using DigiDent.InventoryManagement.Domain.Requests.ReadModels;
 using DigiDent.InventoryManagement.Domain.Requests.Repositories;
 using DigiDent.Shared.Infrastructure.Api;
+using DigiDent.Shared.Infrastructure.Pagination;
 using DigiDent.Shared.Kernel.Pagination;
 using DigiDent.Shared.Kernel.ReturnTypes;
 using MediatR;
@@ -43,12 +44,12 @@ public static class RequestsEndpoints
     }
     
     private static async Task<IResult> GetAllRequests(
-        [AsParameters] IPaginationOptions paginationOptions,
+        [AsParameters] PaginationDTO paginationDTO,
         [FromServices] IRequestsQueriesRepository repository,
         CancellationToken cancellationToken)
     {
         PaginatedResponse<RequestSummary> requests = await repository
-            .GetAllAsync(paginationOptions, cancellationToken);
+            .GetAllAsync(paginationDTO, cancellationToken);
         
         return Results.Ok(requests);
     }

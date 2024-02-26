@@ -9,5 +9,5 @@ public interface IEmployeesQueriesRepository
         Guid id, CancellationToken cancellationToken);
     
     Task<IReadOnlyCollection<EmployeeSummary>> GetAllAsync(
-        IPaginationOptions pagination, CancellationToken cancellationToken);
+        IPaginationData pagination, CancellationToken cancellationToken);
 }
