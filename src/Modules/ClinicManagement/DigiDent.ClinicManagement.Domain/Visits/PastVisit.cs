@@ -57,9 +57,8 @@ public class PastVisit :
         TreatmentPlanId = treatmentPlanId;
         
         PastVisitCreatedDomainEvent pastVisitCreatedDomainEvent = new (
-            EventId: Guid.NewGuid(),
-            DateTime.Now,
-            this);
+            TimeOfOccurrence: DateTime.Now,
+            PastVisit: this);
         
         Raise(pastVisitCreatedDomainEvent);
         

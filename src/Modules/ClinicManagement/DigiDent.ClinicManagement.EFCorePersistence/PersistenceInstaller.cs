@@ -2,8 +2,8 @@
 using DigiDent.ClinicManagement.Domain.Visits.Abstractions;
 using DigiDent.ClinicManagement.EFCorePersistence.Constants;
 using DigiDent.ClinicManagement.EFCorePersistence.Visits.Repositories;
-using DigiDent.Shared.Infrastructure.EfCore.Extensions;
-using DigiDent.Shared.Infrastructure.EfCore.Interceptors;
+using DigiDent.Shared.Infrastructure.Persistence.EfCore.Interceptors;
+using DigiDent.Shared.Infrastructure.Persistence.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
@@ -29,21 +29,14 @@ public static class PersistenceInstaller
     private static IServiceCollection AddRepositories(
         this IServiceCollection services)
     {
-        const string repositorySuffix = "Repository";
-        
-        services.Scan(scan => scan
-            .FromAssemblies(
+        services.AddMatchingRepositories(
+            fromAssemblies: 
+            [
                 typeof(DomainInstaller).Assembly,
-                typeof(PersistenceInstaller).Assembly)
-            .AddClasses(filter => filter
-                .Where(c => c.
-                    Name.EndsWith(repositorySuffix)))
-            .UsingRegistrationStrategy(RegistrationStrategy.Skip)
-            .AsMatchingInterface()
-            .WithScopedLifetime());
+                typeof(PersistenceInstaller).Assembly
+            ]);
         
         services.Decorate<IProvidedServicesRepository, CachingProvidedServicesRepository>();
-
         services.AddMemoryCache();
         
         return services;

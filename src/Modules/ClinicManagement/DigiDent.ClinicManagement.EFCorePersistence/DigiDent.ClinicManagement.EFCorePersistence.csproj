@@ -10,9 +10,5 @@
       <ProjectReference Include="..\..\..\Shared\DigiDent.Shared.Infrastructure\DigiDent.Shared.Infrastructure.csproj" />
       <ProjectReference Include="..\DigiDent.ClinicManagement.Domain\DigiDent.ClinicManagement.Domain.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Scrutor" Version="4.2.2"/>
-    </ItemGroup>
     
 </Project>

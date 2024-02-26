@@ -22,7 +22,6 @@ public sealed class UserActivatedEventHandler
     {
         UserActivatedIntegrationEvent userActivatedIntegrationEvent = new()
         {
-            EventId = notification.EventId,
             TimeOfOccurrence = notification.TimeOfOccurrence,
             FullName = notification.ActivatedUser.FullName,
             Email = notification.ActivatedUser.Email,

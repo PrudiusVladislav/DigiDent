@@ -21,7 +21,6 @@ public sealed class UserSignedUpEventHandler
     {
         UserSignedUpIntegrationEvent userSignedUpEvent = new()
         {
-            EventId =notification.EventId,
             TimeOfOccurrence = notification.TimeOfOccurrence,
             UserFullName = notification.SignedUpUser.FullName.ToString(),
             UserEmail = notification.SignedUpUser.Email.Value,

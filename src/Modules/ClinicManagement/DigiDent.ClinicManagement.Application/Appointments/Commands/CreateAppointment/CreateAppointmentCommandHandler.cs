@@ -40,7 +40,7 @@ public sealed class CreateAppointmentCommandHandler
         
         if (patient is null)
             return Result.Fail<Guid>(RepositoryErrors
-                .EntityNotFound<Patient>(command.PatientId.Value));
+                .EntityNotFound<Patient, Guid>(command.PatientId));
         
         Doctor? doctor = await _doctorsRepository.GetByIdAsync(
                 command.DoctorId,
@@ -49,7 +49,7 @@ public sealed class CreateAppointmentCommandHandler
         
         if (doctor is null)
             return Result.Fail<Guid>(RepositoryErrors
-                .EntityNotFound<Doctor>(command.DoctorId.Value));
+                .EntityNotFound<Doctor, Guid>(command.DoctorId));
         
         if (!doctor.IsAvailableAt(
                 command.DateTime.Value, _dateTimeProvider, command.Duration))

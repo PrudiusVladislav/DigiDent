@@ -24,7 +24,7 @@ public sealed class CreateTreatmentPlanCommandHandler
         if (patient is null)
         {
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Patient>(command.PatientId.Value))
+                .EntityNotFound<Patient, Guid>(command.PatientId))
                 .MapToType<Guid>();
         }
         

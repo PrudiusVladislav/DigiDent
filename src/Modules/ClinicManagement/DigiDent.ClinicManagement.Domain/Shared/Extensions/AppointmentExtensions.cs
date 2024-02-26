@@ -1,6 +1,7 @@
 ﻿using DigiDent.ClinicManagement.Domain.Employees.Shared;
 using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
 using DigiDent.ClinicManagement.Domain.Visits;
+using DigiDent.Shared.Kernel.Extensions;
 
 namespace DigiDent.ClinicManagement.Domain.Shared.Extensions;
 

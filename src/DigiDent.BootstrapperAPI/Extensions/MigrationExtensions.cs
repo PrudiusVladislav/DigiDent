@@ -1,4 +1,5 @@
 ﻿using DigiDent.ClinicManagement.EFCorePersistence;
+using DigiDent.InventoryManagement.Persistence;
 using DigiDent.UserAccess.EFCorePersistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,5 +28,6 @@ public static class MigrationExtensions
     {
         app.ApplyMigrations<UserAccessDbContext>();
         app.ApplyMigrations<ClinicManagementDbContext>();
+        app.ApplyMigrations<InventoryManagementDbContext>();
     }
 }

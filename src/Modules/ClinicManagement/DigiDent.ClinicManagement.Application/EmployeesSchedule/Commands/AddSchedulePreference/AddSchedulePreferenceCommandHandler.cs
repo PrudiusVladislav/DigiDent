@@ -27,7 +27,7 @@ public sealed class AddSchedulePreferenceCommandHandler
         
         if (employee is null)
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Employee>(command.EmployeeId.Value));
+                .EntityNotFound<Employee, Guid>(command.EmployeeId));
         
         Result<SchedulePreference> schedulePreferenceResult = SchedulePreference.Create(
             command.Date,

@@ -2,4 +2,4 @@
 
 namespace DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 
-public record WorkingDayId(Guid Value): TypedId<Guid>(Value);
+public record WorkingDayId(Guid Value): ITypedId<Guid>;

@@ -2,4 +2,4 @@
 
 namespace DigiDent.UserAccess.Domain.Users.ValueObjects;
 
-public record UserId(Guid Value): TypedId<Guid>(Value);
+public record UserId(Guid Value): ITypedId<Guid>;

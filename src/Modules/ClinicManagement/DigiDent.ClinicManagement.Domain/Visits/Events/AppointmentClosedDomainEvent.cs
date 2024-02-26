@@ -5,7 +5,6 @@ using DigiDent.Shared.Kernel.Abstractions;
 namespace DigiDent.ClinicManagement.Domain.Visits.Events;
 
 public record AppointmentClosedDomainEvent(
-    Guid EventId,
     DateTime TimeOfOccurrence,
     VisitStatus ClosureStatus,
     Money PricePaid,

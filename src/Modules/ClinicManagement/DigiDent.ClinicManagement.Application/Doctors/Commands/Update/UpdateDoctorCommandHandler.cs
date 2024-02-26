@@ -24,7 +24,7 @@ public sealed class UpdateDoctorCommandHandler
         
         if (doctor is null) 
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<Doctor>(command.DoctorId.Value));
+                .EntityNotFound<Doctor, Guid>(command.DoctorId));
         
         UpdateDoctorDTO updateDoctorDTO = new(
             command.Gender,

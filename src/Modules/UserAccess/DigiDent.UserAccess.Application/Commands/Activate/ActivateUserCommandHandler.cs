@@ -19,13 +19,13 @@ public class ActivateUserCommandHandler
     public async Task<Result> Handle(
         ActivateUserCommand command, CancellationToken cancellationToken)
     {
-        var user = await _usersUnitOfWork.UsersRepository.GetByIdAsync(
+        User? user = await _usersUnitOfWork.UsersRepository.GetByIdAsync(
             command.UserId, cancellationToken);
         
         if (user is null)
         {
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<User>(command.UserId.Value));
+                .EntityNotFound<User, Guid>(command.UserId));
         }
 
         Result activationResult = user.Activate();

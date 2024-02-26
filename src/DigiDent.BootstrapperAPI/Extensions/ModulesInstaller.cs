@@ -1,4 +1,5 @@
 ﻿using DigiDent.ClinicManagement.API;
+using DigiDent.InventoryManagement.API;
 using DigiDent.Notification.Infrastructure;
 using DigiDent.Shared.Abstractions.Modules;
 using DigiDent.UserAccess.API;
@@ -7,11 +8,12 @@ namespace DigiDent.BootstrapperAPI.Extensions;
 
 public static class ModulesInstaller
 {
-    private static IReadOnlyList<IModule> _modulesToInstall = 
+    private static readonly IReadOnlyList<IModule> ModulesToInstall = 
     [
         new ClinicManagementModule(),
         new NotificationModule(),
-        new UserAccessModule()
+        new UserAccessModule(),
+        new InventoryManagementModule()
     ];
     
     public static IServiceCollection AddModulesDependencies(
@@ -20,7 +22,7 @@ public static class ModulesInstaller
     {
         MediatRServiceConfiguration mediatrConfiguration = new();
 
-        foreach (var module in _modulesToInstall)
+        foreach (var module in ModulesToInstall)
         {
             module.RegisterDependencies(
                 services, configuration, mediatrConfiguration);
@@ -34,7 +36,7 @@ public static class ModulesInstaller
     public static IEndpointRouteBuilder MapModulesEndpoints(
         this IEndpointRouteBuilder endpointsBuilder)
     {
-        foreach (var module in _modulesToInstall)
+        foreach (var module in ModulesToInstall)
         {
             module.RegisterEndpoints(
                 builder: endpointsBuilder, 

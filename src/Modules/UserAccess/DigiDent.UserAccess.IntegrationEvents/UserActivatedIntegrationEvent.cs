@@ -5,7 +5,6 @@ namespace DigiDent.UserAccess.IntegrationEvents;
 
 public record UserActivatedIntegrationEvent : IIntegrationEvent
 {
-    public Guid EventId { get; init; }
     public DateTime TimeOfOccurrence { get; init; }
     public FullName FullName { get; init; } = null!;
     public Email Email { get; init; } = null!;

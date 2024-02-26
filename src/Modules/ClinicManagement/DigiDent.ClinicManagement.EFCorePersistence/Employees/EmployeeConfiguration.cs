@@ -2,7 +2,6 @@
 using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects;
 using DigiDent.ClinicManagement.Domain.Employees.Shared.ValueObjects.Ids;
 using DigiDent.ClinicManagement.EFCorePersistence.Shared.Configurations;
-using DigiDent.Shared.Infrastructure.EfCore.Converters;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DigiDent.ClinicManagement.EFCorePersistence.Employees;

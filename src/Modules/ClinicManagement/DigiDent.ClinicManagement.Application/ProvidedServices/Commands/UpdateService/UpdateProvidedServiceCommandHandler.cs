@@ -25,7 +25,7 @@ public sealed class UpdateProvidedServiceCommandHandler
         
         if (providedService is null)
             return Result.Fail(RepositoryErrors
-                .EntityNotFound<ProvidedService>(command.Id.Value));
+                .EntityNotFound<ProvidedService, Guid>(command.Id));
         
         providedService.Update(command.UsualDuration, command.Price);
         await _providedServicesRepository.UpdateAsync(
