@@ -21,7 +21,7 @@ public class AppointmentCreatedHandler
 
     public async Task Handle(AppointmentCreatedIntegrationEvent message)
     {
-        EmailContent appointmentArrangedContent = _emailContentFactory
+        EmailContent appointmentArrangedContent = await _emailContentFactory
             .CreateAppointmentArrangedEmail(
                 message.PatientFullName,
                 message.DoctorFullName,
