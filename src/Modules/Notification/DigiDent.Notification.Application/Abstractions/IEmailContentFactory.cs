@@ -4,13 +4,15 @@ namespace DigiDent.Notification.Application.Abstractions;
 
 public interface IEmailContentFactory
 {
-    EmailContent CreateAppointmentArrangedEmail(
+    Task<EmailContent> CreateAppointmentArrangedEmail(
         string patientName, string doctorName, DateTime arrangedDateTime);
     
-    EmailContent CreateActivationEmail(string patientFullName, string activationLink);
+    Task<EmailContent> CreateActivationEmail(
+        string patientFullName, string activationLink);
     
-    EmailContent CreatePatientReminder(
+    Task<EmailContent> CreatePatientReminder(
         string patientName, string doctorName, DateTime appointmentDateTime);
     
-    EmailContent CreateUserActivatedEmail(string fullName, string email);
+    Task<EmailContent> CreateUserActivatedEmail(
+        string fullName, string email);
 }
