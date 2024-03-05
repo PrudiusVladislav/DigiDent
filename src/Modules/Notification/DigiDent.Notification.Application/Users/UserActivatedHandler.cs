@@ -21,7 +21,7 @@ public class UserActivatedHandler
 
     public async Task Handle(UserActivatedMessage message)
     {
-        EmailContent emailContent = _emailContentFactory
+        EmailContent emailContent = await _emailContentFactory
             .CreateUserActivatedEmail(message.FullName, message.Email);
         
         await _emailService.SendEmailAsync(

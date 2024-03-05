@@ -1,0 +1,17 @@
+﻿@model DigiDent.Notification.Infrastructure.EmailTemplates.DataModels.PatientReminderEmailData
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <p>Dear @Model.PatientName,</p>
+        <p>This is a reminder that you have an appointment with Dr. @Model.DoctorName on @Model.AppointmentDate at @Model.AppointmentTime.</p>
+        <p>Best regards,</p>
+        <p>DigiDent team.</p>
+    </div>
+</body>
+</html>

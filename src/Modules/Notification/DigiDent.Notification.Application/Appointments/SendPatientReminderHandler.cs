@@ -21,7 +21,7 @@ public class SendPatientReminderHandler
 
     public async Task Handle(SendPatientReminderForAppointment message)
     {
-        EmailContent reminderContent = _emailContentFactory
+        EmailContent reminderContent = await _emailContentFactory
             .CreatePatientReminder(
                 message.PatientFullName,
                 message.DoctorFullName,

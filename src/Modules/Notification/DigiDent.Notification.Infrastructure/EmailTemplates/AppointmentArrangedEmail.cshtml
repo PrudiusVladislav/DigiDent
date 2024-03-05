@@ -1,0 +1,18 @@
+﻿@model DigiDent.Notification.Infrastructure.DataModels.AppointmentArrangedData
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <p>Dear @Model.PatientName,</p>
+        <p>We are glad to inform you that your appointment with Dr. @Model.DoctorName 
+           has been arranged for @Model.AppointmentDate at @Model.AppointmentTime.</p>
+        <p>Best regards,</p>
+        <p>DigiDent team.</p>
+    </div>
+</body>
+</html>
