@@ -1,6 +1,7 @@
 ﻿using DigiDent.Notification.Application.Abstractions;
 using DigiDent.Notification.Application.ValueObjects;
 using DigiDent.Notification.Infrastructure.EmailTemplates;
+using Razor.Templating.Core;
 
 namespace DigiDent.Notification.Infrastructure.Services;
 
@@ -15,11 +16,13 @@ public class EmailContentFactory: IEmailContentFactory
                 patientName, doctorName, arrangedDateTime));
     }
 
-    public EmailContent CreateActivationEmail(string message, string activationLink)
+    public EmailContent CreateActivationEmail(string patientFullName, string activationLink)
     {
         return new EmailContent(
             Subject: "Activate your account",
-            HtmlBody: ActivationEmailTemplate.Create(message, activationLink));
+            HtmlBody: RazorTemplateEngine.RenderAsync(
+                 "~/EmailTemplates/ActivationEmail.cshtml",
+                new ActivationEmailData(patientFullName, activationLink)).Result);
     }
     
     public EmailContent CreatePatientReminder(string patientName, string doctorName , DateTime appointmentDateTime)

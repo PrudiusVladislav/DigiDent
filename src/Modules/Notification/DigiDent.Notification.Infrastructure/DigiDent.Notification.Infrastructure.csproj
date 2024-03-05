@@ -13,6 +13,17 @@
 
     <ItemGroup>
       <PackageReference Include="Mailjet.Api" Version="3.0.0" />
+      <PackageReference Include="Razor.Templating.Core" Version="2.0.0-rc.1" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Compile Update="EmailTemplates\ActivationEmailData.cs">
+        <DependentUpon>ActivationEmail.cshtml</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>
