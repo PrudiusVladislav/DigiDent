@@ -1,4 +1,4 @@
-﻿@model DigiDent.Notification.Infrastructure.EmailTemplates.ActivationEmail
+﻿@model DigiDent.Notification.Infrastructure.EmailTemplates.DataModels.ActivationEmailData
 
 <!DOCTYPE html>
 
@@ -7,12 +7,12 @@
     <title></title>
 </head>
 <body>
-<div class="container">
-    <p>Dear @Model.PatientFullName,</p>
-    <p>Thank you for registering with DigiDent. To activate your account, please click the link below:</p>
-    <p><a href="@Model.ActivationLink">Activate account</a></p>
-    <p>Best regards,</p>
-    <p>DigiDent team.</p>
-</div>
+    <div class="container">
+        <p>Dear @Model.PatientFullName,</p>
+        <p>Thank you for registering with DigiDent. To activate your account, please click the link below:</p>
+        <p><a href="@Model.ActivationLink">Activate account</a></p>
+        <p>Best regards,</p>
+        <p>DigiDent team.</p>
+    </div>
 </body>
 </html>

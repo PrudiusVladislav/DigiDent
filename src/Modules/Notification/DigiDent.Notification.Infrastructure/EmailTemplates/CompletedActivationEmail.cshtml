@@ -1,0 +1,18 @@
+﻿@model DigiDent.Notification.Infrastructure.EmailTemplates.DataModels.CompletedActivationEmailData
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <p>Dear @Model.PatientFullName,</p>
+        <p>Thank you for registering with DigiDent. Your account has been activated successfully.
+            You can now log in using your email address: @Model.PatientEmail.</p>
+        <p>Best regards,</p>
+        <p>DigiDent team.</p>
+    </div>
+</body>
+</html>
